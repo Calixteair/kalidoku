@@ -9,6 +9,69 @@
     "tags": ["letters"]
   },
   {
+    "family": "ends_with",
+    "param": "T",
+    "labels": {
+      "fr": { "text": "Termine par la lettre 'T'" },
+      "en": { "text": "Ends with the letter 'T'" }
+    },
+    "tags": ["letters"]
+  },
+  {
+    "family": "ends_with",
+    "param": "N",
+    "labels": {
+      "fr": { "text": "Termine par la lettre 'N'" },
+      "en": { "text": "Ends with the letter 'N'" }
+    },
+    "tags": ["letters"]
+  },
+  {
+    "family": "ends_with",
+    "param": "Y",
+    "labels": {
+      "fr": { "text": "Termine par la lettre 'Y'" },
+      "en": { "text": "Ends with the letter 'Y'" }
+    },
+    "tags": ["letters"]
+  },
+  {
+    "family": "starts_with",
+    "param": "S",
+    "labels": {
+      "fr": { "text": "Commence par la lettre 'S'" },
+      "en": { "text": "Starts with the letter 'S'" }
+    },
+    "tags": ["letters"]
+  },
+  {
+    "family": "starts_with",
+    "param": "M",
+    "labels": {
+      "fr": { "text": "Commence par la lettre 'M'" },
+      "en": { "text": "Starts with the letter 'M'" }
+    },
+    "tags": ["letters"]
+  },
+  {
+    "family": "starts_with",
+    "param": "P",
+    "labels": {
+      "fr": { "text": "Commence par la lettre 'P'" },
+      "en": { "text": "Starts with the letter 'P'" }
+    },
+    "tags": ["letters"]
+  },
+  {
+    "family": "starts_with",
+    "param": "L",
+    "labels": {
+      "fr": { "text": "Commence par la lettre 'L'" },
+      "en": { "text": "Starts with the letter 'L'" }
+    },
+    "tags": ["letters"]
+  },
+  {
     "family": "contains_letter",
     "param": "C",
     "labels": {
@@ -18,11 +81,74 @@
     "tags": ["letters"]
   },
   {
+    "family": "contains_letter",
+    "param": "Y",
+    "labels": {
+      "fr": { "text": "Contient la lettre 'Y' dans son nom" },
+      "en": { "text": "Contains the letter 'Y' in its name" }
+    },
+    "tags": ["letters"]
+  },
+  {
+    "family": "contains_letter",
+    "param": "Z",
+    "labels": {
+      "fr": { "text": "Contient la lettre 'Z' dans son nom" },
+      "en": { "text": "Contains the letter 'Z' in its name" }
+    },
+    "tags": ["letters"]
+  },
+  {
     "family": "name_length_max",
     "param": 7,
     "labels": {
       "fr": { "text": "A un nom de 7 lettres ou moins" },
       "en": { "text": "Name is 7 letters or shorter" }
+    },
+    "tags": ["letters"]
+  },
+  {
+    "family": "name_length_min",
+    "param": 13,
+    "labels": {
+      "fr": { "text": "A un nom de 13 lettres ou plus" },
+      "en": { "text": "Name is 13 letters or longer" }
+    },
+    "tags": ["letters"]
+  },
+  {
+    "family": "name_length_eq",
+    "param": 8,
+    "labels": {
+      "fr": { "text": "A un nom de 8 lettres exactement" },
+      "en": { "text": "Name is exactly 8 letters" }
+    },
+    "tags": ["letters"]
+  },
+  {
+    "family": "name_word_count_eq",
+    "param": 1,
+    "labels": {
+      "fr": { "text": "A un nom en un seul mot" },
+      "en": { "text": "Single-word name" }
+    },
+    "tags": ["letters"]
+  },
+  {
+    "family": "name_word_count_eq",
+    "param": 3,
+    "labels": {
+      "fr": { "text": "A un nom en trois mots" },
+      "en": { "text": "Three-word name" }
+    },
+    "tags": ["letters"]
+  },
+  {
+    "family": "name_word_count_min",
+    "param": 4,
+    "labels": {
+      "fr": { "text": "A un nom en quatre mots ou plus" },
+      "en": { "text": "Name has four words or more" }
     },
     "tags": ["letters"]
   },
@@ -51,6 +177,168 @@
     "tags": ["network"]
   },
   {
+    "family": "on_attr_in_set",
+    "param": { "attr": "lines", "values": ["6"] },
+    "labels": {
+      "fr": { "text": "Sur la ligne 6" },
+      "en": { "text": "On line 6" }
+    },
+    "tags": ["network"]
+  },
+  {
+    "family": "on_attr_in_set",
+    "param": { "attr": "lines", "values": ["7"] },
+    "labels": {
+      "fr": { "text": "Sur la ligne 7" },
+      "en": { "text": "On line 7" }
+    },
+    "tags": ["network"]
+  },
+  {
+    "family": "on_attr_in_set",
+    "param": { "attr": "lines", "values": ["9"] },
+    "labels": {
+      "fr": { "text": "Sur la ligne 9" },
+      "en": { "text": "On line 9" }
+    },
+    "tags": ["network"]
+  },
+  {
+    "family": "on_attr_in_set",
+    "param": { "attr": "lines", "values": ["13"] },
+    "labels": {
+      "fr": { "text": "Sur la ligne 13" },
+      "en": { "text": "On line 13" }
+    },
+    "tags": ["network"]
+  },
+  {
+    "family": "on_attr_in_set",
+    "param": {
+      "attr": "lines",
+      "values": ["2", "4", "6", "8", "10", "12", "14"]
+    },
+    "labels": {
+      "fr": {
+        "text": "Dessert au moins une ligne paire",
+        "help": "Lignes 2, 4, 6, 8, 10, 12 ou 14."
+      },
+      "en": {
+        "text": "Serves at least one even-numbered line",
+        "help": "Lines 2, 4, 6, 8, 10, 12 or 14."
+      }
+    },
+    "tags": ["network"]
+  },
+  {
+    "family": "on_attr_in_set",
+    "param": {
+      "attr": "lines",
+      "values": ["3bis", "7bis"]
+    },
+    "labels": {
+      "fr": {
+        "text": "Sur une ligne 'bis'",
+        "help": "Lignes 3bis et 7bis — petites antennes."
+      },
+      "en": {
+        "text": "On a 'bis' branch line",
+        "help": "Lines 3bis and 7bis — short branches."
+      }
+    },
+    "tags": ["network"]
+  },
+  {
+    "family": "attr_list_size_eq",
+    "param": { "attr": "lines", "n": 1 },
+    "labels": {
+      "fr": {
+        "text": "Desservie par une seule ligne",
+        "help": "La station n'est pas une correspondance."
+      },
+      "en": {
+        "text": "Served by a single line",
+        "help": "Not an interchange station."
+      }
+    },
+    "tags": ["network"]
+  },
+  {
+    "family": "attr_list_size_gte",
+    "param": { "attr": "lines", "n": 2 },
+    "labels": {
+      "fr": {
+        "text": "Station de correspondance",
+        "help": "Au moins 2 lignes de métro."
+      },
+      "en": {
+        "text": "Interchange station",
+        "help": "At least 2 metro lines."
+      }
+    },
+    "tags": ["network"]
+  },
+  {
+    "family": "attr_list_size_gte",
+    "param": { "attr": "lines", "n": 3 },
+    "labels": {
+      "fr": {
+        "text": "Grand hub (3 lignes ou plus)",
+        "help": "Au moins 3 lignes de métro à la même station."
+      },
+      "en": {
+        "text": "Major hub (3 lines or more)",
+        "help": "At least 3 metro lines meeting at the station."
+      }
+    },
+    "tags": ["network"]
+  },
+  {
+    "family": "on_attr_eq",
+    "param": { "attr": "in_paris", "value": false },
+    "labels": {
+      "fr": {
+        "text": "Hors Paris intra-muros",
+        "help": "Station située en banlieue."
+      },
+      "en": {
+        "text": "Outside the Paris city limits",
+        "help": "Station located in the suburbs."
+      }
+    },
+    "tags": ["geo"]
+  },
+  {
+    "family": "numeric_gte",
+    "param": { "attr": "arrondissement", "n": 10 },
+    "labels": {
+      "fr": {
+        "text": "Dans un arrondissement ≥ 10ᵉ",
+        "help": "10ᵉ, 11ᵉ, …, 20ᵉ arrondissement de Paris."
+      },
+      "en": {
+        "text": "In a 10th-or-higher arrondissement",
+        "help": "10th to 20th arrondissement of Paris."
+      }
+    },
+    "tags": ["geo"]
+  },
+  {
+    "family": "numeric_lte",
+    "param": { "attr": "arrondissement", "n": 8 },
+    "labels": {
+      "fr": {
+        "text": "Dans un arrondissement ≤ 8ᵉ",
+        "help": "1er à 8e arrondissement de Paris (cœur historique)."
+      },
+      "en": {
+        "text": "In an 8th-or-lower arrondissement",
+        "help": "1st to 8th arrondissement (historical core)."
+      }
+    },
+    "tags": ["geo"]
+  },
+  {
     "family": "within_km",
     "param": {
       "attr": "geo",
@@ -67,6 +355,90 @@
       "en": {
         "text": "Within 3 km of Notre-Dame Cathedral",
         "help": "As-the-crow-flies distance from the station to the cathedral."
+      }
+    },
+    "tags": ["geo"]
+  },
+  {
+    "family": "within_km",
+    "param": {
+      "attr": "geo",
+      "from": { "lat": 48.8584, "lon": 2.2945 },
+      "km": 2.0,
+      "anchor_label_fr": "la Tour Eiffel",
+      "anchor_label_en": "the Eiffel Tower"
+    },
+    "labels": {
+      "fr": {
+        "text": "À moins de 2 km de la Tour Eiffel",
+        "help": "Distance à vol d'oiseau."
+      },
+      "en": {
+        "text": "Within 2 km of the Eiffel Tower",
+        "help": "As-the-crow-flies distance."
+      }
+    },
+    "tags": ["geo"]
+  },
+  {
+    "family": "within_km",
+    "param": {
+      "attr": "geo",
+      "from": { "lat": 48.8867, "lon": 2.3431 },
+      "km": 2.0,
+      "anchor_label_fr": "le Sacré-Cœur",
+      "anchor_label_en": "Sacré-Cœur"
+    },
+    "labels": {
+      "fr": {
+        "text": "À moins de 2 km du Sacré-Cœur",
+        "help": "Distance à vol d'oiseau."
+      },
+      "en": {
+        "text": "Within 2 km of Sacré-Cœur",
+        "help": "As-the-crow-flies distance."
+      }
+    },
+    "tags": ["geo"]
+  },
+  {
+    "family": "within_km",
+    "param": {
+      "attr": "geo",
+      "from": { "lat": 48.8443, "lon": 2.3739 },
+      "km": 2.0,
+      "anchor_label_fr": "la Gare de Lyon",
+      "anchor_label_en": "Gare de Lyon"
+    },
+    "labels": {
+      "fr": {
+        "text": "À moins de 2 km de la Gare de Lyon",
+        "help": "Distance à vol d'oiseau."
+      },
+      "en": {
+        "text": "Within 2 km of Gare de Lyon",
+        "help": "As-the-crow-flies distance."
+      }
+    },
+    "tags": ["geo"]
+  },
+  {
+    "family": "within_km",
+    "param": {
+      "attr": "geo",
+      "from": { "lat": 48.8738, "lon": 2.295 },
+      "km": 2.0,
+      "anchor_label_fr": "l'Arc de Triomphe",
+      "anchor_label_en": "the Arc de Triomphe"
+    },
+    "labels": {
+      "fr": {
+        "text": "À moins de 2 km de l'Arc de Triomphe",
+        "help": "Distance à vol d'oiseau."
+      },
+      "en": {
+        "text": "Within 2 km of the Arc de Triomphe",
+        "help": "As-the-crow-flies distance."
       }
     },
     "tags": ["geo"]

@@ -25,7 +25,11 @@ fn loads_paris_metro_domain_pack() {
         "expected at least 10 entities, got {}",
         domain.entities.len()
     );
-    assert_eq!(domain.predicates.len(), 6);
+    assert!(
+        domain.predicates.len() >= 30,
+        "expected at least 30 predicates for variety, got {}",
+        domain.predicates.len()
+    );
 }
 
 #[test]

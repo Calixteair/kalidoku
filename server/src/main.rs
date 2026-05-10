@@ -39,7 +39,7 @@ async fn main() -> Result<()> {
             id: "paris-metro".into(),
             name_fr: "Métro de Paris".into(),
             name_en: "Paris Metro".into(),
-            version: "0.2.0".into(),
+            version: "0.3.0".into(),
             description: None,
             available_modes: vec!["daily".into(), "solo".into()],
         },

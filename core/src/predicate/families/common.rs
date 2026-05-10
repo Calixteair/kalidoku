@@ -98,6 +98,43 @@ pub fn normalised_name(name: &str) -> String {
     normalize(name)
 }
 
+/// Count words in an entity name. Splits on whitespace, hyphens, em/en dashes,
+/// slashes, dots, commas, and parentheses — but **keeps apostrophes intact**
+/// so "L'Haÿ-les-Roses" counts as 3 words (L'Haÿ / les / Roses), not 4, which
+/// matches how a French speaker reads station names.
+#[must_use]
+pub fn count_words(name: &str) -> u32 {
+    let mut count = 0_u32;
+    let mut in_word = false;
+    for c in name.chars() {
+        let is_separator = matches!(
+            c,
+            ' ' | '\t'
+                | '\n'
+                | '-'
+                | '_'
+                | '/'
+                | '.'
+                | ','
+                | ';'
+                | ':'
+                | '('
+                | ')'
+                | '['
+                | ']'
+                | '\u{2013}'
+                | '\u{2014}'
+        );
+        if is_separator {
+            in_word = false;
+        } else if !in_word {
+            in_word = true;
+            count = count.saturating_add(1);
+        }
+    }
+    count
+}
+
 /// Normalised representation of a free letter parameter (used by `ends_with`,
 /// `starts_with`, `contains_letter`).
 #[must_use]
