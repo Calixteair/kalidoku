@@ -24,7 +24,7 @@ Synthèse des décisions et garde-fous. Source d'autorité opérationnelle : `CL
 
 ### 2. Sessions
 
-- Cookie `__Host-session` Secure HttpOnly SameSite=Strict.
+- Cookie `__Host-session` Secure HttpOnly SameSite=Lax — Lax (et non Strict) car le callback OIDC est un redirect cross-site depuis Keycloak ; Strict empêcherait l'envoi du cookie au premier rebond. CSRF reste couvert par `__Host-` + Secure + HttpOnly + play-token HMAC lié au device.
 - Token = 32 bytes random, **hash SHA-256 en DB**.
 - TTL 30 jours, glissant : si session > 7 jours, on émet un nouveau token au prochain hit.
 - Logout = `DELETE FROM sessions WHERE token_hash = ?`.

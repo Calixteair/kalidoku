@@ -11,11 +11,12 @@
     open: boolean;
     domain: string;
     cellLabel: string;
+    candidatesCount?: number;
     onClose: () => void;
     onSubmit: (entity: { id: string; name: string }) => void | Promise<void>;
   }
 
-  let { open, domain, cellLabel, onClose, onSubmit }: Props = $props();
+  let { open, domain, cellLabel, candidatesCount, onClose, onSubmit }: Props = $props();
 
   let query = $state("");
   let suggestions = $state<Suggestion[]>([]);
@@ -149,7 +150,10 @@
           <h2 id="autocomplete-title" class="text-base font-semibold">
             {m.modal_autocomplete_title()}
           </h2>
-          <p class="text-fg-muted text-xs">{cellLabel}</p>
+          <p class="text-fg-muted text-xs">
+            {cellLabel}{#if typeof candidatesCount === "number"}
+              · {m.modal_autocomplete_candidates_count({ n: candidatesCount })}{/if}
+          </p>
         </div>
         <button
           type="button"

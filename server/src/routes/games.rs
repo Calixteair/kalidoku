@@ -73,6 +73,10 @@ pub struct PublicGrid {
     pub rows: Vec<PredicateLabel>,
     pub cols: Vec<PredicateLabel>,
     pub mistakes_allowed: i32,
+    /// Per-cell number of valid candidates, row-major (length 9). The list of
+    /// candidate ids stays server-side; the client only sees the count so it
+    /// can surface "X possible answers" without leaking the solution set.
+    pub candidates_count: [u32; 9],
 }
 
 #[derive(Serialize)]
@@ -244,7 +248,27 @@ fn public_grid_from_row(row: &grids::Model) -> ApiResult<PublicGrid> {
         rows,
         cols,
         mistakes_allowed: MAX_MISTAKES,
+        candidates_count: extract_candidates_count(&payload),
     })
+}
+
+/// Reads `payload.candidates[row][col]` and returns the per-cell candidate
+/// count in row-major order. Cells with a malformed payload default to 0 so a
+/// partial dataset still surfaces a usable grid rather than 500-ing.
+fn extract_candidates_count(payload: &serde_json::Value) -> [u32; 9] {
+    let mut counts = [0u32; 9];
+    let Some(rows) = payload.get("candidates").and_then(|v| v.as_array()) else {
+        return counts;
+    };
+    for (r, row) in rows.iter().take(3).enumerate() {
+        let Some(cols) = row.as_array() else { continue };
+        for (c, cell) in cols.iter().take(3).enumerate() {
+            if let Some(arr) = cell.as_array() {
+                counts[r * 3 + c] = arr.len() as u32;
+            }
+        }
+    }
+    counts
 }
 
 fn extract_predicates(payload: &serde_json::Value, key: &str) -> ApiResult<Vec<PredicateLabel>> {
@@ -353,25 +377,32 @@ pub async fn play(
         .await?
         .ok_or(ApiError::NotFound("grid"))?;
 
-    // Resolve user input → entity_id via the grid's entity index.
+    // Resolve user input → entity_id via the grid's entity index. If the input
+    // matches no known candidate (e.g. autocomplete proposed a station that
+    // isn't part of this grid's 72 candidates), we still count it as a wrong
+    // answer rather than 400-ing — the front already shows the autocomplete
+    // hits, so a miss here is a real gameplay event, not a malformed request.
     let cell_idx = (body.cell.row as usize) * 3 + (body.cell.col as usize);
     let answer_norm = kalidoku_core::normalize::normalize(trimmed_answer);
-    let entity_id = resolve_entity_id(&grid.payload, &answer_norm).ok_or(ApiError::BadRequest(
-        "answer does not match any known entity".into(),
-    ))?;
+    let resolved = resolve_entity_id(&grid.payload, &answer_norm);
+    // Synthetic id for unresolved answers so we can keep the storage shape
+    // consistent and still detect duplicate identical guesses on the same cell.
+    let entity_id = resolved
+        .clone()
+        .unwrap_or_else(|| format!("unknown:{answer_norm}"));
 
     // Re-use already-played cells to enforce uniqueness.
     let answers = parse_answers(&game.answers);
     if answers.iter().any(|a| a.cell == cell_idx) {
         return Err(ApiError::Conflict("cell already played"));
     }
-    if answers.iter().any(|a| a.entity_id == entity_id && a.ok) {
+    if resolved.is_some() && answers.iter().any(|a| a.entity_id == entity_id && a.ok) {
         return Err(ApiError::Conflict("entity already used"));
     }
 
     let candidates = candidates_for_cell(&grid.payload, body.cell.row, body.cell.col)
         .ok_or_else(|| ApiError::Internal("grid payload missing candidates".into()))?;
-    let ok = candidates.iter().any(|c| c == &entity_id);
+    let ok = resolved.is_some() && candidates.iter().any(|c| c == &entity_id);
 
     let mut new_answers = answers;
     new_answers.push(StoredAnswer {

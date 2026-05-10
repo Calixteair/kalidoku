@@ -146,6 +146,12 @@ components:
         mistakesAllowed: { type: integer, default: 3 }
         startsAt: { type: string, format: date-time, nullable: true }
         endsAt: { type: string, format: date-time, nullable: true }
+        candidatesCount:
+          description: Number of valid candidate entities per cell, in row-major order (length 9). Lets the client surface "X possible answers" without leaking entity ids.
+          type: array
+          minItems: 9
+          maxItems: 9
+          items: { type: integer, minimum: 0 }
 
     PlayToken:
       type: object

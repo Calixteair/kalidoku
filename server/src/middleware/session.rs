@@ -149,7 +149,9 @@ pub fn build_session_cookie(token: String) -> Cookie<'static> {
     c.set_path("/");
     c.set_http_only(true);
     c.set_secure(true);
-    c.set_same_site(SameSite::Strict);
+    // Lax: the OIDC callback is a cross-site redirect from Keycloak; Strict would
+    // suppress the newly-set cookie on the first navigation back to the app.
+    c.set_same_site(SameSite::Lax);
     c
 }
 
