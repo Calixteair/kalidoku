@@ -4,21 +4,44 @@
 //! Designed to remain useful even when:
 //! - `DATABASE_URL` is unset (local dev) → log warn + exit 0.
 //! - The `grids` table is missing (agent C migrations pending) → log warn + exit 0.
-//! - `core::generator::generate` is still unimplemented → log error + skip the
-//!   domain (we use `catch_unwind` to survive the `unimplemented!()` panic).
+//!
+//! The generator is wired against `kalidoku_core::generator::generate` and the
+//! payload is the `GridSnapshot` produced by `snapshot_with_entities`, so the
+//! server can resolve user-typed names without re-loading the domain pack on
+//! every request.
 
-use anyhow::Result;
-use chrono::{NaiveDate, TimeZone, Utc};
+use std::path::Path;
+
+use anyhow::{Context, Result};
+use chrono::{DateTime, NaiveDate, TimeZone, Utc};
+use sea_orm::DatabaseConnection;
+
+use kalidoku_core::{
+    domain::{load_domain_pack, Domain},
+    generator::{generate, GenerationOptions},
+};
 
 use crate::{
     db::{self, DbState},
     domain_pack::{self, DiscoveredDomain},
-    persist::{self, GridRecord},
+    persist::{self, DomainRecord, GridRecord},
     seed,
 };
 
 const DAILY_PUBLISH_HOUR_UTC: u32 = 0;
 const DAILY_PUBLISH_MINUTE_UTC: u32 = 1;
+const GENERATOR_MAX_ATTEMPTS: u32 = 200;
+
+/// Outcome of a single domain × date generation attempt.
+#[derive(Debug, PartialEq, Eq)]
+pub enum GenerationOutcome {
+    /// New row inserted into `grids`.
+    Inserted,
+    /// A row for `(domain, mode='daily', publish_at::date)` already existed.
+    AlreadyPresent,
+    /// `DATABASE_URL` not set — generation ran but no INSERT was attempted.
+    DryRun,
+}
 
 pub async fn run(domain_filter: Option<String>) -> Result<()> {
     let today = Utc::now().date_naive();
@@ -74,30 +97,21 @@ pub async fn run(domain_filter: Option<String>) -> Result<()> {
     Ok(())
 }
 
-#[derive(Debug)]
-enum GenerationOutcome {
-    Inserted,
-    AlreadyPresent,
-    DryRun,
-}
-
 async fn list_active_domains() -> Result<Vec<DiscoveredDomain>> {
     // For now we only support the filesystem fallback. When agent C ships the
     // `domains` table + an `active=true` flag we'll wire it in here.
     domain_pack::discover(&domain_pack::default_root())
 }
 
-async fn generate_for_domain(
+/// Run the full pipeline (load pack → generate → persist) for one
+/// `(domain, date)` pair. Public so integration tests can drive it directly.
+pub async fn generate_for_domain(
     domain: &DiscoveredDomain,
     date: NaiveDate,
-    conn: Option<&sea_orm::DatabaseConnection>,
+    conn: Option<&DatabaseConnection>,
 ) -> Result<GenerationOutcome> {
     let iso_date = date.format("%Y-%m-%d").to_string();
-    let publish_at = Utc.from_utc_datetime(
-        &date
-            .and_hms_opt(DAILY_PUBLISH_HOUR_UTC, DAILY_PUBLISH_MINUTE_UTC, 0)
-            .ok_or_else(|| anyhow::anyhow!("invalid publish_at for {iso_date}"))?,
-    );
+    let publish_at = compute_publish_at(date, &iso_date)?;
 
     if let Some(c) = conn {
         if db::has_daily_grid(c, &domain.id, &iso_date).await? {
@@ -114,20 +128,8 @@ async fn generate_for_domain(
         "generating daily grid"
     );
 
-    let payload = match generate_payload(&domain.id, &domain.root, derived_seed).await {
-        Ok(p) => p,
-        Err(GenerationError::Unimplemented) => {
-            // TODO: enable once core::generator::generate is implemented (agent A).
-            tracing::error!(
-                domain = %domain.id,
-                "core::generator::generate is not implemented yet — skipping this domain"
-            );
-            return Err(anyhow::anyhow!(
-                "core::generator::generate unimplemented (agent A)"
-            ));
-        }
-        Err(GenerationError::Other(e)) => return Err(e),
-    };
+    let DomainPayload { payload, version } =
+        generate_payload(&domain.id, &domain.root, derived_seed).await?;
 
     let Some(c) = conn else {
         tracing::warn!(
@@ -136,6 +138,16 @@ async fn generate_for_domain(
         );
         return Ok(GenerationOutcome::DryRun);
     };
+
+    persist::upsert_domain(
+        c,
+        &DomainRecord {
+            id: &domain.id,
+            version: &version,
+            metadata: serde_json::Value::Null,
+        },
+    )
+    .await?;
 
     let inserted = persist::insert_grid(
         c,
@@ -156,60 +168,63 @@ async fn generate_for_domain(
     }
 }
 
-#[derive(Debug)]
-enum GenerationError {
-    Unimplemented,
-    Other(anyhow::Error),
+fn compute_publish_at(date: NaiveDate, iso_date: &str) -> Result<DateTime<Utc>> {
+    let naive = date
+        .and_hms_opt(DAILY_PUBLISH_HOUR_UTC, DAILY_PUBLISH_MINUTE_UTC, 0)
+        .ok_or_else(|| anyhow::anyhow!("invalid publish_at for {iso_date}"))?;
+    Ok(Utc.from_utc_datetime(&naive))
 }
 
-/// Bridge to `core::*`. Currently the loader and the generator are stubs that
-/// `unimplemented!()`, so we run them inside `catch_unwind` and downgrade the
-/// panic into `GenerationError::Unimplemented`.
+/// Pair `(payload, version)` returned by the core generator.
+struct DomainPayload {
+    payload: serde_json::Value,
+    version: String,
+}
+
+/// Bridge to `core::*`. Loads the on-disk domain pack, runs the CSP generator
+/// with the deterministic seed, and serialises the resulting grid (with the
+/// referenced entities baked in).
 async fn generate_payload(
     domain_id: &str,
-    domain_root: &std::path::Path,
+    domain_root: &Path,
     seed_value: u64,
-) -> Result<serde_json::Value, GenerationError> {
-    let domain_id = domain_id.to_owned();
-    let domain_root = domain_root.to_path_buf();
+) -> Result<DomainPayload> {
+    let domain_id_owned = domain_id.to_owned();
+    let domain_root_owned = domain_root.to_path_buf();
 
-    let join = tokio::task::spawn_blocking(move || {
-        std::panic::catch_unwind(std::panic::AssertUnwindSafe(|| {
-            generate_via_core(&domain_id, &domain_root, seed_value)
-        }))
+    tokio::task::spawn_blocking(move || {
+        generate_via_core(&domain_id_owned, &domain_root_owned, seed_value)
     })
     .await
-    .map_err(|e| GenerationError::Other(anyhow::anyhow!("blocking task crashed: {e}")))?;
-
-    match join {
-        Ok(Ok(payload)) => Ok(payload),
-        Ok(Err(e)) => Err(GenerationError::Other(e)),
-        Err(_) => Err(GenerationError::Unimplemented),
-    }
+    .context("blocking generator task crashed")?
 }
 
 fn generate_via_core(
-    _domain_id: &str,
-    _domain_root: &std::path::Path,
-    _seed_value: u64,
-) -> Result<serde_json::Value> {
-    // TODO: enable once core::domain::loader::load_domain_pack and
-    // core::generator::generate are implemented by agent A.
-    //
-    // Expected wiring:
-    //   let pack = kalidoku_core::domain::loader::load_domain_pack(domain_root)?;
-    //   let opts = kalidoku_core::generator::GenerationOptions {
-    //       seed: seed_value,
-    //       ..Default::default()
-    //   };
-    //   let grid = kalidoku_core::generator::generate(&pack, opts)?;
-    //   Ok(serialize_grid(&grid))
-    //
-    // For now we deliberately call the stub so that `catch_unwind` reports
-    // `Unimplemented` to the caller, which logs cleanly and exits with a TODO.
-    Err(anyhow::anyhow!(
-        "core::generator::generate not wired yet — see TODO in worker/src/once.rs"
-    ))
+    domain_id: &str,
+    domain_root: &Path,
+    seed_value: u64,
+) -> Result<DomainPayload> {
+    let pack: Domain = load_domain_pack(domain_root).with_context(|| {
+        format!(
+            "loading domain pack '{domain_id}' from {}",
+            domain_root.display()
+        )
+    })?;
+
+    let opts = GenerationOptions {
+        seed: seed_value,
+        max_attempts: GENERATOR_MAX_ATTEMPTS,
+    };
+    let grid =
+        generate(&pack, opts).with_context(|| format!("generating grid for '{domain_id}'"))?;
+
+    let locale = pack.metadata.default_locale.as_str();
+    let snapshot = grid.snapshot_with_entities(locale, seed_value, &pack.entities);
+
+    Ok(DomainPayload {
+        payload: serde_json::to_value(snapshot).context("serialising grid snapshot")?,
+        version: pack.metadata.version.clone(),
+    })
 }
 
 #[cfg(test)]
@@ -218,31 +233,40 @@ mod tests {
     use std::path::PathBuf;
 
     #[tokio::test]
-    #[ignore] // TODO: enable once core::generator::generate is implemented
-    async fn once_generates_when_db_ready() {
-        // Requires a real DB + agent A's generator. Wired as soon as both
-        // dependencies are in.
+    async fn dry_run_without_conn_succeeds_for_real_pack() {
+        // Use the in-repo paris-metro pack as a fixture. With `conn = None` we
+        // exercise the load + generate path without touching the DB.
+        let workspace_root = workspace_root();
+        let pack_root = workspace_root.join("domains/paris-metro");
+        if !pack_root.exists() {
+            eprintln!("skipping: paris-metro pack not present");
+            return;
+        }
+        let domain = DiscoveredDomain {
+            id: "paris-metro".to_owned(),
+            root: pack_root,
+        };
+        let date = NaiveDate::from_ymd_opt(2026, 5, 10).unwrap();
+        let outcome = generate_for_domain(&domain, date, None).await.unwrap();
+        assert_eq!(outcome, GenerationOutcome::DryRun);
     }
 
     #[tokio::test]
-    async fn dry_run_when_no_conn_reports_failure_without_panic() {
-        // Without a DB and with the generator stub, `generate_for_domain`
-        // returns Err(unimplemented). We assert it doesn't panic and doesn't
-        // try to write anywhere.
+    async fn missing_pack_surfaces_error_without_panic() {
         let domain = DiscoveredDomain {
             id: "mock-domain".to_owned(),
             root: PathBuf::from("/nonexistent"),
         };
         let date = NaiveDate::from_ymd_opt(2026, 5, 10).unwrap();
         let res = generate_for_domain(&domain, date, None).await;
-        assert!(res.is_err(), "stub generator must propagate an error");
+        assert!(res.is_err(), "missing pack must propagate an error");
     }
 
-    #[tokio::test]
-    async fn payload_generation_surfaces_unimplemented_cleanly() {
-        // The current core stub triggers `Err(...)` (not a panic). Either way,
-        // we must observe a `GenerationError::Other` and not crash the runtime.
-        let res = generate_payload("paris-metro", std::path::Path::new("."), 42).await;
-        assert!(res.is_err());
+    fn workspace_root() -> PathBuf {
+        // CARGO_MANIFEST_DIR points at `worker/`, so the workspace root is its parent.
+        PathBuf::from(env!("CARGO_MANIFEST_DIR"))
+            .parent()
+            .expect("worker/ must have a parent (workspace root)")
+            .to_path_buf()
     }
 }

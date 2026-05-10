@@ -31,3 +31,11 @@ dotenvy.workspace    = true
 
 [dev-dependencies]
 tempfile = "3"
+# Integration-test helpers — temporary Postgres + reuse server migrator.
+# Pinned locally rather than via the workspace because the root `Cargo.toml`
+# is owned by agent E and may not (yet) declare these test crates.
+testcontainers         = "0.23"
+testcontainers-modules = { version = "0.11", features = ["postgres"] }
+sea-orm-migration.workspace = true
+kalidoku-server        = { path = "../server" }
+tokio.workspace        = true
