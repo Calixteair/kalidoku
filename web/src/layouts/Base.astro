@@ -3,6 +3,7 @@ import "../styles/global.css";
 import { detectLocale } from "../lib/i18n.js";
 import { setLanguageTag } from "../paraglide/runtime.js";
 import * as m from "../paraglide/messages.js";
+import ThemeToggle from "../lib/components/ThemeToggle.svelte";
 
 interface Props {
   title?: string;
@@ -37,6 +38,13 @@ const pageDesc = description ?? m.site_tagline();
         var match = document.cookie.match(/(?:^|;\s*)locale=(fr|en)/);
         if (match) document.documentElement.lang = match[1];
       } catch {}
+      // Theme: light by default, "dark" only when the user explicitly opted in.
+      // We read localStorage *before* paint to avoid the white-then-dark flash.
+      try {
+        if (localStorage.getItem("kalidoku.theme") === "dark") {
+          document.documentElement.classList.add("dark");
+        }
+      } catch {}
       // Register service worker as early as possible without blocking render.
       if ("serviceWorker" in navigator) {
         window.addEventListener("load", function () {
@@ -50,12 +58,13 @@ const pageDesc = description ?? m.site_tagline();
     <header class="border-border bg-bg-card border-b">
       <div class="mx-auto flex max-w-screen-md items-center justify-between gap-2 px-4 py-3">
         <a href="/" class="text-fg text-base font-bold tracking-tight">{m.site_title()}</a>
-        <nav aria-label="Primary">
+        <nav aria-label="Primary" class="flex items-center gap-3">
           <ul class="flex items-center gap-3 text-sm">
             <li><a class="text-fg-subtle hover:text-fg" href="/archives">{m.nav_archives()}</a></li>
             <li><a class="text-fg-subtle hover:text-fg" href="/leaderboard">{m.nav_leaderboard()}</a></li>
             <li><a class="text-fg-subtle hover:text-fg" href="/profile">{m.nav_profile()}</a></li>
           </ul>
+          <ThemeToggle client:idle />
         </nav>
       </div>
     </header>

@@ -11,8 +11,14 @@
 
 use std::net::SocketAddr;
 
+use std::collections::HashMap;
+
 use anyhow::Result;
-use kalidoku_server::{build_router, cache, config, db, state::AppState, telemetry};
+use kalidoku_server::{
+    build_router, cache, config, db,
+    state::{AppState, DomainSummary},
+    telemetry,
+};
 use sea_orm_migration::MigratorTrait;
 use tracing::info;
 
@@ -23,7 +29,21 @@ async fn main() -> Result<()> {
     let cfg = config::load()?;
     info!(port = cfg.port, "kalidoku-server booting");
 
-    let mut state = AppState::new(cfg.clone());
+    // Active domains. For now hardcoded — when several domain packs land we'll
+    // query the `domains` table on boot and build this from rows.
+    let mut active_domains = HashMap::new();
+    active_domains.insert(
+        "paris-metro".to_string(),
+        DomainSummary {
+            id: "paris-metro".into(),
+            name_fr: "Métro de Paris".into(),
+            name_en: "Paris Metro".into(),
+            version: "0.2.0".into(),
+            description: None,
+            available_modes: vec!["daily".into(), "solo".into()],
+        },
+    );
+    let mut state = AppState::new(cfg.clone()).with_domains(active_domains);
 
     if !cfg.database_url.is_empty() {
         match db::connect(&cfg.database_url).await {
