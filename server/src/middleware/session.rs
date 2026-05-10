@@ -17,7 +17,7 @@ use axum::{
 };
 use axum_extra::extract::cookie::{Cookie, CookieJar, SameSite};
 use chrono::Utc;
-use sea_orm::{ActiveModelTrait, ActiveValue::Set};
+use sea_orm::{sea_query::OnConflict, ActiveValue::Set, EntityTrait};
 use tracing::warn;
 use uuid::Uuid;
 
@@ -56,20 +56,34 @@ pub async fn middleware(State(state): State<AppState>, mut req: Request, next: N
         None => (Uuid::now_v7(), true),
     };
 
-    if set_device_cookie {
-        if let Some(db) = state.db.as_ref() {
-            let now = Utc::now();
-            let am = devices::ActiveModel {
-                id: Set(device_id),
-                user_id: Set(None),
-                ua: Set(None),
-                ip_first: Set(None),
-                last_seen: Set(now.into()),
-                created_at: Set(now.into()),
-            };
-            if let Err(e) = am.insert(db.as_ref()).await {
-                warn!(error = %e, "could not persist new device");
-            }
+    // Upsert the device row on every request so that:
+    //  1. a freshly minted device gets persisted before any handler can reference it
+    //     via a foreign key (games.device_id → devices.id);
+    //  2. a stale cookie pointing at a row that no longer exists in DB (DB reset,
+    //     manual cleanup, etc.) gets re-inserted instead of triggering FK errors;
+    //  3. last_seen tracks the real last activity.
+    // The previous implementation only inserted when the cookie was missing, which
+    // produced FK violations on `/api/games` after a device row went missing.
+    if let Some(db) = state.db.as_ref() {
+        let now = Utc::now();
+        let am = devices::ActiveModel {
+            id: Set(device_id),
+            user_id: Set(None),
+            ua: Set(None),
+            ip_first: Set(None),
+            last_seen: Set(now.into()),
+            created_at: Set(now.into()),
+        };
+        let res = devices::Entity::insert(am)
+            .on_conflict(
+                OnConflict::column(devices::Column::Id)
+                    .update_column(devices::Column::LastSeen)
+                    .to_owned(),
+            )
+            .exec(db.as_ref())
+            .await;
+        if let Err(e) = res {
+            warn!(error = %e, "could not upsert device row");
         }
     }
 
