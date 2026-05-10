@@ -176,7 +176,7 @@ push → CI: lint + test + trivy → build multi-arch (amd64) → push Docker Hu
 - **SeaORM** pour la DB (Postgres 16). Entities générées via `sea-orm-cli`.
 - **`tracing`** + `tracing-subscriber` JSON pour logs.
 - **`tower_governor`** pour rate limit.
-- **`openidconnect`** + `jsonwebtoken` pour validation JWT Keycloak.
+- **`jsonwebtoken`** + `reqwest` directs pour validation JWT Keycloak (PKCE + JWKS handshake écrits à la main dans `server/src/auth/`).
 - **Migrations versionnées** dans `server/migrations/`.
 - **Les handlers ne contiennent pas de logique métier** : ils délèguent à `core/` ou à des services dans `server/src/services/`.
 

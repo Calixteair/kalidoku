@@ -51,8 +51,10 @@ sea-orm-migration = { version = "1.1", features = ["sqlx-postgres", "runtime-tok
 redis       = { version = "0.27", features = ["tokio-comp", "connection-manager"] }
 deadpool-redis = "0.18"
 
-# Auth (OIDC Keycloak)
-openidconnect = "3"
+# Auth (OIDC Keycloak) — we only use jsonwebtoken + reqwest directly for the
+# code exchange + JWKS validation; the openidconnect crate was pulling in a
+# vulnerable rustls 0.21 chain (RUSTSEC-2026-0098/0099/0104) without being
+# imported anywhere.
 jsonwebtoken  = "9"
 argon2        = "0.5"  # only for legacy admin local accounts (Keycloak handles users)
 
