@@ -6,6 +6,10 @@ use crate::{
     predicate::{DynPredicate, PredicateDefinition, PredicateRegistry},
 };
 
+pub mod loader;
+
+pub use loader::{load_domain_pack, load_domain_pack_with_registry};
+
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct DomainMetadata {
     pub id: String,

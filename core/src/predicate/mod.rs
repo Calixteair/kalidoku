@@ -7,6 +7,8 @@ use crate::{
     error::{Error, Result},
 };
 
+pub mod families;
+
 /// A predicate decides whether an entity satisfies a clue.
 /// Implementations live in `core::predicate::families::*` and are registered at domain load.
 pub trait Predicate: Send + Sync + std::fmt::Debug {
@@ -45,6 +47,28 @@ pub struct Label {
     pub help: Option<String>,
 }
 
+impl PredicateLabels {
+    /// Returns the label for the requested locale, falling back to `fr` then `en`.
+    #[must_use]
+    pub fn pick(&self, locale: &str) -> &Label {
+        if locale == "fr" {
+            return &self.fr;
+        }
+        if locale == "en" {
+            if let Some(en) = self.en.as_ref() {
+                return en;
+            }
+        }
+        if let Some(other) = self.other.get(locale) {
+            return other;
+        }
+        if let Some(en) = self.en.as_ref() {
+            return en;
+        }
+        &self.fr
+    }
+}
+
 /// Build a `Predicate` from a serialised definition. Each predicate family registers a builder.
 pub trait PredicateFactory: Send + Sync {
     fn family(&self) -> &'static str;
@@ -63,6 +87,14 @@ impl PredicateRegistry {
         }
     }
 
+    /// Registry pre-populated with every built-in family declared by `core/`.
+    #[must_use]
+    pub fn with_defaults() -> Self {
+        let mut r = Self::new();
+        families::register_defaults(&mut r);
+        r
+    }
+
     pub fn register<F: PredicateFactory + 'static>(&mut self, factory: F) {
         self.factories.push(Box::new(factory));
     }
@@ -73,6 +105,12 @@ impl PredicateRegistry {
             .find(|f| f.family() == def.family)
             .ok_or_else(|| Error::UnknownPredicateFamily(def.family.clone()))?
             .build(def)
+    }
+
+    /// Read-only access to declared families (for diagnostics / tests).
+    #[must_use]
+    pub fn families(&self) -> Vec<&'static str> {
+        self.factories.iter().map(|f| f.family()).collect()
     }
 }
 
