@@ -26,6 +26,15 @@ RUN cargo build --release -p kalidoku-worker \
  && strip target/release/kalidoku-worker
 
 FROM gcr.io/distroless/cc-debian${DEBIAN_RELEASE}:nonroot AS runtime
+ARG GIT_REVISION=unknown
+ARG IMAGE_CREATED=unknown
+LABEL org.opencontainers.image.source="https://github.com/Calixteair/kalidoku" \
+      org.opencontainers.image.licenses="AGPL-3.0-only" \
+      org.opencontainers.image.title="kalidoku-worker" \
+      org.opencontainers.image.description="kalidoku grid generator worker (cron + on-demand)." \
+      org.opencontainers.image.url="https://kalidoku.calixteair.fr" \
+      org.opencontainers.image.revision="${GIT_REVISION}" \
+      org.opencontainers.image.created="${IMAGE_CREATED}"
 WORKDIR /app
 COPY --from=builder /work/target/release/kalidoku-worker /usr/local/bin/kalidoku-worker
 COPY domains /app/domains
