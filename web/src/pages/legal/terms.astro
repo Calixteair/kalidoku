@@ -7,20 +7,13 @@ import * as m from "../../paraglide/messages.js";
   <article class="prose prose-sm mx-auto max-w-none">
     <h1>{m.page_legal_terms_title()}</h1>
     <p>
-      kalidoku est distribué sous licence AGPL-3.0. Le code source est public sur
-      <a href="https://github.com/Calixteair/kalidoku">GitHub</a>.
+      {m.page_legal_terms_intro_before_link()}
+      <a href="https://github.com/Calixteair/kalidoku">{m.page_legal_terms_intro_link_label()}</a
+      >{m.page_legal_terms_intro_after_link()}
     </p>
-    <h2>Usage</h2>
-    <p>
-      Le service est fourni gratuitement, en l'état, sans garantie. Toute tentative d'abus
-      (scraping massif, exploitation de l'API en dehors du jeu, contournement de l'anti-cheat)
-      peut entraîner un bannissement immédiat.
-    </p>
-    <h2>Propriété intellectuelle</h2>
-    <p>
-      Les noms de stations, lignes, et autres entités citées appartiennent à leurs ayants droit
-      respectifs (RATP, SNCF, etc.). kalidoku les utilise à des fins ludiques et éducatives, sans
-      but commercial.
-    </p>
+    <h2>{m.page_legal_terms_usage_heading()}</h2>
+    <p>{m.page_legal_terms_usage_body()}</p>
+    <h2>{m.page_legal_terms_ip_heading()}</h2>
+    <p>{m.page_legal_terms_ip_body()}</p>
   </article>
 </Base>
