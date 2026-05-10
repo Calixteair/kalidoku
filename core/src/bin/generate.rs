@@ -3,7 +3,6 @@
 //! Owned by agent A. Loads a domain pack from disk, runs `core::generator::generate`,
 //! prints the resulting grid as JSON on stdout.
 
-fn main() -> anyhow::Result<()> {
+fn main() {
     eprintln!("agent-A: implement CLI (see docs/agents/agent-a-core.md §5)");
-    Ok(())
 }

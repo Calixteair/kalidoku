@@ -1,14 +1,12 @@
 import { defineConfig } from "astro/config";
 import svelte from "@astrojs/svelte";
-import tailwind from "@astrojs/tailwind";
+import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
   site: "https://kalidoku.calixteair.fr",
   output: "static",
   trailingSlash: "never",
-  build: {
-    format: "directory",
-  },
+  build: { format: "directory" },
   i18n: {
     defaultLocale: "fr",
     locales: ["fr", "en"],
@@ -17,17 +15,12 @@ export default defineConfig({
       redirectToDefaultLocale: false,
     },
   },
-  integrations: [
-    svelte(),
-    tailwind({ applyBaseStyles: false, nesting: true }),
-  ],
+  integrations: [svelte()],
   vite: {
+    plugins: [tailwindcss()],
     server: {
       proxy: {
-        "/api": {
-          target: "http://localhost:8080",
-          changeOrigin: true,
-        },
+        "/api": { target: "http://localhost:8080", changeOrigin: true },
       },
     },
   },

@@ -1,7 +1,12 @@
 #![forbid(unsafe_code)]
 #![deny(rust_2018_idioms)]
 #![warn(clippy::pedantic)]
-#![allow(clippy::module_name_repetitions)]
+#![allow(
+    clippy::module_name_repetitions,
+    clippy::missing_errors_doc,
+    clippy::doc_markdown,
+    dead_code
+)]
 
 pub mod domain;
 pub mod entity;

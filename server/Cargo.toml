@@ -57,4 +57,5 @@ chrono.workspace     = true
 uuid.workspace       = true
 once_cell.workspace  = true
 config.workspace     = true
+dotenvy.workspace    = true
 url.workspace        = true

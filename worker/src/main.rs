@@ -9,6 +9,8 @@ use anyhow::Result;
 #[tokio::main]
 async fn main() -> Result<()> {
     tracing_subscriber::fmt::init();
-    tracing::warn!("agent-B: implement cron + on-demand generation (see docs/agents/agent-b-worker.md)");
+    tracing::warn!(
+        "agent-B: implement cron + on-demand generation (see docs/agents/agent-b-worker.md)"
+    );
     Ok(())
 }

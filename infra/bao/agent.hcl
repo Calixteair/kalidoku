@@ -23,7 +23,7 @@ auto_auth {
   sink "file" {
     config = {
       path = "/run/kalidoku/.bao-token"
-      mode = 0o600
+      mode = 0600
     }
   }
 }

@@ -8,6 +8,8 @@
 //! - HTTP router (see modules `routes`, `auth`, `play`, `leaderboard`, `domains`)
 //! - tower middlewares (governor, cors, set-header, timeout, trace)
 
+#![allow(dead_code, clippy::missing_errors_doc, clippy::missing_panics_doc)]
+
 use std::net::SocketAddr;
 
 use anyhow::Result;

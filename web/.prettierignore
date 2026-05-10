@@ -1,0 +1,9 @@
+.astro/
+.svelte-kit/
+dist/
+node_modules/
+src/paraglide/
+src/lib/api/types.ts
+pnpm-lock.yaml
+*.min.css
+*.min.js

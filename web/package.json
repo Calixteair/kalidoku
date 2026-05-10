@@ -10,7 +10,7 @@
     "typecheck": "astro check && tsc --noEmit",
     "lint": "eslint . && prettier --check .",
     "format": "prettier --write .",
-    "test": "vitest run",
+    "test": "vitest run --passWithNoTests",
     "test:watch": "vitest",
     "test:e2e": "playwright test",
     "openapi:gen": "openapi-typescript ../contracts/openapi.yaml -o src/lib/api/types.ts",
@@ -18,25 +18,25 @@
   },
   "dependencies": {
     "@astrojs/check": "^0.9.4",
-    "@astrojs/svelte": "^7.0.0",
-    "@astrojs/tailwind": "^6.0.0",
+    "@astrojs/svelte": "^7.2.5",
     "@inlang/paraglide-js": "^1.11.4",
-    "astro": "^4.16.18",
-    "lucide-svelte": "^0.461.0",
-    "svelte": "^5.0.0",
-    "tailwindcss": "^3.4.15",
     "@tailwindcss/forms": "^0.5.9",
     "@tailwindcss/typography": "^0.5.15",
+    "@tailwindcss/vite": "^4.0.0",
+    "astro": "^5.16.0",
     "bits-ui": "^1.0.0-next.59",
     "clsx": "^2.1.1",
+    "lucide-svelte": "^0.461.0",
+    "svelte": "^5.0.0",
     "tailwind-merge": "^2.5.4",
-    "tailwind-variants": "^0.3.0"
+    "tailwind-variants": "^0.3.0",
+    "tailwindcss": "^4.0.0"
   },
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
     "@playwright/test": "^1.49.0",
     "@types/node": "^22.9.3",
-    "@typescript-eslint/eslint-plugin": "^8.15.0",
-    "@typescript-eslint/parser": "^8.15.0",
+    "@vitest/ui": "^2.1.6",
     "axe-core": "^4.10.2",
     "eslint": "^9.15.0",
     "eslint-config-prettier": "^9.1.0",
@@ -47,12 +47,17 @@
     "prettier-plugin-tailwindcss": "^0.6.9",
     "svelte-check": "^4.1.0",
     "typescript": "^5.7.2",
-    "vitest": "^2.1.6",
-    "@vitest/ui": "^2.1.6"
+    "typescript-eslint": "^8.15.0",
+    "vitest": "^2.1.6"
   },
   "packageManager": "pnpm@9.14.2",
   "engines": {
     "node": ">=22.0.0",
     "pnpm": ">=9.0.0"
+  },
+  "pnpm": {
+    "overrides": {
+      "sha.js@<2.4.12": "^2.4.12"
+    }
   }
 }

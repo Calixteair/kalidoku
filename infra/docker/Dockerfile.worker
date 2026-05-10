@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1.7
-ARG RUST_VERSION=1.82-bookworm
+ARG RUST_VERSION=1.88-bookworm
 ARG DEBIAN_RELEASE=12
 
 FROM rust:${RUST_VERSION} AS chef
