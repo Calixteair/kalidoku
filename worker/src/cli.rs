@@ -1,7 +1,8 @@
 //! CLI definition for `kalidoku-worker`.
 //!
-//! Three mutually exclusive modes : `--cron`, `--once`, `--queue`.
+//! Four mutually exclusive modes : `--cron`, `--once`, `--queue`, `--reindex`.
 //! `--once` accepts an optional `--domain` filter to regenerate a single domain.
+//! `--reindex` pushes every `domains/*/entities.json` to Meilisearch.
 
 use clap::{ArgGroup, Parser};
 
@@ -11,7 +12,7 @@ use clap::{ArgGroup, Parser};
     about = "kalidoku grid generator (cron + on-demand)",
     version
 )]
-#[command(group(ArgGroup::new("run-mode").required(true).args(["cron", "once", "queue"])))]
+#[command(group(ArgGroup::new("run-mode").required(true).args(["cron", "once", "queue", "reindex"])))]
 pub struct Cli {
     /// Long-running scheduler. Triggers `--once` every day at 00:01 UTC.
     #[arg(long)]
@@ -25,6 +26,10 @@ pub struct Cli {
     #[arg(long)]
     pub queue: bool,
 
+    /// One-shot Meilisearch reindex : push every `domains/*/entities.json`.
+    #[arg(long)]
+    pub reindex: bool,
+
     /// Restrict `--once` to a single domain id (e.g. `paris-metro`).
     #[arg(long, requires = "once")]
     pub domain: Option<String>,
@@ -35,6 +40,7 @@ pub enum Mode {
     Cron,
     Once { domain: Option<String> },
     Queue,
+    Reindex,
 }
 
 impl Cli {
@@ -43,6 +49,8 @@ impl Cli {
             Mode::Cron
         } else if self.queue {
             Mode::Queue
+        } else if self.reindex {
+            Mode::Reindex
         } else {
             Mode::Once {
                 domain: self.domain.clone(),

@@ -14,5 +14,6 @@ pub mod domain_pack;
 pub mod once;
 pub mod persist;
 pub mod queue;
+pub mod reindex;
 pub mod seed;
 pub mod telemetry;
