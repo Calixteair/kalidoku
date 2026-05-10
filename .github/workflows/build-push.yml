@@ -32,6 +32,19 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Wait for OpenBao reachability (mitigate intermittent timeouts)
+        run: |
+          for i in 1 2 3 4 5; do
+            if curl -fsS -m 10 https://secrets.calixteair.fr/v1/sys/health -o /dev/null; then
+              echo "bao reachable on attempt $i"
+              exit 0
+            fi
+            echo "attempt $i failed, sleeping 15s..."
+            sleep 15
+          done
+          echo "bao unreachable after 5 attempts"
+          exit 1
+
       - name: Import secrets from OpenBao via OIDC
         id: bao
         uses: hashicorp/vault-action@v3
