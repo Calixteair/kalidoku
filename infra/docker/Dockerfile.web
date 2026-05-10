@@ -2,7 +2,7 @@
 # Static Astro build, served by nginx alpine.
 
 ARG NODE_VERSION=22-bookworm-slim
-ARG NGINX_VERSION=1.27-alpine
+ARG NGINX_VERSION=1.30-alpine3.23
 
 FROM node:${NODE_VERSION} AS deps
 WORKDIR /app/web
