@@ -1,105 +1,7250 @@
 [
   {
-    "id": "chatelet",
-    "name": "Châtelet",
-    "aliases": ["Châtelet-Les Halles"],
+    "id": "abbesses",
+    "name": "Abbesses",
     "attributes": {
-      "lines": { "str_list": ["1", "4", "7", "11", "14"] },
-      "geo": { "geo": { "lat": 48.858108, "lon": 2.347439 } },
-      "in_paris": { "bool": true },
-      "arrondissement": { "num": 1 }
+      "lines": {
+        "str_list": [
+          "12"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.884804,
+          "lon": 2.338642
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 18
+      }
     }
   },
   {
-    "id": "republique",
-    "name": "République",
+    "id": "aime-cesaire",
+    "name": "Aimé Césaire",
     "attributes": {
-      "lines": { "str_list": ["3", "5", "8", "9", "11"] },
-      "geo": { "geo": { "lat": 48.867538, "lon": 2.363751 } },
-      "in_paris": { "bool": true },
-      "arrondissement": { "num": 11 }
+      "lines": {
+        "str_list": [
+          "12"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.908226,
+          "lon": 2.377851
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "arrondissement": {
+        "num": 0
+      }
     }
   },
   {
-    "id": "saint-michel",
-    "name": "Saint-Michel",
-    "aliases": ["Saint-Michel — Notre-Dame", "St-Michel"],
+    "id": "alesia",
+    "name": "Alésia",
     "attributes": {
-      "lines": { "str_list": ["4"] },
-      "geo": { "geo": { "lat": 48.853424, "lon": 2.344166 } },
-      "in_paris": { "bool": true },
-      "arrondissement": { "num": 5 }
+      "lines": {
+        "str_list": [
+          "4"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.828032,
+          "lon": 2.327041
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 14
+      }
+    },
+    "aliases": [
+      "Métro Alésia"
+    ]
+  },
+  {
+    "id": "alexandre-dumas",
+    "name": "Alexandre Dumas",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "2"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.85634,
+          "lon": 2.394435
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 11
+      }
+    },
+    "aliases": [
+      "Bagnolet"
+    ]
+  },
+  {
+    "id": "alma-marceau",
+    "name": "Alma-Marceau",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "9"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.864868,
+          "lon": 2.300292
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 16
+      }
+    }
+  },
+  {
+    "id": "anatole-france",
+    "name": "Anatole France",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "3"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.892221,
+          "lon": 2.284905
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 0
+      }
+    }
+  },
+  {
+    "id": "anvers",
+    "name": "Anvers",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "2"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.88288,
+          "lon": 2.344257
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 9
+      }
+    }
+  },
+  {
+    "id": "argentine",
+    "name": "Argentine",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "1"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.875336,
+          "lon": 2.290132
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 16
+      }
+    },
+    "aliases": [
+      "Obligado"
+    ]
+  },
+  {
+    "id": "arts-et-metiers",
+    "name": "Arts et Métiers",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "3",
+          "11"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.865472,
+          "lon": 2.356112
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 3
+      }
+    }
+  },
+  {
+    "id": "assemblee-nationale",
+    "name": "Assemblée Nationale",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "12"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.860576,
+          "lon": 2.321171
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 7
+      }
+    },
+    "aliases": [
+      "Chambre des Députés"
+    ]
+  },
+  {
+    "id": "aubervilliers-pantin-quatre-chemins",
+    "name": "Aubervilliers - Pantin - Quatre Chemins",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "7"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.903628,
+          "lon": 2.39225
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "arrondissement": {
+        "num": 0
+      }
+    },
+    "aliases": [
+      "Aubervilliers Pantin (4 Chemins)"
+    ]
+  },
+  {
+    "id": "avenue-emile-zola",
+    "name": "Avenue Émile Zola",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "10"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.846975,
+          "lon": 2.295322
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 15
+      }
+    },
+    "aliases": [
+      "Commerce"
+    ]
+  },
+  {
+    "id": "avron",
+    "name": "Avron",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "2"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.851501,
+          "lon": 2.39822
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 11
+      }
+    }
+  },
+  {
+    "id": "bagneux-lucie-aubrac",
+    "name": "Bagneux-Lucie Aubrac",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "4"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.803353,
+          "lon": 2.317734
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "arrondissement": {
+        "num": 0
+      }
+    }
+  },
+  {
+    "id": "balard",
+    "name": "Balard",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "8"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.836397,
+          "lon": 2.278379
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 15
+      }
+    }
+  },
+  {
+    "id": "barbara",
+    "name": "Barbara",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "4"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.809202,
+          "lon": 2.317707
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "arrondissement": {
+        "num": 0
+      }
+    }
+  },
+  {
+    "id": "barbes-rochechouart",
+    "name": "Barbès - Rochechouart",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "2",
+          "4"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.883747,
+          "lon": 2.349696
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 18
+      }
     }
   },
   {
     "id": "bastille",
     "name": "Bastille",
     "attributes": {
-      "lines": { "str_list": ["1", "5", "8"] },
-      "geo": { "geo": { "lat": 48.852976, "lon": 2.369336 } },
-      "in_paris": { "bool": true },
-      "arrondissement": { "num": 4 }
+      "lines": {
+        "str_list": [
+          "1",
+          "5",
+          "8"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.852987,
+          "lon": 2.368858
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 4
+      }
     }
   },
   {
-    "id": "opera",
-    "name": "Opéra",
+    "id": "bel-air",
+    "name": "Bel-Air",
     "attributes": {
-      "lines": { "str_list": ["3", "7", "8"] },
-      "geo": { "geo": { "lat": 48.870770, "lon": 2.332090 } },
-      "in_paris": { "bool": true },
-      "arrondissement": { "num": 9 }
+      "lines": {
+        "str_list": [
+          "6"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.841338,
+          "lon": 2.400913
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 12
+      }
+    }
+  },
+  {
+    "id": "belleville",
+    "name": "Belleville",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "2",
+          "11"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.872035,
+          "lon": 2.37688
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 11
+      }
+    },
+    "aliases": [
+      "Belleville-Commune de Paris 1871"
+    ]
+  },
+  {
+    "id": "berault",
+    "name": "Bérault",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "1"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.845439,
+          "lon": 2.429261
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 0
+      }
+    }
+  },
+  {
+    "id": "bercy",
+    "name": "Bercy",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "6",
+          "14"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.840155,
+          "lon": 2.379947
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 12
+      }
+    }
+  },
+  {
+    "id": "bibliotheque-francois-mitterrand",
+    "name": "Bibliothèque François Mitterrand",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "14"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.830006,
+          "lon": 2.376847
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 13
+      }
+    }
+  },
+  {
+    "id": "billancourt",
+    "name": "Billancourt",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "9"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.831704,
+          "lon": 2.237237
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 0
+      }
+    }
+  },
+  {
+    "id": "bir-hakeim",
+    "name": "Bir-Hakeim",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "6"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.85389,
+          "lon": 2.289381
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 15
+      }
+    },
+    "aliases": [
+      "Bir-Hakeim (Grenelle)",
+      "Grenelle"
+    ]
+  },
+  {
+    "id": "blanche",
+    "name": "Blanche",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "2"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.883527,
+          "lon": 2.333585
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 18
+      }
+    }
+  },
+  {
+    "id": "bobigny-pablo-picasso",
+    "name": "Bobigny - Pablo Picasso",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "5"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.906369,
+          "lon": 2.449217
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "arrondissement": {
+        "num": 0
+      }
+    }
+  },
+  {
+    "id": "bobigny-pantin-raymond-queneau",
+    "name": "Bobigny - Pantin - Raymond Queneau",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "5"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.895407,
+          "lon": 2.42519
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 0
+      }
+    },
+    "aliases": [
+      "Bobigny - Pantin"
+    ]
+  },
+  {
+    "id": "boissiere",
+    "name": "Boissière",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "6"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.867042,
+          "lon": 2.290091
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 16
+      }
+    }
+  },
+  {
+    "id": "bolivar",
+    "name": "Bolivar",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "7bis"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.880926,
+          "lon": 2.373908
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 19
+      }
+    }
+  },
+  {
+    "id": "bonne-nouvelle",
+    "name": "Bonne Nouvelle",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "8",
+          "9"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.870532,
+          "lon": 2.348746
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 10
+      }
+    }
+  },
+  {
+    "id": "botzaris",
+    "name": "Botzaris",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "7bis"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.879514,
+          "lon": 2.388587
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 19
+      }
+    }
+  },
+  {
+    "id": "boucicaut",
+    "name": "Boucicaut",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "8"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.841084,
+          "lon": 2.287922
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 15
+      }
+    }
+  },
+  {
+    "id": "boulogne-jean-jaures",
+    "name": "Boulogne - Jean Jaurès",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "10"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.842114,
+          "lon": 2.239367
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 0
+      }
+    }
+  },
+  {
+    "id": "boulogne-pont-de-saint-cloud",
+    "name": "Boulogne - Pont de Saint-Cloud",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "10"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.840838,
+          "lon": 2.228326
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 0
+      }
+    }
+  },
+  {
+    "id": "bourse",
+    "name": "Bourse",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "3"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.868654,
+          "lon": 2.341438
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 2
+      }
+    }
+  },
+  {
+    "id": "breguet-sabin",
+    "name": "Bréguet-Sabin",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "5",
+          "8"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.856636,
+          "lon": 2.370416
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 11
+      }
+    }
+  },
+  {
+    "id": "brochant",
+    "name": "Brochant",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "13"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.890576,
+          "lon": 2.3202
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 17
+      }
+    }
+  },
+  {
+    "id": "buttes-chaumont",
+    "name": "Buttes Chaumont",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "7bis"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.878396,
+          "lon": 2.381201
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 19
+      }
+    }
+  },
+  {
+    "id": "buzenval",
+    "name": "Buzenval",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "9"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.851825,
+          "lon": 2.401327
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 20
+      }
+    }
+  },
+  {
+    "id": "cadet",
+    "name": "Cadet",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "7"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.876008,
+          "lon": 2.344477
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 9
+      }
+    }
+  },
+  {
+    "id": "cambronne",
+    "name": "Cambronne",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "6"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.847523,
+          "lon": 2.302946
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 15
+      }
+    }
+  },
+  {
+    "id": "campo-formio",
+    "name": "Campo-Formio",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "5"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.835116,
+          "lon": 2.358203
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 13
+      }
+    }
+  },
+  {
+    "id": "cardinal-lemoine",
+    "name": "Cardinal Lemoine",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "10"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.84653,
+          "lon": 2.351836
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 5
+      }
+    }
+  },
+  {
+    "id": "carrefour-pleyel",
+    "name": "Carrefour Pleyel",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "13"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.919576,
+          "lon": 2.343256
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "arrondissement": {
+        "num": 0
+      }
+    }
+  },
+  {
+    "id": "censier-daubenton",
+    "name": "Censier - Daubenton",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "7"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.840647,
+          "lon": 2.351933
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 5
+      }
+    }
+  },
+  {
+    "id": "champs-elysees-clemenceau",
+    "name": "Champs-Élysées - Clemenceau",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "1",
+          "13"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.867491,
+          "lon": 2.31407
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 8
+      }
+    }
+  },
+  {
+    "id": "chardon-lagache",
+    "name": "Chardon-Lagache",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "10"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.845429,
+          "lon": 2.267131
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 16
+      }
+    }
+  },
+  {
+    "id": "charenton-ecoles",
+    "name": "Charenton-Écoles",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "8"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.821561,
+          "lon": 2.413783
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 0
+      }
+    }
+  },
+  {
+    "id": "charles-de-gaulle-etoile",
+    "name": "Charles de Gaulle — Étoile",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "1",
+          "2",
+          "6"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.874409,
+          "lon": 2.295508
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 8
+      }
+    }
+  },
+  {
+    "id": "charles-michels",
+    "name": "Charles Michels",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "10"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.84647,
+          "lon": 2.28588
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 15
+      }
+    },
+    "aliases": [
+      "Beaugrenelle"
+    ]
+  },
+  {
+    "id": "charonne",
+    "name": "Charonne",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "9"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.854741,
+          "lon": 2.385304
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 11
+      }
+    },
+    "aliases": [
+      "Charonne (place du 6-Février-1962)"
+    ]
+  },
+  {
+    "id": "chateau-d-eau",
+    "name": "Château d'Eau",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "4"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.872889,
+          "lon": 2.356353
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 10
+      }
+    }
+  },
+  {
+    "id": "chateau-de-vincennes",
+    "name": "Château de Vincennes",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "1"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.844583,
+          "lon": 2.438912
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 0
+      }
+    }
+  },
+  {
+    "id": "chateau-landon",
+    "name": "Château Landon",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "7"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.878909,
+          "lon": 2.362427
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 10
+      }
+    }
+  },
+  {
+    "id": "chateau-rouge",
+    "name": "Château Rouge",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "4"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.887288,
+          "lon": 2.349553
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 18
+      }
+    }
+  },
+  {
+    "id": "chatelet",
+    "name": "Châtelet",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "1",
+          "4",
+          "11",
+          "14"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.858778,
+          "lon": 2.347411
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 1
+      }
+    },
+    "aliases": [
+      "Pont Notre-Dame;Pont Notre-Dame – Pont au Change"
+    ]
+  },
+  {
+    "id": "chatillon-montrouge",
+    "name": "Châtillon-Montrouge",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "13"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.810821,
+          "lon": 2.301604
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "arrondissement": {
+        "num": 0
+      }
+    }
+  },
+  {
+    "id": "chaussee-d-antin-la-fayette",
+    "name": "Chaussée d'Antin - La Fayette",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "7",
+          "9"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.873044,
+          "lon": 2.333213
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 9
+      }
+    }
+  },
+  {
+    "id": "chemin-vert",
+    "name": "Chemin Vert",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "5",
+          "8"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.857443,
+          "lon": 2.368141
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 11
+      }
+    }
+  },
+  {
+    "id": "chevaleret",
+    "name": "Chevaleret",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "6"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.83495,
+          "lon": 2.368102
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 13
+      }
+    }
+  },
+  {
+    "id": "cite",
+    "name": "Cité",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "4",
+          "7"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.855325,
+          "lon": 2.347542
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 4
+      }
+    }
+  },
+  {
+    "id": "cluny-la-sorbonne",
+    "name": "Cluny-La Sorbonne",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "10"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.851094,
+          "lon": 2.344159
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 5
+      }
+    },
+    "aliases": [
+      "Cluny"
+    ]
+  },
+  {
+    "id": "colonel-fabien",
+    "name": "Colonel Fabien",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "2"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.877414,
+          "lon": 2.371002
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 19
+      }
+    },
+    "aliases": [
+      "Combat"
+    ]
+  },
+  {
+    "id": "commerce",
+    "name": "Commerce",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "8"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.844711,
+          "lon": 2.293864
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 15
+      }
     }
   },
   {
     "id": "concorde",
     "name": "Concorde",
     "attributes": {
-      "lines": { "str_list": ["1", "8", "12"] },
-      "geo": { "geo": { "lat": 48.866062, "lon": 2.321212 } },
-      "in_paris": { "bool": true },
-      "arrondissement": { "num": 1 }
+      "lines": {
+        "str_list": [
+          "1",
+          "8",
+          "12"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.866205,
+          "lon": 2.322377
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 8
+      }
+    }
+  },
+  {
+    "id": "convention",
+    "name": "Convention",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "12"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.837287,
+          "lon": 2.296654
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 15
+      }
+    }
+  },
+  {
+    "id": "corentin-cariou",
+    "name": "Corentin Cariou",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "7"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.894728,
+          "lon": 2.382305
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 19
+      }
+    },
+    "aliases": [
+      "Pont de Flandre"
+    ]
+  },
+  {
+    "id": "corentin-celton",
+    "name": "Corentin Celton",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "12"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.827064,
+          "lon": 2.279363
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 0
+      }
+    },
+    "aliases": [
+      "Petits Ménages"
+    ]
+  },
+  {
+    "id": "corvisart",
+    "name": "Corvisart",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "6"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.829802,
+          "lon": 2.350481
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 13
+      }
+    }
+  },
+  {
+    "id": "coteaux-beauclair",
+    "name": "Coteaux Beauclair",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "11"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.882274,
+          "lon": 2.467463
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 0
+      }
+    }
+  },
+  {
+    "id": "cour-saint-emilion",
+    "name": "Cour Saint-Émilion",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "14"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.833543,
+          "lon": 2.385965
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 12
+      }
+    }
+  },
+  {
+    "id": "courcelles",
+    "name": "Courcelles",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "2"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.879407,
+          "lon": 2.304357
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 8
+      }
+    }
+  },
+  {
+    "id": "couronnes",
+    "name": "Couronnes",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "2"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.869053,
+          "lon": 2.380454
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 11
+      }
+    }
+  },
+  {
+    "id": "creteil-l-echat",
+    "name": "Créteil-L'Échat",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "8"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.796591,
+          "lon": 2.449385
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "arrondissement": {
+        "num": 0
+      }
+    },
+    "aliases": [
+      "Créteil-L'Échat-(Hopital Henri Mondor)"
+    ]
+  },
+  {
+    "id": "crimee",
+    "name": "Crimée",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "7"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.890851,
+          "lon": 2.377368
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 19
+      }
+    }
+  },
+  {
+    "id": "croix-de-chavaux",
+    "name": "Croix de Chavaux",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "9"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.857978,
+          "lon": 2.43575
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 0
+      }
+    },
+    "aliases": [
+      "Croix-de-Chavaux (Jacques Duclos)"
+    ]
+  },
+  {
+    "id": "danube",
+    "name": "Danube",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "7bis"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.88182,
+          "lon": 2.394222
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 19
+      }
+    }
+  },
+  {
+    "id": "daumesnil",
+    "name": "Daumesnil",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "6",
+          "8"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.839592,
+          "lon": 2.396232
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 12
+      }
+    },
+    "aliases": [
+      "Daumesnil (Félix Eboué)"
+    ]
+  },
+  {
+    "id": "denfert-rochereau",
+    "name": "Denfert-Rochereau",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "4",
+          "6"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.834265,
+          "lon": 2.332643
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 14
+      }
+    }
+  },
+  {
+    "id": "dugommier",
+    "name": "Dugommier",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "6"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.839038,
+          "lon": 2.389722
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 12
+      }
+    },
+    "aliases": [
+      "Charenton"
+    ]
+  },
+  {
+    "id": "dupleix",
+    "name": "Dupleix",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "6"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.85041,
+          "lon": 2.293661
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 15
+      }
+    }
+  },
+  {
+    "id": "duroc",
+    "name": "Duroc",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "10",
+          "13"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.846843,
+          "lon": 2.316629
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 6
+      }
+    }
+  },
+  {
+    "id": "ecole-militaire",
+    "name": "École Militaire",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "8"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.854665,
+          "lon": 2.306073
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 7
+      }
+    }
+  },
+  {
+    "id": "ecole-veterinaire-de-maisons-alfort",
+    "name": "École Vétérinaire de Maisons-Alfort",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "8"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.81502,
+          "lon": 2.421732
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 0
+      }
+    }
+  },
+  {
+    "id": "edgar-quinet",
+    "name": "Edgar Quinet",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "6"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.84111,
+          "lon": 2.32507
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 14
+      }
+    }
+  },
+  {
+    "id": "eglise-d-auteuil",
+    "name": "Église d'Auteuil",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "10"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.847312,
+          "lon": 2.268637
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 16
+      }
+    },
+    "aliases": [
+      "Wilhem"
+    ]
+  },
+  {
+    "id": "eglise-de-pantin",
+    "name": "Église de Pantin",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "5"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.893246,
+          "lon": 2.413311
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 0
+      }
+    }
+  },
+  {
+    "id": "esplanade-de-la-defense",
+    "name": "Esplanade de La Défense",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "1"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.888049,
+          "lon": 2.250079
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 0
+      }
+    }
+  },
+  {
+    "id": "etienne-marcel",
+    "name": "Étienne Marcel",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "4"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.863872,
+          "lon": 2.34903
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 2
+      }
+    }
+  },
+  {
+    "id": "europe",
+    "name": "Europe",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "3"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.878771,
+          "lon": 2.322282
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 8
+      }
+    }
+  },
+  {
+    "id": "exelmans",
+    "name": "Exelmans",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "9"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.843004,
+          "lon": 2.260047
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 16
+      }
+    }
+  },
+  {
+    "id": "faidherbe-chaligny",
+    "name": "Faidherbe — Chaligny",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "8"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.850161,
+          "lon": 2.384222
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 11
+      }
+    }
+  },
+  {
+    "id": "falguiere",
+    "name": "Falguière",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "12"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.844492,
+          "lon": 2.317965
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 15
+      }
+    }
+  },
+  {
+    "id": "felix-faure",
+    "name": "Félix Faure",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "8"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.842678,
+          "lon": 2.291779
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 15
+      }
+    }
+  },
+  {
+    "id": "filles-du-calvaire",
+    "name": "Filles du Calvaire",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "8"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.863319,
+          "lon": 2.366632
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 11
+      }
+    }
+  },
+  {
+    "id": "fort-d-aubervilliers",
+    "name": "Fort d'Aubervilliers",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "7"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.914257,
+          "lon": 2.403807
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "arrondissement": {
+        "num": 0
+      }
+    }
+  },
+  {
+    "id": "franklin-d-roosevelt",
+    "name": "Franklin D. Roosevelt",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "1",
+          "9"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.869034,
+          "lon": 2.309927
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 8
+      }
+    },
+    "aliases": [
+      "Marbeuf Rond Point des Champs-Élysées"
+    ]
+  },
+  {
+    "id": "front-populaire",
+    "name": "Front Populaire",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "12"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.906451,
+          "lon": 2.36594
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "arrondissement": {
+        "num": 0
+      }
+    }
+  },
+  {
+    "id": "gabriel-peri",
+    "name": "Gabriel Péri",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "13"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.916394,
+          "lon": 2.294659
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "arrondissement": {
+        "num": 0
+      }
+    },
+    "aliases": [
+      "Asnières – Gennevilliers",
+      "Asnières – Gennevilliers – Gabriel Péri"
+    ]
+  },
+  {
+    "id": "gaite",
+    "name": "Gaîté",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "13"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.838638,
+          "lon": 2.322514
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 14
+      }
+    },
+    "aliases": [
+      "Gaîté – Joséphine Baker"
+    ]
+  },
+  {
+    "id": "gallieni",
+    "name": "Gallieni",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "3"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.864946,
+          "lon": 2.415478
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 0
+      }
+    },
+    "aliases": [
+      "Gallieni (Parc de Bagnolet)"
+    ]
+  },
+  {
+    "id": "gambetta",
+    "name": "Gambetta",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "3",
+          "3bis"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.864933,
+          "lon": 2.398054
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 20
+      }
+    }
+  },
+  {
+    "id": "gare-d-austerlitz",
+    "name": "Gare d'Austerlitz",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "5",
+          "10"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.842401,
+          "lon": 2.36499
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 13
+      }
+    },
+    "aliases": [
+      "Gare d’Orléans;Gare d’Orléans – Austerlitz"
+    ]
+  },
+  {
+    "id": "gare-de-l-est",
+    "name": "Gare de l'Est",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "4",
+          "5",
+          "7"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.876203,
+          "lon": 2.357913
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 10
+      }
+    },
+    "aliases": [
+      "Gare de l'Est (Verdun)"
+    ]
+  },
+  {
+    "id": "gare-de-lyon",
+    "name": "Gare de Lyon",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "1"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.845171,
+          "lon": 2.372555
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 12
+      }
+    }
+  },
+  {
+    "id": "gare-du-nord-metro",
+    "name": "Gare du Nord (Métro)",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "4",
+          "5"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.879567,
+          "lon": 2.357212
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 10
+      }
+    },
+    "aliases": [
+      "Gare du Nord"
+    ]
+  },
+  {
+    "id": "garibaldi",
+    "name": "Garibaldi",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "13"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.905787,
+          "lon": 2.331733
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "arrondissement": {
+        "num": 0
+      }
+    }
+  },
+  {
+    "id": "george-v",
+    "name": "George V",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "1"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.872076,
+          "lon": 2.300421
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 8
+      }
+    },
+    "aliases": [
+      "Alma"
+    ]
+  },
+  {
+    "id": "glaciere",
+    "name": "Glacière",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "6"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.831145,
+          "lon": 2.343492
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 13
+      }
+    }
+  },
+  {
+    "id": "goncourt",
+    "name": "Goncourt",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "11"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.869985,
+          "lon": 2.371067
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 11
+      }
+    },
+    "aliases": [
+      "Goncourt (Hôpital Saint-Louis)"
+    ]
+  },
+  {
+    "id": "grands-boulevards",
+    "name": "Grands Boulevards",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "8",
+          "9"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.871441,
+          "lon": 2.343495
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 9
+      }
+    },
+    "aliases": [
+      "Montmartre; rue Montmartre"
+    ]
+  },
+  {
+    "id": "guy-moquet",
+    "name": "Guy Môquet",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "13"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.892739,
+          "lon": 2.327344
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 18
+      }
+    },
+    "aliases": [
+      "Marcadet – Balagny"
+    ]
+  },
+  {
+    "id": "havre-caumartin",
+    "name": "Havre - Caumartin",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "3",
+          "9"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.873753,
+          "lon": 2.32743
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 9
+      }
+    },
+    "aliases": [
+      "Caumartin"
+    ]
+  },
+  {
+    "id": "hoche",
+    "name": "Hoche",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "5"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.891285,
+          "lon": 2.402511
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 0
+      }
+    }
+  },
+  {
+    "id": "hopital-bicetre",
+    "name": "Hôpital Bicêtre",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "14"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.80988,
+          "lon": 2.349822
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "arrondissement": {
+        "num": 0
+      }
+    }
+  },
+  {
+    "id": "hotel-de-ville",
+    "name": "Hôtel de Ville",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "1",
+          "11"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.857541,
+          "lon": 2.35154
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 4
+      }
+    }
+  },
+  {
+    "id": "iena",
+    "name": "Iéna",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "9"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.864613,
+          "lon": 2.293734
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 16
+      }
+    }
+  },
+  {
+    "id": "invalides",
+    "name": "Invalides",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "8",
+          "13"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.860172,
+          "lon": 2.314497
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 7
+      }
+    }
+  },
+  {
+    "id": "jacques-bonsergent",
+    "name": "Jacques Bonsergent",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "5"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.871119,
+          "lon": 2.360755
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 10
+      }
+    },
+    "aliases": [
+      "Lancry"
+    ]
+  },
+  {
+    "id": "jasmin",
+    "name": "Jasmin",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "9"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.85256,
+          "lon": 2.26818
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 16
+      }
+    }
+  },
+  {
+    "id": "jaures",
+    "name": "Jaurès",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "2",
+          "5",
+          "7bis"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.882595,
+          "lon": 2.370326
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 19
+      }
+    },
+    "aliases": [
+      "Rue d’Allemagne"
+    ]
+  },
+  {
+    "id": "javel-andre-citroen",
+    "name": "Javel - André Citroën",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "10"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.846178,
+          "lon": 2.278283
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 15
+      }
+    }
+  },
+  {
+    "id": "jourdain",
+    "name": "Jourdain",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "11"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.875094,
+          "lon": 2.38933
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 20
+      }
+    }
+  },
+  {
+    "id": "jules-joffrin",
+    "name": "Jules Joffrin",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "12"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.892535,
+          "lon": 2.344654
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 18
+      }
+    }
+  },
+  {
+    "id": "jussieu",
+    "name": "Jussieu",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "7",
+          "10"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.845963,
+          "lon": 2.354801
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 5
+      }
+    }
+  },
+  {
+    "id": "kleber",
+    "name": "Kléber",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "6"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.87168,
+          "lon": 2.293519
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 16
+      }
+    }
+  },
+  {
+    "id": "la-chapelle",
+    "name": "La Chapelle",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "2"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.884407,
+          "lon": 2.360306
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 10
+      }
+    }
+  },
+  {
+    "id": "la-defense-grande-arche",
+    "name": "La Défense - Grande Arche",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "1"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.892248,
+          "lon": 2.236918
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 0
+      }
+    },
+    "aliases": [
+      "LA DEFENSE GRANDE ARCHE",
+      "La Défense"
+    ]
+  },
+  {
+    "id": "la-dhuys",
+    "name": "La Dhuys",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "11"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.877918,
+          "lon": 2.465293
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 0
+      }
+    }
+  },
+  {
+    "id": "la-fourche",
+    "name": "La Fourche",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "13"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.886971,
+          "lon": 2.325823
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 18
+      }
+    }
+  },
+  {
+    "id": "la-motte-picquet-grenelle",
+    "name": "La Motte-Picquet - Grenelle",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "6",
+          "8",
+          "10"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.849101,
+          "lon": 2.298168
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 15
+      }
+    }
+  },
+  {
+    "id": "la-muette",
+    "name": "La Muette",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "9"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.857975,
+          "lon": 2.274062
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 16
+      }
+    }
+  },
+  {
+    "id": "la-tour-maubourg",
+    "name": "La Tour Maubourg",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "8"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.85756,
+          "lon": 2.310323
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 7
+      }
+    }
+  },
+  {
+    "id": "lamarck-caulaincourt",
+    "name": "Lamarck - Caulaincourt",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "12"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.889756,
+          "lon": 2.338768
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 18
+      }
+    }
+  },
+  {
+    "id": "laumiere",
+    "name": "Laumière",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "5"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.885165,
+          "lon": 2.379437
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 19
+      }
+    }
+  },
+  {
+    "id": "le-kremlin-bicetre",
+    "name": "Le Kremlin-Bicêtre",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "7"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.810328,
+          "lon": 2.362236
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "arrondissement": {
+        "num": 0
+      }
+    }
+  },
+  {
+    "id": "le-peletier",
+    "name": "Le Peletier",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "7"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.8749,
+          "lon": 2.340233
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 9
+      }
+    }
+  },
+  {
+    "id": "ledru-rollin",
+    "name": "Ledru-Rollin",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "8"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.851295,
+          "lon": 2.376027
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 12
+      }
+    }
+  },
+  {
+    "id": "les-gobelins",
+    "name": "Les Gobelins",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "7"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.83563,
+          "lon": 2.352674
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 13
+      }
+    }
+  },
+  {
+    "id": "les-halles",
+    "name": "Les Halles",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "4"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.862455,
+          "lon": 2.34606
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 1
+      }
+    }
+  },
+  {
+    "id": "les-sablons",
+    "name": "Les Sablons",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "1"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.880937,
+          "lon": 2.272228
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 0
+      }
+    },
+    "aliases": [
+      "Les Sablons (Jardin d'acclimatation)"
+    ]
+  },
+  {
+    "id": "liberte",
+    "name": "Liberté",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "8"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.826406,
+          "lon": 2.406201
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 0
+      }
+    }
+  },
+  {
+    "id": "liege",
+    "name": "Liège",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "13"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.879604,
+          "lon": 2.327045
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 9
+      }
+    },
+    "aliases": [
+      "Berlin"
+    ]
+  },
+  {
+    "id": "louis-blanc",
+    "name": "Louis Blanc",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "7",
+          "7bis"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.881331,
+          "lon": 2.365356
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 10
+      }
+    }
+  },
+  {
+    "id": "louise-michel",
+    "name": "Louise Michel",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "3"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.888355,
+          "lon": 2.288396
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 0
+      }
+    },
+    "aliases": [
+      "Vallier"
+    ]
+  },
+  {
+    "id": "lourmel",
+    "name": "Lourmel",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "8"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.838736,
+          "lon": 2.282148
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 15
+      }
+    }
+  },
+  {
+    "id": "louvre-rivoli",
+    "name": "Louvre - Rivoli",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "1"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.860809,
+          "lon": 2.341132
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 1
+      }
+    }
+  },
+  {
+    "id": "mabillon",
+    "name": "Mabillon",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "4",
+          "10"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.852886,
+          "lon": 2.334939
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 6
+      }
+    }
+  },
+  {
+    "id": "mairie-d-aubervilliers",
+    "name": "Mairie d'Aubervilliers",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "12"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.914277,
+          "lon": 2.380912
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "arrondissement": {
+        "num": 0
+      }
+    }
+  },
+  {
+    "id": "mairie-d-issy",
+    "name": "Mairie d'Issy",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "12"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.824163,
+          "lon": 2.273169
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 0
+      }
+    }
+  },
+  {
+    "id": "mairie-d-ivry",
+    "name": "Mairie d'Ivry",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "7"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.810994,
+          "lon": 2.383966
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "arrondissement": {
+        "num": 0
+      }
+    }
+  },
+  {
+    "id": "mairie-de-clichy",
+    "name": "Mairie de Clichy",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "13"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.903228,
+          "lon": 2.305988
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "arrondissement": {
+        "num": 0
+      }
+    }
+  },
+  {
+    "id": "mairie-de-montreuil",
+    "name": "Mairie de Montreuil",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "9"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.862599,
+          "lon": 2.441569
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 0
+      }
+    }
+  },
+  {
+    "id": "mairie-de-montrouge",
+    "name": "Mairie de Montrouge",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "4"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.817964,
+          "lon": 2.31925
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 0
+      }
+    }
+  },
+  {
+    "id": "mairie-de-saint-ouen",
+    "name": "Mairie de Saint-Ouen",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "13",
+          "14"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.912732,
+          "lon": 2.334463
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "arrondissement": {
+        "num": 0
+      }
+    }
+  },
+  {
+    "id": "mairie-des-lilas",
+    "name": "Mairie des Lilas",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "11"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.879737,
+          "lon": 2.41605
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 0
+      }
+    }
+  },
+  {
+    "id": "maison-blanche",
+    "name": "Maison Blanche",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "7",
+          "14"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.821484,
+          "lon": 2.358886
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 13
+      }
+    }
+  },
+  {
+    "id": "maisons-alfort-les-juilliottes",
+    "name": "Maisons-Alfort — Les Juilliottes",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "8"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.803331,
+          "lon": 2.445609
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "arrondissement": {
+        "num": 0
+      }
+    }
+  },
+  {
+    "id": "maisons-alfort-stade",
+    "name": "Maisons-Alfort — Stade",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "8"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.809037,
+          "lon": 2.434721
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "arrondissement": {
+        "num": 0
+      }
+    }
+  },
+  {
+    "id": "malakoff-plateau-de-vanves",
+    "name": "Malakoff - Plateau de Vanves",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "13"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.8225,
+          "lon": 2.298505
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 0
+      }
+    }
+  },
+  {
+    "id": "malakoff-rue-etienne-dolet",
+    "name": "Malakoff - Rue Étienne Dolet",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "13"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.815193,
+          "lon": 2.297342
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 0
+      }
+    }
+  },
+  {
+    "id": "malesherbes",
+    "name": "Malesherbes",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "3"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.882975,
+          "lon": 2.309
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 17
+      }
+    }
+  },
+  {
+    "id": "maraichers",
+    "name": "Maraîchers",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "9"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.852727,
+          "lon": 2.40613
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 20
+      }
+    }
+  },
+  {
+    "id": "marcadet-poissonniers",
+    "name": "Marcadet - Poissonniers",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "4",
+          "12"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.891484,
+          "lon": 2.34973
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 18
+      }
+    }
+  },
+  {
+    "id": "marcel-sembat",
+    "name": "Marcel Sembat",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "9"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.833647,
+          "lon": 2.243593
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 0
+      }
+    }
+  },
+  {
+    "id": "marx-dormoy",
+    "name": "Marx Dormoy",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "12"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.890506,
+          "lon": 2.359997
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 18
+      }
+    },
+    "aliases": [
+      "Torcy"
+    ]
+  },
+  {
+    "id": "maubert-mutualite",
+    "name": "Maubert - Mutualité",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "10"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.850065,
+          "lon": 2.34843
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 5
+      }
+    }
+  },
+  {
+    "id": "menilmontant",
+    "name": "Ménilmontant",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "2"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.866704,
+          "lon": 2.383346
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 20
+      }
+    }
+  },
+  {
+    "id": "michel-ange-auteuil",
+    "name": "Michel-Ange - Auteuil",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "9",
+          "10"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.848003,
+          "lon": 2.264168
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 16
+      }
+    }
+  },
+  {
+    "id": "michel-ange-molitor",
+    "name": "Michel-Ange - Molitor",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "9",
+          "10"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.845009,
+          "lon": 2.26111
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 16
+      }
+    }
+  },
+  {
+    "id": "michel-bizot",
+    "name": "Michel Bizot",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "8"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.837069,
+          "lon": 2.402459
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 12
+      }
+    }
+  },
+  {
+    "id": "mirabeau",
+    "name": "Mirabeau",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "10"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.846812,
+          "lon": 2.271698
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 16
+      }
+    }
+  },
+  {
+    "id": "miromesnil",
+    "name": "Miromesnil",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "9",
+          "13"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.873719,
+          "lon": 2.314503
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 8
+      }
+    }
+  },
+  {
+    "id": "monceau",
+    "name": "Monceau",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "2"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.880316,
+          "lon": 2.308642
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 8
+      }
+    }
+  },
+  {
+    "id": "montgallet",
+    "name": "Montgallet",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "8"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.844304,
+          "lon": 2.390196
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 12
+      }
+    }
+  },
+  {
+    "id": "montparnasse-bienvenue",
+    "name": "Montparnasse-Bienvenüe",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "12",
+          "13"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.843018,
+          "lon": 2.322187
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 15
+      }
+    }
+  },
+  {
+    "id": "montreuil-hopital",
+    "name": "Montreuil - Hôpital",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "11"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.878299,
+          "lon": 2.454618
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 0
+      }
+    }
+  },
+  {
+    "id": "mouton-duvernet",
+    "name": "Mouton-Duvernet",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "4"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.831279,
+          "lon": 2.329866
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 14
+      }
     }
   },
   {
     "id": "nation",
     "name": "Nation",
     "attributes": {
-      "lines": { "str_list": ["1", "2", "6", "9"] },
-      "geo": { "geo": { "lat": 48.848358, "lon": 2.395894 } },
-      "in_paris": { "bool": true },
-      "arrondissement": { "num": 12 }
+      "lines": {
+        "str_list": [
+          "1",
+          "2",
+          "6",
+          "9"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.847679,
+          "lon": 2.395518
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 12
+      }
     }
   },
   {
-    "id": "etoile",
-    "name": "Charles de Gaulle — Étoile",
-    "aliases": ["Étoile", "Charles de Gaulle Étoile"],
+    "id": "nationale",
+    "name": "Nationale",
     "attributes": {
-      "lines": { "str_list": ["1", "2", "6"] },
-      "geo": { "geo": { "lat": 48.873779, "lon": 2.295269 } },
-      "in_paris": { "bool": true },
-      "arrondissement": { "num": 8 }
+      "lines": {
+        "str_list": [
+          "6"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.8332,
+          "lon": 2.362827
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 13
+      }
     }
   },
   {
-    "id": "auber",
-    "name": "Auber",
+    "id": "notre-dame-de-lorette",
+    "name": "Notre-Dame de Lorette",
     "attributes": {
-      "lines": { "str_list": ["RER A"] },
-      "geo": { "geo": { "lat": 48.872500, "lon": 2.331111 } },
-      "in_paris": { "bool": true },
-      "arrondissement": { "num": 9 }
+      "lines": {
+        "str_list": [
+          "12"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.876041,
+          "lon": 2.337423
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 9
+      }
     }
   },
   {
-    "id": "luxembourg",
-    "name": "Luxembourg",
+    "id": "notre-dame-des-champs",
+    "name": "Notre-Dame des Champs",
     "attributes": {
-      "lines": { "str_list": ["RER B"] },
-      "geo": { "geo": { "lat": 48.846667, "lon": 2.338611 } },
-      "in_paris": { "bool": true },
-      "arrondissement": { "num": 5 }
+      "lines": {
+        "str_list": [
+          "12"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.844684,
+          "lon": 2.328804
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 6
+      }
+    }
+  },
+  {
+    "id": "oberkampf",
+    "name": "Oberkampf",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "5",
+          "9"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.864112,
+          "lon": 2.369423
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 11
+      }
+    }
+  },
+  {
+    "id": "odeon",
+    "name": "Odéon",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "4",
+          "10"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.852304,
+          "lon": 2.339371
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 6
+      }
+    }
+  },
+  {
+    "id": "olympiades",
+    "name": "Olympiades",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "14"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.827045,
+          "lon": 2.366418
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 13
+      }
+    }
+  },
+  {
+    "id": "opera",
+    "name": "Opéra",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "3",
+          "7",
+          "8"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.870645,
+          "lon": 2.33233
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 2
+      }
+    }
+  },
+  {
+    "id": "ourcq",
+    "name": "Ourcq",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "5"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.887077,
+          "lon": 2.38664
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 19
+      }
+    }
+  },
+  {
+    "id": "palais-royal-musee-du-louvre",
+    "name": "Palais Royal - Musée du Louvre",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "1",
+          "7"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.862491,
+          "lon": 2.336043
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 1
+      }
+    }
+  },
+  {
+    "id": "parmentier",
+    "name": "Parmentier",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "3"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.865357,
+          "lon": 2.373904
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 11
+      }
+    }
+  },
+  {
+    "id": "passy",
+    "name": "Passy",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "6"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.857501,
+          "lon": 2.285778
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 16
+      }
+    }
+  },
+  {
+    "id": "pasteur",
+    "name": "Pasteur",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "6",
+          "12"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.842934,
+          "lon": 2.312591
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 15
+      }
+    }
+  },
+  {
+    "id": "pelleport",
+    "name": "Pelleport",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "3bis"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.8681,
+          "lon": 2.401315
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 20
+      }
+    }
+  },
+  {
+    "id": "pere-lachaise",
+    "name": "Père Lachaise",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "2",
+          "3"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.862924,
+          "lon": 2.387413
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 11
+      }
+    }
+  },
+  {
+    "id": "pereire",
+    "name": "Pereire",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "3"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.884791,
+          "lon": 2.298311
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 17
+      }
+    }
+  },
+  {
+    "id": "pernety",
+    "name": "Pernety",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "13"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.834,
+          "lon": 2.318181
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 14
+      }
+    }
+  },
+  {
+    "id": "philippe-auguste",
+    "name": "Philippe Auguste",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "2"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.858244,
+          "lon": 2.390163
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 11
+      }
+    }
+  },
+  {
+    "id": "picpus",
+    "name": "Picpus",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "6"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.845176,
+          "lon": 2.400524
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 12
+      }
+    },
+    "aliases": [
+      "Saint-Mandé"
+    ]
+  },
+  {
+    "id": "pierre-et-marie-curie",
+    "name": "Pierre et Marie Curie",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "7"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.815901,
+          "lon": 2.377346
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 0
+      }
+    }
+  },
+  {
+    "id": "pigalle",
+    "name": "Pigalle",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "2",
+          "12"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.882298,
+          "lon": 2.33809
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 18
+      }
+    }
+  },
+  {
+    "id": "place-d-italie",
+    "name": "Place d'Italie",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "5",
+          "6",
+          "7"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.830945,
+          "lon": 2.355893
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 13
+      }
+    }
+  },
+  {
+    "id": "place-de-clichy",
+    "name": "Place de Clichy",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "2",
+          "13"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.883478,
+          "lon": 2.32729
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 9
+      }
+    }
+  },
+  {
+    "id": "place-des-fetes",
+    "name": "Place des Fêtes",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "7bis",
+          "11"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.876871,
+          "lon": 2.393206
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 19
+      }
+    }
+  },
+  {
+    "id": "place-monge",
+    "name": "Place Monge",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "7"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.842905,
+          "lon": 2.352277
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 5
+      }
+    },
+    "aliases": [
+      "Place Monge (Jardin des Plantes)"
+    ]
+  },
+  {
+    "id": "plaisance",
+    "name": "Plaisance",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "13"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.831767,
+          "lon": 2.314042
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 14
+      }
+    }
+  },
+  {
+    "id": "poissonniere",
+    "name": "Poissonnière",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "7"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.87712,
+          "lon": 2.348745
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 9
+      }
+    }
+  },
+  {
+    "id": "pont-cardinet",
+    "name": "Pont Cardinet",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "14"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.889513,
+          "lon": 2.315342
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 17
+      }
+    },
+    "aliases": [
+      "PONT CARDINET"
+    ]
+  },
+  {
+    "id": "pont-de-levallois-becon",
+    "name": "Pont de Levallois - Bécon",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "3"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.897147,
+          "lon": 2.280413
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 0
+      }
+    },
+    "aliases": [
+      "Pont de Levallois-Bécon"
+    ]
+  },
+  {
+    "id": "pont-de-sevres",
+    "name": "Pont de Sèvres",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "9"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.829669,
+          "lon": 2.230844
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 0
+      }
+    }
+  },
+  {
+    "id": "pont-marie",
+    "name": "Pont Marie",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "7"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.853787,
+          "lon": 2.356591
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 4
+      }
+    },
+    "aliases": [
+      "Pont Marie (Cité des Arts)"
+    ]
+  },
+  {
+    "id": "pont-neuf",
+    "name": "Pont Neuf",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "7"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.858578,
+          "lon": 2.34222
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 1
+      }
+    }
+  },
+  {
+    "id": "porte-d-auteuil",
+    "name": "Porte d'Auteuil",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "10"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.848088,
+          "lon": 2.258754
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 16
+      }
+    }
+  },
+  {
+    "id": "porte-d-italie",
+    "name": "Porte d'Italie",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "7"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.819054,
+          "lon": 2.359406
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 13
+      }
+    }
+  },
+  {
+    "id": "porte-d-ivry",
+    "name": "Porte d'Ivry",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "7"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.821604,
+          "lon": 2.369341
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 13
+      }
+    }
+  },
+  {
+    "id": "porte-d-orleans",
+    "name": "Porte d'Orléans",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "4"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.823631,
+          "lon": 2.325608
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 14
+      }
+    },
+    "aliases": [
+      "Porte d'Orléans (Général Leclerc)"
+    ]
+  },
+  {
+    "id": "porte-dauphine",
+    "name": "Porte Dauphine",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "2"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.871598,
+          "lon": 2.277318
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 16
+      }
+    },
+    "aliases": [
+      "Porte Dauphine (Maréchal de Lattre de Tassigny)"
+    ]
+  },
+  {
+    "id": "porte-de-bagnolet",
+    "name": "Porte de Bagnolet",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "3"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.864603,
+          "lon": 2.407183
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 20
+      }
+    }
+  },
+  {
+    "id": "porte-de-charenton",
+    "name": "Porte de Charenton",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "8"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.833061,
+          "lon": 2.401187
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 12
+      }
+    }
+  },
+  {
+    "id": "porte-de-choisy",
+    "name": "Porte de Choisy",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "7"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.820124,
+          "lon": 2.364786
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 13
+      }
+    }
+  },
+  {
+    "id": "porte-de-clichy",
+    "name": "Porte de Clichy",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "13",
+          "14"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.894645,
+          "lon": 2.313347
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 17
+      }
+    },
+    "aliases": [
+      "Tribunal de Paris"
+    ]
+  },
+  {
+    "id": "porte-de-clignancourt",
+    "name": "Porte de Clignancourt",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "4"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.897398,
+          "lon": 2.344852
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 18
+      }
+    }
+  },
+  {
+    "id": "porte-de-la-chapelle",
+    "name": "Porte de la Chapelle",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "12"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.897694,
+          "lon": 2.359259
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 18
+      }
+    }
+  },
+  {
+    "id": "porte-de-la-villette",
+    "name": "Porte de la Villette",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "7"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.897404,
+          "lon": 2.385591
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 19
+      }
+    },
+    "aliases": [
+      "Porte de la Villette (Cité des Sciences et de l'Industrie)"
+    ]
+  },
+  {
+    "id": "porte-de-montreuil",
+    "name": "Porte de Montreuil",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "9"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.853535,
+          "lon": 2.410657
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 20
+      }
+    }
+  },
+  {
+    "id": "porte-de-pantin",
+    "name": "Porte de Pantin",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "5"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.888657,
+          "lon": 2.392677
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 19
+      }
+    }
+  },
+  {
+    "id": "porte-de-saint-cloud",
+    "name": "Porte de Saint-Cloud",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "9"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.837794,
+          "lon": 2.256558
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 16
+      }
+    }
+  },
+  {
+    "id": "porte-de-saint-ouen",
+    "name": "Porte de Saint-Ouen",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "13"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.897156,
+          "lon": 2.328843
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 18
+      }
+    }
+  },
+  {
+    "id": "porte-de-vanves",
+    "name": "Porte de Vanves",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "13"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.827676,
+          "lon": 2.30548
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 14
+      }
+    }
+  },
+  {
+    "id": "porte-de-versailles",
+    "name": "Porte de Versailles",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "12"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.832434,
+          "lon": 2.287954
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 15
+      }
+    }
+  },
+  {
+    "id": "porte-de-vincennes",
+    "name": "Porte de Vincennes",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "1"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.847337,
+          "lon": 2.408086
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 20
+      }
+    }
+  },
+  {
+    "id": "porte-des-lilas",
+    "name": "Porte des Lilas",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "3bis",
+          "11"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.876966,
+          "lon": 2.406418
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 20
+      }
+    }
+  },
+  {
+    "id": "porte-doree",
+    "name": "Porte Dorée",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "8"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.835277,
+          "lon": 2.406178
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 12
+      }
+    }
+  },
+  {
+    "id": "porte-maillot",
+    "name": "Porte Maillot",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "1"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.877737,
+          "lon": 2.282702
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 17
+      }
+    }
+  },
+  {
+    "id": "pre-saint-gervais",
+    "name": "Pré Saint-Gervais",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "7bis"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.880278,
+          "lon": 2.398881
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 19
+      }
+    }
+  },
+  {
+    "id": "pyramides",
+    "name": "Pyramides",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "7",
+          "14"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.865745,
+          "lon": 2.334469
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 1
+      }
+    }
+  },
+  {
+    "id": "pyrenees",
+    "name": "Pyrénées",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "11"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.873857,
+          "lon": 2.385264
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 20
+      }
+    }
+  },
+  {
+    "id": "quai-de-la-gare",
+    "name": "Quai de la Gare",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "6"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.837044,
+          "lon": 2.372862
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 13
+      }
+    }
+  },
+  {
+    "id": "quai-de-la-rapee",
+    "name": "Quai de la Rapée",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "5"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.846481,
+          "lon": 2.365902
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 12
+      }
+    },
+    "aliases": [
+      "Place Mazas;Pont d’Austerlitz"
+    ]
+  },
+  {
+    "id": "quatre-septembre",
+    "name": "Quatre Septembre",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "3"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.869593,
+          "lon": 2.335867
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 2
+      }
+    }
+  },
+  {
+    "id": "rambuteau",
+    "name": "Rambuteau",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "11"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.861765,
+          "lon": 2.353785
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 3
+      }
+    }
+  },
+  {
+    "id": "ranelagh",
+    "name": "Ranelagh",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "9"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.855576,
+          "lon": 2.270217
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 16
+      }
+    }
+  },
+  {
+    "id": "raspail",
+    "name": "Raspail",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "4",
+          "6"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.838922,
+          "lon": 2.330737
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 14
+      }
+    }
+  },
+  {
+    "id": "reaumur-sebastopol",
+    "name": "Réaumur - Sébastopol",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "3",
+          "4"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.866248,
+          "lon": 2.352608
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 3
+      }
+    },
+    "aliases": [
+      "Rue Saint-Denis"
+    ]
+  },
+  {
+    "id": "rennes",
+    "name": "Rennes",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "4",
+          "12"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.848198,
+          "lon": 2.327777
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 6
+      }
+    }
+  },
+  {
+    "id": "republique",
+    "name": "République",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "3",
+          "5",
+          "8",
+          "9",
+          "11"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.867622,
+          "lon": 2.363701
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 10
+      }
+    }
+  },
+  {
+    "id": "reuilly-diderot",
+    "name": "Reuilly — Diderot",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "1",
+          "8"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.847357,
+          "lon": 2.386798
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 12
+      }
+    }
+  },
+  {
+    "id": "richard-lenoir",
+    "name": "Richard Lenoir",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "5"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.860218,
+          "lon": 2.37205
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 11
+      }
+    }
+  },
+  {
+    "id": "richelieu-drouot",
+    "name": "Richelieu - Drouot",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "8",
+          "9"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.871967,
+          "lon": 2.33925
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 9
+      }
+    }
+  },
+  {
+    "id": "riquet",
+    "name": "Riquet",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "7"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.888481,
+          "lon": 2.374223
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 19
+      }
+    }
+  },
+  {
+    "id": "robespierre",
+    "name": "Robespierre",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "9"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.855815,
+          "lon": 2.423711
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 0
+      }
+    }
+  },
+  {
+    "id": "romainville-carnot",
+    "name": "Romainville - Carnot",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "11"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.883164,
+          "lon": 2.440557
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 0
+      }
+    }
+  },
+  {
+    "id": "rome",
+    "name": "Rome",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "2"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.882301,
+          "lon": 2.32133
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 17
+      }
+    }
+  },
+  {
+    "id": "rosny-bois-perrier",
+    "name": "Rosny - Bois-Perrier",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "11"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.882954,
+          "lon": 2.480341
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "arrondissement": {
+        "num": 0
+      }
+    }
+  },
+  {
+    "id": "rue-de-la-pompe",
+    "name": "Rue de la Pompe",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "9"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.864067,
+          "lon": 2.278149
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 16
+      }
+    },
+    "aliases": [
+      "Rue de la Pompe (Avenue Georges Mandel)"
+    ]
+  },
+  {
+    "id": "rue-des-boulets",
+    "name": "Rue des Boulets",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "9"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.852581,
+          "lon": 2.388791
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 11
+      }
+    }
+  },
+  {
+    "id": "rue-du-bac",
+    "name": "Rue du Bac",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "12"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.855181,
+          "lon": 2.325774
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 7
+      }
+    }
+  },
+  {
+    "id": "rue-saint-maur",
+    "name": "Rue Saint-Maur",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "3"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.864335,
+          "lon": 2.379482
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 11
+      }
+    }
+  },
+  {
+    "id": "saint-ambroise",
+    "name": "Saint-Ambroise",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "9"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.861043,
+          "lon": 2.374726
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 11
+      }
+    }
+  },
+  {
+    "id": "saint-augustin",
+    "name": "Saint-Augustin",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "9"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.874471,
+          "lon": 2.321792
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 8
+      }
+    }
+  },
+  {
+    "id": "saint-denis-pleyel",
+    "name": "Saint-Denis - Pleyel",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "14"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.917626,
+          "lon": 2.346552
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "arrondissement": {
+        "num": 0
+      }
+    }
+  },
+  {
+    "id": "saint-fargeau",
+    "name": "Saint-Fargeau",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "3bis"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.871522,
+          "lon": 2.40431
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 20
+      }
+    }
+  },
+  {
+    "id": "saint-francois-xavier",
+    "name": "Saint-François-Xavier",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "13"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.851452,
+          "lon": 2.314421
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 7
+      }
+    }
+  },
+  {
+    "id": "saint-georges",
+    "name": "Saint-Georges",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "12"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.878447,
+          "lon": 2.337475
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 9
+      }
+    }
+  },
+  {
+    "id": "saint-germain-des-pres",
+    "name": "Saint-Germain-des-Prés",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "4",
+          "10"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.85363,
+          "lon": 2.334471
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 6
+      }
+    }
+  },
+  {
+    "id": "saint-jacques",
+    "name": "Saint-Jacques",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "6"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.832981,
+          "lon": 2.33682
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 14
+      }
+    }
+  },
+  {
+    "id": "saint-lazare",
+    "name": "Saint-Lazare",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "3",
+          "12",
+          "13",
+          "14"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.875415,
+          "lon": 2.325353
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 8
+      }
+    }
+  },
+  {
+    "id": "saint-mande",
+    "name": "Saint-Mandé",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "1"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.846437,
+          "lon": 2.418443
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 0
+      }
+    },
+    "aliases": [
+      "Saint-Mandé - Tourelle"
+    ]
+  },
+  {
+    "id": "saint-marcel",
+    "name": "Saint-Marcel",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "5"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.838281,
+          "lon": 2.360834
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 13
+      }
+    }
+  },
+  {
+    "id": "saint-michel",
+    "name": "Saint-Michel",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "4"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.853286,
+          "lon": 2.343508
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 6
+      }
+    }
+  },
+  {
+    "id": "saint-ouen",
+    "name": "Saint-Ouen",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "14"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.904751,
+          "lon": 2.322206
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "arrondissement": {
+        "num": 0
+      }
+    }
+  },
+  {
+    "id": "saint-paul",
+    "name": "Saint-Paul",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "1"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.855384,
+          "lon": 2.360407
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 4
+      }
+    },
+    "aliases": [
+      "Saint-Paul (Le Marais)"
+    ]
+  },
+  {
+    "id": "saint-philippe-du-roule",
+    "name": "Saint-Philippe du Roule",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "9"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.872235,
+          "lon": 2.310051
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 8
+      }
+    }
+  },
+  {
+    "id": "saint-placide",
+    "name": "Saint-Placide",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "4",
+          "12"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.847098,
+          "lon": 2.327021
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 6
+      }
+    },
+    "aliases": [
+      "Vaugirard"
+    ]
+  },
+  {
+    "id": "saint-sebastien-froissart",
+    "name": "Saint-Sébastien - Froissart",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "8"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.861182,
+          "lon": 2.367234
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 11
+      }
+    }
+  },
+  {
+    "id": "saint-sulpice",
+    "name": "Saint-Sulpice",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "4"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.851101,
+          "lon": 2.330703
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 6
+      }
+    }
+  },
+  {
+    "id": "segur",
+    "name": "Ségur",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "6",
+          "10"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.846975,
+          "lon": 2.307445
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 15
+      }
+    }
+  },
+  {
+    "id": "sentier",
+    "name": "Sentier",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "3"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.867721,
+          "lon": 2.345756
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 2
+      }
+    }
+  },
+  {
+    "id": "serge-gainsbourg",
+    "name": "Serge Gainsbourg",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "11"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.88136,
+          "lon": 2.427438
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 0
+      }
+    }
+  },
+  {
+    "id": "sevres-babylone",
+    "name": "Sèvres-Babylone",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "10",
+          "12"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.851252,
+          "lon": 2.326992
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 6
+      }
+    },
+    "aliases": [
+      "Sèvres – Croix-Rouge"
+    ]
+  },
+  {
+    "id": "sevres-lecourbe",
+    "name": "Sèvres-Lecourbe",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "6"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.845616,
+          "lon": 2.309585
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 15
+      }
+    },
+    "aliases": [
+      "Rue de Sèvres"
+    ]
+  },
+  {
+    "id": "simplon",
+    "name": "Simplon",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "4"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.893848,
+          "lon": 2.347841
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 18
+      }
+    }
+  },
+  {
+    "id": "solferino",
+    "name": "Solférino",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "12"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.858655,
+          "lon": 2.322987
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 7
+      }
+    }
+  },
+  {
+    "id": "stalingrad",
+    "name": "Stalingrad",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "2",
+          "5",
+          "7"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.884702,
+          "lon": 2.368656
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 19
+      }
+    },
+    "aliases": [
+      "Aubervilliers"
+    ]
+  },
+  {
+    "id": "strasbourg-saint-denis",
+    "name": "Strasbourg - Saint-Denis",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "4",
+          "8",
+          "9"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.8693,
+          "lon": 2.354286
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 3
+      }
+    },
+    "aliases": [
+      "Boulevard Saint-Denis"
+    ]
+  },
+  {
+    "id": "sully-morland",
+    "name": "Sully - Morland",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "7"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.851395,
+          "lon": 2.361817
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 4
+      }
+    },
+    "aliases": [
+      "Pont Sully"
+    ]
+  },
+  {
+    "id": "telegraphe",
+    "name": "Télégraphe",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "11"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.875496,
+          "lon": 2.398965
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 19
+      }
+    }
+  },
+  {
+    "id": "temple",
+    "name": "Temple",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "3",
+          "9"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.866495,
+          "lon": 2.360708
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 3
+      }
+    }
+  },
+  {
+    "id": "ternes",
+    "name": "Ternes",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "2"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.878313,
+          "lon": 2.299074
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 17
+      }
+    }
+  },
+  {
+    "id": "tolbiac",
+    "name": "Tolbiac",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "7"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.82609,
+          "lon": 2.357351
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 13
+      }
+    }
+  },
+  {
+    "id": "trinite-d-estienne-d-orves",
+    "name": "Trinité d'Estienne d'Orves",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "12"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.876307,
+          "lon": 2.332643
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 9
+      }
+    }
+  },
+  {
+    "id": "trocadero",
+    "name": "Trocadéro",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "6",
+          "9"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.863045,
+          "lon": 2.287194
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 16
+      }
+    }
+  },
+  {
+    "id": "tuileries",
+    "name": "Tuileries",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "1"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.864519,
+          "lon": 2.329631
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 1
+      }
+    }
+  },
+  {
+    "id": "vaneau",
+    "name": "Vaneau",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "10"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.849152,
+          "lon": 2.321853
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 7
+      }
+    }
+  },
+  {
+    "id": "varenne",
+    "name": "Varenne",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "13"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.856226,
+          "lon": 2.314965
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 7
+      }
+    }
+  },
+  {
+    "id": "vaugirard",
+    "name": "Vaugirard",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "12"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.839587,
+          "lon": 2.30128
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 15
+      }
+    },
+    "aliases": [
+      "Vaugirard (Adolphe Chérioux)"
+    ]
+  },
+  {
+    "id": "vavin",
+    "name": "Vavin",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "4"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.842216,
+          "lon": 2.329011
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 6
+      }
+    }
+  },
+  {
+    "id": "victor-hugo",
+    "name": "Victor Hugo",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "2"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.86994,
+          "lon": 2.286071
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 16
+      }
+    }
+  },
+  {
+    "id": "villejuif-leo-lagrange",
+    "name": "Villejuif - Léo Lagrange",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "7"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.805132,
+          "lon": 2.36379
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "arrondissement": {
+        "num": 0
+      }
+    }
+  },
+  {
+    "id": "villejuif-paul-vaillant-couturier",
+    "name": "Villejuif - Paul Vaillant-Couturier",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "7"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.796156,
+          "lon": 2.368357
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "arrondissement": {
+        "num": 0
+      }
+    },
+    "aliases": [
+      "Villejuif - Paul Vaillant Couturier (Hôpital Paul Brousse)"
+    ]
+  },
+  {
+    "id": "villiers",
+    "name": "Villiers",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "2",
+          "3"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.881118,
+          "lon": 2.314912
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 8
+      }
+    }
+  },
+  {
+    "id": "volontaires",
+    "name": "Volontaires",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "12"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.841533,
+          "lon": 2.30801
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 15
+      }
+    }
+  },
+  {
+    "id": "voltaire",
+    "name": "Voltaire",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "9"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.858179,
+          "lon": 2.379822
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 11
+      }
+    },
+    "aliases": [
+      "Voltaire (Léon Blum)"
+    ]
+  },
+  {
+    "id": "wagram",
+    "name": "Wagram",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "3"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.884053,
+          "lon": 2.303739
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "arrondissement": {
+        "num": 17
+      }
     }
   }
 ]
