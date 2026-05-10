@@ -81,8 +81,7 @@ mod tests {
     use std::fs;
 
     fn write_pack(metadata: &str, entities: &str, predicates: &str) -> tempdir_polyfill::TempDir {
-        let dir =
-            tempdir_polyfill::TempDir::new("kalidoku-loader-test").expect("create temp dir");
+        let dir = tempdir_polyfill::TempDir::new("kalidoku-loader-test").expect("create temp dir");
         fs::write(dir.path().join(FILE_METADATA), metadata).expect("write metadata");
         fs::write(dir.path().join(FILE_ENTITIES), entities).expect("write entities");
         fs::write(dir.path().join(FILE_PREDICATES), predicates).expect("write predicates");

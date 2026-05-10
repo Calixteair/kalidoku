@@ -58,10 +58,7 @@ pub fn param_as_f64(family: &str, value: &serde_json::Value) -> Result<f64> {
 
 /// Read a `{ "attr": <string>, "n": <non-negative int> }` parameter object.
 /// Used by `attr_list_size_*` and any future family with the same parameter shape.
-pub fn param_as_attr_and_count(
-    family: &str,
-    value: &serde_json::Value,
-) -> Result<(String, usize)> {
+pub fn param_as_attr_and_count(family: &str, value: &serde_json::Value) -> Result<(String, usize)> {
     let obj = value
         .as_object()
         .ok_or_else(|| invalid_param(family, "expected object {attr, n}"))?;
