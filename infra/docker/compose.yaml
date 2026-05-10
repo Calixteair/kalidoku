@@ -39,11 +39,13 @@ services:
     image: valkey/valkey:7.2-alpine
     container_name: kalidoku-valkey
     <<: [*restart, *logging]
+    environment:
+      VALKEY_PASSWORD: ${VALKEY_PASSWORD}
     command: ["valkey-server", "--requirepass", "${VALKEY_PASSWORD}", "--save", "60", "1000"]
     volumes:
       - valkey-data:/data
     healthcheck:
-      test: ["CMD-SHELL", "valkey-cli -a $${VALKEY_PASSWORD} ping | grep -q PONG"]
+      test: ["CMD-SHELL", "valkey-cli -a \"$${VALKEY_PASSWORD}\" ping | grep -q PONG"]
       interval: 10s
       timeout: 5s
       retries: 6
