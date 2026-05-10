@@ -87,7 +87,11 @@ exceptions = []
 # ---------------------------------------------------------------------------
 [bans]
 multiple-versions = "warn"
+# Deny wildcards in published crates, but allow them for our own internal
+# path dependencies (kalidoku-core ↔ server/worker). These never go to
+# crates.io so the wildcard concern doesn't apply.
 wildcards = "deny"
+allow-wildcard-paths = true
 highlight = "all"
 workspace-default-features = "allow"
 external-default-features = "allow"
