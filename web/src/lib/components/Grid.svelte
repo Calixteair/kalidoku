@@ -8,7 +8,6 @@
   import PredicateChip from "./PredicateChip.svelte";
   import RulesModal from "./RulesModal.svelte";
   import { createGameStore, cellKey } from "../stores/gameStore.svelte.js";
-  import { formatMessage } from "../i18n.js";
 
   type PublicGrid = components["schemas"]["PublicGrid"];
   type Cell = components["schemas"]["Cell"];

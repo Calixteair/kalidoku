@@ -1,6 +1,5 @@
 <script lang="ts">
   import * as m from "../../paraglide/messages.js";
-  import { formatMessage } from "../i18n.js";
   import type { CellAnswer } from "../stores/gameStore.svelte.js";
 
   interface Props {

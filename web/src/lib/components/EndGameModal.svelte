@@ -3,7 +3,6 @@
   import type { components } from "../api/types.js";
   import type { CellAnswer } from "../stores/gameStore.svelte.js";
   import { buildShareString, copyToClipboard, pickShareString, shareNative } from "../share.js";
-  import { formatMessage } from "../i18n.js";
 
   type EndGameView = components["schemas"]["EndGameView"];
 
