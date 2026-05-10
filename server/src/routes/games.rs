@@ -109,16 +109,21 @@ pub async fn start_game(
         }
     }
 
-    // Quota check (premium short-circuits via the future users.premium_active flag).
-    quota::check(false, mode, 0).map_err(|e| match e {
-        quota::QuotaError::PremiumRequired => ApiError::PaymentRequired,
-        _ => ApiError::PaymentRequired,
-    })?;
-
     let db = state
         .db
         .as_ref()
         .ok_or_else(|| ApiError::Internal("db unavailable".into()))?;
+
+    // Quota check — premium short-circuits, otherwise count today's games for
+    // (mode, device_or_user) and apply the free-tier limits.
+    let is_prem = quota::is_premium(db.as_ref(), ctx.user_id).await?;
+    let today = quota::today_count(db.as_ref(), device_id, ctx.user_id, mode).await?;
+    quota::check(is_prem, mode, today).map_err(|e| match e {
+        quota::QuotaError::PremiumRequired => ApiError::PaymentRequired,
+        quota::QuotaError::DailyQuotaReached | quota::QuotaError::SoloQuotaReached => {
+            ApiError::PaymentRequired
+        }
+    })?;
 
     // Find a grid for the requested mode + domain. For daily, the worker must have
     // published one for today; for solo/duel agent C will trigger the worker queue.

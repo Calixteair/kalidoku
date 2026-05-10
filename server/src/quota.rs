@@ -1,6 +1,11 @@
 //! Free-tier quotas for game starts. Hooks the future premium tier.
 
+use chrono::{DateTime, Datelike, TimeZone, Utc};
+use sea_orm::{ColumnTrait, DatabaseConnection, EntityTrait, PaginatorTrait, QueryFilter};
 use thiserror::Error;
+use uuid::Uuid;
+
+use crate::entities::{games, users};
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum GameMode {
@@ -58,6 +63,64 @@ pub fn check(
         }
         GameMode::Duel => Err(QuotaError::PremiumRequired),
     }
+}
+
+/// Count games started today (UTC) by the given device (and optionally a logged-in user)
+/// for a specific mode. Implementation: fetch the grid IDs published in `mode` first,
+/// then count games with that grid_id since today's UTC midnight.
+pub async fn today_count(
+    db: &DatabaseConnection,
+    device_id: Uuid,
+    user_id: Option<Uuid>,
+    mode: GameMode,
+) -> Result<u32, sea_orm::DbErr> {
+    let mode_str = match mode {
+        GameMode::Daily => "daily",
+        GameMode::Solo => "solo",
+        GameMode::Duel => "duel",
+    };
+    let now = Utc::now();
+    let today_midnight: DateTime<Utc> = Utc
+        .with_ymd_and_hms(now.year(), now.month(), now.day(), 0, 0, 0)
+        .single()
+        .unwrap_or(now);
+
+    // Two-step: list grid IDs for `mode`, then count matching games. Cheap given
+    // that grids per (mode, day) is at most one per active domain.
+    let grid_ids: Vec<Uuid> = crate::entities::grids::Entity::find()
+        .filter(crate::entities::grids::Column::Mode.eq(mode_str))
+        .all(db)
+        .await?
+        .into_iter()
+        .map(|g| g.id)
+        .collect();
+
+    if grid_ids.is_empty() {
+        return Ok(0);
+    }
+
+    let mut q = games::Entity::find()
+        .filter(games::Column::StartedAt.gte::<DateTime<Utc>>(today_midnight))
+        .filter(games::Column::GridId.is_in(grid_ids));
+    if let Some(uid) = user_id {
+        q = q.filter(games::Column::UserId.eq(uid));
+    } else {
+        q = q.filter(games::Column::DeviceId.eq(device_id));
+    }
+    let count = q.count(db).await?;
+    Ok(u32::try_from(count).unwrap_or(u32::MAX))
+}
+
+/// Look up the `users.premium_active` flag (false when anonymous).
+pub async fn is_premium(
+    db: &DatabaseConnection,
+    user_id: Option<Uuid>,
+) -> Result<bool, sea_orm::DbErr> {
+    let Some(uid) = user_id else {
+        return Ok(false);
+    };
+    let row = users::Entity::find_by_id(uid).one(db).await?;
+    Ok(row.is_some_and(|u| u.premium_active))
 }
 
 #[cfg(test)]
