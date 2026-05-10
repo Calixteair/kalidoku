@@ -1,0 +1,23 @@
+{
+  "name": "kalidoku-domain-paris-metro-scripts",
+  "version": "0.2.0",
+  "private": true,
+  "type": "module",
+  "description": "Ingestion et validation du domain pack paris-metro (sources GTFS IDFM, OSM Overpass, fallback statique).",
+  "scripts": {
+    "ingest": "tsx ingest.ts",
+    "validate": "tsx validate.ts"
+  },
+  "dependencies": {
+    "ajv": "^8.17.1",
+    "ajv-formats": "^3.0.1"
+  },
+  "devDependencies": {
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2",
+    "@types/node": "^22.9.3"
+  },
+  "engines": {
+    "node": ">=22.0.0"
+  }
+}
