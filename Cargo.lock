@@ -1922,6 +1922,7 @@ dependencies = [
  "kalidoku-core",
  "kalidoku-server",
  "redis",
+ "reqwest",
  "sea-orm",
  "sea-orm-migration",
  "serde",
@@ -1935,6 +1936,7 @@ dependencies = [
  "tracing",
  "tracing-subscriber",
  "uuid",
+ "wiremock",
 ]
 
 [[package]]
