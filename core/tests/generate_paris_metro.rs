@@ -20,11 +20,14 @@ fn paris_metro_path() -> PathBuf {
 fn loads_paris_metro_domain_pack() {
     let domain = load_domain_pack(&paris_metro_path()).expect("load paris-metro pack");
     assert_eq!(domain.metadata.id, "paris-metro");
-    assert_eq!(domain.entities.len(), 10);
+    assert!(
+        domain.entities.len() >= 10,
+        "expected at least 10 entities, got {}",
+        domain.entities.len()
+    );
     assert_eq!(domain.predicates.len(), 6);
 }
 
-#[ignore = "needs full ~290 stations dataset (agent F); seed pack of 10 is too sparse for the CSP solver"]
 #[test]
 fn generates_valid_grid_for_seed_pack() {
     let domain = load_domain_pack(&paris_metro_path()).expect("load paris-metro pack");
@@ -70,7 +73,6 @@ fn generates_valid_grid_for_seed_pack() {
     }
 }
 
-#[ignore = "needs full ~290 stations dataset (agent F); seed pack of 10 is too sparse for the CSP solver"]
 #[test]
 fn generation_is_deterministic_per_seed() {
     let domain = load_domain_pack(&paris_metro_path()).expect("load paris-metro pack");
@@ -87,7 +89,6 @@ fn generation_is_deterministic_per_seed() {
     }
 }
 
-#[ignore = "needs full ~290 stations dataset (agent F); seed pack of 10 is too sparse for the CSP solver"]
 #[test]
 fn snapshot_serialises_to_json() {
     let domain = load_domain_pack(&paris_metro_path()).expect("load paris-metro pack");
