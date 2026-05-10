@@ -22,4 +22,12 @@ serde_json.workspace = true
 anyhow.workspace     = true
 chrono.workspace     = true
 tokio-cron-scheduler.workspace = true
-config.workspace     = true
+clap.workspace       = true
+redis.workspace      = true
+deadpool-redis.workspace = true
+sha2.workspace       = true
+uuid.workspace       = true
+dotenvy.workspace    = true
+
+[dev-dependencies]
+tempfile = "3"
