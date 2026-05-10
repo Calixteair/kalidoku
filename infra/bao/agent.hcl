@@ -54,5 +54,8 @@ KEYCLOAK_REDIRECT_URL={{ .Data.data.KEYCLOAK_REDIRECT_URL }}
 {{ with secret "secret/data/kalidoku/prod/anti-bot" }}
 ALTCHA_HMAC_KEY={{ .Data.data.ALTCHA_HMAC_KEY }}
 {{ end }}
+{{ with secret "secret/data/kalidoku/prod/search" }}
+MEILI_MASTER_KEY={{ .Data.data.MEILI_MASTER_KEY }}
+{{ end }}
 EOT
 }

@@ -67,7 +67,15 @@ ssh vps-claude "sudo docker exec -e BAO_TOKEN=$ROOT_TOKEN openbao bao kv put sec
 # Anti-bot — Altcha PoW HMAC key (self-hosted, no third party)
 ssh vps-claude "sudo docker exec -e BAO_TOKEN=$ROOT_TOKEN openbao bao kv put secret/kalidoku/prod/anti-bot \
   ALTCHA_HMAC_KEY=$(openssl rand -base64 48 | tr -d '\n')"
+
+# Search — Meilisearch master key (alphanumeric only, no $/:/&/*/#).
+# Cette clé sert au server (proxy autocomplete) et au worker (indexation).
+ssh vps-claude "sudo docker exec -e BAO_TOKEN=$ROOT_TOKEN openbao bao kv put secret/kalidoku/prod/search \
+  MEILI_MASTER_KEY=$(openssl rand -base64 48 | tr -dc 'A-Za-z0-9' | head -c 64)"
 ```
+
+> Rotation ultérieure : `bao kv patch secret/kalidoku/prod/search MEILI_MASTER_KEY=...`.
+> Voir `docs/runbooks/meilisearch-ops.md` §"Rotation de la master key".
 
 ## 5. Déploiement de l'agent.hcl
 
