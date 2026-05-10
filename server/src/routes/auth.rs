@@ -194,7 +194,12 @@ pub async fn callback(
     cookie.set_path("/");
     cookie.set_http_only(true);
     cookie.set_secure(true);
-    cookie.set_same_site(SameSite::Strict);
+    // Lax (not Strict): the OIDC callback is a cross-site redirect from Keycloak,
+    // and Strict would prevent the freshly-set cookie from being sent on the
+    // first request to the home page after redirect, leaving the user unauth'd.
+    // CSRF on state-changing endpoints stays covered by `__Host-` + Secure +
+    // HttpOnly + the play-token HMAC bound to the device id.
+    cookie.set_same_site(SameSite::Lax);
     cookie.set_max_age(cookie::time::Duration::days(SESSION_TTL_DAYS));
 
     let mut headers = HeaderMap::new();
@@ -252,7 +257,7 @@ pub async fn logout(State(state): State<AppState>, headers: HeaderMap) -> ApiRes
     clear.set_path("/");
     clear.set_http_only(true);
     clear.set_secure(true);
-    clear.set_same_site(SameSite::Strict);
+    clear.set_same_site(SameSite::Lax);
     clear.set_max_age(cookie::time::Duration::seconds(0));
     let mut hdrs = HeaderMap::new();
     hdrs.insert(

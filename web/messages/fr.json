@@ -65,6 +65,7 @@
   "modal_autocomplete_submit": "Valider",
   "modal_autocomplete_no_results": "Aucun résultat.",
   "modal_autocomplete_error": "Erreur de recherche.",
+  "modal_autocomplete_candidates_count": "{n, plural, one {1 réponse possible} other {{n} réponses possibles}}",
   "modal_endgame_title": "Fin de partie",
   "modal_endgame_won": "Bien joué !",
   "modal_endgame_lost": "Partie terminée.",

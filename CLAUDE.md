@@ -111,7 +111,7 @@ Si un hook bloque, **diagnostiquer et fixer**, jamais bypasser avec `--no-verify
 
 ### Cookies de session
 
-- `__Host-session`, `Secure`, `HttpOnly`, `SameSite=Strict`, `Path=/`
+- `__Host-session`, `Secure`, `HttpOnly`, `SameSite=Lax`, `Path=/` — Lax (et non Strict) car le callback OIDC est un redirect cross-site depuis Keycloak ; Strict empêcherait l'envoi du cookie fraîchement posé sur la première navigation retour. CSRF couvert par `__Host-` + Secure + HttpOnly + play-token HMAC lié au device.
 - Token = 32 bytes random base64. **Stocker le hash SHA-256 en DB**, jamais le clair.
 
 ### Auth

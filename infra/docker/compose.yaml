@@ -105,7 +105,10 @@ services:
     volumes:
       - kalidoku_meili:/meili_data
     healthcheck:
-      test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:7700/health || exit 1"]
+      # 127.0.0.1 (not localhost): the meilisearch image is Alpine-based and
+      # busybox wget resolves localhost to ::1 first, then fails outright on
+      # Connection refused since Meili only binds IPv4 inside the container.
+      test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider http://127.0.0.1:7700/health || exit 1"]
       interval: 10s
       timeout: 5s
       retries: 5

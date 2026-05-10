@@ -65,6 +65,7 @@
   "modal_autocomplete_submit": "Submit",
   "modal_autocomplete_no_results": "No results.",
   "modal_autocomplete_error": "Search error.",
+  "modal_autocomplete_candidates_count": "{n, plural, one {1 possible answer} other {{n} possible answers}}",
   "modal_endgame_title": "Game over",
   "modal_endgame_won": "Well played!",
   "modal_endgame_lost": "Game over.",

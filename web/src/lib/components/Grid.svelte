@@ -157,6 +157,13 @@
     return m.cell_label({ row: cell.row + 1, col: cell.col + 1 });
   };
 
+  const candidatesCountFor = (cell: Cell | null): number | undefined => {
+    if (!cell) return undefined;
+    const counts = store.grid?.candidatesCount;
+    if (!Array.isArray(counts) || counts.length !== 9) return undefined;
+    return counts[cell.row * 3 + cell.col];
+  };
+
   const grid = $derived<PublicGrid | null>(store.grid);
   const won = $derived(
     store.state ? store.state.mistakesLeft > 0 && store.state.answers.length === 9 : false,
@@ -201,10 +208,7 @@
   {:else if grid}
     {@const cols = grid.cols}
     {@const rows = grid.rows}
-    <div
-      class="grid gap-1.5"
-      style="grid-template-columns: minmax(0, 0.65fr) repeat(3, minmax(0, 1fr));"
-    >
+    <div class="kd-grid grid gap-1 sm:gap-1.5">
       <div></div>
       {#each cols as col (col.id)}
         <PredicateChip predicate={col} />
@@ -265,6 +269,7 @@
   open={selectedCell !== null}
   {domain}
   cellLabel={cellLabelFor(selectedCell)}
+  candidatesCount={candidatesCountFor(selectedCell)}
   onClose={closeAutocomplete}
   onSubmit={submitAnswer}
 />
@@ -292,5 +297,16 @@
 <style>
   button {
     min-height: 44px;
+  }
+
+  /* Layout responsive: more room for the predicate header on narrow phones
+     (Nothing Phone 3a ~360-412px), keep the original ratio from sm: up. */
+  .kd-grid {
+    grid-template-columns: minmax(96px, 1.05fr) repeat(3, minmax(0, 1fr));
+  }
+  @media (min-width: 640px) {
+    .kd-grid {
+      grid-template-columns: minmax(0, 0.65fr) repeat(3, minmax(0, 1fr));
+    }
   }
 </style>
