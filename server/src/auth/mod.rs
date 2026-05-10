@@ -1,5 +1,6 @@
 //! Authentication building blocks: OIDC PKCE handshake, JWT validation, opaque sessions.
 
+pub mod jwks;
 pub mod jwt;
 pub mod oidc;
 pub mod session;

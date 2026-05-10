@@ -5,7 +5,10 @@ use std::sync::Arc;
 
 use deadpool_redis::Pool as RedisPool;
 use sea_orm::DatabaseConnection;
+use tokio::sync::RwLock;
 
+use crate::auth::jwks::Jwks;
+use crate::auth::oidc::OidcState;
 use crate::config::AppConfig;
 
 /// Static description of a domain known to the server.
@@ -25,16 +28,33 @@ pub struct AppState {
     pub db: Option<Arc<DatabaseConnection>>,
     pub redis: Option<Arc<RedisPool>>,
     pub domains: Arc<HashMap<String, DomainSummary>>,
+    /// In-memory map of pending OIDC handshakes, keyed by the random `state` parameter.
+    /// Single-instance only — for multi-node, move to Redis.
+    pub oidc_states: Arc<RwLock<HashMap<String, OidcState>>>,
+    /// Lazy JWKS validator pointing at the Keycloak realm. None when issuer is empty (tests).
+    pub jwks: Option<Arc<Jwks>>,
 }
 
 impl AppState {
     #[must_use]
     pub fn new(config: AppConfig) -> Self {
+        let jwks = if config.keycloak_issuer_url.is_empty()
+            || config.keycloak_issuer_url.contains("example.invalid")
+        {
+            None
+        } else {
+            Some(Arc::new(Jwks::new(
+                config.keycloak_issuer_url.clone(),
+                config.keycloak_client_id.clone(),
+            )))
+        };
         Self {
             config: Arc::new(config),
             db: None,
             redis: None,
             domains: Arc::new(HashMap::new()),
+            oidc_states: Arc::new(RwLock::new(HashMap::new())),
+            jwks,
         }
     }
 
