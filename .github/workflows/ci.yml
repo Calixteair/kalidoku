@@ -129,7 +129,13 @@ jobs:
         if: steps.cache-cargo-audit.outputs.cache-hit != 'true'
         run: cargo install --locked cargo-audit
       - name: Run cargo audit
-        run: cargo audit --deny warnings
+        # Advisories tracked in #41 (openidconnect 3.5 → 4.x bump). Mirror the
+        # ignore list from deny.toml so both jobs stay aligned.
+        run: |
+          cargo audit --deny warnings \
+            --ignore RUSTSEC-2026-0098 \
+            --ignore RUSTSEC-2026-0099 \
+            --ignore RUSTSEC-2025-0134
 
   cargo-deny:
     name: rust / cargo-deny
