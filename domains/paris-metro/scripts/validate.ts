@@ -15,7 +15,8 @@ import { resolve, dirname } from "node:path";
 import { readFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 
-import Ajv, { type JSONSchemaType } from "ajv";
+import Ajv2020 from "ajv/dist/2020.js";
+import type { ValidateFunction } from "ajv";
 
 import { sha256Hex } from "./lib/io.ts";
 import type { Entity } from "./lib/types.ts";
@@ -33,26 +34,36 @@ const VALID_LINES = new Set([
   "8", "9", "10", "11", "12", "13", "14",
 ]);
 
+// Bbox élargie : la ligne 14 sud descend jusqu'à Aéroport d'Orly (lat ~48.726).
+// On laisse une petite marge pour absorber les imprécisions OSM.
 const PARIS_BBOX = {
-  latMin: 48.79, latMax: 48.92,
+  latMin: 48.72, latMax: 48.92,
   lonMin: 2.18,  lonMax: 2.51,
 };
 
-interface DomainSchema {
-  $defs: { Entity: JSONSchemaType<Entity> };
-}
+type DomainSchema = Record<string, unknown> & {
+  $id?: string;
+  $defs?: Record<string, unknown>;
+};
 
 async function main(): Promise<void> {
   const errors: string[] = [];
   const entities = await loadEntities();
   const schema = await loadSchema();
 
-  const ajv = new Ajv({ allErrors: true, strict: false });
-  const validate = ajv.compile(schema.$defs.Entity);
+  // On charge le schema entier (pas seulement $defs.Entity) pour conserver les $ref
+  // internes (#/$defs/AttributeValue, etc.) qu'Ajv résout via getSchema(uri#fragment).
+  const ajv = new Ajv2020({ allErrors: true, strict: false });
+  ajv.addSchema(schema, "entity-schema");
+  const validate = ajv.getSchema<Entity>("entity-schema#/$defs/Entity");
+  if (!validate) {
+    process.stderr.write("[validate] fatal: cannot resolve #/$defs/Entity from schema\n");
+    process.exit(1);
+  }
 
   for (const e of entities) {
-    if (!validate(e)) {
-      const detail = ajv.errorsText(validate.errors);
+    if (!(validate as ValidateFunction<Entity>)(e)) {
+      const detail = ajv.errorsText((validate as ValidateFunction<Entity>).errors);
       errors.push(`schema(${e.id ?? "?"}): ${detail}`);
     }
   }

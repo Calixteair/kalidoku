@@ -10,7 +10,9 @@ import type { OverpassResponse, OverpassNode, RawStation } from "./types.ts";
 const OVERPASS_URL = "https://overpass-api.de/api/interpreter";
 const CACHE_DAYS = 7;
 
-const BBOX = "48.795,2.180,48.920,2.510";
+// Bbox étendue jusqu'au sud (lat 48.720) pour capturer la branche sud de la ligne 14
+// (Villejuif-Gustave Roussy, Chevilly, Thiais, Aéroport d'Orly).
+const BBOX = "48.720,2.180,48.920,2.510";
 
 const STATIONS_QUERY = `[out:json][timeout:120];(node(${BBOX})[railway=station][station=subway];);out body;`;
 const ROUTES_QUERY = `[out:json][timeout:180];(relation(${BBOX})[type=route][route=subway];);out body;`;
@@ -120,12 +122,16 @@ export function buildNodeToLines(
 
 /**
  * Pour une station donnée, trouve les lignes via les nodes-stops à <maxMeters.
+ *
+ * Rayon par défaut volontairement court (80m) : au-delà, on capture des stops
+ * d'une autre station voisine (cas du Quartier latin où plusieurs stations sont
+ * à ~150 m les unes des autres). À 80m on reste sur la station physique.
  */
 export function inferLinesForStation(
   station: { lat: number; lon: number },
   stopIndex: Map<number, OverpassNode>,
   nodeToLines: Map<number, Set<string>>,
-  maxMeters = 200,
+  maxMeters = 80,
 ): string[] {
   const lines = new Set<string>();
   for (const [nodeId, node] of stopIndex) {

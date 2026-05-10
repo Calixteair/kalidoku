@@ -19,8 +19,8 @@
     "row_predicate_count": 3,
     "col_predicate_count": 3
   },
-  "dataset_sha256": "b41fdf910f11d29738cd0c8d190e68eb7475446074a4828adea4b4e7eeca5ba8",
-  "entity_count": 303,
+  "dataset_sha256": "ec06dda7823b8f16d24d7e3322a4655dcb534333a705dc049c279eec9fb6f37c",
+  "entity_count": 310,
   "sources_versions": [
     {
       "id": "osm-overpass-stations",

@@ -23,6 +23,29 @@
     }
   },
   {
+    "id": "aeroport-d-orly",
+    "name": "Aéroport d'Orly",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "14"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.728439,
+          "lon": 2.362559
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "arrondissement": {
+        "num": 0
+      }
+    }
+  },
+  {
     "id": "aime-cesaire",
     "name": "Aimé Césaire",
     "attributes": {
@@ -868,8 +891,7 @@
     "attributes": {
       "lines": {
         "str_list": [
-          "5",
-          "8"
+          "5"
         ]
       },
       "geo": {
@@ -1340,6 +1362,7 @@
         "str_list": [
           "1",
           "4",
+          "7",
           "11",
           "14"
         ]
@@ -1414,7 +1437,6 @@
     "attributes": {
       "lines": {
         "str_list": [
-          "5",
           "8"
         ]
       },
@@ -1456,13 +1478,35 @@
     }
   },
   {
+    "id": "chevilly-larue",
+    "name": "Chevilly-Larue",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "14"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.758591,
+          "lon": 2.36707
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "arrondissement": {
+        "num": 0
+      }
+    }
+  },
+  {
     "id": "cite",
     "name": "Cité",
     "attributes": {
       "lines": {
         "str_list": [
-          "4",
-          "7"
+          "4"
         ]
       },
       "geo": {
@@ -1794,6 +1838,29 @@
     "aliases": [
       "Créteil-L'Échat-(Hopital Henri Mondor)"
     ]
+  },
+  {
+    "id": "creteil-universite",
+    "name": "Créteil Université",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "8"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.7899,
+          "lon": 2.45057
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "arrondissement": {
+        "num": 0
+      }
+    }
   },
   {
     "id": "crimee",
@@ -2451,8 +2518,7 @@
     "attributes": {
       "lines": {
         "str_list": [
-          "3",
-          "3bis"
+          "3"
         ]
       },
       "geo": {
@@ -2530,7 +2596,8 @@
     "attributes": {
       "lines": {
         "str_list": [
-          "1"
+          "1",
+          "14"
         ]
       },
       "geo": {
@@ -2548,8 +2615,8 @@
     }
   },
   {
-    "id": "gare-du-nord-metro",
-    "name": "Gare du Nord (Métro)",
+    "id": "gare-du-nord",
+    "name": "Gare du Nord",
     "attributes": {
       "lines": {
         "str_list": [
@@ -3063,6 +3130,29 @@
     }
   },
   {
+    "id": "l-hay-les-roses",
+    "name": "L'Haÿ-les-Roses",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "14"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.775479,
+          "lon": 2.354194
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "arrondissement": {
+        "num": 0
+      }
+    }
+  },
+  {
     "id": "la-chapelle",
     "name": "La Chapelle",
     "attributes": {
@@ -3084,33 +3174,6 @@
         "num": 10
       }
     }
-  },
-  {
-    "id": "la-defense-grande-arche",
-    "name": "La Défense - Grande Arche",
-    "attributes": {
-      "lines": {
-        "str_list": [
-          "1"
-        ]
-      },
-      "geo": {
-        "geo": {
-          "lat": 48.892248,
-          "lon": 2.236918
-        }
-      },
-      "in_paris": {
-        "bool": true
-      },
-      "arrondissement": {
-        "num": 0
-      }
-    },
-    "aliases": [
-      "LA DEFENSE GRANDE ARCHE",
-      "La Défense"
-    ]
   },
   {
     "id": "la-dhuys",
@@ -3567,7 +3630,6 @@
     "attributes": {
       "lines": {
         "str_list": [
-          "4",
           "10"
         ]
       },
@@ -3776,8 +3838,7 @@
     "attributes": {
       "lines": {
         "str_list": [
-          "7",
-          "14"
+          "7"
         ]
       },
       "geo": {
@@ -4221,6 +4282,8 @@
     "attributes": {
       "lines": {
         "str_list": [
+          "4",
+          "6",
           "12",
           "13"
         ]
@@ -4901,6 +4964,29 @@
       },
       "arrondissement": {
         "num": 14
+      }
+    }
+  },
+  {
+    "id": "pointe-du-lac",
+    "name": "Pointe du Lac",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "8"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.768746,
+          "lon": 2.464379
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "arrondissement": {
+        "num": 0
       }
     }
   },
@@ -5816,7 +5902,6 @@
     "attributes": {
       "lines": {
         "str_list": [
-          "4",
           "12"
         ]
       },
@@ -6286,8 +6371,7 @@
     "attributes": {
       "lines": {
         "str_list": [
-          "4",
-          "10"
+          "4"
         ]
       },
       "geo": {
@@ -6503,8 +6587,7 @@
     "attributes": {
       "lines": {
         "str_list": [
-          "4",
-          "12"
+          "4"
         ]
       },
       "geo": {
@@ -6576,7 +6659,6 @@
     "attributes": {
       "lines": {
         "str_list": [
-          "6",
           "10"
         ]
       },
@@ -6850,8 +6932,7 @@
     "attributes": {
       "lines": {
         "str_list": [
-          "3",
-          "9"
+          "3"
         ]
       },
       "geo": {
@@ -6888,6 +6969,29 @@
       },
       "arrondissement": {
         "num": 17
+      }
+    }
+  },
+  {
+    "id": "thiais-orly",
+    "name": "Thiais - Orly",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "14"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.747196,
+          "lon": 2.372842
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "arrondissement": {
+        "num": 0
       }
     }
   },
@@ -7103,6 +7207,29 @@
     }
   },
   {
+    "id": "villejuif-gustave-roussy",
+    "name": "Villejuif - Gustave Roussy",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "14"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.793044,
+          "lon": 2.349373
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "arrondissement": {
+        "num": 0
+      }
+    }
+  },
+  {
     "id": "villejuif-leo-lagrange",
     "name": "Villejuif - Léo Lagrange",
     "attributes": {
@@ -7115,6 +7242,29 @@
         "geo": {
           "lat": 48.805132,
           "lon": 2.36379
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "arrondissement": {
+        "num": 0
+      }
+    }
+  },
+  {
+    "id": "villejuif-louis-aragon",
+    "name": "Villejuif - Louis Aragon",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "7"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.78694,
+          "lon": 2.367386
         }
       },
       "in_paris": {

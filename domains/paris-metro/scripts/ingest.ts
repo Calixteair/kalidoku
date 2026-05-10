@@ -113,15 +113,16 @@ function buildOneEntity(
   arrondPolys: ReturnType<typeof buildArrondPolygons>,
   usedIds: Set<string>,
 ): Entity | null {
-  const id = uniqueId(s.name, usedIds);
-  const lines = resolveLines(s, stopIndex, nodeToLines);
+  const displayName = normalizeDisplayName(s.name);
+  const id = uniqueId(displayName, usedIds);
+  const lines = resolveLines({ ...s, name: displayName }, stopIndex, nodeToLines);
   if (lines.length === 0) return null;
   const point = { lat: s.lat, lon: s.lon };
   const arrond = lookupArrondissement(point, arrondPolys);
   const inParis = arrond > 0 || isInParisBbox(point);
   const entity: Entity = {
     id,
-    name: s.name,
+    name: displayName,
     attributes: {
       lines: { str_list: lines },
       geo: { geo: { lat: round6(point.lat), lon: round6(point.lon) } },
@@ -145,14 +146,36 @@ function uniqueId(name: string, used: Set<string>): string {
   return candidate;
 }
 
+/**
+ * Stratégie hybride OSM ∪ static-lines.
+ *
+ * - Si la station est connue dans `static-lines.ts`, on FAIT confiance au statique
+ *   (humain-vérifié). Cela résout les faux positifs de l'algo proximity sur des
+ *   stations voisines (Mabillon ne doit pas hériter de la ligne 4 d'Odéon, etc.)
+ *   ainsi que les faux positifs sur des gares non-métro (Pont Cardinet).
+ * - Sinon on retombe sur l'inférence OSM via les relations route=subway, qui
+ *   couvre les stations légitimes manquantes du mapping (extensions récentes).
+ * - Si rien ne matche, la station sera dropée par le pipeline (lines.length === 0).
+ */
 function resolveLines(
   s: MergedStation,
   stopIndex: ReturnType<typeof indexStopNodes>,
   nodeToLines: ReturnType<typeof buildNodeToLines>,
 ): string[] {
+  const fromStatic = lookupStaticLines(s.name);
+  if (fromStatic && fromStatic.length > 0) return fromStatic;
   const fromOsm = inferLinesForStation({ lat: s.lat, lon: s.lon }, stopIndex, nodeToLines);
-  if (fromOsm.length > 0) return fromOsm;
-  return lookupStaticLines(s.name) ?? [];
+  return fromOsm;
+}
+
+/**
+ * Normalise le nom canonique pour l'affichage : retire les suffixes parasites
+ * type " (Métro)" qu'OSM ajoute parfois sur les stations homonymes (gares).
+ */
+function normalizeDisplayName(name: string): string {
+  return name
+    .replace(/\s*\((Métro|métro|Metro|metro)\)\s*$/u, "")
+    .trim();
 }
 
 function round6(n: number): number {
