@@ -65,7 +65,10 @@ pub async fn middleware(State(state): State<AppState>, mut req: Request, next: N
     // or manual cleanup): we look up by id, and if missing we insert.
     let mut device_persisted = false;
     if let Some(db) = state.db.as_ref() {
-        match devices::Entity::find_by_id(device_id).one(db.as_ref()).await {
+        match devices::Entity::find_by_id(device_id)
+            .one(db.as_ref())
+            .await
+        {
             Ok(Some(_)) => {
                 device_persisted = true;
             }
