@@ -55,4 +55,26 @@ impl AppState {
         self.domains = Arc::new(domains);
         self
     }
+
+    /// Build a no-DB / no-Redis AppState for unit / smoke tests.
+    /// All HMAC keys are set to deterministic non-empty values so signature code paths work.
+    #[cfg(test)]
+    #[must_use]
+    pub fn for_tests() -> Self {
+        Self::new(AppConfig {
+            port: 0,
+            database_url: String::new(),
+            redis_url: String::new(),
+            session_hmac_key: "test-session-hmac-key-32-bytes!!".into(),
+            play_token_hmac_key: "test-play-hmac-key-32-bytes!".into(),
+            keycloak_issuer_url: "https://example.invalid/realms/test".into(),
+            keycloak_client_id: "test".into(),
+            keycloak_client_secret: "test".into(),
+            keycloak_redirect_url: "https://example.invalid/cb".into(),
+            altcha_hmac_key: "test-altcha-hmac-key-32-bytes!!".into(),
+            rust_log: "info".into(),
+            allowed_origins: String::new(),
+            run_migrations: false,
+        })
+    }
 }
