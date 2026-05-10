@@ -149,7 +149,7 @@
 
   const cellLabelFor = (cell: Cell | null): string => {
     if (!cell) return "";
-    return formatMessage(m.cell_label(), { row: cell.row + 1, col: cell.col + 1 });
+    return m.cell_label({ row: cell.row + 1, col: cell.col + 1 });
   };
 
   const grid = $derived<PublicGrid | null>(store.grid);

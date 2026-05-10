@@ -33,10 +33,19 @@ const pageDesc = description ?? m.site_tagline();
     <link rel="manifest" href="/manifest.webmanifest" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <script is:inline>
-      // Apply persisted locale cookie before SPA scripts boot.
+      // Apply persisted locale before SPA scripts boot.
+      // Order: ?lang= URL param > locale cookie > Astro default. Paraglide reads
+      // <html lang> at runtime so setting it here makes m.X() return the right tag.
       try {
-        var match = document.cookie.match(/(?:^|;\s*)locale=(fr|en)/);
-        if (match) document.documentElement.lang = match[1];
+        var url = new URL(window.location.href);
+        var qLang = url.searchParams.get("lang");
+        if (qLang === "fr" || qLang === "en") {
+          document.documentElement.lang = qLang;
+          document.cookie = "locale=" + qLang + "; Path=/; Max-Age=31536000; SameSite=Lax";
+        } else {
+          var ck = document.cookie.match(/(?:^|;\s*)locale=(fr|en)/);
+          if (ck) document.documentElement.lang = ck[1];
+        }
       } catch {}
       // Theme: light by default, "dark" only when the user explicitly opted in.
       // We read localStorage *before* paint to avoid the white-then-dark flash.
@@ -53,7 +62,7 @@ const pageDesc = description ?? m.site_tagline();
       }
     </script>
   </head>
-  <body class="min-h-svh">
+  <body class="flex min-h-svh flex-col">
     <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:left-2 focus:top-2 focus:z-50 focus:rounded focus:bg-accent focus:px-3 focus:py-1 focus:text-accent-fg">Skip</a>
     <header class="border-border bg-bg-card border-b">
       <div class="mx-auto flex max-w-screen-md items-center justify-between gap-2 px-4 py-3">
@@ -68,10 +77,10 @@ const pageDesc = description ?? m.site_tagline();
         </nav>
       </div>
     </header>
-    <main id="main" class="mx-auto max-w-screen-md px-4 py-4 md:py-6">
+    <main id="main" class="mx-auto w-full max-w-screen-md flex-1 px-4 py-4 md:py-6">
       <slot />
     </main>
-    <footer class="border-border bg-bg-card mt-8 border-t">
+    <footer class="border-border bg-bg-card mt-auto border-t">
       <div
         class="text-fg-muted mx-auto flex max-w-screen-md flex-wrap items-center justify-between gap-2 px-4 py-3 text-xs"
       >

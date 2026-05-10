@@ -1,11 +1,13 @@
 ---
 import Base from "../layouts/Base.astro";
 import Grid from "../lib/components/Grid.svelte";
-import AltchaWidget from "../lib/components/AltchaWidget.svelte";
 import LangSwitcher from "../lib/components/LangSwitcher.svelte";
 
 // Default domain for the daily grid. The domains list comes from /api/domains
 // once the picker is implemented; for now the home is hard-wired to paris-metro.
+// AltchaWidget is intentionally NOT mounted here — Altcha is only required when
+// the server returns 412 on a sensitive call (start_game from anonymous user, etc).
+// The widget should be lazy-mounted just before that retry, in a follow-up.
 const DEFAULT_DOMAIN = "paris-metro";
 ---
 
@@ -16,5 +18,4 @@ const DEFAULT_DOMAIN = "paris-metro";
     </div>
     <Grid client:load domain={DEFAULT_DOMAIN} />
   </section>
-  <AltchaWidget client:idle />
 </Base>

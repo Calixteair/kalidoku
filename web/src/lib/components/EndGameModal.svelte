@@ -53,7 +53,7 @@
   );
 
   const handleShare = async (): Promise<void> => {
-    const title = formatMessage(m.share_template(), {
+    const title = m.share_template({
       date: today(),
       score,
       max: maxScore ?? 9,
