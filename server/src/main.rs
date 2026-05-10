@@ -49,6 +49,13 @@ async fn main() -> Result<()> {
     let addr: SocketAddr = format!("0.0.0.0:{}", cfg.port).parse()?;
     info!(%addr, "listening");
     let listener = tokio::net::TcpListener::bind(addr).await?;
-    axum::serve(listener, app).await?;
+    // `into_make_service_with_connect_info::<SocketAddr>()` exposes the peer IP to
+    // tower-governor's PeerIpKeyExtractor — without it the rate-limit middleware can't
+    // identify the client and short-circuits to 500.
+    axum::serve(
+        listener,
+        app.into_make_service_with_connect_info::<SocketAddr>(),
+    )
+    .await?;
     Ok(())
 }
