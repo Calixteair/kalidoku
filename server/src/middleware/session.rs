@@ -21,7 +21,9 @@ use sea_orm::{ActiveValue::Set, EntityTrait};
 use tracing::warn;
 use uuid::Uuid;
 
-use crate::auth::{hash_session_token, AuthContext, COOKIE_DEVICE, COOKIE_SESSION};
+use crate::auth::{
+    hash_session_token, AuthContext, COOKIE_DEVICE, COOKIE_SESSION, DEVICE_COOKIE_TTL_DAYS,
+};
 use crate::entities::{devices, sessions};
 use crate::state::AppState;
 
@@ -29,10 +31,14 @@ fn device_cookie(value: String) -> Cookie<'static> {
     let mut c = Cookie::new(COOKIE_DEVICE, value);
     c.set_path("/");
     c.set_http_only(true);
+    // Secure is REQUIRED on HTTPS for `SameSite=Lax|None` since Chromium 80 /
+    // Firefox 79: cookies without it are silently dropped, and the next request
+    // would mint a new device_id, breaking the play_token binding (→ 401).
+    c.set_secure(true);
     c.set_same_site(SameSite::Lax);
-    // TODO(agent-c): set Max-Age once the `cookie::time::Duration` dependency is
-    // wired through `axum-extra` re-exports — see `docs/agents/agent-c-server.md`
-    // §8 follow-up. Without it the cookie is session-scoped (cleared on browser quit).
+    // Persist across browser restarts; otherwise the cookie is session-scoped
+    // and the device drifts on every browser quit.
+    c.set_max_age(cookie::time::Duration::days(DEVICE_COOKIE_TTL_DAYS));
     c
 }
 
