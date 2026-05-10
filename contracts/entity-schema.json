@@ -79,10 +79,11 @@
             "on_attr_in_set",
             "on_attr_contains",
             "within_km",
-            "in_zone",
             "numeric_gte",
             "numeric_lte",
-            "numeric_between"
+            "numeric_between",
+            "attr_list_size_eq",
+            "attr_list_size_gte"
           ]
         },
         "param": {

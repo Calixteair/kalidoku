@@ -34,6 +34,8 @@ behaviour.
 | `numeric_gte`        | `{ "attr": "arrondissement", "n": 5 }`            | numeric attribute ≥ `n`                                                  |
 | `numeric_lte`        | `{ "attr": "arrondissement", "n": 8 }`            | numeric attribute ≤ `n`                                                  |
 | `numeric_between`    | `{ "attr": "arrondissement", "min": 1, "max": 8 }`| numeric attribute in `[min, max]`                                        |
+| `attr_list_size_gte` | `{ "attr": "lines", "n": 3 }`                     | str_list attribute has at least `n` items (e.g. station serves ≥ 3 lines)|
+| `attr_list_size_eq`  | `{ "attr": "lines", "n": 1 }`                     | str_list attribute has exactly `n` items                                 |
 
 `normalised name` follows `core::normalize::normalize`: NFD-stripped diacritics,
 lowercase, single-space punctuation. The same function is used at index time

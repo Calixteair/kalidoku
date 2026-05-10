@@ -26,6 +26,7 @@ uuid        = { version = "1", features = ["serde", "v4", "v7"] }
 rand        = { version = "0.8", features = ["std_rng"] }
 unicode-normalization = "0.1"
 geoutils    = "0.5"
+jsonschema  = { version = "0.18", default-features = false }
 
 # async runtime + tracing
 tokio       = { version = "1", features = ["full"] }

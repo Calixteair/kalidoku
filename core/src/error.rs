@@ -36,4 +36,7 @@ pub enum Error {
         #[source]
         source: std::io::Error,
     },
+
+    #[error("manifest at {path} does not match contracts/entity-schema.json ({n} error(s))", n = errors.len())]
+    InvalidManifest { path: String, errors: Vec<String> },
 }

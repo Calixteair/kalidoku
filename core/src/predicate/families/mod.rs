@@ -5,6 +5,8 @@
 //! implementing [`crate::predicate::PredicateFactory`], then register it in
 //! [`register_defaults`].
 
+mod attr_list_size_eq;
+mod attr_list_size_gte;
 mod common;
 mod contains_letter;
 mod ends_with;
@@ -39,4 +41,6 @@ pub fn register_defaults(registry: &mut PredicateRegistry) {
     registry.register(numeric_gte::Factory);
     registry.register(numeric_lte::Factory);
     registry.register(numeric_between::Factory);
+    registry.register(attr_list_size_gte::Factory);
+    registry.register(attr_list_size_eq::Factory);
 }
