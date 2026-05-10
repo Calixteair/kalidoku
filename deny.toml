@@ -68,13 +68,15 @@ allow = [
     "Unicode-DFS-2016",
     "Unlicense",
     "Zlib",
-    # Allowed because kalidoku itself is AGPL-3.0-or-later and the binary is
-    # never redistributed without source. cargo-deny requires the GNU
-    # license families to be expressed without the bare suffixes; the
-    # `-only` / `-or-later` flavors are accepted via the parser, but listed
-    # here in the canonical "AGPL-3.0+" form.
+    # Allowed because kalidoku itself is AGPL-3.0-only and the binary is
+    # never redistributed without source. cargo-deny resolves the license
+    # synthesised from `Cargo.toml` literally, so we list the SPDX flavor
+    # actually emitted (`-only`) and the family fallback for upstream deps.
     "AGPL-3.0",
+    "AGPL-3.0-only",
+    "AGPL-3.0-or-later",
     "GPL-3.0",
+    "GPL-3.0-or-later",
     # CDLA-Permissive-2.0: Linux Foundation data license, MIT-equivalent.
     # Pulled in by webpki-roots (Mozilla CA bundle).
     "CDLA-Permissive-2.0",
