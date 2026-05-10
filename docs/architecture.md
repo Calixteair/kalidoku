@@ -8,6 +8,7 @@
             on-demand        │ - charge domain pack         │
                              │ - core::generator::generate  │
                              │ - INSERT grids in Postgres   │
+                             │ - reindex Meilisearch        │
                              └──────────────┬───────────────┘
                                             │
    ┌───────────────────────┐                ▼
@@ -18,13 +19,18 @@
    └───────────┬───────────┘  REST │  Valkey 7      │
                │              JSON │  (rate-limit,  │
                │                   │   queue solo)  │
-               ▼                   └────────┬───────┘
-   ┌───────────────────────┐                ▲
-   │ kalidoku-server (Rust)│  SeaORM        │
+               │                   ├────────────────┤
+               │                   │ Meilisearch    │
+               │                   │  (autocomplete │
+               │                   │   typo-tolerant│
+               ▼                   │   internal)    │
+   ┌───────────────────────┐       └────────┬───────┘
+   │ kalidoku-server (Rust)│  SeaORM        ▲
    │  - Axum 0.7           │ ──────────────┘
    │  - OIDC PKCE Keycloak │
    │  - HMAC play tokens   │
    │  - core::validator    │
+   │  - proxy /autocomplete│
    └───────────────────────┘
 ```
 
@@ -51,18 +57,20 @@
 - File Redis pour les grilles `solo` à la demande.
 - Idempotent : `INSERT ... ON CONFLICT DO NOTHING` sur `(domain, mode, publish_at)`.
 - Multi-thread Tokio mais l'algo CSP lui-même est synchrone (depuis `core::generator::generate`).
+- À chaque ingestion d'un domain pack, push idempotent de l'index dans Meilisearch (`MEILI_URL=http://search:7700`).
 
 ### `server/` — API HTTP
 
 - Axum, OpenAPI v1 dans `contracts/openapi.yaml`.
 - Couches :
   - `routes/` : handlers fins, délèguent à `services/`.
-  - `services/` : logique applicative (game engine wrapper, scoring, leaderboard agg).
+  - `services/` : logique applicative (game engine wrapper, scoring, leaderboard agg, proxy autocomplete).
   - `repos/` : accès DB via SeaORM.
   - `auth/` : OIDC PKCE Keycloak, sessions cookie HMAC.
   - `middleware/` : rate-limit `tower_governor`, CORS, headers sécu, tracing.
 - **Anti-cheat** : les solutions ne quittent JAMAIS le serveur tant que la partie n'est pas finie.
   Le client envoie une réponse → serveur valide via `core::validator::validate_answer` → renvoie `{ok, scoreDelta, mistakesLeft}`.
+- **Autocomplete** : `/api/domains/{id}/autocomplete` proxie vers Meilisearch (`http://search:7700`). La master key Meili reste côté backend, jamais exposée au client.
 
 ### `web/` — frontend
 
@@ -110,6 +118,22 @@ Raison : si le client génère, il connaît les solutions. Tout reste serveur, e
 ### ADR-005 — pas de cosign / SBOM au MVP
 
 Raison : Snyk fait le scan vuln en pré-release manuel, Trivy bloque les CRITICAL en CI. Le coût ops de cosign+SBOM dépasse le bénéfice tant qu'on n'a pas une exigence compliance.
+
+### ADR-006 — Meilisearch plutôt que MiniSearch côté autocomplete
+
+La roadmap initiale parlait de MiniSearch (lib JS, in-memory côté frontend). On bascule directement sur **Meilisearch v1.11** auto-hébergé.
+
+Raisons :
+- Avec `world-airports` et l'agrégat multi-domaines, l'index dépasse la centaine de milliers de docs : insoutenable côté client (bundle + RAM mobile).
+- Meilisearch gère nativement la tolérance à la typo, le ranking par pertinence, les filtres par domaine, et la pagination.
+- Le serveur Axum proxy `/api/domains/{id}/autocomplete` vers Meili, garde le `MEILI_MASTER_KEY` côté backend, n'expose jamais la master key au client.
+- Le worker fait l'indexation à chaque ingestion de domain pack (idempotent, full-rebuild d'index par domaine).
+
+Coût :
+- +1 service Docker (~150 MB RAM idle, ~256 MB en indexation).
+- Réseau interne uniquement, pas de NPM proxy public — la surface d'exposition reste celle du serveur Axum.
+
+Alternative écartée : Postgres `pg_trgm` + `tsvector`. Performant mais le ranking et la tolérance typo demandent du tuning manuel à chaque domaine, peu scalable côté DX.
 
 ## Liens wiki Obsidian (PC dev)
 

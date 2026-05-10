@@ -88,6 +88,37 @@ services:
     cpus: 0.5
     networks: [kalidoku-internal]
 
+  search:
+    image: getmeili/meilisearch:v1.11
+    container_name: kalidoku-search
+    <<: [*restart, *logging, *hardened]
+    # Meilisearch entrypoint drops privileges via setresuid; needs SETUID/SETGID
+    # kept on top of the *hardened defaults (cap_drop ALL stays in effect).
+    cap_add: [SETUID, SETGID]
+    environment:
+      MEILI_MASTER_KEY: ${MEILI_MASTER_KEY}
+      MEILI_ENV: production
+      MEILI_NO_ANALYTICS: "true"
+      MEILI_LOG_LEVEL: WARN
+      # Disque limité — index complet ~50 MB pour 12k docs roadmap.
+      MEILI_MAX_INDEXING_MEMORY: 256Mb
+    volumes:
+      - kalidoku_meili:/meili_data
+    healthcheck:
+      test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:7700/health || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    tmpfs:
+      - /tmp:size=32m,mode=1777
+    mem_limit: 384m
+    mem_reservation: 96m
+    cpus: 1.0
+    # Internal-only — never exposed via NPM. Server + worker reach it through
+    # the kalidoku-internal bridge.
+    networks: [kalidoku-internal]
+
   server:
     image: ${KALIDOKU_SERVER_IMAGE:-calixteair/kalidoku-server:latest}
     container_name: kalidoku-server
@@ -95,11 +126,14 @@ services:
     depends_on:
       postgres:  { condition: service_healthy }
       valkey:    { condition: service_healthy }
+      search:    { condition: service_healthy }
     environment:
       PORT: "8080"
       RUST_LOG: ${RUST_LOG:-info,kalidoku=debug,tower_http=info}
       DATABASE_URL: postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
       REDIS_URL: redis://default:${VALKEY_PASSWORD}@valkey:6379/0
+      MEILI_URL: http://search:7700
+      MEILI_MASTER_KEY: ${MEILI_MASTER_KEY}
       SESSION_HMAC_KEY: ${SESSION_HMAC_KEY}
       PLAY_TOKEN_HMAC_KEY: ${PLAY_TOKEN_HMAC_KEY}
       KEYCLOAK_ISSUER_URL: ${KEYCLOAK_ISSUER_URL}
@@ -129,10 +163,13 @@ services:
     depends_on:
       postgres: { condition: service_healthy }
       valkey:   { condition: service_healthy }
+      search:   { condition: service_healthy }
     environment:
       RUST_LOG: ${RUST_LOG:-info,kalidoku=debug}
       DATABASE_URL: postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
       REDIS_URL: redis://default:${VALKEY_PASSWORD}@valkey:6379/1
+      MEILI_URL: http://search:7700
+      MEILI_MASTER_KEY: ${MEILI_MASTER_KEY}
     command: ["--cron"]
     healthcheck:
       disable: true
@@ -170,6 +207,7 @@ services:
 volumes:
   postgres-data:
   valkey-data:
+  kalidoku_meili:
 
 networks:
   kalidoku-internal:
