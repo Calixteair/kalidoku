@@ -24,7 +24,7 @@ pub struct AppConfig {
     pub rust_log: String,
 
     #[serde(default)]
-    pub allowed_origins: Vec<String>,
+    pub allowed_origins: String,
 }
 
 fn default_log_level() -> String {
