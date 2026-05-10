@@ -88,9 +88,7 @@ impl Jwks {
 
     async fn cache_lookup(&self, kid: &str) -> Option<CachedKey> {
         let cache = self.cache.read().await;
-        let stale = cache
-            .fetched_at
-            .is_none_or(|t| t.elapsed() >= CACHE_TTL);
+        let stale = cache.fetched_at.is_none_or(|t| t.elapsed() >= CACHE_TTL);
         if stale {
             return None;
         }

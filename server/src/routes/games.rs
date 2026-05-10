@@ -303,18 +303,149 @@ pub async fn play(
     if !(0..=2).contains(&body.cell.row) || !(0..=2).contains(&body.cell.col) {
         return Err(ApiError::BadRequest("cell out of range".into()));
     }
-    if body.answer.trim().is_empty() {
+    let trimmed_answer = body.answer.trim();
+    if trimmed_answer.is_empty() {
         return Err(ApiError::BadRequest("empty answer".into()));
     }
+    if trimmed_answer.len() > 200 {
+        return Err(ApiError::BadRequest("answer too long".into()));
+    }
 
-    let _db = state
+    let db = state
         .db
         .as_ref()
         .ok_or_else(|| ApiError::Internal("db unavailable".into()))?;
 
-    Err(ApiError::NotImplemented(
-        "play validation waiting for core::validator wiring against grid payload (agent-a)",
-    ))
+    let game = games::Entity::find_by_id(game_id)
+        .one(db.as_ref())
+        .await?
+        .ok_or(ApiError::NotFound("game"))?;
+    if game.device_id != device_id {
+        return Err(ApiError::Forbidden);
+    }
+    if game.status != "active" {
+        return Err(ApiError::Conflict("game already finished"));
+    }
+    if game.mistakes >= MAX_MISTAKES {
+        return Err(ApiError::Conflict("game already finished"));
+    }
+
+    let grid = grids::Entity::find_by_id(game.grid_id)
+        .one(db.as_ref())
+        .await?
+        .ok_or(ApiError::NotFound("grid"))?;
+
+    // Resolve user input → entity_id via the grid's entity index.
+    let cell_idx = (body.cell.row as usize) * 3 + (body.cell.col as usize);
+    let answer_norm = kalidoku_core::normalize::normalize(trimmed_answer);
+    let entity_id = resolve_entity_id(&grid.payload, &answer_norm).ok_or(ApiError::BadRequest(
+        "answer does not match any known entity".into(),
+    ))?;
+
+    // Re-use already-played cells to enforce uniqueness.
+    let answers = parse_answers(&game.answers);
+    if answers.iter().any(|a| a.cell == cell_idx) {
+        return Err(ApiError::Conflict("cell already played"));
+    }
+    if answers.iter().any(|a| a.entity_id == entity_id && a.ok) {
+        return Err(ApiError::Conflict("entity already used"));
+    }
+
+    let candidates = candidates_for_cell(&grid.payload, body.cell.row, body.cell.col)
+        .ok_or_else(|| ApiError::Internal("grid payload missing candidates".into()))?;
+    let ok = candidates.iter().any(|c| c == &entity_id);
+
+    let mut new_answers = answers;
+    new_answers.push(StoredAnswer {
+        cell: cell_idx,
+        entity_id: entity_id.clone(),
+        ok,
+    });
+
+    let now = Utc::now();
+    let mut score_delta = 0_i32;
+    let mut mistakes = game.mistakes;
+    let mut solved = game.solved;
+    let mut score = game.score;
+
+    if ok {
+        score_delta = 100;
+        score += score_delta;
+        solved += 1;
+    } else {
+        mistakes += 1;
+    }
+    let mistakes_left = (MAX_MISTAKES - mistakes).max(0);
+    let ended = mistakes >= MAX_MISTAKES || solved >= 9;
+
+    let answers_json = serde_json::to_value(&new_answers)
+        .map_err(|e| ApiError::Internal(format!("serialise answers: {e}")))?;
+
+    let mut am: games::ActiveModel = game.into_active_model();
+    am.score = Set(score);
+    am.mistakes = Set(mistakes);
+    am.solved = Set(solved);
+    am.answers = Set(answers_json);
+    if ended {
+        am.status = Set(if solved >= 9 {
+            "won".into()
+        } else {
+            "lost".into()
+        });
+        am.finished_at = Set(Some(now.into()));
+    }
+    am.update(db.as_ref()).await?;
+
+    Ok(Json(PlayResponse {
+        ok,
+        score_delta,
+        mistakes_left,
+        ended,
+    }))
+}
+
+/// Look up an entity_id whose canonical or alias name matches the normalised user input.
+fn resolve_entity_id(payload: &serde_json::Value, normalised: &str) -> Option<String> {
+    let entities = payload.get("entities")?.as_array()?;
+    for ent in entities {
+        let id = ent.get("id")?.as_str()?;
+        let name = ent.get("name").and_then(|v| v.as_str()).unwrap_or("");
+        if kalidoku_core::normalize::normalize(name) == normalised {
+            return Some(id.to_string());
+        }
+        if let Some(aliases) = ent.get("aliases").and_then(|v| v.as_array()) {
+            for a in aliases {
+                if let Some(s) = a.as_str() {
+                    if kalidoku_core::normalize::normalize(s) == normalised {
+                        return Some(id.to_string());
+                    }
+                }
+            }
+        }
+    }
+    None
+}
+
+fn candidates_for_cell(payload: &serde_json::Value, row: i32, col: i32) -> Option<Vec<String>> {
+    let cells = payload.get("candidates")?.as_array()?;
+    let row_arr = cells.get(row as usize)?.as_array()?;
+    let cell = row_arr.get(col as usize)?.as_array()?;
+    Some(
+        cell.iter()
+            .filter_map(|v| v.as_str().map(String::from))
+            .collect(),
+    )
+}
+
+#[derive(Clone, Serialize, Deserialize)]
+struct StoredAnswer {
+    cell: usize,
+    entity_id: String,
+    ok: bool,
+}
+
+fn parse_answers(raw: &serde_json::Value) -> Vec<StoredAnswer> {
+    serde_json::from_value(raw.clone()).unwrap_or_default()
 }
 
 // ----- abandon + result -----
@@ -355,18 +486,22 @@ pub async fn abandon(
     if game.device_id != device_id {
         return Err(ApiError::Forbidden);
     }
-    if game.status != "active" {
-        return Err(ApiError::Conflict("game already finished"));
+    if game.status == "active" {
+        let now = Utc::now();
+        let mut am: games::ActiveModel = game.clone().into_active_model();
+        am.status = Set("abandoned".into());
+        am.finished_at = Set(Some(now.into()));
+        am.update(db.as_ref()).await?;
     }
-    let now = Utc::now();
-    let mut am: games::ActiveModel = game.into_active_model();
-    am.status = Set("abandoned".into());
-    am.finished_at = Set(Some(now.into()));
-    let _ = am.update(db.as_ref()).await?;
-
-    Err(ApiError::NotImplemented(
-        "solutions reveal awaits core::generator payload schema (agent-a)",
-    ))
+    let game = games::Entity::find_by_id(game_id)
+        .one(db.as_ref())
+        .await?
+        .ok_or(ApiError::NotFound("game"))?;
+    let grid = grids::Entity::find_by_id(game.grid_id)
+        .one(db.as_ref())
+        .await?
+        .ok_or(ApiError::NotFound("grid"))?;
+    Ok(Json(end_game_view(&game, &grid)?))
 }
 
 pub async fn result(
@@ -389,9 +524,109 @@ pub async fn result(
     if game.status == "active" {
         return Err(ApiError::Conflict("game still in progress"));
     }
-    Err(ApiError::NotImplemented(
-        "solutions reveal awaits core::generator payload schema (agent-a)",
-    ))
+    let grid = grids::Entity::find_by_id(game.grid_id)
+        .one(db.as_ref())
+        .await?
+        .ok_or(ApiError::NotFound("grid"))?;
+    Ok(Json(end_game_view(&game, &grid)?))
+}
+
+/// Build the EndGameView from a finished game + its grid. The candidates per cell
+/// come straight from the grid payload's `candidates` 3x3 array, mapped to the
+/// `entities` index for human-readable names.
+fn end_game_view(game: &games::Model, grid: &grids::Model) -> ApiResult<EndGameView> {
+    let started_at = game.started_at.with_timezone(&Utc);
+    let finished_at = game
+        .finished_at
+        .map_or(started_at, |t| t.with_timezone(&Utc));
+
+    let stored = parse_answers(&game.answers);
+    let solved = stored.iter().filter(|a| a.ok).count() as i32;
+    let share_string = build_share_string(&stored);
+
+    let solutions_by_cell = build_solutions_by_cell(&grid.payload)?;
+
+    let summary = GameSummary {
+        game_id: game.id,
+        grid_id: game.grid_id,
+        score: game.score,
+        max_score: game.max_score,
+        mistakes: game.mistakes,
+        started_at,
+        finished_at,
+        solved,
+        share_string,
+    };
+    Ok(EndGameView {
+        summary,
+        solutions_by_cell,
+    })
+}
+
+fn build_solutions_by_cell(payload: &serde_json::Value) -> ApiResult<serde_json::Value> {
+    let cells = payload
+        .get("candidates")
+        .and_then(|v| v.as_array())
+        .ok_or_else(|| ApiError::Internal("grid payload missing candidates".into()))?;
+    let entities = payload
+        .get("entities")
+        .and_then(|v| v.as_array())
+        .ok_or_else(|| ApiError::Internal("grid payload missing entities".into()))?;
+    // Build a quick id → name lookup.
+    let mut name_by_id = std::collections::HashMap::new();
+    for ent in entities {
+        if let (Some(id), Some(name)) = (
+            ent.get("id").and_then(|v| v.as_str()),
+            ent.get("name").and_then(|v| v.as_str()),
+        ) {
+            name_by_id.insert(id.to_string(), name.to_string());
+        }
+    }
+    let mut out = Vec::with_capacity(9);
+    for (r, row_arr) in cells.iter().enumerate() {
+        let row_arr = row_arr
+            .as_array()
+            .ok_or_else(|| ApiError::Internal("malformed candidates row".into()))?;
+        for (c, cell) in row_arr.iter().enumerate() {
+            let ids = cell
+                .as_array()
+                .ok_or_else(|| ApiError::Internal("malformed candidates cell".into()))?;
+            let candidates: Vec<_> = ids
+                .iter()
+                .filter_map(|v| v.as_str())
+                .map(|id| {
+                    serde_json::json!({
+                        "id": id,
+                        "name": name_by_id.get(id).cloned().unwrap_or_else(|| id.to_string()),
+                    })
+                })
+                .collect();
+            out.push(serde_json::json!({
+                "cell": { "row": r, "col": c },
+                "candidates": candidates,
+            }));
+        }
+    }
+    Ok(serde_json::Value::Array(out))
+}
+
+/// Wordle-style emoji string. Cells are placed by grid position; if the user never
+/// played a cell we use ⬜, ✅ for a correct answer, ❌ for a wrong one.
+fn build_share_string(answers: &[StoredAnswer]) -> String {
+    let mut grid = ['⬜'; 9];
+    for a in answers {
+        if a.cell < 9 {
+            grid[a.cell] = if a.ok { '✅' } else { '❌' };
+        }
+    }
+    let mut out = String::with_capacity(20);
+    for (i, c) in grid.iter().enumerate() {
+        out.push(*c);
+        if (i + 1) % 3 == 0 && i < 8 {
+            out.push('\n');
+        }
+    }
+    out
 }
 
 // ----- /api/grids/{domain}/today -----
