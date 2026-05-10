@@ -4,7 +4,7 @@
     "fr": "Métro de Paris",
     "en": "Paris Metro"
   },
-  "version": "0.1.0",
+  "version": "0.2.0",
   "default_locale": "fr",
   "license": "ODbL-1.0",
   "sources": [
@@ -18,5 +18,24 @@
     "max_predicate_family_repeats": 1,
     "row_predicate_count": 3,
     "col_predicate_count": 3
-  }
+  },
+  "dataset_sha256": "ec06dda7823b8f16d24d7e3322a4655dcb534333a705dc049c279eec9fb6f37c",
+  "entity_count": 310,
+  "sources_versions": [
+    {
+      "id": "osm-overpass-stations",
+      "url": "https://overpass-api.de/api/interpreter",
+      "date": "2026-05-10"
+    },
+    {
+      "id": "osm-overpass-routes",
+      "url": "https://overpass-api.de/api/interpreter",
+      "date": "2026-05-10"
+    },
+    {
+      "id": "static-lines-fallback",
+      "url": "see scripts/lib/static-lines.ts",
+      "date": "2026-05-10"
+    }
+  ]
 }
