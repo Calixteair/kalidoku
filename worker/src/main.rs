@@ -8,17 +8,8 @@
 use anyhow::Result;
 use clap::Parser;
 
-mod cli;
-mod cron;
-mod db;
-mod domain_pack;
-mod once;
-mod persist;
-mod queue;
-mod seed;
-mod telemetry;
-
-use cli::{Cli, Mode};
+use kalidoku_worker::cli::{Cli, Mode};
+use kalidoku_worker::{cron, once, queue, telemetry};
 
 #[tokio::main]
 async fn main() -> Result<()> {
