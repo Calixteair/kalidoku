@@ -5,6 +5,7 @@ edition.workspace     = true
 rust-version.workspace = true
 license.workspace     = true
 authors.workspace     = true
+publish = false
 description = "Engine library for kalidoku — entities, predicates, generator, validator. No I/O, no async."
 
 [lib]
@@ -24,6 +25,7 @@ rand.workspace       = true
 unicode-normalization.workspace = true
 geoutils.workspace   = true
 clap.workspace       = true
+jsonschema.workspace = true
 
 [dev-dependencies]
 anyhow.workspace = true

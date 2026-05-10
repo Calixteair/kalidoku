@@ -30,8 +30,18 @@ db-urls = ["https://github.com/rustsec/advisory-db"]
 yanked = "deny"
 # Per-id ignores (use with care — must include rationale + revisit date).
 ignore = [
-    # example:
-    # { id = "RUSTSEC-2024-0000", reason = "false positive in our usage" },
+    # Tracked in #41 — bump openidconnect 3.5 → 4.x (drops rustls 0.21 chain).
+    # Acceptable risk: kalidoku only validates id_tokens via Keycloak JWKS, no
+    # custom TLS authority chains. Revisit before v1.0.0.
+    { id = "RUSTSEC-2026-0098", reason = "rustls-webpki 0.101 via openidconnect 3.5 — see #41" },
+    { id = "RUSTSEC-2026-0099", reason = "rustls-webpki 0.101 via openidconnect 3.5 — see #41" },
+    { id = "RUSTSEC-2026-0104", reason = "rustls-webpki 0.101 via openidconnect 3.5 — see #41" },
+    { id = "RUSTSEC-2025-0134", reason = "rustls-pemfile unmaintained via openidconnect 3.5 — see #41" },
+    # Transitive advisories with no fixed upgrade available — accepted risk:
+    # we don't expose the affected attack surface (no key generation in user
+    # input path, no untrusted RSA signing), to revisit when upstream patches.
+    { id = "RUSTSEC-2023-0071", reason = "rsa Marvin timing via sqlx-mysql — no fix; not on signing path" },
+    { id = "RUSTSEC-2025-0111", reason = "transitive, no fixed upgrade available" },
 ]
 
 # ---------------------------------------------------------------------------
@@ -58,12 +68,18 @@ allow = [
     "Unicode-DFS-2016",
     "Unlicense",
     "Zlib",
-    # Allowed because kalidoku itself is AGPL-3.0-or-later and the binary is
-    # never redistributed without source. Keep this list narrow.
+    # Allowed because kalidoku itself is AGPL-3.0-only and the binary is
+    # never redistributed without source. cargo-deny resolves the license
+    # synthesised from `Cargo.toml` literally, so we list the SPDX flavor
+    # actually emitted (`-only`) and the family fallback for upstream deps.
     "AGPL-3.0",
+    "AGPL-3.0-only",
     "AGPL-3.0-or-later",
     "GPL-3.0",
     "GPL-3.0-or-later",
+    # CDLA-Permissive-2.0: Linux Foundation data license, MIT-equivalent.
+    # Pulled in by webpki-roots (Mozilla CA bundle).
+    "CDLA-Permissive-2.0",
 ]
 # Per-crate exceptions (use if upstream uses a non-standard SPDX id).
 exceptions = []
@@ -73,7 +89,11 @@ exceptions = []
 # ---------------------------------------------------------------------------
 [bans]
 multiple-versions = "warn"
+# Deny wildcards in published crates, but allow them for our own internal
+# path dependencies (kalidoku-core ↔ server/worker). These never go to
+# crates.io so the wildcard concern doesn't apply.
 wildcards = "deny"
+allow-wildcard-paths = true
 highlight = "all"
 workspace-default-features = "allow"
 external-default-features = "allow"
