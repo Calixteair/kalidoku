@@ -1,0 +1,60 @@
+[package]
+name        = "kalidoku-server"
+version.workspace     = true
+edition.workspace     = true
+rust-version.workspace = true
+license.workspace     = true
+authors.workspace     = true
+description = "kalidoku HTTP backend (Axum)."
+
+[[bin]]
+name = "kalidoku-server"
+path = "src/main.rs"
+
+[dependencies]
+kalidoku-core = { path = "../core" }
+
+# runtime + tracing
+tokio.workspace      = true
+tracing.workspace    = true
+tracing-subscriber.workspace = true
+
+# web
+axum.workspace       = true
+axum-extra.workspace = true
+tower.workspace      = true
+tower-http.workspace = true
+tower_governor.workspace = true
+hyper.workspace      = true
+
+# DB
+sea-orm.workspace    = true
+sea-orm-migration.workspace = true
+
+# cache
+redis.workspace          = true
+deadpool-redis.workspace = true
+
+# auth
+openidconnect.workspace = true
+jsonwebtoken.workspace  = true
+
+# crypto
+hmac.workspace               = true
+sha2.workspace               = true
+base64.workspace             = true
+constant_time_eq.workspace   = true
+
+# http client
+reqwest.workspace = true
+
+# serde / utils
+serde.workspace      = true
+serde_json.workspace = true
+thiserror.workspace  = true
+anyhow.workspace     = true
+chrono.workspace     = true
+uuid.workspace       = true
+once_cell.workspace  = true
+config.workspace     = true
+url.workspace        = true

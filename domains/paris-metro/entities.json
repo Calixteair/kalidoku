@@ -1,0 +1,105 @@
+[
+  {
+    "id": "chatelet",
+    "name": "Châtelet",
+    "aliases": ["Châtelet-Les Halles"],
+    "attributes": {
+      "lines": { "str_list": ["1", "4", "7", "11", "14"] },
+      "geo": { "geo": { "lat": 48.858108, "lon": 2.347439 } },
+      "in_paris": { "bool": true },
+      "arrondissement": { "num": 1 }
+    }
+  },
+  {
+    "id": "republique",
+    "name": "République",
+    "attributes": {
+      "lines": { "str_list": ["3", "5", "8", "9", "11"] },
+      "geo": { "geo": { "lat": 48.867538, "lon": 2.363751 } },
+      "in_paris": { "bool": true },
+      "arrondissement": { "num": 11 }
+    }
+  },
+  {
+    "id": "saint-michel",
+    "name": "Saint-Michel",
+    "aliases": ["Saint-Michel — Notre-Dame", "St-Michel"],
+    "attributes": {
+      "lines": { "str_list": ["4"] },
+      "geo": { "geo": { "lat": 48.853424, "lon": 2.344166 } },
+      "in_paris": { "bool": true },
+      "arrondissement": { "num": 5 }
+    }
+  },
+  {
+    "id": "bastille",
+    "name": "Bastille",
+    "attributes": {
+      "lines": { "str_list": ["1", "5", "8"] },
+      "geo": { "geo": { "lat": 48.852976, "lon": 2.369336 } },
+      "in_paris": { "bool": true },
+      "arrondissement": { "num": 4 }
+    }
+  },
+  {
+    "id": "opera",
+    "name": "Opéra",
+    "attributes": {
+      "lines": { "str_list": ["3", "7", "8"] },
+      "geo": { "geo": { "lat": 48.870770, "lon": 2.332090 } },
+      "in_paris": { "bool": true },
+      "arrondissement": { "num": 9 }
+    }
+  },
+  {
+    "id": "concorde",
+    "name": "Concorde",
+    "attributes": {
+      "lines": { "str_list": ["1", "8", "12"] },
+      "geo": { "geo": { "lat": 48.866062, "lon": 2.321212 } },
+      "in_paris": { "bool": true },
+      "arrondissement": { "num": 1 }
+    }
+  },
+  {
+    "id": "nation",
+    "name": "Nation",
+    "attributes": {
+      "lines": { "str_list": ["1", "2", "6", "9"] },
+      "geo": { "geo": { "lat": 48.848358, "lon": 2.395894 } },
+      "in_paris": { "bool": true },
+      "arrondissement": { "num": 12 }
+    }
+  },
+  {
+    "id": "etoile",
+    "name": "Charles de Gaulle — Étoile",
+    "aliases": ["Étoile", "Charles de Gaulle Étoile"],
+    "attributes": {
+      "lines": { "str_list": ["1", "2", "6"] },
+      "geo": { "geo": { "lat": 48.873779, "lon": 2.295269 } },
+      "in_paris": { "bool": true },
+      "arrondissement": { "num": 8 }
+    }
+  },
+  {
+    "id": "auber",
+    "name": "Auber",
+    "attributes": {
+      "lines": { "str_list": ["RER A"] },
+      "geo": { "geo": { "lat": 48.872500, "lon": 2.331111 } },
+      "in_paris": { "bool": true },
+      "arrondissement": { "num": 9 }
+    }
+  },
+  {
+    "id": "luxembourg",
+    "name": "Luxembourg",
+    "attributes": {
+      "lines": { "str_list": ["RER B"] },
+      "geo": { "geo": { "lat": 48.846667, "lon": 2.338611 } },
+      "in_paris": { "bool": true },
+      "arrondissement": { "num": 5 }
+    }
+  }
+]

@@ -1,0 +1,34 @@
+# syntax=docker/dockerfile:1.7
+ARG RUST_VERSION=1.82-bookworm
+ARG DEBIAN_RELEASE=12
+
+FROM rust:${RUST_VERSION} AS chef
+WORKDIR /work
+RUN cargo install cargo-chef --locked --version 0.1.68
+
+FROM chef AS planner
+COPY Cargo.toml Cargo.lock rustfmt.toml clippy.toml rust-toolchain.toml ./
+COPY core/Cargo.toml core/Cargo.toml
+COPY server/Cargo.toml server/Cargo.toml
+COPY worker/Cargo.toml worker/Cargo.toml
+RUN mkdir -p core/src server/src worker/src \
+ && echo "fn main() {}" > server/src/main.rs \
+ && echo "fn main() {}" > worker/src/main.rs \
+ && echo "" > core/src/lib.rs
+COPY . .
+RUN cargo chef prepare --recipe-path recipe.json
+
+FROM chef AS builder
+COPY --from=planner /work/recipe.json recipe.json
+RUN cargo chef cook --release --recipe-path recipe.json -p kalidoku-worker
+COPY . .
+RUN cargo build --release -p kalidoku-worker \
+ && strip target/release/kalidoku-worker
+
+FROM gcr.io/distroless/cc-debian${DEBIAN_RELEASE}:nonroot AS runtime
+WORKDIR /app
+COPY --from=builder /work/target/release/kalidoku-worker /usr/local/bin/kalidoku-worker
+COPY domains /app/domains
+USER nonroot
+ENTRYPOINT ["/usr/local/bin/kalidoku-worker"]
+CMD ["--cron"]

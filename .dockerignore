@@ -1,0 +1,11 @@
+target/
+node_modules/
+web/node_modules/
+web/dist/
+web/.astro/
+.git/
+.github/
+docs/
+.idea/
+.vscode/
+brave_screenshot_*.png

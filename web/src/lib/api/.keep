@@ -1,0 +1,2 @@
+Generated TS types from contracts/openapi.yaml live here.
+Run `pnpm openapi:gen` to regenerate `types.ts`.

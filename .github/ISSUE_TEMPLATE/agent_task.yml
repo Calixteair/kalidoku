@@ -1,0 +1,41 @@
+name: Agent task
+description: Self-contained task assignable to a single dev / IA agent
+labels: [agent-task]
+title: "[agent-X] <verb> <object>"
+body:
+  - type: dropdown
+    id: agent
+    attributes:
+      label: Target agent
+      options:
+        - agent-A (core)
+        - agent-B (worker)
+        - agent-C (server)
+        - agent-D (web)
+        - agent-E (infra/CI)
+        - agent-F (domains/datasets)
+    validations: { required: true }
+
+  - type: textarea
+    id: scope
+    attributes:
+      label: Scope (files / dirs the agent may touch)
+    validations: { required: true }
+
+  - type: textarea
+    id: contract
+    attributes:
+      label: Contract impact
+      description: Does this require changes to contracts/entity-schema.json or contracts/openapi.yaml?
+    validations: { required: true }
+
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance criteria
+      placeholder: |
+        - [ ] cargo test passes
+        - [ ] cargo clippy -D warnings passes
+        - [ ] axe-core no violations on /
+        - [ ] manual smoke test: ...
+    validations: { required: true }

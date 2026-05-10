@@ -1,0 +1,9 @@
+# Default owner of everything in the repo
+*           @Calixteair
+
+# Critical files — require explicit owner review
+/CLAUDE.md          @Calixteair
+/contracts/         @Calixteair
+/.github/           @Calixteair
+/infra/             @Calixteair
+/docs/security.md   @Calixteair

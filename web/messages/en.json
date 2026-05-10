@@ -1,0 +1,15 @@
+{
+  "$schema": "https://inlang.com/schema/inlang-message-format",
+  "site_title": "kalidoku",
+  "site_tagline": "The daily multi-domain puzzle",
+  "grid_today": "today's grid",
+  "score": "Score",
+  "errors": "Mistakes",
+  "abandon_button": "Give up and see the solutions",
+  "rules_button": "rules",
+  "play_button": "Play",
+  "share_button": "Share",
+  "copy_result": "Copy result",
+  "see_solutions": "See solutions",
+  "loading_stations": "Loading…"
+}

@@ -1,0 +1,107 @@
+# docker-compose.yaml — production deployment of kalidoku.
+#
+# Loaded with `docker compose -f infra/docker/compose.yaml --env-file /run/kalidoku/.env up -d`.
+# The .env file is rendered by `bao-agent@kalidoku.service` (systemd, Option B).
+# Never use `up -d --force-recreate` without `--env-file`.
+
+name: kalidoku
+
+x-restart: &restart
+  restart: unless-stopped
+
+x-logging: &logging
+  logging:
+    driver: json-file
+    options:
+      max-size: "20m"
+      max-file: "5"
+      tag: "{{.Name}}"
+
+services:
+  postgres:
+    image: postgres:16.6-alpine
+    container_name: kalidoku-postgres
+    <<: [*restart, *logging]
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 10s
+      timeout: 5s
+      retries: 6
+    networks: [kalidoku-internal]
+
+  valkey:
+    image: valkey/valkey:7.2-alpine
+    container_name: kalidoku-valkey
+    <<: [*restart, *logging]
+    command: ["valkey-server", "--requirepass", "${VALKEY_PASSWORD}", "--save", "60", "1000"]
+    volumes:
+      - valkey-data:/data
+    healthcheck:
+      test: ["CMD-SHELL", "valkey-cli -a $${VALKEY_PASSWORD} ping | grep -q PONG"]
+      interval: 10s
+      timeout: 5s
+      retries: 6
+    networks: [kalidoku-internal]
+
+  server:
+    image: ${KALIDOKU_SERVER_IMAGE:-calixteair/kalidoku-server:latest}
+    container_name: kalidoku-server
+    <<: [*restart, *logging]
+    depends_on:
+      postgres:  { condition: service_healthy }
+      valkey:    { condition: service_healthy }
+    environment:
+      PORT: "8080"
+      RUST_LOG: ${RUST_LOG:-info,kalidoku=debug,tower_http=info}
+      DATABASE_URL: postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
+      REDIS_URL: redis://default:${VALKEY_PASSWORD}@valkey:6379/0
+      SESSION_HMAC_KEY: ${SESSION_HMAC_KEY}
+      PLAY_TOKEN_HMAC_KEY: ${PLAY_TOKEN_HMAC_KEY}
+      KEYCLOAK_ISSUER_URL: ${KEYCLOAK_ISSUER_URL}
+      KEYCLOAK_CLIENT_ID: ${KEYCLOAK_CLIENT_ID}
+      KEYCLOAK_CLIENT_SECRET: ${KEYCLOAK_CLIENT_SECRET}
+      KEYCLOAK_REDIRECT_URL: ${KEYCLOAK_REDIRECT_URL}
+      HCAPTCHA_SECRET: ${HCAPTCHA_SECRET}
+      ALLOWED_ORIGINS: https://kalidoku.calixteair.fr
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://127.0.0.1:8080/api/health | grep -q '\"status\":\"ok\"'"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+    networks: [kalidoku-internal, nginx-reverse-proxy]
+
+  worker:
+    image: ${KALIDOKU_WORKER_IMAGE:-calixteair/kalidoku-worker:latest}
+    container_name: kalidoku-worker
+    <<: [*restart, *logging]
+    depends_on:
+      postgres: { condition: service_healthy }
+      valkey:   { condition: service_healthy }
+    environment:
+      RUST_LOG: ${RUST_LOG:-info,kalidoku=debug}
+      DATABASE_URL: postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
+      REDIS_URL: redis://default:${VALKEY_PASSWORD}@valkey:6379/1
+    command: ["--cron"]
+    networks: [kalidoku-internal]
+
+  web:
+    image: ${KALIDOKU_WEB_IMAGE:-calixteair/kalidoku-web:latest}
+    container_name: kalidoku-web
+    <<: [*restart, *logging]
+    networks: [nginx-reverse-proxy]
+
+volumes:
+  postgres-data:
+  valkey-data:
+
+networks:
+  kalidoku-internal:
+    driver: bridge
+  nginx-reverse-proxy:
+    external: true

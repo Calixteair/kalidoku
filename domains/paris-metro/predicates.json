@@ -1,0 +1,74 @@
+[
+  {
+    "family": "ends_with",
+    "param": "S",
+    "labels": {
+      "fr": { "text": "Termine par la lettre 'S'" },
+      "en": { "text": "Ends with the letter 'S'" }
+    },
+    "tags": ["letters"]
+  },
+  {
+    "family": "contains_letter",
+    "param": "C",
+    "labels": {
+      "fr": { "text": "Contient la lettre 'C' dans son nom" },
+      "en": { "text": "Contains the letter 'C' in its name" }
+    },
+    "tags": ["letters"]
+  },
+  {
+    "family": "name_length_max",
+    "param": 7,
+    "labels": {
+      "fr": { "text": "A un nom de 7 lettres ou moins" },
+      "en": { "text": "Name is 7 letters or shorter" }
+    },
+    "tags": ["letters"]
+  },
+  {
+    "family": "on_attr_in_set",
+    "param": { "attr": "lines", "values": ["1", "4", "14"] },
+    "labels": {
+      "fr": {
+        "text": "Sur une ligne automatique",
+        "help": "Lignes 1, 4 et 14 — sans conducteur."
+      },
+      "en": {
+        "text": "On a driverless line",
+        "help": "Lines 1, 4 and 14 — fully automatic."
+      }
+    },
+    "tags": ["network"]
+  },
+  {
+    "family": "on_attr_in_set",
+    "param": { "attr": "lines", "values": ["5"] },
+    "labels": {
+      "fr": { "text": "Sur la ligne 5" },
+      "en": { "text": "On line 5" }
+    },
+    "tags": ["network"]
+  },
+  {
+    "family": "within_km",
+    "param": {
+      "attr": "geo",
+      "from": { "lat": 48.852968, "lon": 2.349902 },
+      "km": 3.0,
+      "anchor_label_fr": "la Cathédrale Notre-Dame",
+      "anchor_label_en": "Notre-Dame Cathedral"
+    },
+    "labels": {
+      "fr": {
+        "text": "À moins de 3 km de la Cathédrale Notre-Dame",
+        "help": "Distance à vol d'oiseau entre la station et la cathédrale."
+      },
+      "en": {
+        "text": "Within 3 km of Notre-Dame Cathedral",
+        "help": "As-the-crow-flies distance from the station to the cathedral."
+      }
+    },
+    "tags": ["geo"]
+  }
+]

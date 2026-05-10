@@ -1,0 +1,54 @@
+name: Bug report
+description: Report a reproducible bug
+labels: [bug, triage]
+body:
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+      description: One-sentence description.
+    validations: { required: true }
+
+  - type: textarea
+    id: repro
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Go to ...
+        2. Click ...
+        3. See error
+    validations: { required: true }
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behaviour
+    validations: { required: true }
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behaviour
+    validations: { required: true }
+
+  - type: input
+    id: domain
+    attributes:
+      label: Domain (paris-metro, …)
+    validations: { required: false }
+
+  - type: dropdown
+    id: surface
+    attributes:
+      label: Affected surface
+      options: [web, server, worker, core, infra, docs]
+    validations: { required: true }
+
+  - type: textarea
+    id: env
+    attributes:
+      label: Environment
+      placeholder: |
+        - Browser / device:
+        - Locale:
+        - Build sha (if known):

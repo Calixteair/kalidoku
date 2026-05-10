@@ -1,0 +1,3 @@
+Domain packs registry.
+Each subdirectory is one domain (paris-metro, rer, transilien, sncf, world-airports, …).
+Adding a domain MUST NOT require modifying core/. See contracts/entity-schema.json.

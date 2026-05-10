@@ -1,0 +1,185 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://kalidoku.calixteair.fr/schemas/entity-v1.json",
+  "title": "kalidoku domain pack — entity & predicate schema",
+  "description": "Contract for entities and predicates in a kalidoku domain pack. Lives at domains/<name>/{entities.json,predicates.json,metadata.json}. Engine in core/ ignores domain semantics — it only consumes this schema.",
+  "type": "object",
+  "$defs": {
+    "AttributeValue": {
+      "description": "A single attribute value attached to an entity. Tagged union for serde compatibility.",
+      "oneOf": [
+        { "type": "object", "required": ["str"], "properties": { "str": { "type": "string" } } },
+        { "type": "object", "required": ["num"], "properties": { "num": { "type": "number" } } },
+        { "type": "object", "required": ["bool"], "properties": { "bool": { "type": "boolean" } } },
+        { "type": "object", "required": ["str_list"], "properties": { "str_list": { "type": "array", "items": { "type": "string" } } } },
+        {
+          "type": "object",
+          "required": ["geo"],
+          "properties": {
+            "geo": {
+              "type": "object",
+              "required": ["lat", "lon"],
+              "properties": {
+                "lat": { "type": "number", "minimum": -90, "maximum": 90 },
+                "lon": { "type": "number", "minimum": -180, "maximum": 180 }
+              },
+              "additionalProperties": false
+            }
+          }
+        }
+      ]
+    },
+
+    "Entity": {
+      "description": "A single playable entity (a station, an airport, a Pokémon, etc.).",
+      "type": "object",
+      "required": ["id", "name", "attributes"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Stable opaque identifier, [a-z0-9_-], lowercase. Never user-facing.",
+          "pattern": "^[a-z0-9_][a-z0-9_-]{0,63}$"
+        },
+        "name": {
+          "type": "string",
+          "description": "Canonical human-readable name (kept in source language: 'Châtelet' stays Châtelet in EN UI).",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "aliases": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Alternate spellings accepted by the autocomplete (e.g. 'St-Michel' for 'Saint-Michel')."
+        },
+        "attributes": {
+          "type": "object",
+          "description": "Free-form bag of attributes. Keys are predicate-friendly names (snake_case). Values follow AttributeValue.",
+          "additionalProperties": { "$ref": "#/$defs/AttributeValue" }
+        }
+      },
+      "additionalProperties": false
+    },
+
+    "PredicateDefinition": {
+      "description": "A reusable predicate family (e.g. 'ends_with') parameterized at runtime.",
+      "type": "object",
+      "required": ["family", "labels"],
+      "properties": {
+        "family": {
+          "type": "string",
+          "description": "Stable family identifier consumed by core/. Adding a new family requires a Rust impl in core/predicates/.",
+          "enum": [
+            "ends_with",
+            "starts_with",
+            "contains_letter",
+            "name_length_max",
+            "name_length_min",
+            "name_length_eq",
+            "on_attr_eq",
+            "on_attr_in_set",
+            "on_attr_contains",
+            "within_km",
+            "in_zone",
+            "numeric_gte",
+            "numeric_lte",
+            "numeric_between"
+          ]
+        },
+        "param": {
+          "description": "Parameter passed to the predicate family. Shape depends on family. Validated at load time by core/.",
+          "oneOf": [
+            { "type": "string" },
+            { "type": "number" },
+            { "type": "boolean" },
+            { "type": "array" },
+            { "type": "object" }
+          ]
+        },
+        "labels": {
+          "type": "object",
+          "description": "Human-readable label and help, per locale. At minimum 'fr' is required; 'en' optional but recommended.",
+          "required": ["fr"],
+          "properties": {
+            "fr": { "$ref": "#/$defs/Label" },
+            "en": { "$ref": "#/$defs/Label" }
+          },
+          "additionalProperties": { "$ref": "#/$defs/Label" }
+        },
+        "tags": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Free-form tags used by the generator's diversity rules (e.g. 'letters', 'geo', 'network')."
+        }
+      },
+      "additionalProperties": false
+    },
+
+    "Label": {
+      "type": "object",
+      "required": ["text"],
+      "properties": {
+        "text": {
+          "type": "string",
+          "description": "Short label shown on the grid header (e.g. \"Termine par 'S'\")."
+        },
+        "help": {
+          "type": "string",
+          "description": "Long-form explanation shown when the user clicks the '?' icon."
+        }
+      },
+      "additionalProperties": false
+    },
+
+    "DomainMetadata": {
+      "type": "object",
+      "required": ["id", "name", "version", "default_locale"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Stable id of the domain (e.g. 'paris-metro'). Used in URLs, DB enums, KV paths.",
+          "pattern": "^[a-z0-9][a-z0-9-]{0,63}$"
+        },
+        "name": {
+          "type": "object",
+          "description": "Human-readable name per locale.",
+          "additionalProperties": { "type": "string" }
+        },
+        "version": {
+          "type": "string",
+          "description": "Semantic version of the dataset (bump when entities or predicates change).",
+          "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+        },
+        "default_locale": {
+          "type": "string",
+          "examples": ["fr", "en"]
+        },
+        "license": {
+          "type": "string",
+          "description": "License of the underlying dataset (e.g. 'ODbL-1.0', 'CC-BY-4.0', 'public-domain')."
+        },
+        "sources": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "URLs of upstream sources used to build the dataset (GTFS IDFM, OSM Overpass, Wikidata)."
+        },
+        "generator_constraints": {
+          "type": "object",
+          "description": "Tunable knobs for the CSP solver in core/generator.",
+          "properties": {
+            "min_candidates_per_cell": { "type": "integer", "minimum": 1, "default": 2 },
+            "max_candidates_per_cell": { "type": "integer", "minimum": 1, "default": 30 },
+            "max_predicate_family_repeats": { "type": "integer", "minimum": 1, "default": 1 },
+            "row_predicate_count": { "type": "integer", "default": 3 },
+            "col_predicate_count": { "type": "integer", "default": 3 }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+
+  "properties": {
+    "schemaVersion": { "const": "1.0" }
+  }
+}

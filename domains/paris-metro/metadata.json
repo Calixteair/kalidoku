@@ -1,0 +1,22 @@
+{
+  "id": "paris-metro",
+  "name": {
+    "fr": "Métro de Paris",
+    "en": "Paris Metro"
+  },
+  "version": "0.1.0",
+  "default_locale": "fr",
+  "license": "ODbL-1.0",
+  "sources": [
+    "https://prim.iledefrance-mobilites.fr/fr/jeux-de-donnees/offre-horaires-tc-gtfs-idfm",
+    "https://overpass-api.de",
+    "https://www.wikidata.org/wiki/Wikidata:SPARQL_query_service"
+  ],
+  "generator_constraints": {
+    "min_candidates_per_cell": 2,
+    "max_candidates_per_cell": 25,
+    "max_predicate_family_repeats": 1,
+    "row_predicate_count": 3,
+    "col_predicate_count": 3
+  }
+}

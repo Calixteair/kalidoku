@@ -1,0 +1,4 @@
+avoid-breaking-exported-api = false
+disallowed-methods = [
+    { path = "std::env::var", reason = "use the typed config service in server/src/config.rs" }
+]

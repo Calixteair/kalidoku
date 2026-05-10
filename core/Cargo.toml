@@ -1,0 +1,28 @@
+[package]
+name        = "kalidoku-core"
+version.workspace     = true
+edition.workspace     = true
+rust-version.workspace = true
+license.workspace     = true
+authors.workspace     = true
+description = "Engine library for kalidoku — entities, predicates, generator, validator. No I/O, no async."
+
+[lib]
+path = "src/lib.rs"
+
+[[bin]]
+name = "kalidoku-generate"
+path = "src/bin/generate.rs"
+
+[dependencies]
+serde.workspace      = true
+serde_json.workspace = true
+thiserror.workspace  = true
+chrono.workspace     = true
+uuid.workspace       = true
+rand.workspace       = true
+unicode-normalization.workspace = true
+geoutils.workspace   = true
+
+[dev-dependencies]
+anyhow.workspace = true

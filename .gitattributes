@@ -1,0 +1,13 @@
+* text=auto eol=lf
+*.{cmd,bat,ps1} text eol=crlf
+
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.webp binary
+*.ico binary
+*.pdf binary
+
+# Generated files marked for GitHub linguist
+contracts/openapi.yaml linguist-generated=false
+domains/*/entities.json linguist-generated=false

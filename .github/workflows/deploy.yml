@@ -1,0 +1,47 @@
+name: deploy
+
+on:
+  workflow_call:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: deploy-prod
+  cancel-in-progress: false
+
+jobs:
+  deploy-vps:
+    name: SSH ci-kalidoku → bao-deploy.sh
+    runs-on: ubuntu-24.04
+    environment:
+      name: production
+      url: https://kalidoku.calixteair.fr
+    steps:
+      - name: Trigger remote deploy
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.DEPLOY_HOST }}
+          username: ${{ secrets.DEPLOY_USER }}
+          port: ${{ secrets.DEPLOY_PORT }}
+          key: ${{ secrets.DEPLOY_SSH_KEY }}
+          # ForceCommand côté serveur ignore script et lance ci-deploy-self.sh.
+          # Voir wiki [[vps-ci-deployers-pattern]].
+          script: ""
+          command_timeout: 5m
+
+      - name: Smoke test
+        run: |
+          set -euo pipefail
+          for i in 1 2 3 4 5; do
+            sleep 10
+            STATUS=$(curl -fsS https://kalidoku.calixteair.fr/api/health | jq -r .status || echo "fail")
+            if [[ "$STATUS" == "ok" ]]; then
+              echo "deploy verified: status=ok"
+              exit 0
+            fi
+            echo "attempt $i: status=$STATUS"
+          done
+          echo "deploy failed smoke test"
+          exit 1

@@ -1,0 +1,65 @@
+# Rust
+target/
+**/*.rs.bk
+Cargo.lock.bak
+
+# Node / pnpm
+node_modules/
+.pnpm-store/
+dist/
+.astro/
+.svelte-kit/
+.vite/
+
+# Env / secrets — JAMAIS commiter
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.crt
+*.gpg
+secrets/
+.secret/
+
+# OpenBao agent runtime
+/run/kalidoku/
+agent.hcl.local
+secret_id_wrap
+role_id
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# Coverage / build artifacts
+coverage/
+.nyc_output/
+playwright-report/
+test-results/
+*.lcov
+
+# OS / logs
+*.log
+*.bak
+
+# Docker
+.docker-data/
+postgres-data/
+valkey-data/
+
+# Capacitor build outputs (phase 2)
+android/
+ios/
+www/
+
+# Misc
+*.tmp
+.cache/
+
+# Screenshots de référence (gardés en local, pas commités)
+brave_screenshot_*.png

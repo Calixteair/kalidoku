@@ -1,0 +1,551 @@
+openapi: 3.1.0
+info:
+  title: kalidoku API
+  version: 1.0.0
+  description: |
+    HTTP contract between `web/` and `server/`. Source of truth — front client is generated from this file.
+    Authoritative, anti-cheat by design: solutions never returned to the client before a game ends.
+  license:
+    name: AGPL-3.0
+    url: https://www.gnu.org/licenses/agpl-3.0.txt
+  contact:
+    url: https://github.com/Calixteair/kalidoku
+
+servers:
+  - url: https://kalidoku.calixteair.fr
+    description: Production
+  - url: http://localhost:8080
+    description: Local dev
+
+tags:
+  - name: health
+  - name: auth
+  - name: grids
+  - name: play
+  - name: leaderboard
+  - name: friends
+  - name: domains
+
+security:
+  - sessionCookie: []
+
+components:
+  securitySchemes:
+    sessionCookie:
+      type: apiKey
+      in: cookie
+      name: __Host-session
+      description: Set by the server after Keycloak OIDC callback. HttpOnly, Secure, SameSite=Strict.
+
+  parameters:
+    DomainPath:
+      name: domain
+      in: path
+      required: true
+      schema:
+        type: string
+        pattern: ^[a-z0-9][a-z0-9-]{0,63}$
+        example: paris-metro
+
+    LocaleQuery:
+      name: locale
+      in: query
+      required: false
+      schema:
+        type: string
+        enum: [fr, en]
+        default: fr
+
+  schemas:
+    Health:
+      type: object
+      required: [status, version, time]
+      properties:
+        status: { type: string, enum: [ok, degraded, down] }
+        version: { type: string, example: "1.0.0" }
+        time: { type: string, format: date-time }
+
+    Error:
+      type: object
+      required: [code, message]
+      properties:
+        code: { type: string, example: rate_limited }
+        message: { type: string }
+        details: { type: object, additionalProperties: true }
+
+    PublicProfile:
+      type: object
+      required: [id, pseudo]
+      properties:
+        id: { type: string, format: uuid }
+        pseudo: { type: string, minLength: 2, maxLength: 24 }
+        avatarUrl: { type: string, format: uri, nullable: true }
+
+    Me:
+      allOf:
+        - $ref: "#/components/schemas/PublicProfile"
+        - type: object
+          required: [email, locale, premium]
+          properties:
+            email: { type: string, format: email }
+            locale: { type: string, enum: [fr, en] }
+            premium:
+              type: object
+              required: [active]
+              properties:
+                active: { type: boolean }
+                until: { type: string, format: date-time, nullable: true }
+
+    DomainSummary:
+      type: object
+      required: [id, name, version]
+      properties:
+        id: { type: string, example: paris-metro }
+        name: { type: string }
+        version: { type: string }
+        description: { type: string, nullable: true }
+        availableModes:
+          type: array
+          items: { type: string, enum: [daily, solo, duel] }
+
+    PredicateLabel:
+      type: object
+      required: [id, family, label]
+      properties:
+        id: { type: string, description: "Stable predicate instance id (e.g. ends_with:S)." }
+        family: { type: string, example: ends_with }
+        label: { type: string, example: "Termine par 'S'" }
+        help: { type: string, nullable: true }
+
+    Cell:
+      type: object
+      required: [row, col]
+      properties:
+        row: { type: integer, minimum: 0, maximum: 2 }
+        col: { type: integer, minimum: 0, maximum: 2 }
+
+    PublicGrid:
+      description: Grid as seen by the client BEFORE the game ends. No solutions inside.
+      type: object
+      required: [id, domain, mode, rows, cols, mistakesAllowed]
+      properties:
+        id: { type: string, format: uuid }
+        domain: { type: string }
+        mode: { type: string, enum: [daily, solo, duel] }
+        publishAt: { type: string, format: date-time, nullable: true }
+        rows:
+          type: array
+          minItems: 3
+          maxItems: 3
+          items: { $ref: "#/components/schemas/PredicateLabel" }
+        cols:
+          type: array
+          minItems: 3
+          maxItems: 3
+          items: { $ref: "#/components/schemas/PredicateLabel" }
+        mistakesAllowed: { type: integer, default: 3 }
+        startsAt: { type: string, format: date-time, nullable: true }
+        endsAt: { type: string, format: date-time, nullable: true }
+
+    PlayToken:
+      type: object
+      required: [token, expiresAt]
+      properties:
+        token: { type: string, description: HMAC-signed, opaque to client. Required for /play. }
+        expiresAt: { type: string, format: date-time }
+
+    StartGameResponse:
+      type: object
+      required: [game, grid, playToken]
+      properties:
+        game:
+          type: object
+          required: [id, startedAt]
+          properties:
+            id: { type: string, format: uuid }
+            startedAt: { type: string, format: date-time }
+        grid: { $ref: "#/components/schemas/PublicGrid" }
+        playToken: { $ref: "#/components/schemas/PlayToken" }
+
+    PlayRequest:
+      type: object
+      required: [cell, answer, playToken]
+      properties:
+        cell: { $ref: "#/components/schemas/Cell" }
+        answer:
+          type: string
+          minLength: 1
+          maxLength: 200
+          description: User-typed entity name. Server normalises and matches.
+        playToken: { type: string }
+
+    PlayResponse:
+      type: object
+      required: [ok, mistakesLeft, scoreDelta]
+      properties:
+        ok: { type: boolean, description: True if the answer matched the cell. }
+        scoreDelta: { type: integer }
+        mistakesLeft: { type: integer, minimum: 0 }
+        ended:
+          type: boolean
+          description: True if this play ended the game (won, lost, or grid full).
+
+    AutocompleteResult:
+      type: object
+      required: [id, name]
+      properties:
+        id: { type: string }
+        name: { type: string }
+        subtitle: { type: string, nullable: true, description: "Disambiguation (e.g. 'M4 · RER B · RER C')." }
+
+    GameSummary:
+      type: object
+      required: [gameId, gridId, score, mistakes, finishedAt, solved]
+      properties:
+        gameId: { type: string, format: uuid }
+        gridId: { type: string, format: uuid }
+        score: { type: integer }
+        maxScore: { type: integer }
+        mistakes: { type: integer, minimum: 0 }
+        startedAt: { type: string, format: date-time }
+        finishedAt: { type: string, format: date-time }
+        solved: { type: integer, description: "Number of cells correctly filled (0..9)." }
+        rarestAnswer:
+          type: object
+          nullable: true
+          properties:
+            cell: { $ref: "#/components/schemas/Cell" }
+            entityName: { type: string }
+            rarityScore: { type: number }
+        shareString:
+          type: string
+          description: Wordle-style emoji string for sharing. Computed server-side.
+
+    EndGameView:
+      description: Full view returned only after the game has ended (or been abandoned).
+      type: object
+      required: [summary, solutionsByCell]
+      properties:
+        summary: { $ref: "#/components/schemas/GameSummary" }
+        solutionsByCell:
+          type: array
+          minItems: 9
+          maxItems: 9
+          items:
+            type: object
+            required: [cell, candidates]
+            properties:
+              cell: { $ref: "#/components/schemas/Cell" }
+              candidates:
+                type: array
+                items:
+                  type: object
+                  required: [id, name]
+                  properties:
+                    id: { type: string }
+                    name: { type: string }
+                    rarityScore: { type: number, nullable: true }
+
+    LeaderboardEntry:
+      type: object
+      required: [rank, profile, score]
+      properties:
+        rank: { type: integer, minimum: 1 }
+        profile: { $ref: "#/components/schemas/PublicProfile" }
+        score: { type: integer }
+        finishedAt: { type: string, format: date-time }
+
+    LeaderboardPage:
+      type: object
+      required: [items]
+      properties:
+        items:
+          type: array
+          items: { $ref: "#/components/schemas/LeaderboardEntry" }
+        nextCursor: { type: string, nullable: true }
+
+paths:
+  /api/health:
+    get:
+      tags: [health]
+      summary: Liveness/readiness probe
+      security: []
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Health" }
+
+  /api/auth/login:
+    get:
+      tags: [auth]
+      summary: Initiate Keycloak OIDC login (redirects to Keycloak with PKCE)
+      security: []
+      parameters:
+        - name: redirect_to
+          in: query
+          required: false
+          schema: { type: string, format: uri-reference }
+      responses:
+        "302":
+          description: Redirect to Keycloak
+
+  /api/auth/callback:
+    get:
+      tags: [auth]
+      summary: OIDC callback — exchanges code for session cookie
+      security: []
+      parameters:
+        - name: code
+          in: query
+          required: true
+          schema: { type: string }
+        - name: state
+          in: query
+          required: true
+          schema: { type: string }
+      responses:
+        "302": { description: Redirect to redirect_to from /login }
+
+  /api/auth/logout:
+    post:
+      tags: [auth]
+      summary: Revoke the current session and clear cookie
+      responses:
+        "204": { description: Logged out }
+
+  /api/me:
+    get:
+      tags: [auth]
+      summary: Current user
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Me" }
+        "401": { description: Not authenticated }
+
+  /api/domains:
+    get:
+      tags: [domains]
+      summary: List available domains
+      security: []
+      parameters:
+        - $ref: "#/components/parameters/LocaleQuery"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: "#/components/schemas/DomainSummary" }
+
+  /api/domains/{domain}/autocomplete:
+    get:
+      tags: [domains]
+      summary: Search entities by name (used by the cell input)
+      security: []
+      parameters:
+        - $ref: "#/components/parameters/DomainPath"
+        - name: q
+          in: query
+          required: true
+          schema: { type: string, minLength: 1, maxLength: 80 }
+        - name: limit
+          in: query
+          required: false
+          schema: { type: integer, minimum: 1, maximum: 12, default: 8 }
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: "#/components/schemas/AutocompleteResult" }
+
+  /api/grids/{domain}/today:
+    get:
+      tags: [grids]
+      summary: Return today's daily grid (does not start a game)
+      security: []
+      parameters:
+        - $ref: "#/components/parameters/DomainPath"
+        - $ref: "#/components/parameters/LocaleQuery"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/PublicGrid" }
+        "404": { description: No grid available for today }
+
+  /api/games:
+    post:
+      tags: [play]
+      summary: Start a new game (daily, solo, or duel)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [domain, mode]
+              properties:
+                domain: { type: string }
+                mode: { type: string, enum: [daily, solo, duel] }
+                duelGridId: { type: string, format: uuid, nullable: true }
+                hcaptchaToken: { type: string, nullable: true }
+      responses:
+        "201":
+          description: Game started
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/StartGameResponse" }
+        "402": { description: Quota exhausted (free tier limit reached) }
+        "409": { description: Already played this grid }
+        "429": { description: Rate limited }
+
+  /api/games/{gameId}/play:
+    post:
+      tags: [play]
+      summary: Submit an answer for one cell
+      parameters:
+        - name: gameId
+          in: path
+          required: true
+          schema: { type: string, format: uuid }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/PlayRequest" }
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/PlayResponse" }
+        "401": { description: Invalid play token }
+        "409": { description: Game already finished }
+        "429": { description: Rate limited }
+
+  /api/games/{gameId}/abandon:
+    post:
+      tags: [play]
+      summary: Abandon the current game and reveal solutions
+      parameters:
+        - name: gameId
+          in: path
+          required: true
+          schema: { type: string, format: uuid }
+      responses:
+        "200":
+          description: Final view with solutions
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/EndGameView" }
+
+  /api/games/{gameId}/result:
+    get:
+      tags: [play]
+      summary: Final view (only after game ended)
+      parameters:
+        - name: gameId
+          in: path
+          required: true
+          schema: { type: string, format: uuid }
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/EndGameView" }
+        "409": { description: Game still in progress }
+
+  /api/leaderboard/{domain}/today:
+    get:
+      tags: [leaderboard]
+      summary: Today's leaderboard for a domain
+      security: []
+      parameters:
+        - $ref: "#/components/parameters/DomainPath"
+        - name: cursor
+          in: query
+          required: false
+          schema: { type: string }
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/LeaderboardPage" }
+
+  /api/duels:
+    post:
+      tags: [friends]
+      summary: Generate a shareable duel grid (phase 2 — gated by premium when active)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [domain]
+              properties:
+                domain: { type: string }
+                hcaptchaToken: { type: string, nullable: true }
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [duelId, shareUrl, gridId]
+                properties:
+                  duelId: { type: string, format: uuid }
+                  shareUrl: { type: string, format: uri }
+                  gridId: { type: string, format: uuid }
+        "402": { description: Premium required }
+        "429": { description: Rate limited }
+
+  /api/duels/{duelId}:
+    get:
+      tags: [friends]
+      summary: View duel state (both players' scores once both played)
+      parameters:
+        - name: duelId
+          in: path
+          required: true
+          schema: { type: string, format: uuid }
+        - name: sig
+          in: query
+          required: true
+          schema: { type: string, description: HMAC signature from shareUrl. }
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [duelId, gridId, players]
+                properties:
+                  duelId: { type: string, format: uuid }
+                  gridId: { type: string, format: uuid }
+                  players:
+                    type: array
+                    minItems: 1
+                    maxItems: 2
+                    items:
+                      type: object
+                      required: [profile]
+                      properties:
+                        profile: { $ref: "#/components/schemas/PublicProfile" }
+                        summary:
+                          $ref: "#/components/schemas/GameSummary"
+                          nullable: true

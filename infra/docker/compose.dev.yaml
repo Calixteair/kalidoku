@@ -1,0 +1,29 @@
+# docker-compose.dev.yaml — local dev infra (Postgres + Valkey only).
+# The Rust binaries and the front are run on the host (cargo watch / pnpm dev).
+# Secrets here are intentionally weak: NEVER use these creds in production.
+
+name: kalidoku-dev
+
+services:
+  postgres:
+    image: postgres:16.6-alpine
+    environment:
+      POSTGRES_DB: kalidoku
+      POSTGRES_USER: kalidoku
+      POSTGRES_PASSWORD: devpassword
+    ports: ["5432:5432"]
+    volumes: [pg-dev:/var/lib/postgresql/data]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U kalidoku -d kalidoku"]
+      interval: 5s
+
+  valkey:
+    image: valkey/valkey:7.2-alpine
+    command: ["valkey-server", "--requirepass", "devpassword"]
+    ports: ["6379:6379"]
+    healthcheck:
+      test: ["CMD-SHELL", "valkey-cli -a devpassword ping | grep -q PONG"]
+      interval: 5s
+
+volumes:
+  pg-dev:
