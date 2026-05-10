@@ -44,6 +44,8 @@ hmac.workspace               = true
 sha2.workspace               = true
 base64.workspace             = true
 constant_time_eq.workspace   = true
+hex.workspace                = true
+rand.workspace               = true
 
 # http client
 reqwest.workspace = true
