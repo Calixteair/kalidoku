@@ -52,7 +52,7 @@ KEYCLOAK_CLIENT_SECRET={{ .Data.data.KEYCLOAK_CLIENT_SECRET }}
 KEYCLOAK_REDIRECT_URL={{ .Data.data.KEYCLOAK_REDIRECT_URL }}
 {{ end }}
 {{ with secret "secret/data/kalidoku/prod/anti-bot" }}
-HCAPTCHA_SECRET={{ .Data.data.HCAPTCHA_SECRET }}
+ALTCHA_HMAC_KEY={{ .Data.data.ALTCHA_HMAC_KEY }}
 {{ end }}
 EOT
 }

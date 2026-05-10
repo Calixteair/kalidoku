@@ -124,7 +124,7 @@ Si un hook bloque, **diagnostiquer et fixer**, jamais bypasser avec `--no-verify
 
 ### Anti-bot / anti-scraping
 
-- **hCaptcha** (Cloudflare bloqué côté NPM) sur inscription Keycloak et démarrage de partie en cas de pic suspect.
+- **Altcha** invisible PoW (proof-of-work) sur inscription Keycloak et démarrage de partie en cas de pic suspect. Self-hosted, pas de service tiers, RGPD friendly. SPI Keycloak réutilisé depuis DSV (cf. wiki `[[devsecvault-altcha-spi]]`).
 - Rate limit `tower_governor` : 1 req/250ms par device, 60 req/min par IP.
 - `play_token` HMAC court (TTL 1h) requis pour chaque `POST /play`, lié à `device_id + grid_id`.
 - Solutions **jamais envoyées au client** avant fin de partie.

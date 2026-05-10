@@ -17,8 +17,10 @@ pub struct AppConfig {
     pub keycloak_client_secret: String,
     pub keycloak_redirect_url: String,
 
+    /// HMAC-SHA256 key used to sign Altcha challenges and verify their solutions.
+    /// Provisioned by bao-agent from `secret/kalidoku/prod/anti-bot.ALTCHA_HMAC_KEY`.
     #[serde(default)]
-    pub hcaptcha_secret: Option<String>,
+    pub altcha_hmac_key: String,
 
     #[serde(default = "default_log_level")]
     pub rust_log: String,

@@ -63,7 +63,8 @@ add_header Referrer-Policy "strict-origin-when-cross-origin" always;
 add_header Permissions-Policy "accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()" always;
 
 # CSP : tighten when the SPA is in place. Keeping a permissive baseline now.
-add_header Content-Security-Policy "default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self' https://js.hcaptcha.com; connect-src 'self' https://*.hcaptcha.com https://hcaptcha.com; frame-src https://*.hcaptcha.com https://hcaptcha.com" always;
+# Altcha PoW is self-hosted: no third-party origin needed in script-src/connect-src.
+add_header Content-Security-Policy "default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self'; connect-src 'self'" always;
 ```
 
 3. Sauvegarder. Le cert Let's Encrypt s'émet en ~10s.

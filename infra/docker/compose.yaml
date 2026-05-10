@@ -69,7 +69,7 @@ services:
       KEYCLOAK_CLIENT_ID: ${KEYCLOAK_CLIENT_ID}
       KEYCLOAK_CLIENT_SECRET: ${KEYCLOAK_CLIENT_SECRET}
       KEYCLOAK_REDIRECT_URL: ${KEYCLOAK_REDIRECT_URL}
-      HCAPTCHA_SECRET: ${HCAPTCHA_SECRET}
+      ALTCHA_HMAC_KEY: ${ALTCHA_HMAC_KEY}
       ALLOWED_ORIGINS: https://kalidoku.calixteair.fr
     healthcheck:
       test: ["CMD-SHELL", "wget -qO- http://127.0.0.1:8080/api/health | grep -q '\"status\":\"ok\"'"]
