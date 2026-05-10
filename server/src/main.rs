@@ -20,10 +20,14 @@ mod telemetry;
 #[tokio::main]
 async fn main() -> Result<()> {
     telemetry::init();
-    tracing::info!("kalidoku-server booting");
+    tracing::info!("kalidoku-server booting (scaffold — agent-C owns the real router)");
 
-    let cfg = config::load()?;
-    let addr: SocketAddr = format!("0.0.0.0:{}", cfg.port).parse()?;
+    let port: u16 = {
+        #[allow(clippy::disallowed_methods)]
+        let raw = std::env::var("PORT").ok();
+        raw.and_then(|p| p.parse().ok()).unwrap_or(8080)
+    };
+    let addr: SocketAddr = format!("0.0.0.0:{port}").parse()?;
 
     tracing::warn!(
         addr = %addr,
