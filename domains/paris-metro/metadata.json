@@ -4,7 +4,7 @@
     "fr": "Métro de Paris",
     "en": "Paris Metro"
   },
-  "version": "0.2.0",
+  "version": "0.3.0",
   "default_locale": "fr",
   "license": "ODbL-1.0",
   "sources": [
