@@ -152,7 +152,9 @@
           </h2>
           <p class="text-fg-muted text-xs">
             {cellLabel}{#if typeof candidatesCount === "number"}
-              · {m.modal_autocomplete_candidates_count({ n: candidatesCount })}{/if}
+              · {candidatesCount === 1
+                ? m.modal_autocomplete_candidates_count_one()
+                : m.modal_autocomplete_candidates_count_many({ n: candidatesCount })}{/if}
           </p>
         </div>
         <button
