@@ -17,44 +17,69 @@ x-logging: &logging
       max-file: "5"
       tag: "{{.Name}}"
 
+# Hardening shared by every container.
+# - cap_drop ALL: nothing extra needed by these workloads.
+# - no-new-privileges: defense in depth against suid escalation.
+# - PID limits keep a fork-bomb in one container from saturating the host.
+x-hardened: &hardened
+  cap_drop: [ALL]
+  security_opt:
+    - "no-new-privileges:true"
+  pids_limit: 512
+
 services:
   postgres:
     image: postgres:16.6-alpine
     container_name: kalidoku-postgres
-    <<: [*restart, *logging]
+    <<: [*restart, *logging, *hardened]
     environment:
       POSTGRES_DB: ${POSTGRES_DB}
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     volumes:
       - postgres-data:/var/lib/postgresql/data
+    # postgres-alpine needs /tmp + /var/run/postgresql writable.
+    # We keep / read-only and bind these on tmpfs.
+    read_only: true
+    tmpfs:
+      - /tmp:size=64m,mode=1777
+      - /var/run/postgresql:size=8m,mode=0755
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
       interval: 10s
       timeout: 5s
       retries: 6
+    mem_limit: 512m
+    mem_reservation: 128m
+    cpus: 1.0
     networks: [kalidoku-internal]
 
   valkey:
     image: valkey/valkey:7.2-alpine
     container_name: kalidoku-valkey
-    <<: [*restart, *logging]
+    <<: [*restart, *logging, *hardened]
     environment:
       VALKEY_PASSWORD: ${VALKEY_PASSWORD}
     command: ["valkey-server", "--requirepass", "${VALKEY_PASSWORD}", "--save", "60", "1000"]
     volumes:
       - valkey-data:/data
+    read_only: true
+    tmpfs:
+      - /tmp:size=32m,mode=1777
     healthcheck:
       test: ["CMD-SHELL", "valkey-cli -a \"$${VALKEY_PASSWORD}\" ping | grep -q PONG"]
       interval: 10s
       timeout: 5s
       retries: 6
+    mem_limit: 256m
+    mem_reservation: 64m
+    cpus: 0.5
     networks: [kalidoku-internal]
 
   server:
     image: ${KALIDOKU_SERVER_IMAGE:-calixteair/kalidoku-server:latest}
     container_name: kalidoku-server
-    <<: [*restart, *logging]
+    <<: [*restart, *logging, *hardened]
     depends_on:
       postgres:  { condition: service_healthy }
       valkey:    { condition: service_healthy }
@@ -71,17 +96,23 @@ services:
       KEYCLOAK_REDIRECT_URL: ${KEYCLOAK_REDIRECT_URL}
       ALTCHA_HMAC_KEY: ${ALTCHA_HMAC_KEY}
       ALLOWED_ORIGINS: https://kalidoku.calixteair.fr
+    # Distroless cc has no shell, wget or curl — `wget` healthchecks are
+    # silently broken in production. Disable the compose probe and rely on
+    # NPM upstream + the GitHub Actions smoke test against /api/health.
     healthcheck:
-      test: ["CMD-SHELL", "wget -qO- http://127.0.0.1:8080/api/health | grep -q '\"status\":\"ok\"'"]
-      interval: 15s
-      timeout: 5s
-      retries: 5
+      disable: true
+    read_only: true
+    tmpfs:
+      - /tmp:size=32m,mode=1777
+    mem_limit: 384m
+    mem_reservation: 96m
+    cpus: 1.5
     networks: [kalidoku-internal, nginx-reverse-proxy]
 
   worker:
     image: ${KALIDOKU_WORKER_IMAGE:-calixteair/kalidoku-worker:latest}
     container_name: kalidoku-worker
-    <<: [*restart, *logging]
+    <<: [*restart, *logging, *hardened]
     depends_on:
       postgres: { condition: service_healthy }
       valkey:   { condition: service_healthy }
@@ -90,12 +121,35 @@ services:
       DATABASE_URL: postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
       REDIS_URL: redis://default:${VALKEY_PASSWORD}@valkey:6379/1
     command: ["--cron"]
+    healthcheck:
+      disable: true
+    read_only: true
+    tmpfs:
+      - /tmp:size=32m,mode=1777
+    mem_limit: 384m
+    mem_reservation: 96m
+    cpus: 1.0
     networks: [kalidoku-internal]
 
   web:
     image: ${KALIDOKU_WEB_IMAGE:-calixteair/kalidoku-web:latest}
     container_name: kalidoku-web
-    <<: [*restart, *logging]
+    <<: [*restart, *logging, *hardened]
+    # nginx:alpine writes pid + tmp + cache under these paths at runtime.
+    read_only: true
+    tmpfs:
+      - /var/cache/nginx:size=16m,mode=0755
+      - /var/run:size=2m,mode=0755
+      - /tmp:size=8m,mode=1777
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://127.0.0.1/healthz >/dev/null || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
+    mem_limit: 96m
+    mem_reservation: 32m
+    cpus: 0.5
     networks: [nginx-reverse-proxy]
 
 volumes:
