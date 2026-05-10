@@ -63,7 +63,7 @@ fn run(args: &Args) -> Result<(), String> {
         max_attempts: args.max_attempts,
     };
     let grid = generate(&domain, opts).map_err(|e| e.to_string())?;
-    let snapshot = grid.snapshot(&args.locale, seed);
+    let snapshot = grid.snapshot_with_entities(&args.locale, seed, &domain.entities);
     let json = if args.pretty {
         serde_json::to_string_pretty(&snapshot)
     } else {

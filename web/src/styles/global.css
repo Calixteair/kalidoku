@@ -2,7 +2,9 @@
 @plugin "@tailwindcss/forms";
 @plugin "@tailwindcss/typography";
 
-/* Tailwind 4 uses CSS-based theming via @theme. Mobile-first: design from 360px first. */
+/* Tailwind 4 theming. Light palette is the always-on default; the `dark` class
+   on <html> (toggled by ThemeToggle) overrides into the dark palette.
+   We deliberately do NOT honour prefers-color-scheme — the user picks. */
 @theme {
   --color-bg: rgb(244 247 251);
   --color-bg-subtle: rgb(238 242 247);
@@ -24,18 +26,17 @@
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
 }
 
-@media (prefers-color-scheme: dark) {
-  @theme {
-    --color-bg: rgb(12 16 22);
-    --color-bg-subtle: rgb(18 23 31);
-    --color-bg-card: rgb(22 28 38);
-    --color-fg: rgb(240 244 250);
-    --color-fg-subtle: rgb(200 210 224);
-    --color-fg-muted: rgb(140 152 170);
-    --color-accent: rgb(240 244 250);
-    --color-accent-fg: rgb(18 23 31);
-    --color-border: rgb(38 46 58);
-  }
+/* Manual dark mode: only when the user (or the inline boot script) set .dark on <html>. */
+html.dark {
+  --color-bg: rgb(12 16 22);
+  --color-bg-subtle: rgb(18 23 31);
+  --color-bg-card: rgb(22 28 38);
+  --color-fg: rgb(240 244 250);
+  --color-fg-subtle: rgb(200 210 224);
+  --color-fg-muted: rgb(140 152 170);
+  --color-accent: rgb(240 244 250);
+  --color-accent-fg: rgb(18 23 31);
+  --color-border: rgb(38 46 58);
 }
 
 html,

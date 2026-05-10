@@ -52,6 +52,10 @@ pub struct GridSnapshot {
     pub rows: [PredicateSnapshot; 3],
     pub cols: [PredicateSnapshot; 3],
     pub candidates: [[Vec<String>; 3]; 3],
+    /// Compact dictionary of every entity referenced in `candidates`, so the
+    /// server can resolve user-typed names → entity_id without re-loading the
+    /// domain pack on every request.
+    pub entities: Vec<EntitySnapshot>,
 }
 
 #[derive(Debug, Serialize)]
@@ -60,6 +64,14 @@ pub struct PredicateSnapshot {
     pub family: String,
     pub label: String,
     pub help: Option<String>,
+}
+
+#[derive(Debug, Serialize)]
+pub struct EntitySnapshot {
+    pub id: String,
+    pub name: String,
+    #[serde(skip_serializing_if = "Vec::is_empty")]
+    pub aliases: Vec<String>,
 }
 
 impl Grid {
@@ -71,6 +83,43 @@ impl Grid {
             rows: std::array::from_fn(|i| snap(&self.rows[i], locale)),
             cols: std::array::from_fn(|i| snap(&self.cols[i], locale)),
             candidates: self.candidates.clone(),
+            entities: Vec::new(),
+        }
+    }
+
+    /// Same as [`Grid::snapshot`] but also bakes in the dictionary of every entity
+    /// referenced in `candidates`. Pass the full domain entity list — only the
+    /// referenced ones are kept in the output.
+    #[must_use]
+    pub fn snapshot_with_entities(
+        &self,
+        locale: &str,
+        seed: u64,
+        all_entities: &[crate::entity::Entity],
+    ) -> GridSnapshot {
+        let mut used = std::collections::HashSet::new();
+        for row in &self.candidates {
+            for cell in row {
+                for id in cell {
+                    used.insert(id.clone());
+                }
+            }
+        }
+        let entities = all_entities
+            .iter()
+            .filter(|e| used.contains(&e.id))
+            .map(|e| EntitySnapshot {
+                id: e.id.clone(),
+                name: e.name.clone(),
+                aliases: e.aliases.clone(),
+            })
+            .collect();
+        GridSnapshot {
+            seed,
+            rows: std::array::from_fn(|i| snap(&self.rows[i], locale)),
+            cols: std::array::from_fn(|i| snap(&self.cols[i], locale)),
+            candidates: self.candidates.clone(),
+            entities,
         }
     }
 }

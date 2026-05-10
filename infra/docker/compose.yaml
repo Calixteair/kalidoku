@@ -31,19 +31,26 @@ services:
   postgres:
     image: postgres:16.6-alpine
     container_name: kalidoku-postgres
-    <<: [*restart, *logging, *hardened]
+    <<: [*restart, *logging]
+    # postgres-alpine entrypoint chowns data dir + setresuid to user `postgres`.
+    # cap_drop ALL is therefore incompatible — we keep cap_add CHOWN/SETUID/SETGID
+    # but still drop the rest, plus no-new-privileges.
+    cap_drop: [ALL]
+    cap_add: [CHOWN, DAC_OVERRIDE, FOWNER, SETUID, SETGID]
+    security_opt:
+      - "no-new-privileges:true"
+    pids_limit: 512
     environment:
       POSTGRES_DB: ${POSTGRES_DB}
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     volumes:
       - postgres-data:/var/lib/postgresql/data
-    # postgres-alpine needs /tmp + /var/run/postgresql writable.
-    # We keep / read-only and bind these on tmpfs.
-    read_only: true
+    # postgres-alpine's entrypoint chmods data dir + writes to /var/run/postgresql,
+    # which is incompatible with `read_only: true` even when the data path is a
+    # volume mount. Keep RW root with hardening above (cap_drop, no-new-privileges).
     tmpfs:
       - /tmp:size=64m,mode=1777
-      - /var/run/postgresql:size=8m,mode=0755
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
       interval: 10s
@@ -57,13 +64,18 @@ services:
   valkey:
     image: valkey/valkey:7.2-alpine
     container_name: kalidoku-valkey
-    <<: [*restart, *logging, *hardened]
+    <<: [*restart, *logging]
+    # valkey-alpine drops privileges via setresuid; needs SETUID/SETGID kept.
+    cap_drop: [ALL]
+    cap_add: [SETUID, SETGID]
+    security_opt:
+      - "no-new-privileges:true"
+    pids_limit: 512
     environment:
       VALKEY_PASSWORD: ${VALKEY_PASSWORD}
     command: ["valkey-server", "--requirepass", "${VALKEY_PASSWORD}", "--save", "60", "1000"]
     volumes:
       - valkey-data:/data
-    read_only: true
     tmpfs:
       - /tmp:size=32m,mode=1777
     healthcheck:
@@ -96,12 +108,13 @@ services:
       KEYCLOAK_REDIRECT_URL: ${KEYCLOAK_REDIRECT_URL}
       ALTCHA_HMAC_KEY: ${ALTCHA_HMAC_KEY}
       ALLOWED_ORIGINS: https://kalidoku.calixteair.fr
+      # Apply pending SeaORM migrations on boot. Idempotent — safe to leave on.
+      RUN_MIGRATIONS: "true"
     # Distroless cc has no shell, wget or curl — `wget` healthchecks are
     # silently broken in production. Disable the compose probe and rely on
     # NPM upstream + the GitHub Actions smoke test against /api/health.
     healthcheck:
       disable: true
-    read_only: true
     tmpfs:
       - /tmp:size=32m,mode=1777
     mem_limit: 384m
@@ -123,7 +136,6 @@ services:
     command: ["--cron"]
     healthcheck:
       disable: true
-    read_only: true
     tmpfs:
       - /tmp:size=32m,mode=1777
     mem_limit: 384m
@@ -134,12 +146,15 @@ services:
   web:
     image: ${KALIDOKU_WEB_IMAGE:-calixteair/kalidoku-web:latest}
     container_name: kalidoku-web
-    <<: [*restart, *logging, *hardened]
-    # nginx:alpine writes pid + tmp + cache under these paths at runtime.
-    read_only: true
+    <<: [*restart, *logging]
+    # nginx-alpine entrypoint chowns /var/cache/nginx; needs CHOWN/SETUID/SETGID
+    # plus NET_BIND_SERVICE to bind :80.
+    cap_drop: [ALL]
+    cap_add: [CHOWN, DAC_OVERRIDE, FOWNER, SETUID, SETGID, NET_BIND_SERVICE]
+    security_opt:
+      - "no-new-privileges:true"
+    pids_limit: 512
     tmpfs:
-      - /var/cache/nginx:size=16m,mode=0755
-      - /var/run:size=2m,mode=0755
       - /tmp:size=8m,mode=1777
     healthcheck:
       test: ["CMD-SHELL", "wget -qO- http://127.0.0.1/healthz >/dev/null || exit 1"]
