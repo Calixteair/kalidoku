@@ -1,31 +1,20 @@
 ---
-import "../styles/global.css";
----
-<!doctype html>
-<html lang="fr">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <title>kalidoku — puzzle quotidien multi-domaine</title>
-    <meta name="description" content="Le puzzle quotidien type Connections, multi-domaine (métro, RER, aéroports…). Open source." />
-    <meta name="theme-color" content="#f4f7fb" />
-    <link rel="manifest" href="/manifest.webmanifest" />
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-  </head>
-  <body class="min-h-svh">
-    <main class="mx-auto max-w-screen-md px-4 py-6">
-      <header class="mb-6">
-        <h1 class="text-2xl font-bold tracking-tight md:text-3xl">kalidoku</h1>
-        <p class="text-fg-subtle text-sm mt-1">
-          Agent D — implémente la home, la grille et l'autocomplete (cf. docs/agents/agent-d-web.md).
-        </p>
-      </header>
+import Base from "../layouts/Base.astro";
+import Grid from "../lib/components/Grid.svelte";
+import AltchaWidget from "../lib/components/AltchaWidget.svelte";
+import LangSwitcher from "../lib/components/LangSwitcher.svelte";
 
-      <section class="rounded-lg border border-border bg-bg-card p-4 md:p-6">
-        <p class="text-fg-muted text-sm">
-          Squelette posé par le scaffold. Le composant <code>&lt;Grid /&gt;</code> Svelte sera ici.
-        </p>
-      </section>
-    </main>
-  </body>
-</html>
+// Default domain for the daily grid. The domains list comes from /api/domains
+// once the picker is implemented; for now the home is hard-wired to paris-metro.
+const DEFAULT_DOMAIN = "paris-metro";
+---
+
+<Base>
+  <section class="flex flex-col gap-4">
+    <div class="flex items-center justify-end">
+      <LangSwitcher client:load />
+    </div>
+    <Grid client:load domain={DEFAULT_DOMAIN} />
+  </section>
+  <AltchaWidget client:idle />
+</Base>

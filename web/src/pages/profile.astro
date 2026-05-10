@@ -1,0 +1,12 @@
+---
+import Base from "../layouts/Base.astro";
+import ProfileView from "../lib/components/ProfileView.svelte";
+import * as m from "../paraglide/messages.js";
+---
+
+<Base title="kalidoku — profil">
+  <section class="flex flex-col gap-3">
+    <h1 class="text-xl font-semibold tracking-tight md:text-2xl">{m.page_profile_title()}</h1>
+    <ProfileView client:load />
+  </section>
+</Base>

@@ -1,0 +1,15 @@
+---
+import Base from "../layouts/Base.astro";
+import * as m from "../paraglide/messages.js";
+---
+
+<Base title="kalidoku — archives">
+  <section class="flex flex-col gap-3">
+    <h1 class="text-xl font-semibold tracking-tight md:text-2xl">{m.page_archives_title()}</h1>
+    <p class="text-fg-muted text-sm">{m.page_archives_intro()}</p>
+    <div class="border-border bg-bg-card rounded-lg border p-4 text-sm text-fg-muted">
+      <!-- Archives list will be wired to /api/grids/{domain}/archives once it exists. -->
+      {m.loading_stations()}
+    </div>
+  </section>
+</Base>
