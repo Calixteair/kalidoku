@@ -29,6 +29,8 @@ deadpool-redis.workspace = true
 sha2.workspace       = true
 uuid.workspace       = true
 dotenvy.workspace    = true
+# Meilisearch HTTP client — raw reqwest, no SDK.
+reqwest.workspace    = true
 
 [dev-dependencies]
 tempfile = "3"
@@ -40,3 +42,5 @@ testcontainers-modules = { version = "0.11", features = ["postgres"] }
 sea-orm-migration.workspace = true
 kalidoku-server        = { path = "../server" }
 tokio.workspace        = true
+# Mock HTTP server for the Meilisearch reindex tests.
+wiremock               = "0.6"
