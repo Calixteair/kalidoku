@@ -1,49 +1,54 @@
 //! kalidoku-server entry point. Owned by agent C.
 //!
 //! Wires:
-//! - tracing (JSON logs to stdout, captured by Wazuh agent)
+//! - tracing (JSON logs to stdout)
 //! - config (loaded from env, populated by bao-agent at /run/kalidoku/.env)
 //! - DB pool (SeaORM)
 //! - Redis pool (Valkey)
-//! - HTTP router (see modules `routes`, `auth`, `play`, `leaderboard`, `domains`)
-//! - tower middlewares (governor, cors, set-header, timeout, trace)
+//! - HTTP router (see crate::build_router)
 
-#![allow(dead_code, clippy::missing_errors_doc, clippy::missing_panics_doc)]
+#![forbid(unsafe_code)]
 
 use std::net::SocketAddr;
 
 use anyhow::Result;
-
-mod config;
-mod telemetry;
+use kalidoku_server::{build_router, cache, config, db, state::AppState, telemetry};
+use sea_orm_migration::MigratorTrait;
+use tracing::info;
 
 #[tokio::main]
 async fn main() -> Result<()> {
     telemetry::init();
-    tracing::info!("kalidoku-server booting (scaffold — agent-C owns the real router)");
 
-    let port: u16 = {
-        #[allow(clippy::disallowed_methods)]
-        let raw = std::env::var("PORT").ok();
-        raw.and_then(|p| p.parse().ok()).unwrap_or(8080)
-    };
-    let addr: SocketAddr = format!("0.0.0.0:{port}").parse()?;
+    let cfg = config::load()?;
+    info!(port = cfg.port, "kalidoku-server booting");
 
-    tracing::warn!(
-        addr = %addr,
-        "agent-C: implement router, DB, cache, auth (see docs/agents/agent-c-server.md)"
-    );
+    let mut state = AppState::new(cfg.clone());
 
+    if !cfg.database_url.is_empty() {
+        match db::connect(&cfg.database_url).await {
+            Ok(conn) => {
+                if cfg.run_migrations {
+                    kalidoku_server::migrations::Migrator::up(&conn, None).await?;
+                    info!("migrations applied");
+                }
+                state = state.with_db(conn);
+            }
+            Err(e) => tracing::warn!(error = %e, "database unavailable, running degraded"),
+        }
+    }
+
+    if !cfg.redis_url.is_empty() {
+        match cache::connect(&cfg.redis_url) {
+            Ok(pool) => state = state.with_redis(pool),
+            Err(e) => tracing::warn!(error = %e, "redis unavailable, running degraded"),
+        }
+    }
+
+    let app = build_router(state);
+    let addr: SocketAddr = format!("0.0.0.0:{}", cfg.port).parse()?;
+    info!(%addr, "listening");
     let listener = tokio::net::TcpListener::bind(addr).await?;
-    let app = axum::Router::new().route("/api/health", axum::routing::get(health));
     axum::serve(listener, app).await?;
     Ok(())
-}
-
-async fn health() -> axum::Json<serde_json::Value> {
-    axum::Json(serde_json::json!({
-        "status": "ok",
-        "version": env!("CARGO_PKG_VERSION"),
-        "time": chrono::Utc::now().to_rfc3339(),
-    }))
 }

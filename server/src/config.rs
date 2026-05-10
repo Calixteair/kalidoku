@@ -4,17 +4,38 @@
 use anyhow::{Context, Result};
 use serde::Deserialize;
 
+fn default_port() -> u16 {
+    8080
+}
+
+fn default_log_level() -> String {
+    "info,kalidoku=debug,tower_http=info".into()
+}
+
+fn default_string() -> String {
+    String::new()
+}
+
 #[derive(Debug, Clone, Deserialize)]
 pub struct AppConfig {
+    #[serde(default = "default_port")]
     pub port: u16,
+    #[serde(default = "default_string")]
     pub database_url: String,
+    #[serde(default = "default_string")]
     pub redis_url: String,
+    #[serde(default = "default_string")]
     pub session_hmac_key: String,
+    #[serde(default = "default_string")]
     pub play_token_hmac_key: String,
 
+    #[serde(default = "default_string")]
     pub keycloak_issuer_url: String,
+    #[serde(default = "default_string")]
     pub keycloak_client_id: String,
+    #[serde(default = "default_string")]
     pub keycloak_client_secret: String,
+    #[serde(default = "default_string")]
     pub keycloak_redirect_url: String,
 
     /// HMAC-SHA256 key used to sign Altcha challenges and verify their solutions.
@@ -27,10 +48,34 @@ pub struct AppConfig {
 
     #[serde(default)]
     pub allowed_origins: String,
+
+    /// When set to `true` the server runs SeaORM migrations at boot. Off by default
+    /// in dev — we rely on `sea-orm-cli migrate up` so the schema lives outside the
+    /// service lifecycle. Set to `true` in container deployments.
+    #[serde(default)]
+    pub run_migrations: bool,
 }
 
-fn default_log_level() -> String {
-    "info,kalidoku=debug,tower_http=info".into()
+impl AppConfig {
+    /// Test-only fixture with sane defaults so we don't have to touch env vars.
+    #[must_use]
+    pub fn test_fixture() -> Self {
+        Self {
+            port: 0,
+            database_url: String::new(),
+            redis_url: String::new(),
+            session_hmac_key: "test-session-key-32-bytes-long..".into(),
+            play_token_hmac_key: "test-play-token-key-32-bytes-..!".into(),
+            keycloak_issuer_url: String::new(),
+            keycloak_client_id: String::new(),
+            keycloak_client_secret: String::new(),
+            keycloak_redirect_url: String::new(),
+            altcha_hmac_key: "test-altcha-key-32-bytes-long..!".into(),
+            rust_log: "warn".into(),
+            allowed_origins: String::new(),
+            run_migrations: false,
+        }
+    }
 }
 
 #[allow(clippy::disallowed_methods)] // single legitimate use of std::env::var, behind config service

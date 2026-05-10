@@ -35,6 +35,8 @@ tracing-subscriber = { version = "0.3", features = ["env-filter", "json"] }
 # server
 axum        = { version = "0.7", features = ["macros", "tracing"] }
 axum-extra  = { version = "0.9", features = ["cookie", "typed-header"] }
+cookie      = "0.18"
+urlencoding = "2"
 tower       = "0.5"
 tower-http  = { version = "0.6", features = ["trace", "cors", "compression-gzip", "set-header", "timeout"] }
 tower_governor = "0.4"
