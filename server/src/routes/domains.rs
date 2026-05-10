@@ -1,8 +1,10 @@
 //! `/api/domains` and `/api/domains/{id}/autocomplete`.
 //!
-//! For now both routes serve from the in-memory state populated at boot. The
-//! autocomplete endpoint waits on agent A finishing `core::search::search` against a
-//! per-domain entity catalogue (loaded from `domains/` packs by agent F).
+//! `list` serves from the in-memory state populated at boot. `autocomplete`
+//! proxies to Meilisearch through `services::meili`. The proxy stays paranoid
+//! about input sizing (q ≤ 100 chars, limit ∈ [1,20]) because the path is
+//! unauthenticated and hot — we do not want a runaway client to drive Meili
+//! into a wide-search GC pause.
 
 use axum::{
     extract::{Path, Query, State},
@@ -11,6 +13,7 @@ use axum::{
 use serde::{Deserialize, Serialize};
 
 use crate::error::{ApiError, ApiResult};
+use crate::services::meili::SearchHit;
 use crate::state::AppState;
 
 #[derive(Serialize)]
@@ -54,36 +57,52 @@ pub async fn list(
     Json(items)
 }
 
+/// Maximum query length we forward to Meili. 100 is generous for a station /
+/// movie / actor name and well under Meili's own 1000-char ceiling.
+const MAX_Q_LEN: usize = 100;
+/// Hard ceiling on the `limit` query param to keep the response bounded.
+const MAX_LIMIT: u32 = 20;
+/// Default `limit` when the front omits it.
+const DEFAULT_LIMIT: u32 = 8;
+
 #[derive(Deserialize)]
 pub struct AutocompleteQuery {
     pub q: String,
-    #[serde(default = "default_limit")]
-    pub limit: usize,
+    #[serde(default)]
+    pub limit: Option<u32>,
 }
 
-fn default_limit() -> usize {
-    8
-}
-
-#[derive(Serialize)]
-pub struct AutocompleteResult {
-    pub id: String,
-    pub name: String,
-    pub subtitle: Option<String>,
-}
-
-/// Autocomplete is gated on agent A having published a domain-loading API in `core/`.
-/// Until then we 501 to keep the contract honest. The route exists so the front can
-/// flip it on without redeploying once `core::search::search` is wired with real data.
 pub async fn autocomplete(
     State(state): State<AppState>,
     Path(domain): Path<String>,
-    Query(_query): Query<AutocompleteQuery>,
-) -> ApiResult<Json<Vec<AutocompleteResult>>> {
+    Query(query): Query<AutocompleteQuery>,
+) -> ApiResult<Json<Vec<SearchHit>>> {
     if !state.domains.contains_key(&domain) {
         return Err(ApiError::NotFound("domain"));
     }
-    Err(ApiError::NotImplemented(
-        "autocomplete waits for core/search loading domain packs",
-    ))
+
+    // q: trim then validate. We match by character count rather than byte
+    // length so multibyte Unicode (Châtelet, 神戸) doesn't blow the budget.
+    let q = query.q.trim();
+    let q_len = q.chars().count();
+    if q_len == 0 {
+        return Err(ApiError::BadRequest("q must not be empty".into()));
+    }
+    if q_len > MAX_Q_LEN {
+        return Err(ApiError::BadRequest(format!(
+            "q must be at most {MAX_Q_LEN} characters"
+        )));
+    }
+
+    // limit: clamp rather than 400. Front-end pagination glitches shouldn't
+    // surface as user-visible errors when the safe behaviour is "return up to
+    // MAX_LIMIT".
+    let limit = query.limit.unwrap_or(DEFAULT_LIMIT).clamp(1, MAX_LIMIT);
+
+    let meili = state
+        .meili
+        .as_ref()
+        .ok_or_else(|| ApiError::ServiceUnavailable("search not configured".into()))?;
+    let hits = meili.search(&domain, q, limit).await?;
+    Ok(Json(hits))
 }

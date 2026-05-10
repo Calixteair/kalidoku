@@ -1,4 +1,4 @@
-# docker-compose.dev.yaml — local dev infra (Postgres + Valkey only).
+# docker-compose.dev.yaml — local dev infra (Postgres + Valkey + Meilisearch).
 # The Rust binaries and the front are run on the host (cargo watch / pnpm dev).
 # Secrets here are intentionally weak: NEVER use these creds in production.
 
@@ -25,5 +25,23 @@ services:
       test: ["CMD-SHELL", "valkey-cli -a devpassword ping | grep -q PONG"]
       interval: 5s
 
+  # Meilisearch — backs autocomplete on the host-side server (cargo run).
+  # Run with MEILI_URL=http://127.0.0.1:7700 MEILI_MASTER_KEY=devmeilikey.
+  # The same key is hardcoded weak here; rotated via Bao in compose.yaml.
+  search:
+    image: getmeili/meilisearch:v1.11
+    environment:
+      MEILI_MASTER_KEY: devmeilikey
+      MEILI_ENV: development
+      MEILI_NO_ANALYTICS: "true"
+    ports: ["7700:7700"]
+    volumes: [meili-dev:/meili_data]
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://127.0.0.1:7700/health | grep -q available"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+
 volumes:
   pg-dev:
+  meili-dev:

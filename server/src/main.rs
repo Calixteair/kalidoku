@@ -16,6 +16,7 @@ use std::collections::HashMap;
 use anyhow::Result;
 use kalidoku_server::{
     build_router, cache, config, db,
+    services::meili::MeiliClient,
     state::{AppState, DomainSummary},
     telemetry,
 };
@@ -63,6 +64,17 @@ async fn main() -> Result<()> {
             Ok(pool) => state = state.with_redis(pool),
             Err(e) => tracing::warn!(error = %e, "redis unavailable, running degraded"),
         }
+    }
+
+    // Search backend. We require the master key to be set explicitly — without
+    // it the autocomplete handler short-circuits with 503 rather than blasting
+    // unauthenticated requests at Meili.
+    if !cfg.meili_master_key.is_empty() {
+        let client = MeiliClient::new(cfg.meili_url.clone(), cfg.meili_master_key.clone());
+        state = state.with_meili(client);
+        info!(url = %cfg.meili_url, "meilisearch client configured");
+    } else {
+        tracing::warn!("MEILI_MASTER_KEY empty: autocomplete disabled (503)");
     }
 
     let app = build_router(state);
