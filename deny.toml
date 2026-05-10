@@ -71,9 +71,13 @@ allow = [
     # Allowed because kalidoku itself is AGPL-3.0-or-later and the binary is
     # never redistributed without source. Keep this list narrow.
     "AGPL-3.0",
+    "AGPL-3.0-only",
     "AGPL-3.0-or-later",
     "GPL-3.0",
     "GPL-3.0-or-later",
+    # CDLA-Permissive-2.0: Linux Foundation data license, MIT-equivalent.
+    # Pulled in by webpki-roots (Mozilla CA bundle).
+    "CDLA-Permissive-2.0",
 ]
 # Per-crate exceptions (use if upstream uses a non-standard SPDX id).
 exceptions = []
