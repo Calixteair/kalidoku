@@ -6,29 +6,21 @@ import * as m from "../../paraglide/messages.js";
 <Base title="kalidoku — privacy">
   <article class="prose prose-sm mx-auto max-w-none">
     <h1>{m.page_legal_privacy_title()}</h1>
-    <p>
-      kalidoku est un projet open source auto-hébergé. Aucune donnée n'est partagée avec un tiers
-      pour de la publicité ou du fingerprinting. Les seuls cookies posés sont strictement
-      nécessaires au fonctionnement (session, préférence de langue).
-    </p>
-    <h2>Données collectées</h2>
+    <p>{m.page_legal_privacy_intro()}</p>
+    <h2>{m.page_legal_privacy_data_heading()}</h2>
     <ul>
-      <li>Pseudo, e-mail (uniquement si vous créez un compte via Keycloak).</li>
-      <li>Score, erreurs, date de fin de partie pour les classements.</li>
-      <li>Adresse IP loggée 30 jours puis anonymisée.</li>
+      <li>{m.page_legal_privacy_data_item_1()}</li>
+      <li>{m.page_legal_privacy_data_item_2()}</li>
+      <li>{m.page_legal_privacy_data_item_3()}</li>
     </ul>
-    <h2>Suppression du compte</h2>
+    <h2>{m.page_legal_privacy_deletion_heading()}</h2>
+    <p>{m.page_legal_privacy_deletion_body()}</p>
+    <h2>{m.page_legal_privacy_host_heading()}</h2>
+    <p>{m.page_legal_privacy_host_body()}</p>
+    <h2>{m.page_legal_privacy_contact_heading()}</h2>
     <p>
-      Vous pouvez demander la suppression de votre compte depuis votre profil. Le pseudo est
-      anonymisé, l'e-mail est effacé. Les scores historiques sont conservés pour ne pas casser les
-      classements passés.
+      {m.page_legal_privacy_contact_body()}
+      <a href="mailto:contact@calixteair.fr">contact@calixteair.fr</a>.
     </p>
-    <h2>Hébergeur</h2>
-    <p>
-      Hébergement : VPS personnel `calixteair.fr` (Hetzner, Allemagne). Aucun service tiers
-      d'analyse, aucun CAPTCHA externe, aucun script tiers.
-    </p>
-    <h2>Contact</h2>
-    <p>Par e-mail à <a href="mailto:contact@calixteair.fr">contact@calixteair.fr</a>.</p>
   </article>
 </Base>

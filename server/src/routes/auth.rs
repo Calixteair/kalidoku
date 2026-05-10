@@ -27,7 +27,7 @@ use crate::auth::session::{
     hash_session_token, mint_session_token, COOKIE_SESSION, SESSION_TTL_DAYS,
 };
 use crate::auth::AuthContext;
-use crate::entities::{sessions, users};
+use crate::entities::{devices, sessions, users};
 use crate::error::{ApiError, ApiResult};
 use crate::state::AppState;
 
@@ -103,6 +103,7 @@ struct TokenResponse {
 
 pub async fn callback(
     State(state): State<AppState>,
+    Extension(ctx): Extension<AuthContext>,
     Query(q): Query<CallbackQuery>,
 ) -> ApiResult<Response> {
     let oidc = state.oidc_states.write().await.remove(&q.state);
@@ -156,10 +157,27 @@ pub async fn callback(
     let now = Utc::now();
     let expires_at = now + ChDuration::days(SESSION_TTL_DAYS);
 
-    // Anonymous device cookie is minted by middleware on first request; for the OIDC flow
-    // we attach the session to a fresh device id (the middleware didn't get a chance to
-    // populate it yet because /auth/callback is hit cold from the browser).
-    let device_id = Uuid::now_v7();
+    // Reuse the anonymous device id minted by the session middleware. If the
+    // middleware couldn't persist it (DB transient failure) we mint a fresh one
+    // and insert the row here so the FK to `devices` is always satisfied.
+    let device_id = match ctx.device_id {
+        Some(id) => id,
+        None => {
+            let id = Uuid::now_v7();
+            let am = devices::ActiveModel {
+                id: Set(id),
+                user_id: Set(None),
+                ua: Set(None),
+                ip_first: Set(None),
+                last_seen: Set(now.into()),
+                created_at: Set(now.into()),
+            };
+            am.insert(db.as_ref())
+                .await
+                .map_err(|e| ApiError::Internal(format!("device insert: {e}")))?;
+            id
+        }
+    };
     let session_row = sessions::ActiveModel {
         token_hash: Set(token_hash),
         user_id: Set(Some(user_id)),

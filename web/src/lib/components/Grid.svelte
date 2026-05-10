@@ -32,11 +32,17 @@
   let endGameOpen = $state(false);
   let endGameView = $state<EndGameView | null>(null);
 
+  const currentLocale = (): "fr" | "en" => {
+    if (typeof document === "undefined") return "fr";
+    const lang = document.documentElement.lang;
+    return lang === "en" ? "en" : "fr";
+  };
+
   const loadGrid = async (): Promise<void> => {
     gridLoading = true;
     gridError = null;
     try {
-      const g = await api.get("/api/grids/{domain}/today", { domain }, { locale: "fr" });
+      const g = await api.get("/api/grids/{domain}/today", { domain }, { locale: currentLocale() });
       store.setGrid(g);
     } catch (err) {
       if (err instanceof ApiError && err.status === 404) {
