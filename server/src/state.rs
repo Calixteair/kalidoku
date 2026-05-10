@@ -10,6 +10,7 @@ use tokio::sync::RwLock;
 use crate::auth::jwks::Jwks;
 use crate::auth::oidc::OidcState;
 use crate::config::AppConfig;
+use crate::services::meili::MeiliClient;
 
 /// Static description of a domain known to the server.
 #[derive(Debug, Clone)]
@@ -33,6 +34,10 @@ pub struct AppState {
     pub oidc_states: Arc<RwLock<HashMap<String, OidcState>>>,
     /// Lazy JWKS validator pointing at the Keycloak realm. None when issuer is empty (tests).
     pub jwks: Option<Arc<Jwks>>,
+    /// Meilisearch client for autocomplete. `None` disables the endpoint with a
+    /// clean 503 (e.g. dev without the search container, or before bao-agent
+    /// has provisioned the master key).
+    pub meili: Option<Arc<MeiliClient>>,
 }
 
 impl AppState {
@@ -55,7 +60,14 @@ impl AppState {
             domains: Arc::new(HashMap::new()),
             oidc_states: Arc::new(RwLock::new(HashMap::new())),
             jwks,
+            meili: None,
         }
+    }
+
+    #[must_use]
+    pub fn with_meili(mut self, meili: Arc<MeiliClient>) -> Self {
+        self.meili = Some(meili);
+        self
     }
 
     #[must_use]
@@ -92,6 +104,8 @@ impl AppState {
             keycloak_client_secret: "test".into(),
             keycloak_redirect_url: "https://example.invalid/cb".into(),
             altcha_hmac_key: "test-altcha-hmac-key-32-bytes!!".into(),
+            meili_url: "http://search.invalid:7700".into(),
+            meili_master_key: String::new(),
             rust_log: "info".into(),
             allowed_origins: String::new(),
             run_migrations: false,

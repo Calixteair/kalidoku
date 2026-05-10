@@ -28,6 +28,10 @@ pub enum ApiError {
     AltchaRequired,
     #[error("payment required")]
     PaymentRequired,
+    #[error("bad gateway: {0}")]
+    BadGateway(String),
+    #[error("service unavailable: {0}")]
+    ServiceUnavailable(String),
     #[error("internal error: {0}")]
     Internal(String),
 }
@@ -51,6 +55,8 @@ impl ApiError {
             ApiError::RateLimited => "rate_limited",
             ApiError::AltchaRequired => "altcha_required",
             ApiError::PaymentRequired => "payment_required",
+            ApiError::BadGateway(_) => "bad_gateway",
+            ApiError::ServiceUnavailable(_) => "service_unavailable",
             ApiError::Internal(_) => "internal",
         }
     }
@@ -67,6 +73,8 @@ impl ApiError {
             ApiError::RateLimited => StatusCode::TOO_MANY_REQUESTS,
             ApiError::AltchaRequired => StatusCode::PRECONDITION_FAILED,
             ApiError::PaymentRequired => StatusCode::PAYMENT_REQUIRED,
+            ApiError::BadGateway(_) => StatusCode::BAD_GATEWAY,
+            ApiError::ServiceUnavailable(_) => StatusCode::SERVICE_UNAVAILABLE,
             ApiError::Internal(_) => StatusCode::INTERNAL_SERVER_ERROR,
         }
     }

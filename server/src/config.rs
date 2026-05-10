@@ -16,6 +16,10 @@ fn default_string() -> String {
     String::new()
 }
 
+fn default_meili_url() -> String {
+    "http://search:7700".into()
+}
+
 #[derive(Debug, Clone, Deserialize)]
 pub struct AppConfig {
     #[serde(default = "default_port")]
@@ -42,6 +46,17 @@ pub struct AppConfig {
     /// Provisioned by bao-agent from `secret/kalidoku/prod/anti-bot.ALTCHA_HMAC_KEY`.
     #[serde(default)]
     pub altcha_hmac_key: String,
+
+    /// Base URL of the Meilisearch instance backing autocomplete (no trailing
+    /// slash). Defaults to the in-cluster Docker name `http://search:7700`. In
+    /// dev with no search container running we leave the master key empty,
+    /// which disables the autocomplete handler with a clean 503.
+    #[serde(default = "default_meili_url")]
+    pub meili_url: String,
+    /// Master API key for Meilisearch. Empty in dev when search isn't booted.
+    /// Provisioned in prod by bao-agent from `secret/kalidoku/prod/search.MEILI_MASTER_KEY`.
+    #[serde(default)]
+    pub meili_master_key: String,
 
     #[serde(default = "default_log_level")]
     pub rust_log: String,
@@ -71,6 +86,8 @@ impl AppConfig {
             keycloak_client_secret: String::new(),
             keycloak_redirect_url: String::new(),
             altcha_hmac_key: "test-altcha-key-32-bytes-long..!".into(),
+            meili_url: "http://search.invalid:7700".into(),
+            meili_master_key: String::new(),
             rust_log: "warn".into(),
             allowed_origins: String::new(),
             run_migrations: false,
