@@ -2,7 +2,7 @@
 # Multi-stage build for kalidoku-server.
 # Final image: distroless cc-debian12:nonroot, ~30 MB.
 
-ARG RUST_VERSION=1.82-bookworm
+ARG RUST_VERSION=1.88-bookworm
 ARG DEBIAN_RELEASE=12
 
 ############################

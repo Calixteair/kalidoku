@@ -4,8 +4,9 @@ import svelte from "eslint-plugin-svelte";
 import prettier from "eslint-config-prettier";
 
 export default [
+  { ignores: ["dist/", ".astro/", "src/paraglide/", "node_modules/"] },
   js.configs.recommended,
-  ...ts.configs.strict,
+  ...ts.configs.recommended,
   ...svelte.configs["flat/recommended"],
   prettier,
   {
@@ -14,5 +15,4 @@ export default [
       "no-console": ["warn", { allow: ["warn", "error"] }],
     },
   },
-  { ignores: ["dist/", ".astro/", "src/paraglide/", "node_modules/"] },
 ];

@@ -4,11 +4,7 @@
 //!
 //! Implementation lives behind a stable signature; agent A owns the internals.
 
-use crate::{
-    domain::Domain,
-    error::Result,
-    predicate::DynPredicate,
-};
+use crate::{domain::Domain, error::Result, predicate::DynPredicate};
 
 #[derive(Debug)]
 pub struct Grid {

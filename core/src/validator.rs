@@ -1,8 +1,4 @@
-use crate::{
-    domain::Domain,
-    generator::Grid,
-    normalize::normalize,
-};
+use crate::{domain::Domain, generator::Grid, normalize::normalize};
 
 /// Result of validating a single cell answer.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -23,8 +19,7 @@ pub fn validate_answer(
 ) -> CellValidation {
     let normalised = normalize(raw_answer);
     let Some(entity) = domain.entities.iter().find(|e| {
-        normalize(&e.name) == normalised
-            || e.aliases.iter().any(|a| normalize(a) == normalised)
+        normalize(&e.name) == normalised || e.aliases.iter().any(|a| normalize(a) == normalised)
     }) else {
         return CellValidation::UnknownEntity;
     };

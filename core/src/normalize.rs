@@ -64,7 +64,10 @@ mod tests {
     fn unifies_apostrophes_and_punctuation() {
         assert_eq!(normalize("Saint-Michel"), "saint michel");
         assert_eq!(normalize("Père Lachaise"), "pere lachaise");
-        assert_eq!(normalize("Charles-de-Gaulle--Étoile"), "charles de gaulle etoile");
+        assert_eq!(
+            normalize("Charles-de-Gaulle--Étoile"),
+            "charles de gaulle etoile"
+        );
     }
 
     #[test]

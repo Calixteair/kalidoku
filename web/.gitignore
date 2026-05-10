@@ -1,0 +1,10 @@
+node_modules/
+.pnpm-store/
+dist/
+.astro/
+.svelte-kit/
+.vite/
+src/lib/api/types.ts
+src/paraglide/
+playwright-report/
+test-results/
