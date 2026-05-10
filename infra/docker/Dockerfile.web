@@ -19,6 +19,15 @@ RUN pnpm openapi:gen \
  && pnpm build
 
 FROM nginx:${NGINX_VERSION} AS runtime
+ARG GIT_REVISION=unknown
+ARG IMAGE_CREATED=unknown
+LABEL org.opencontainers.image.source="https://github.com/Calixteair/kalidoku" \
+      org.opencontainers.image.licenses="AGPL-3.0-only" \
+      org.opencontainers.image.title="kalidoku-web" \
+      org.opencontainers.image.description="kalidoku static frontend (Astro + Svelte) served by nginx." \
+      org.opencontainers.image.url="https://kalidoku.calixteair.fr" \
+      org.opencontainers.image.revision="${GIT_REVISION}" \
+      org.opencontainers.image.created="${IMAGE_CREATED}"
 COPY infra/docker/nginx.conf /etc/nginx/conf.d/default.conf
 COPY --from=build /app/web/dist /usr/share/nginx/html
 EXPOSE 80
