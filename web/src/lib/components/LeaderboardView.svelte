@@ -44,7 +44,7 @@
   <p class="text-fg-muted text-sm">{m.page_leaderboard_empty()}</p>
 {:else}
   <ol class="border-border bg-bg-card divide-border divide-y rounded-lg border">
-    {#each page.items as entry (entry.profile.id)}
+    {#each page.items as entry (entry.rank)}
       <li class="flex items-center justify-between gap-3 px-3 py-2 text-sm">
         <span class="text-fg-muted w-8 text-right tabular-nums">#{entry.rank}</span>
         <span class="text-fg flex-1 truncate font-medium">{entry.profile.pseudo}</span>

@@ -31,6 +31,17 @@
   let rulesOpen = $state(false);
   let endGameOpen = $state(false);
   let endGameView = $state<EndGameView | null>(null);
+  // Cells that just took a wrong answer — used to trigger a brief shake/flash
+  // so the player gets immediate feedback even though the cell stays empty.
+  let wrongCells = $state<Set<string>>(new Set());
+
+  const flashWrong = (cell: Cell): void => {
+    const key = cellKey(cell);
+    wrongCells = new Set([...wrongCells, key]);
+    setTimeout(() => {
+      wrongCells = new Set([...wrongCells].filter((k) => k !== key));
+    }, 700);
+  };
 
   const currentLocale = (): "fr" | "en" => {
     if (typeof document === "undefined") return "fr";
@@ -111,6 +122,10 @@
         { cell, answer: entity.name, playToken: state.playToken },
       );
       store.recordPlay(cell, entity.name, res);
+      if (!res.ok) flashWrong(cell);
+      // Auto-open the end-of-game modal once the server signals it (3 mistakes
+      // or 9 cells solved). Without this the player has to close the
+      // autocomplete and rely on a follow-up click to see the verdict.
       if (res.ended || store.isOver) {
         await fetchEndView();
       }
@@ -220,6 +235,7 @@
             row={ri}
             col={ci}
             answer={store.answersByCell.get(cellKey({ row: ri, col: ci }))}
+            wrong={wrongCells.has(cellKey({ row: ri, col: ci }))}
             disabled={gridLoading || store.isOver || starting}
             onSelect={onCellSelect}
           />

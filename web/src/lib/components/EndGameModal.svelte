@@ -33,6 +33,10 @@
   }: Props = $props();
 
   let copied = $state(false);
+  let showSolutions = $state(false);
+
+  const cellLabel = (row: number, col: number): string =>
+    m.cell_label({ row: row + 1, col: col + 1 });
 
   const today = (): string => {
     return new Date().toISOString().slice(0, 10);
@@ -130,14 +134,35 @@
         </button>
       </div>
 
-      {#if onSeeSolutions}
+      {#if endGameView?.solutionsByCell?.length}
         <button
           type="button"
           class="text-fg-subtle text-sm underline-offset-2 hover:underline"
-          onclick={onSeeSolutions}
+          aria-expanded={showSolutions}
+          onclick={() => {
+            showSolutions = !showSolutions;
+            if (onSeeSolutions) onSeeSolutions();
+          }}
         >
-          {m.see_solutions()}
+          {showSolutions ? m.hide_solutions() : m.see_solutions()}
         </button>
+
+        {#if showSolutions}
+          <div class="border-border mt-2 max-h-72 overflow-y-auto rounded-md border">
+            <ul class="divide-border divide-y">
+              {#each endGameView.solutionsByCell as cellSol (cellSol.cell.row * 3 + cellSol.cell.col)}
+                <li class="px-3 py-2">
+                  <p class="text-fg-muted mb-1 text-xs font-semibold">
+                    {cellLabel(cellSol.cell.row, cellSol.cell.col)}
+                  </p>
+                  <p class="text-fg text-sm">
+                    {cellSol.candidates.map((c) => c.name).join(" · ")}
+                  </p>
+                </li>
+              {/each}
+            </ul>
+          </div>
+        {/if}
       {/if}
     </div>
   </div>

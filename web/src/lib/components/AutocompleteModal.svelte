@@ -37,8 +37,12 @@
     errorMsg = null;
   };
 
+  // Don't surface suggestions for very short prefixes — otherwise the user
+  // gets a hint after a single letter, which trivialises the puzzle.
+  const MIN_QUERY_LEN = 3;
+
   const fetchSuggestions = async (q: string): Promise<void> => {
-    if (q.trim().length === 0) {
+    if (q.trim().length < MIN_QUERY_LEN) {
       suggestions = [];
       activeIndex = -1;
       return;
@@ -197,7 +201,11 @@
           <p class="text-fg-muted px-2 py-2 text-sm">{m.loading_stations()}</p>
         {:else if errorMsg}
           <p class="text-danger px-2 py-2 text-sm" role="alert">{errorMsg}</p>
-        {:else if query.trim().length > 0 && suggestions.length === 0}
+        {:else if query.trim().length > 0 && query.trim().length < MIN_QUERY_LEN}
+          <p class="text-fg-muted px-2 py-2 text-sm">
+            {m.modal_autocomplete_min_chars({ n: MIN_QUERY_LEN })}
+          </p>
+        {:else if query.trim().length >= MIN_QUERY_LEN && suggestions.length === 0}
           <p class="text-fg-muted px-2 py-2 text-sm">{m.modal_autocomplete_no_results()}</p>
         {:else}
           {#each suggestions as s, i (s.id)}

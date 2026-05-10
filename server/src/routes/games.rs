@@ -391,13 +391,24 @@ pub async fn play(
         .clone()
         .unwrap_or_else(|| format!("unknown:{answer_norm}"));
 
-    // Re-use already-played cells to enforce uniqueness.
+    // Lock a cell only once it's been answered correctly. A wrong guess still
+    // costs a mistake but doesn't freeze the cell — the player can keep trying
+    // (within the global mistake budget). This matches the "every wrong guess
+    // is a life lost" UX of comparable grid games.
     let answers = parse_answers(&game.answers);
-    if answers.iter().any(|a| a.cell == cell_idx) {
-        return Err(ApiError::Conflict("cell already played"));
+    if answers.iter().any(|a| a.cell == cell_idx && a.ok) {
+        return Err(ApiError::Conflict("cell already solved"));
     }
     if resolved.is_some() && answers.iter().any(|a| a.entity_id == entity_id && a.ok) {
         return Err(ApiError::Conflict("entity already used"));
+    }
+    // Reject the exact same guess twice in a row on the same cell so a stuck
+    // player can't burn mistakes by accident-tapping the same suggestion.
+    if answers
+        .iter()
+        .any(|a| a.cell == cell_idx && a.entity_id == entity_id && !a.ok)
+    {
+        return Err(ApiError::Conflict("answer already tried on this cell"));
     }
 
     let candidates = candidates_for_cell(&grid.payload, body.cell.row, body.cell.col)
