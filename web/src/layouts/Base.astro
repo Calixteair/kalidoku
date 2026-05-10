@@ -1,0 +1,78 @@
+---
+import "../styles/global.css";
+import { detectLocale } from "../lib/i18n.js";
+import { setLanguageTag } from "../paraglide/runtime.js";
+import * as m from "../paraglide/messages.js";
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title, description } = Astro.props;
+
+// Static-rendered pages cannot read request headers; we rely on URL ?lang= and
+// runtime client-side switching via the locale cookie. The default locale is
+// applied at build time.
+const locale = detectLocale({ url: Astro.url });
+setLanguageTag(locale);
+
+const pageTitle = title ?? `${m.site_title()} — ${m.site_tagline()}`;
+const pageDesc = description ?? m.site_tagline();
+---
+
+<!doctype html>
+<html lang={locale}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={pageDesc} />
+    <meta name="theme-color" content="#f4f7fb" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <script is:inline>
+      // Apply persisted locale cookie before SPA scripts boot.
+      try {
+        var match = document.cookie.match(/(?:^|;\s*)locale=(fr|en)/);
+        if (match) document.documentElement.lang = match[1];
+      } catch {}
+      // Register service worker as early as possible without blocking render.
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", function () {
+          navigator.serviceWorker.register("/sw.js").catch(function () {});
+        });
+      }
+    </script>
+  </head>
+  <body class="min-h-svh">
+    <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:left-2 focus:top-2 focus:z-50 focus:rounded focus:bg-accent focus:px-3 focus:py-1 focus:text-accent-fg">Skip</a>
+    <header class="border-border bg-bg-card border-b">
+      <div class="mx-auto flex max-w-screen-md items-center justify-between gap-2 px-4 py-3">
+        <a href="/" class="text-fg text-base font-bold tracking-tight">{m.site_title()}</a>
+        <nav aria-label="Primary">
+          <ul class="flex items-center gap-3 text-sm">
+            <li><a class="text-fg-subtle hover:text-fg" href="/archives">{m.nav_archives()}</a></li>
+            <li><a class="text-fg-subtle hover:text-fg" href="/leaderboard">{m.nav_leaderboard()}</a></li>
+            <li><a class="text-fg-subtle hover:text-fg" href="/profile">{m.nav_profile()}</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+    <main id="main" class="mx-auto max-w-screen-md px-4 py-4 md:py-6">
+      <slot />
+    </main>
+    <footer class="border-border bg-bg-card mt-8 border-t">
+      <div
+        class="text-fg-muted mx-auto flex max-w-screen-md flex-wrap items-center justify-between gap-2 px-4 py-3 text-xs"
+      >
+        <ul class="flex flex-wrap gap-3">
+          <li><a class="hover:text-fg" href="/legal/privacy">{m.page_legal_privacy_title()}</a></li>
+          <li><a class="hover:text-fg" href="/legal/cookies">{m.page_legal_cookies_title()}</a></li>
+          <li><a class="hover:text-fg" href="/legal/terms">{m.page_legal_terms_title()}</a></li>
+        </ul>
+        <span>kalidoku · AGPL-3.0</span>
+      </div>
+    </footer>
+  </body>
+</html>

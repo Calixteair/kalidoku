@@ -1,0 +1,26 @@
+---
+import Base from "../../layouts/Base.astro";
+import * as m from "../../paraglide/messages.js";
+---
+
+<Base title="kalidoku — terms">
+  <article class="prose prose-sm mx-auto max-w-none">
+    <h1>{m.page_legal_terms_title()}</h1>
+    <p>
+      kalidoku est distribué sous licence AGPL-3.0. Le code source est public sur
+      <a href="https://github.com/Calixteair/kalidoku">GitHub</a>.
+    </p>
+    <h2>Usage</h2>
+    <p>
+      Le service est fourni gratuitement, en l'état, sans garantie. Toute tentative d'abus
+      (scraping massif, exploitation de l'API en dehors du jeu, contournement de l'anti-cheat)
+      peut entraîner un bannissement immédiat.
+    </p>
+    <h2>Propriété intellectuelle</h2>
+    <p>
+      Les noms de stations, lignes, et autres entités citées appartiennent à leurs ayants droit
+      respectifs (RATP, SNCF, etc.). kalidoku les utilise à des fins ludiques et éducatives, sans
+      but commercial.
+    </p>
+  </article>
+</Base>

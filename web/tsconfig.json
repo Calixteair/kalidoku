@@ -13,5 +13,6 @@
       "$paraglide/*": ["src/paraglide/*"]
     }
   },
-  "include": ["src/**/*", "astro.config.mjs"]
+  "include": ["src/**/*", "astro.config.mjs"],
+  "exclude": ["src/paraglide/**", "node_modules", "dist", ".astro"]
 }

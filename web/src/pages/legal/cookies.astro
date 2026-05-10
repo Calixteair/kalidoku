@@ -1,0 +1,37 @@
+---
+import Base from "../../layouts/Base.astro";
+import * as m from "../../paraglide/messages.js";
+---
+
+<Base title="kalidoku — cookies">
+  <article class="prose prose-sm mx-auto max-w-none">
+    <h1>{m.page_legal_cookies_title()}</h1>
+    <p>
+      kalidoku ne pose que des cookies strictement nécessaires. Aucun cookie publicitaire, aucun
+      traqueur tiers.
+    </p>
+    <h2>Liste exhaustive</h2>
+    <table>
+      <thead>
+        <tr><th>Nom</th><th>Domaine</th><th>Durée</th><th>Finalité</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>__Host-session</code></td>
+          <td>kalidoku.calixteair.fr</td>
+          <td>30 jours glissants</td>
+          <td>Session authentifiée (token aléatoire, hash en DB).</td>
+        </tr>
+        <tr>
+          <td><code>locale</code></td>
+          <td>kalidoku.calixteair.fr</td>
+          <td>1 an</td>
+          <td>Préférence de langue choisie.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>
+      Aucun cookie n'est posé tant que vous ne vous connectez pas et ne changez pas la langue.
+    </p>
+  </article>
+</Base>
