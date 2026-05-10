@@ -7,6 +7,7 @@ use crate::{
 };
 
 pub mod loader;
+pub mod schema;
 
 pub use loader::{load_domain_pack, load_domain_pack_with_registry};
 

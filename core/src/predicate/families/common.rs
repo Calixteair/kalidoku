@@ -56,6 +56,26 @@ pub fn param_as_f64(family: &str, value: &serde_json::Value) -> Result<f64> {
         .ok_or_else(|| invalid_param(family, "expected a number"))
 }
 
+/// Read a `{ "attr": <string>, "n": <non-negative int> }` parameter object.
+/// Used by `attr_list_size_*` and any future family with the same parameter shape.
+pub fn param_as_attr_and_count(family: &str, value: &serde_json::Value) -> Result<(String, usize)> {
+    let obj = value
+        .as_object()
+        .ok_or_else(|| invalid_param(family, "expected object {attr, n}"))?;
+    let attr = obj
+        .get("attr")
+        .and_then(serde_json::Value::as_str)
+        .ok_or_else(|| invalid_param(family, "missing string 'attr'"))?
+        .to_string();
+    let n = obj
+        .get("n")
+        .and_then(serde_json::Value::as_u64)
+        .ok_or_else(|| invalid_param(family, "missing non-negative integer 'n'"))?;
+    let n = usize::try_from(n)
+        .map_err(|_| invalid_param(family, "'n' is too large for the host platform"))?;
+    Ok((attr, n))
+}
+
 /// Convenience: read a single character (case-insensitive) from a string parameter.
 pub fn param_as_letter(family: &str, value: &serde_json::Value) -> Result<char> {
     let s = param_as_str(family, value)?;
