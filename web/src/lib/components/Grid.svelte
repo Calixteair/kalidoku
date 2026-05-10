@@ -8,7 +8,6 @@
   import PredicateChip from "./PredicateChip.svelte";
   import RulesModal from "./RulesModal.svelte";
   import { createGameStore, cellKey } from "../stores/gameStore.svelte.js";
-  import { formatMessage } from "../i18n.js";
 
   type PublicGrid = components["schemas"]["PublicGrid"];
   type Cell = components["schemas"]["Cell"];
@@ -149,7 +148,7 @@
 
   const cellLabelFor = (cell: Cell | null): string => {
     if (!cell) return "";
-    return formatMessage(m.cell_label(), { row: cell.row + 1, col: cell.col + 1 });
+    return m.cell_label({ row: cell.row + 1, col: cell.col + 1 });
   };
 
   const grid = $derived<PublicGrid | null>(store.grid);

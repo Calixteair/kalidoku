@@ -1,6 +1,5 @@
 <script lang="ts">
   import * as m from "../../paraglide/messages.js";
-  import { formatMessage } from "../i18n.js";
   import type { CellAnswer } from "../stores/gameStore.svelte.js";
 
   interface Props {
@@ -19,10 +18,10 @@
 
   const ariaLabel = $derived(
     answer
-      ? formatMessage(m.cell_label(), { row: row + 1, col: col + 1 }) +
+      ? m.cell_label({ row: row + 1, col: col + 1 }) +
           ", " +
-          formatMessage(m.cell_filled(), { entity: answer.entityName })
-      : formatMessage(m.cell_label(), { row: row + 1, col: col + 1 }) + ", " + m.cell_empty(),
+          m.cell_filled({ entity: answer.entityName })
+      : m.cell_label({ row: row + 1, col: col + 1 }) + ", " + m.cell_empty(),
   );
 </script>
 

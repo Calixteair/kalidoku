@@ -34,6 +34,7 @@ use crate::state::AppState;
 // ---------------------------------------------------------------- /auth/login
 
 #[derive(Deserialize)]
+#[serde(rename_all = "camelCase")]
 pub struct LoginQuery {
     pub redirect_to: Option<String>,
 }
@@ -86,6 +87,7 @@ fn sanitise_redirect(input: Option<&str>) -> String {
 // ------------------------------------------------------------- /auth/callback
 
 #[derive(Deserialize)]
+#[serde(rename_all = "camelCase")]
 pub struct CallbackQuery {
     pub code: String,
     pub state: String,
@@ -256,12 +258,14 @@ fn read_session_cookie(headers: &HeaderMap) -> Option<&str> {
 // ------------------------------------------------------------------ /me
 
 #[derive(Serialize)]
+#[serde(rename_all = "camelCase")]
 pub struct Premium {
     pub active: bool,
     pub until: Option<chrono::DateTime<chrono::Utc>>,
 }
 
 #[derive(Serialize)]
+#[serde(rename_all = "camelCase")]
 pub struct Me {
     pub id: uuid::Uuid,
     pub pseudo: String,

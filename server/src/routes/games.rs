@@ -31,6 +31,7 @@ const MAX_SCORE: i32 = 9 * 100;
 // ----- start_game -----
 
 #[derive(Deserialize)]
+#[serde(rename_all = "camelCase")]
 pub struct StartGameRequest {
     pub domain: String,
     pub mode: String,
@@ -41,18 +42,21 @@ pub struct StartGameRequest {
 }
 
 #[derive(Serialize)]
+#[serde(rename_all = "camelCase")]
 pub struct StartGameGame {
     pub id: Uuid,
     pub started_at: chrono::DateTime<Utc>,
 }
 
 #[derive(Serialize)]
+#[serde(rename_all = "camelCase")]
 pub struct StartGamePlayToken {
     pub token: String,
     pub expires_at: chrono::DateTime<Utc>,
 }
 
 #[derive(Serialize)]
+#[serde(rename_all = "camelCase")]
 pub struct StartGameResponse {
     pub game: StartGameGame,
     pub grid: PublicGrid,
@@ -60,6 +64,7 @@ pub struct StartGameResponse {
 }
 
 #[derive(Serialize)]
+#[serde(rename_all = "camelCase")]
 pub struct PublicGrid {
     pub id: Uuid,
     pub domain: String,
@@ -71,6 +76,7 @@ pub struct PublicGrid {
 }
 
 #[derive(Serialize)]
+#[serde(rename_all = "camelCase")]
 pub struct PredicateLabel {
     pub id: String,
     pub family: String,
@@ -270,6 +276,7 @@ fn extract_predicates(payload: &serde_json::Value, key: &str) -> ApiResult<Vec<P
 // ----- play -----
 
 #[derive(Deserialize)]
+#[serde(rename_all = "camelCase")]
 pub struct PlayRequest {
     pub cell: Cell,
     pub answer: String,
@@ -277,12 +284,14 @@ pub struct PlayRequest {
 }
 
 #[derive(Deserialize, Serialize, Clone, Copy)]
+#[serde(rename_all = "camelCase")]
 pub struct Cell {
     pub row: i32,
     pub col: i32,
 }
 
 #[derive(Serialize)]
+#[serde(rename_all = "camelCase")]
 pub struct PlayResponse {
     pub ok: bool,
     pub score_delta: i32,
@@ -456,12 +465,14 @@ fn parse_answers(raw: &serde_json::Value) -> Vec<StoredAnswer> {
 // ----- abandon + result -----
 
 #[derive(Serialize)]
+#[serde(rename_all = "camelCase")]
 pub struct EndGameView {
     pub summary: GameSummary,
     pub solutions_by_cell: serde_json::Value,
 }
 
 #[derive(Serialize)]
+#[serde(rename_all = "camelCase")]
 pub struct GameSummary {
     pub game_id: Uuid,
     pub grid_id: Uuid,
