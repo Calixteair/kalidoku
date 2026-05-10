@@ -104,18 +104,19 @@ pub fn validate(path: &str, kind: ManifestKind, instance: &Value) -> Result<()> 
         ManifestKind::Entities => &validators().entities,
         ManifestKind::Predicates => &validators().predicates,
     };
-    if validator.is_valid(instance) {
-        return Ok(());
+    match validator.validate(instance) {
+        Ok(()) => Ok(()),
+        Err(errs) => {
+            let errors: Vec<String> = errs
+                .take(32)
+                .map(|e| format!("at {}: {}", e.instance_path, e))
+                .collect();
+            Err(Error::InvalidManifest {
+                path: path.to_string(),
+                errors,
+            })
+        }
     }
-    let errors: Vec<String> = validator
-        .iter_errors(instance)
-        .take(32)
-        .map(|e| format!("at {}: {}", e.instance_path, e))
-        .collect();
-    Err(Error::InvalidManifest {
-        path: path.to_string(),
-        errors,
-    })
 }
 
 #[cfg(test)]
