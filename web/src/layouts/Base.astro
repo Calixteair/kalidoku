@@ -3,7 +3,8 @@ import "../styles/global.css";
 import { detectLocale } from "../lib/i18n.js";
 import { setLanguageTag } from "../paraglide/runtime.js";
 import * as m from "../paraglide/messages.js";
-import ThemeToggle from "../lib/components/ThemeToggle.svelte";
+import Header from "../lib/components/Header.svelte";
+import Footer from "../lib/components/Footer.svelte";
 
 interface Props {
   title?: string;
@@ -12,9 +13,9 @@ interface Props {
 
 const { title, description } = Astro.props;
 
-// Static-rendered pages cannot read request headers; we rely on URL ?lang= and
-// runtime client-side switching via the locale cookie. The default locale is
-// applied at build time.
+// Build-time locale (falls back to fr for static SSG). The actual runtime
+// locale is set by the inline boot script below from ?lang= or the cookie,
+// and the Header / Footer Svelte islands re-apply it on hydration.
 const locale = detectLocale({ url: Astro.url });
 setLanguageTag(locale);
 
@@ -63,34 +64,15 @@ const pageDesc = description ?? m.site_tagline();
     </script>
   </head>
   <body class="flex min-h-svh flex-col">
-    <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:left-2 focus:top-2 focus:z-50 focus:rounded focus:bg-accent focus:px-3 focus:py-1 focus:text-accent-fg">Skip</a>
-    <header class="border-border bg-bg-card border-b">
-      <div class="mx-auto flex max-w-screen-md items-center justify-between gap-2 px-4 py-3">
-        <a href="/" class="text-fg text-base font-bold tracking-tight">{m.site_title()}</a>
-        <nav aria-label="Primary" class="flex items-center gap-3">
-          <ul class="flex items-center gap-3 text-sm">
-            <li><a class="text-fg-subtle hover:text-fg" href="/archives">{m.nav_archives()}</a></li>
-            <li><a class="text-fg-subtle hover:text-fg" href="/leaderboard">{m.nav_leaderboard()}</a></li>
-            <li><a class="text-fg-subtle hover:text-fg" href="/profile">{m.nav_profile()}</a></li>
-          </ul>
-          <ThemeToggle client:idle />
-        </nav>
-      </div>
-    </header>
+    <a
+      href="#main"
+      class="sr-only focus:not-sr-only focus:fixed focus:left-2 focus:top-2 focus:z-50 focus:rounded focus:bg-accent focus:px-3 focus:py-1 focus:text-accent-fg"
+      >Skip</a
+    >
+    <Header client:load />
     <main id="main" class="mx-auto w-full max-w-screen-md flex-1 px-4 py-4 md:py-6">
       <slot />
     </main>
-    <footer class="border-border bg-bg-card mt-auto border-t">
-      <div
-        class="text-fg-muted mx-auto flex max-w-screen-md flex-wrap items-center justify-between gap-2 px-4 py-3 text-xs"
-      >
-        <ul class="flex flex-wrap gap-3">
-          <li><a class="hover:text-fg" href="/legal/privacy">{m.page_legal_privacy_title()}</a></li>
-          <li><a class="hover:text-fg" href="/legal/cookies">{m.page_legal_cookies_title()}</a></li>
-          <li><a class="hover:text-fg" href="/legal/terms">{m.page_legal_terms_title()}</a></li>
-        </ul>
-        <span>kalidoku · AGPL-3.0</span>
-      </div>
-    </footer>
+    <Footer client:load />
   </body>
 </html>

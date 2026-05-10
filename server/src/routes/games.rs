@@ -97,8 +97,12 @@ pub async fn start_game(
     }
     let device_id = ctx.device_id.ok_or(ApiError::Unauthorised)?;
 
-    // Anti-bot: when explicitly demanded by the front (anonymous user) or always for duels.
-    let altcha_required = matches!(mode, GameMode::Duel) || !ctx.is_authenticated;
+    // Anti-bot: required only on duels for now. Anonymous daily play is allowed
+    // because the rate-limit + play-token HMAC + 1-game-per-device-per-grid uniqueness
+    // already cover the realistic abuse cases. The Altcha widget will be re-introduced
+    // on the front when we expose duel creation; until then it would just block legit
+    // anonymous players from starting their daily.
+    let altcha_required = matches!(mode, GameMode::Duel);
     if altcha_required {
         let solution = body
             .altcha_solution
