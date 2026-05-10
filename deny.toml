@@ -1,0 +1,103 @@
+# cargo-deny configuration for kalidoku.
+# Run locally: `cargo deny check`
+# Docs:        https://embarkstudios.github.io/cargo-deny/
+
+# ---------------------------------------------------------------------------
+# Graph: which deps to consider.
+# ---------------------------------------------------------------------------
+[graph]
+all-features = true
+no-default-features = false
+# Project targets x86_64 Linux on prod (distroless) and the local dev hosts.
+targets = [
+    "x86_64-unknown-linux-gnu",
+    "aarch64-unknown-linux-gnu",
+]
+
+# ---------------------------------------------------------------------------
+# Output verbosity.
+# ---------------------------------------------------------------------------
+[output]
+feature-depth = 1
+
+# ---------------------------------------------------------------------------
+# Advisories — RUSTSEC database checks.
+# ---------------------------------------------------------------------------
+[advisories]
+db-path = "$CARGO_HOME/advisory-db"
+db-urls = ["https://github.com/rustsec/advisory-db"]
+# Hard-fail on actively known vulnerabilities and unmaintained-flagged crates.
+yanked = "deny"
+# Per-id ignores (use with care — must include rationale + revisit date).
+ignore = [
+    # example:
+    # { id = "RUSTSEC-2024-0000", reason = "false positive in our usage" },
+]
+
+# ---------------------------------------------------------------------------
+# Licenses — AGPL-3.0-or-later for kalidoku.
+# We allow permissive (MIT/Apache/BSD/ISC/MPL) deps and copyleft linking we
+# already use (LGPL when dyn-linked / static-link OK under AGPL clause 13).
+# ---------------------------------------------------------------------------
+[licenses]
+# SPDX expression confidence threshold. Anything below requires explicit listing.
+confidence-threshold = 0.93
+allow = [
+    "Apache-2.0",
+    "Apache-2.0 WITH LLVM-exception",
+    "BSD-2-Clause",
+    "BSD-3-Clause",
+    "BSL-1.0",
+    "CC0-1.0",
+    "ISC",
+    "MIT",
+    "MIT-0",
+    "MPL-2.0",
+    "OpenSSL",
+    "Unicode-3.0",
+    "Unicode-DFS-2016",
+    "Unlicense",
+    "Zlib",
+    # Allowed because kalidoku itself is AGPL-3.0-or-later and the binary is
+    # never redistributed without source. Keep this list narrow.
+    "AGPL-3.0",
+    "AGPL-3.0-or-later",
+    "GPL-3.0",
+    "GPL-3.0-or-later",
+]
+# Per-crate exceptions (use if upstream uses a non-standard SPDX id).
+exceptions = []
+
+# ---------------------------------------------------------------------------
+# Bans — block crates we don't want pulled in.
+# ---------------------------------------------------------------------------
+[bans]
+multiple-versions = "warn"
+wildcards = "deny"
+highlight = "all"
+workspace-default-features = "allow"
+external-default-features = "allow"
+
+# Disallow openssl pulls — we use rustls everywhere (cf. CLAUDE.md).
+deny = [
+    { name = "openssl", reason = "use rustls instead (rustls-tls feature on reqwest etc.)" },
+    { name = "openssl-sys", reason = "use rustls instead" },
+    # Avoid known abandoned/unmaintained crypto.
+    { name = "ring", version = "<0.17", reason = "older ring versions had advisories; require >=0.17" },
+]
+# Allow-list crates that legitimately exist in multiple versions due to deep
+# dependency trees (Tokio ecosystem).
+skip = [
+    # example:
+    # { name = "syn", version = "=1.0" },
+]
+skip-tree = []
+
+# ---------------------------------------------------------------------------
+# Sources — only crates.io + a small allow-list of git deps if needed.
+# ---------------------------------------------------------------------------
+[sources]
+unknown-registry = "deny"
+unknown-git = "deny"
+allow-registry = ["https://github.com/rust-lang/crates.io-index"]
+allow-git = []
