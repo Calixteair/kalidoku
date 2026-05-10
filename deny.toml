@@ -35,7 +35,13 @@ ignore = [
     # custom TLS authority chains. Revisit before v1.0.0.
     { id = "RUSTSEC-2026-0098", reason = "rustls-webpki 0.101 via openidconnect 3.5 — see #41" },
     { id = "RUSTSEC-2026-0099", reason = "rustls-webpki 0.101 via openidconnect 3.5 — see #41" },
+    { id = "RUSTSEC-2026-0104", reason = "rustls-webpki 0.101 via openidconnect 3.5 — see #41" },
     { id = "RUSTSEC-2025-0134", reason = "rustls-pemfile unmaintained via openidconnect 3.5 — see #41" },
+    # Transitive advisories with no fixed upgrade available — accepted risk:
+    # we don't expose the affected attack surface (no key generation in user
+    # input path, no untrusted RSA signing), to revisit when upstream patches.
+    { id = "RUSTSEC-2023-0071", reason = "rsa Marvin timing via sqlx-mysql — no fix; not on signing path" },
+    { id = "RUSTSEC-2025-0111", reason = "transitive, no fixed upgrade available" },
 ]
 
 # ---------------------------------------------------------------------------
