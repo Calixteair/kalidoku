@@ -277,6 +277,30 @@ paths:
             application/json:
               schema: { $ref: "#/components/schemas/Health" }
 
+  /api/altcha/challenge:
+    get:
+      tags: [health]
+      summary: Issue an Altcha proof-of-work challenge
+      description: |
+        Returns a fresh challenge that the client must solve before calling
+        rate-limited endpoints (game start, duel create, registration).
+        Solving is invisible (no UI), the JS widget computes ~50–500 ms of CPU.
+      security: []
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [algorithm, challenge, salt, signature, maxnumber]
+                properties:
+                  algorithm: { type: string, enum: [SHA-256] }
+                  challenge: { type: string }
+                  salt:      { type: string }
+                  signature: { type: string }
+                  maxnumber: { type: integer, description: "Brute-force ceiling (typical 100000–500000)." }
+
   /api/auth/login:
     get:
       tags: [auth]
@@ -398,7 +422,7 @@ paths:
                 domain: { type: string }
                 mode: { type: string, enum: [daily, solo, duel] }
                 duelGridId: { type: string, format: uuid, nullable: true }
-                hcaptchaToken: { type: string, nullable: true }
+                altchaSolution: { type: string, nullable: true, description: "Altcha PoW solution (base64-encoded JSON). Required when the server requested a challenge." }
       responses:
         "201":
           description: Game started
@@ -407,6 +431,7 @@ paths:
               schema: { $ref: "#/components/schemas/StartGameResponse" }
         "402": { description: Quota exhausted (free tier limit reached) }
         "409": { description: Already played this grid }
+        "412": { description: Altcha PoW required — call /api/altcha/challenge first }
         "429": { description: Rate limited }
 
   /api/games/{gameId}/play:
@@ -497,7 +522,7 @@ paths:
               required: [domain]
               properties:
                 domain: { type: string }
-                hcaptchaToken: { type: string, nullable: true }
+                altchaSolution: { type: string, nullable: true }
       responses:
         "201":
           description: Created

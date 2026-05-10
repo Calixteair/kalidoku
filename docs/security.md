@@ -42,8 +42,9 @@ Synthèse des décisions et garde-fous. Source d'autorité opérationnelle : `CL
 
 ### 4. Anti-bot
 
-- **hCaptcha** sur inscription Keycloak (theme custom).
-- **PoW invisible** type Altcha sur démarrage de partie en cas de pic — pattern déjà éprouvé sur DSV (wiki `[[devsecvault-altcha-spi]]`).
+- **Altcha PoW invisible** sur inscription Keycloak via SPI custom (cf. wiki `[[devsecvault-altcha-spi]]`).
+- **Altcha PoW** côté backend Rust également : challenge HMAC-SHA256 émis par le serveur, résolu en ~50–500 ms côté client (invisible), vérifié au prochain endpoint sensible (start game, duel create).
+- **Self-hosted, RGPD friendly** : zéro service tiers, aucune télémétrie navigateur.
 - **Rate limit** `tower_governor` :
   - 1 req / 250 ms par device (cookie).
   - 60 req / min par IP toutes routes confondues.

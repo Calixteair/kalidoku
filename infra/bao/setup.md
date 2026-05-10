@@ -64,9 +64,9 @@ ssh vps-claude "sudo docker exec -e BAO_TOKEN=$ROOT_TOKEN openbao bao kv put sec
   KEYCLOAK_CLIENT_SECRET=__paste-from-keycloak-admin-ui__ \
   KEYCLOAK_REDIRECT_URL=https://kalidoku.calixteair.fr/api/auth/callback"
 
-# Anti-bot
+# Anti-bot — Altcha PoW HMAC key (self-hosted, no third party)
 ssh vps-claude "sudo docker exec -e BAO_TOKEN=$ROOT_TOKEN openbao bao kv put secret/kalidoku/prod/anti-bot \
-  HCAPTCHA_SECRET=__paste-from-hcaptcha-dashboard__"
+  ALTCHA_HMAC_KEY=$(openssl rand -base64 48 | tr -d '\n')"
 ```
 
 ## 5. Déploiement de l'agent.hcl

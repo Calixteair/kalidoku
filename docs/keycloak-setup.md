@@ -6,7 +6,7 @@
 - ✅ Client OIDC `kalidoku-web` créé (Authorization Code + PKCE S256, confidential)
 - ✅ `KEYCLOAK_CLIENT_SECRET` patché dans OpenBao (`secret/kalidoku/prod/oidc`)
 - ⏳ Identity providers Google + Discord — **à terminer manuellement** (étapes ci-dessous)
-- ⏳ Theme custom hCaptcha — phase 2
+- ⏳ SPI Altcha (PoW invisible) — réutilisable depuis le repo DevSecVault (cf. wiki `[[devsecvault-altcha-spi]]`)
 
 ## Ce qu'il reste à faire manuellement
 

@@ -81,7 +81,7 @@ Voir `docs/security.md`. Points-clés :
 - **Cookies session** : `__Host-session`, HttpOnly, Secure, SameSite=Strict, hash SHA-256 stocké en DB.
 - **Play token HMAC** : signe `{game_id, device_id, started_at}`, TTL 1h, requis pour chaque `/play`.
 - **Rate limit** : `tower_governor` 1 req/250ms par device, 60 req/min par IP.
-- **hCaptcha** : sur l'inscription Keycloak (Altcha SPI custom déjà éprouvée sur DSV — voir wiki) et sur démarrage de partie en cas de pic.
+- **Altcha PoW invisible** : sur l'inscription Keycloak (SPI custom déjà éprouvée sur DSV — voir wiki `[[devsecvault-altcha-spi]]`) et sur démarrage de partie en cas de pic. Self-hosted, RGPD friendly, pas de tiers.
 - **Secrets** : OpenBao, jamais en clair, charset password alphanumeric strict.
 
 ## Choix d'implémentation (ADR courts)

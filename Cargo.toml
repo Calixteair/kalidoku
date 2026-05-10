@@ -53,6 +53,11 @@ openidconnect = "3"
 jsonwebtoken  = "9"
 argon2        = "0.5"  # only for legacy admin local accounts (Keycloak handles users)
 
+# Altcha PoW verification (invisible client-side proof-of-work)
+# Server signs a challenge with HMAC-SHA256, client brute-forces a small hash, server verifies.
+# No third-party service. Spec: https://altcha.org/docs/v2/proof-of-work/
+hex         = "0.4"
+
 # HMAC (play tokens, duel signatures, session-id hashing)
 hmac        = "0.12"
 sha2        = "0.10"
