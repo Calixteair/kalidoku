@@ -169,9 +169,24 @@ pub async fn start_game(
             generate_and_insert_solo(db.as_ref(), &state.config, &body.domain, body.seed).await?
         }
         GameMode::Duel => {
-            return Err(ApiError::NotImplemented(
-                "duel grid generation waiting for phase 2",
-            ));
+            // For duels we re-use the grid the duel pins. We do NOT verify the
+            // duel signature here — anyone who reaches this code path already
+            // has the grid_id, which is itself only obtainable via a valid duel
+            // GET. Re-checking would force a second DB round-trip for no extra
+            // security.
+            let grid_id = body
+                .duel_grid_id
+                .ok_or_else(|| ApiError::BadRequest("duelGridId required".into()))?;
+            let g = grids::Entity::find_by_id(grid_id)
+                .one(db.as_ref())
+                .await?
+                .ok_or(ApiError::NotFound("grid"))?;
+            if g.domain != body.domain {
+                return Err(ApiError::BadRequest(
+                    "grid does not belong to that domain".into(),
+                ));
+            }
+            g
         }
     };
 
@@ -205,6 +220,7 @@ pub async fn start_game(
         solved: Set(0),
         status: Set("active".into()),
         answers: Set(serde_json::json!([])),
+        originality_score: Set(0),
     };
     let _inserted = active.insert(db.as_ref()).await?;
 
@@ -232,7 +248,7 @@ pub async fn start_game(
 /// The grid is keyed by a random short seed (or the supplied one for shared
 /// links), and `publish_at = now()` so the unique `(domain, mode, publish_at)`
 /// index never trips even if two players replay the same seed within seconds.
-async fn generate_and_insert_solo(
+pub async fn generate_and_insert_solo(
     db: &sea_orm::DatabaseConnection,
     cfg: &crate::config::AppConfig,
     domain_id: &str,
@@ -498,11 +514,17 @@ pub async fn play(
     let answers_json = serde_json::to_value(&new_answers)
         .map_err(|e| ApiError::Internal(format!("serialise answers: {e}")))?;
 
+    // Originality: sum (100 - fame_score) over solved cells, normalised /100.
+    // We always recompute from the stored answers to stay idempotent — there's
+    // never more than 9 solved cells so the cost is trivial.
+    let originality = compute_originality(&grid.payload, &new_answers);
+
     let mut am: games::ActiveModel = game.into_active_model();
     am.score = Set(score);
     am.mistakes = Set(mistakes);
     am.solved = Set(solved);
     am.answers = Set(answers_json);
+    am.originality_score = Set(i32::from(originality));
     if ended {
         am.status = Set(if solved >= 9 {
             "won".into()
@@ -565,6 +587,46 @@ fn parse_answers(raw: &serde_json::Value) -> Vec<StoredAnswer> {
     serde_json::from_value(raw.clone()).unwrap_or_default()
 }
 
+/// Compute the originality score (0..=100) for the supplied solved answers.
+/// Reads each cell's solution entity from `grid.payload.entities`. An entity
+/// missing `fame_score` (or absent from the snapshot, which only happens on
+/// pre-phase-2 grids generated before the field existed) is treated as fame=50,
+/// neutral.
+fn compute_originality(payload: &serde_json::Value, answers: &[StoredAnswer]) -> u8 {
+    let entities = payload
+        .get("entities")
+        .and_then(|v| v.as_array())
+        .map(|arr| {
+            let mut by_id = std::collections::HashMap::<&str, u8>::new();
+            for ent in arr {
+                let Some(id) = ent.get("id").and_then(|v| v.as_str()) else {
+                    continue;
+                };
+                let fame = ent
+                    .get("fame_score")
+                    .and_then(serde_json::Value::as_u64)
+                    .and_then(|v| u8::try_from(v.min(100)).ok())
+                    .unwrap_or(kalidoku_core::entity::FAME_NEUTRAL);
+                by_id.insert(id, fame);
+            }
+            by_id
+        })
+        .unwrap_or_default();
+
+    let raw: u32 = answers
+        .iter()
+        .filter(|a| a.ok)
+        .map(|a| {
+            let fame = entities
+                .get(a.entity_id.as_str())
+                .copied()
+                .unwrap_or(kalidoku_core::entity::FAME_NEUTRAL);
+            u32::from(100u8 - fame)
+        })
+        .sum();
+    kalidoku_core::scoring::normalise(raw)
+}
+
 // ----- abandon + result -----
 
 #[derive(Serialize)]
@@ -586,6 +648,9 @@ pub struct GameSummary {
     pub finished_at: chrono::DateTime<Utc>,
     pub solved: i32,
     pub share_string: String,
+    /// Originality score normalised to 0..=100. Reflects how niche the entities
+    /// the player picked were — see `kalidoku_core::scoring`.
+    pub originality_score: i32,
 }
 
 pub async fn abandon(
@@ -675,6 +740,7 @@ fn end_game_view(game: &games::Model, grid: &grids::Model) -> ApiResult<EndGameV
         finished_at,
         solved,
         share_string,
+        originality_score: game.originality_score,
     };
     Ok(EndGameView {
         summary,
@@ -691,15 +757,24 @@ fn build_solutions_by_cell(payload: &serde_json::Value) -> ApiResult<serde_json:
         .get("entities")
         .and_then(|v| v.as_array())
         .ok_or_else(|| ApiError::Internal("grid payload missing entities".into()))?;
-    // Build a quick id → name lookup.
-    let mut name_by_id = std::collections::HashMap::new();
+    // Build a quick id → (name, fame_score) lookup. fame is None on entities
+    // baked before phase 2 — the client renders the badge only when present.
+    let mut info_by_id: std::collections::HashMap<String, (String, Option<u8>)> =
+        std::collections::HashMap::new();
     for ent in entities {
-        if let (Some(id), Some(name)) = (
-            ent.get("id").and_then(|v| v.as_str()),
-            ent.get("name").and_then(|v| v.as_str()),
-        ) {
-            name_by_id.insert(id.to_string(), name.to_string());
-        }
+        let Some(id) = ent.get("id").and_then(|v| v.as_str()) else {
+            continue;
+        };
+        let name = ent
+            .get("name")
+            .and_then(|v| v.as_str())
+            .unwrap_or(id)
+            .to_string();
+        let fame = ent
+            .get("fame_score")
+            .and_then(serde_json::Value::as_u64)
+            .and_then(|v| u8::try_from(v.min(100)).ok());
+        info_by_id.insert(id.to_string(), (name, fame));
     }
     let mut out = Vec::with_capacity(9);
     for (r, row_arr) in cells.iter().enumerate() {
@@ -714,10 +789,18 @@ fn build_solutions_by_cell(payload: &serde_json::Value) -> ApiResult<serde_json:
                 .iter()
                 .filter_map(|v| v.as_str())
                 .map(|id| {
-                    serde_json::json!({
+                    let (name, fame) = info_by_id
+                        .get(id)
+                        .cloned()
+                        .unwrap_or_else(|| (id.to_string(), None));
+                    let mut obj = serde_json::json!({
                         "id": id,
-                        "name": name_by_id.get(id).cloned().unwrap_or_else(|| id.to_string()),
-                    })
+                        "name": name,
+                    });
+                    if let Some(f) = fame {
+                        obj["fameScore"] = serde_json::Value::from(f);
+                    }
+                    obj
                 })
                 .collect();
             out.push(serde_json::json!({

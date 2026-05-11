@@ -68,6 +68,14 @@ ssh vps-claude "sudo docker exec -e BAO_TOKEN=$ROOT_TOKEN openbao bao kv put sec
 ssh vps-claude "sudo docker exec -e BAO_TOKEN=$ROOT_TOKEN openbao bao kv put secret/kalidoku/prod/anti-bot \
   ALTCHA_HMAC_KEY=$(openssl rand -base64 48 | tr -d '\n')"
 
+# Duel — HMAC key that binds (duel_id, grid_id) in share URLs (phase 2).
+ssh vps-claude "sudo docker exec -e BAO_TOKEN=$ROOT_TOKEN openbao bao kv put secret/kalidoku/prod/duel \
+  DUEL_HMAC_KEY=$(openssl rand -base64 48 | tr -d '\n')"
+
+# Web — public-facing base URL used to mint duel share URLs.
+ssh vps-claude "sudo docker exec -e BAO_TOKEN=$ROOT_TOKEN openbao bao kv put secret/kalidoku/prod/web \
+  PUBLIC_BASE_URL=https://kalidoku.calixteair.fr"
+
 # Search — Meilisearch master key (alphanumeric only, no $/:/&/*/#).
 # Cette clé sert au server (proxy autocomplete) et au worker (indexation).
 ssh vps-claude "sudo docker exec -e BAO_TOKEN=$ROOT_TOKEN openbao bao kv put secret/kalidoku/prod/search \

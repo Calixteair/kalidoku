@@ -26,11 +26,25 @@ pub struct Entity {
     pub aliases: Vec<String>,
     #[serde(default)]
     pub attributes: HashMap<String, AttributeValue>,
+    /// Intrinsic notoriety on 0..=100. Higher = more famous. None means
+    /// the dataset hasn't been scored yet — engine treats it as 50 (neutral)
+    /// when computing the originality score.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub fame_score: Option<u8>,
 }
+
+pub const FAME_NEUTRAL: u8 = 50;
+pub const FAME_MAX_PER_CELL: u32 = 100;
 
 impl Entity {
     #[must_use]
     pub fn attr(&self, key: &str) -> Option<&AttributeValue> {
         self.attributes.get(key)
+    }
+
+    /// Returns the fame_score clamped to [0, 100], or 50 if absent.
+    #[must_use]
+    pub fn effective_fame(&self) -> u8 {
+        self.fame_score.map_or(FAME_NEUTRAL, |f| f.min(100))
     }
 }

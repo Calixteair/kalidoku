@@ -67,17 +67,18 @@
   </div>
 {:else}
   <ol class="surface divide-border overflow-hidden rounded-xl">
-    <li
-      class="bg-bg-subtle grid grid-cols-[3rem_1fr_4rem] items-center gap-3 px-4 py-2.5 border-b border-border"
-    >
+    <li class="kd-head bg-bg-subtle items-center gap-3 px-4 py-2.5 border-b border-border">
       <span class="eyebrow text-fg-muted">{m.page_leaderboard_rank_col()}</span>
       <span class="eyebrow text-fg-muted">{m.page_leaderboard_player_col()}</span>
+      <span class="eyebrow text-fg-muted hidden text-right sm:inline">
+        {m.leaderboard_col_originality()}
+      </span>
       <span class="eyebrow text-fg-muted text-right">{m.page_leaderboard_score_col()}</span>
     </li>
     {#each page.items as entry (entry.rank)}
       {@const Icon = rankIcon(entry.rank)}
       <li
-        class="kd-row grid grid-cols-[3rem_1fr_4rem] items-center gap-3 px-4 py-3"
+        class="kd-row items-center gap-3 px-4 py-3"
         class:kd-row--top1={entry.rank === 1}
         class:kd-row--top2={entry.rank === 2}
         class:kd-row--top3={entry.rank === 3}
@@ -88,7 +89,16 @@
           {/if}
           <span class="tabular-nums">#{entry.rank}</span>
         </span>
-        <span class="text-fg truncate text-sm font-medium">{entry.profile.pseudo}</span>
+        <span class="flex min-w-0 flex-col gap-0.5">
+          <span class="text-fg truncate text-sm font-medium">{entry.profile.pseudo}</span>
+          <span class="kd-row__orig sm:hidden" aria-label={m.originality_label()}>
+            {m.originality_label()} · {entry.originalityScore}
+          </span>
+        </span>
+        <span
+          class="text-fg-muted font-display tabular-nums hidden text-right text-sm sm:inline-block"
+          aria-label={m.originality_label()}>{entry.originalityScore}</span
+        >
         <span class="text-fg font-display tabular-nums text-right text-base">{entry.score}</span>
       </li>
     {/each}
@@ -96,6 +106,23 @@
 {/if}
 
 <style>
+  .kd-head,
+  .kd-row {
+    display: grid;
+    grid-template-columns: 3rem 1fr 4rem;
+  }
+  @media (min-width: 640px) {
+    .kd-head,
+    .kd-row {
+      grid-template-columns: 3rem 1fr 5rem 5rem;
+    }
+  }
+  .kd-row__orig {
+    color: var(--color-fg-muted);
+    font-size: 11px;
+    line-height: 1.2;
+    letter-spacing: 0.02em;
+  }
   .kd-rank {
     display: inline-flex;
     align-items: center;

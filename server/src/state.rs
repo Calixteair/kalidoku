@@ -104,6 +104,8 @@ impl AppState {
             keycloak_client_secret: "test".into(),
             keycloak_redirect_url: "https://example.invalid/cb".into(),
             altcha_hmac_key: "test-altcha-hmac-key-32-bytes!!".into(),
+            duel_hmac_key: "test-duel-hmac-key-32-bytes!!!!".into(),
+            public_base_url: "http://localhost:4321".into(),
             meili_url: "http://search.invalid:7700".into(),
             meili_master_key: String::new(),
             rust_log: "info".into(),

@@ -89,6 +89,7 @@ mod tests {
             name: name.into(),
             aliases: vec![],
             attributes: std::collections::HashMap::new(),
+            fame_score: None,
         }
     }
 

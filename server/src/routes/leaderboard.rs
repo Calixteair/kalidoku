@@ -29,6 +29,9 @@ pub struct LeaderboardEntry {
     pub rank: i32,
     pub profile: PublicProfile,
     pub score: i32,
+    /// Originality score (0..=100) — tiebreaker when two players share the
+    /// same score.
+    pub originality_score: i32,
     pub finished_at: chrono::DateTime<Utc>,
 }
 
@@ -65,6 +68,8 @@ pub async fn today(
         .filter(games::Column::GridId.eq(last_grid.id))
         .filter(games::Column::Status.is_in(vec!["won", "lost", "abandoned"]))
         .order_by_desc(games::Column::Score)
+        .order_by_desc(games::Column::OriginalityScore)
+        .order_by_asc(games::Column::FinishedAt)
         .paginate(db.as_ref(), PAGE_SIZE);
     let page = paginator.fetch_page(0).await?;
     let mut items = Vec::with_capacity(page.len());
@@ -86,6 +91,7 @@ pub async fn today(
                 avatar_url: None,
             },
             score: g.score,
+            originality_score: g.originality_score,
             finished_at: g
                 .finished_at
                 .map(|t| t.with_timezone(&Utc))

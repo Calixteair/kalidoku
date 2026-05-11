@@ -72,6 +72,11 @@ pub struct EntitySnapshot {
     pub name: String,
     #[serde(skip_serializing_if = "Vec::is_empty")]
     pub aliases: Vec<String>,
+    /// Snapshotted at generation time so the score is immutable — re-ingesting
+    /// the domain with new fame scores does not retro-actively rewrite scores
+    /// on past grids.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub fame_score: Option<u8>,
 }
 
 impl Grid {
@@ -112,6 +117,7 @@ impl Grid {
                 id: e.id.clone(),
                 name: e.name.clone(),
                 aliases: e.aliases.clone(),
+                fame_score: e.fame_score,
             })
             .collect();
         GridSnapshot {

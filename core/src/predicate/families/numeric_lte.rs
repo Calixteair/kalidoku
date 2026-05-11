@@ -107,6 +107,7 @@ mod tests {
             name: "X".into(),
             aliases: vec![],
             attributes: a,
+            fame_score: None,
         }
     }
 

@@ -3,8 +3,10 @@
   import ChevronDown from "lucide-svelte/icons/chevron-down";
   import Copy from "lucide-svelte/icons/copy";
   import Share2 from "lucide-svelte/icons/share-2";
+  import Swords from "lucide-svelte/icons/swords";
   import X from "lucide-svelte/icons/x";
   import * as m from "../../paraglide/messages.js";
+  import { api, ApiError } from "../api/client.js";
   import type { components } from "../api/types.js";
   import type { CellAnswer } from "../stores/gameStore.svelte.js";
   import { buildShareString, copyToClipboard, pickShareString, shareNative } from "../share.js";
@@ -20,6 +22,10 @@
     mistakesAllowed: number;
     answers: CellAnswer[];
     endGameView: EndGameView | null;
+    /** Domain + gridId of the game just played. Set when both are available
+     *  so the duel CTA can challenge a friend on the same grid. */
+    domain?: string | undefined;
+    gridId?: string | undefined;
     onClose: () => void;
     onSeeSolutions?: (() => void) | undefined;
   }
@@ -33,12 +39,18 @@
     mistakesAllowed,
     answers,
     endGameView,
+    domain,
+    gridId,
     onClose,
     onSeeSolutions,
   }: Props = $props();
 
   let copied = $state(false);
   let showSolutions = $state(false);
+  let duelLoading = $state(false);
+  let duelUrl = $state<string | null>(null);
+  let duelError = $state<string | null>(null);
+  let duelCopied = $state(false);
 
   const cellLabel = (row: number, col: number): string =>
     m.cell_label({ row: row + 1, col: col + 1 });
@@ -90,11 +102,42 @@
     if (open && e.key === "Escape") onClose();
   };
 
+  const handleChallenge = async (): Promise<void> => {
+    if (!domain || !gridId || duelLoading) return;
+    duelLoading = true;
+    duelError = null;
+    try {
+      const r = await api.post("/api/duels", undefined, { domain, gridId });
+      duelUrl = r.shareUrl;
+      // Best-effort: try the native share sheet first, then fall back to
+      // clipboard so the user always walks away with the link in hand.
+      const shared = await shareNative(r.shareUrl, m.duel_share_title());
+      if (!shared) {
+        const ok = await copyToClipboard(r.shareUrl);
+        duelCopied = ok;
+        if (ok) setTimeout(() => (duelCopied = false), 2400);
+      }
+    } catch (err) {
+      duelError = err instanceof ApiError ? err.message : m.error_network();
+    } finally {
+      duelLoading = false;
+    }
+  };
+
+  const copyDuelUrl = async (): Promise<void> => {
+    if (!duelUrl) return;
+    const ok = await copyToClipboard(duelUrl);
+    duelCopied = ok;
+    if (ok) setTimeout(() => (duelCopied = false), 2400);
+  };
+
   const headlineTitle = $derived(won ? m.modal_endgame_won() : m.modal_endgame_lost());
   const headlineSub = $derived(
     won ? m.modal_endgame_won_subtitle() : m.modal_endgame_lost_subtitle(),
   );
   const solved = $derived(answers.length);
+  const originality = $derived(endGameView?.summary?.originalityScore ?? 0);
+  const originalityVisible = $derived(endGameView !== null && solved > 0);
 </script>
 
 <svelte:window onkeydown={handleKey} />
@@ -149,6 +192,31 @@
         </div>
       </dl>
 
+      <!-- Originality — a single horizontal bar with the label above and the
+           numeric value to the right. We only surface it when the player solved
+           at least one cell so a 0-orig empty grid doesn't feel like a penalty. -->
+      {#if originalityVisible}
+        <section class="kd-originality mt-4" aria-label={m.originality_label()}>
+          <div class="kd-originality__head">
+            <p class="eyebrow text-fg-muted">{m.originality_label()}</p>
+            <p class="kd-originality__value font-display tabular-nums">
+              {originality}<span class="kd-stat__max">/100</span>
+            </p>
+          </div>
+          <div
+            class="kd-originality__track"
+            role="progressbar"
+            aria-valuenow={originality}
+            aria-valuemin="0"
+            aria-valuemax="100"
+            aria-label={m.originality_label()}
+          >
+            <span class="kd-originality__bar" style="width: {originality}%"></span>
+          </div>
+          <p class="kd-originality__hint">{m.originality_hint()}</p>
+        </section>
+      {/if}
+
       <!-- Share block: the visual hero. Boxed monospace card that mirrors what
            will land in the user's clipboard or share sheet — wysiwyg sharing. -->
       <section class="kd-share mt-5">
@@ -181,6 +249,41 @@
         </button>
       </div>
 
+      <!-- Duel CTA. Only visible once we know the grid the player just
+           tackled — otherwise we can't pin the duel to that grid. -->
+      {#if domain && gridId}
+        <div class="kd-duel-cta mt-3">
+          {#if duelUrl === null}
+            <button
+              type="button"
+              class="btn btn-secondary w-full justify-center"
+              disabled={duelLoading}
+              onclick={handleChallenge}
+            >
+              <Swords size={16} aria-hidden="true" />
+              <span>{duelLoading ? m.duel_share_creating() : m.duel_share_action()}</span>
+            </button>
+          {:else}
+            <div class="border-border bg-bg-subtle flex flex-col gap-2 rounded-lg border p-3">
+              <p class="eyebrow text-fg-muted">{m.duel_share_ready()}</p>
+              <p class="text-fg break-all text-xs font-mono">{duelUrl}</p>
+              <button type="button" class="btn btn-secondary justify-center" onclick={copyDuelUrl}>
+                {#if duelCopied}
+                  <Check size={14} aria-hidden="true" />
+                  <span>{m.share_copied()}</span>
+                {:else}
+                  <Copy size={14} aria-hidden="true" />
+                  <span>{m.copy_result()}</span>
+                {/if}
+              </button>
+            </div>
+          {/if}
+          {#if duelError}
+            <p class="text-danger mt-2 text-xs" role="alert">{duelError}</p>
+          {/if}
+        </div>
+      {/if}
+
       {#if endGameView?.solutionsByCell?.length}
         <div class="border-border mt-5 border-t pt-4">
           <button
@@ -208,9 +311,21 @@
                     <p class="eyebrow text-fg-muted">
                       {cellLabel(cellSol.cell.row, cellSol.cell.col)}
                     </p>
-                    <p class="text-fg mt-1 text-sm leading-snug">
-                      {cellSol.candidates.map((c) => c.name).join(" · ")}
-                    </p>
+                    <ul class="kd-solutions__cands mt-1">
+                      {#each cellSol.candidates as cand (cand.id)}
+                        <li class="kd-solutions__cand">
+                          <span class="text-fg text-sm leading-snug">{cand.name}</span>
+                          {#if cand.fameScore !== undefined && cand.fameScore !== null}
+                            <span
+                              class="kd-fame-chip"
+                              title={m.fame_chip_title({ fame: cand.fameScore })}
+                            >
+                              {cand.fameScore}
+                            </span>
+                          {/if}
+                        </li>
+                      {/each}
+                    </ul>
                   </li>
                 {/each}
               </ul>
@@ -412,6 +527,84 @@
   }
   .kd-solutions__item:last-child {
     border-bottom: none;
+  }
+  .kd-solutions__cands {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem 0.6rem;
+  }
+  .kd-solutions__cand {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.35rem;
+  }
+  /* Originality block — flat bar with accent fill and a tiny hint underneath. */
+  .kd-originality {
+    background: var(--color-bg-subtle);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: 0.7rem 0.95rem 0.8rem;
+  }
+  .kd-originality__head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.5rem;
+  }
+  .kd-originality__value {
+    font-size: 1.1rem;
+    line-height: 1;
+    font-weight: 600;
+    color: var(--color-fg);
+  }
+  .kd-originality__track {
+    margin-top: 0.5rem;
+    height: 6px;
+    background: color-mix(in oklab, var(--color-fg) 8%, transparent);
+    border-radius: 999px;
+    overflow: hidden;
+  }
+  .kd-originality__bar {
+    display: block;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      color-mix(in oklab, var(--color-accent) 70%, var(--color-fg)) 0%,
+      var(--color-accent) 100%
+    );
+    border-radius: inherit;
+    transition: width 360ms var(--ease-out);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .kd-originality__bar {
+      transition: none;
+    }
+  }
+  .kd-originality__hint {
+    margin-top: 0.4rem;
+    font-size: 11px;
+    line-height: 1.4;
+    color: var(--color-fg-muted);
+  }
+  /* Fame chip — tiny pill that says "this entity is roughly N/100 famous".
+     Low fame = strong accent (you picked a niche one); high fame = subdued. */
+  .kd-fame-chip {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 26px;
+    padding: 0 6px;
+    height: 18px;
+    font-size: 10px;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    border-radius: 999px;
+    background: color-mix(in oklab, var(--color-accent) 18%, transparent);
+    color: color-mix(in oklab, var(--color-accent) 70%, var(--color-fg));
+    border: 1px solid color-mix(in oklab, var(--color-accent) 30%, transparent);
   }
   @keyframes kd-fade-in {
     from {

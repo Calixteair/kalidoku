@@ -22,6 +22,7 @@ pub mod error;
 pub mod generator;
 pub mod normalize;
 pub mod predicate;
+pub mod scoring;
 pub mod search;
 pub mod validator;
 
