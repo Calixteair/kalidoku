@@ -123,6 +123,7 @@ mod tests {
             name: "X".into(),
             aliases: vec![],
             attributes: attrs,
+            fame_score: None,
         }
     }
 

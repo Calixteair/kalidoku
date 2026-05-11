@@ -55,6 +55,12 @@
           "type": "object",
           "description": "Free-form bag of attributes. Keys are predicate-friendly names (snake_case). Values follow AttributeValue.",
           "additionalProperties": { "$ref": "#/$defs/AttributeValue" }
+        },
+        "fame_score": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100,
+          "description": "Intrinsic notoriety on 0..=100. 0 = niche, 100 = universally famous. Feeds the originality score: solved cells contribute 100 - fame_score. Absent = treated as 50 (neutral) so engine works on un-scored datasets."
         }
       },
       "additionalProperties": false

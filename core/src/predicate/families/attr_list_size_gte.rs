@@ -103,6 +103,7 @@ mod tests {
             name: "X".into(),
             aliases: vec![],
             attributes: a,
+            fame_score: None,
         }
     }
 
@@ -128,6 +129,7 @@ mod tests {
             name: "Y".into(),
             aliases: vec![],
             attributes: HashMap::new(),
+            fame_score: None,
         };
         assert!(!p.matches(&e));
     }
