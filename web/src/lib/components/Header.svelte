@@ -1,5 +1,6 @@
 <script lang="ts">
   import Archive from "lucide-svelte/icons/archive";
+  import Dices from "lucide-svelte/icons/dices";
   import Home from "lucide-svelte/icons/home";
   import Trophy from "lucide-svelte/icons/trophy";
   import User from "lucide-svelte/icons/user";
@@ -32,6 +33,7 @@
   type NavItem = { href: string; label: string; icon: typeof Home };
   const items: NavItem[] = [
     { href: "/", label: m.nav_home(), icon: Home },
+    { href: "/play", label: m.nav_solo(), icon: Dices },
     { href: "/leaderboard", label: m.nav_leaderboard(), icon: Trophy },
     { href: "/archives", label: m.nav_archives(), icon: Archive },
     { href: "/profile", label: m.nav_profile(), icon: User },
