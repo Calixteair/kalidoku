@@ -9,6 +9,7 @@ mod m20260510_000001_users_devices_sessions;
 mod m20260510_000002_domains_grids;
 mod m20260510_000003_games;
 mod m20260510_000004_friendships_duels;
+mod m20260511_000005_originality;
 
 pub struct Migrator;
 
@@ -19,6 +20,7 @@ impl MigratorTrait for Migrator {
             Box::new(m20260510_000002_domains_grids::Migration),
             Box::new(m20260510_000003_games::Migration),
             Box::new(m20260510_000004_friendships_duels::Migration),
+            Box::new(m20260511_000005_originality::Migration),
         ]
     }
 }

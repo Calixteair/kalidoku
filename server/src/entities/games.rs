@@ -17,6 +17,8 @@ pub struct Model {
     pub solved: i32,
     pub status: String,
     pub answers: Json,
+    #[sea_orm(default_value = 0)]
+    pub originality_score: i32,
 }
 
 #[derive(Copy, Clone, Debug, EnumIter, DeriveRelation)]

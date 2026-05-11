@@ -213,7 +213,7 @@ components:
 
     GameSummary:
       type: object
-      required: [gameId, gridId, score, mistakes, finishedAt, solved]
+      required: [gameId, gridId, score, mistakes, finishedAt, solved, originalityScore]
       properties:
         gameId: { type: string, format: uuid }
         gridId: { type: string, format: uuid }
@@ -223,13 +223,15 @@ components:
         startedAt: { type: string, format: date-time }
         finishedAt: { type: string, format: date-time }
         solved: { type: integer, description: "Number of cells correctly filled (0..9)." }
-        rarestAnswer:
-          type: object
-          nullable: true
-          properties:
-            cell: { $ref: "#/components/schemas/Cell" }
-            entityName: { type: string }
-            rarityScore: { type: number }
+        originalityScore:
+          type: integer
+          minimum: 0
+          maximum: 100
+          description: |
+            Normalised originality score (0..=100). Each solved cell contributes
+            `100 - entity.fame_score`, summed and normalised over a full 9-cell
+            board. Picking niche entities (low fame) gives a higher originality
+            score. Used as a tiebreaker on the leaderboard.
         shareString:
           type: string
           description: Wordle-style emoji string for sharing. Computed server-side.
@@ -261,11 +263,18 @@ components:
 
     LeaderboardEntry:
       type: object
-      required: [rank, profile, score]
+      required: [rank, profile, score, originalityScore]
       properties:
         rank: { type: integer, minimum: 1 }
         profile: { $ref: "#/components/schemas/PublicProfile" }
         score: { type: integer }
+        originalityScore:
+          type: integer
+          minimum: 0
+          maximum: 100
+          description: |
+            Originality score (0..=100). Tiebreaker when two players share
+            the same score.
         finishedAt: { type: string, format: date-time }
 
     LeaderboardPage:
