@@ -1,4 +1,7 @@
 <script lang="ts">
+  import BookOpen from "lucide-svelte/icons/book-open";
+  import Flag from "lucide-svelte/icons/flag";
+  import Play from "lucide-svelte/icons/play";
   import * as m from "../../paraglide/messages.js";
   import { api, ApiError } from "../api/client.js";
   import type { components } from "../api/types.js";
@@ -8,6 +11,7 @@
   import PredicateChip from "./PredicateChip.svelte";
   import RulesModal from "./RulesModal.svelte";
   import { createGameStore, cellKey } from "../stores/gameStore.svelte.js";
+  import { parseSeedFromUrl } from "../solo.js";
 
   type PublicGrid = components["schemas"]["PublicGrid"];
   type Cell = components["schemas"]["Cell"];
@@ -15,9 +19,19 @@
 
   interface Props {
     domain: string;
+    mode?: "daily" | "solo";
+    /** Solo mode only: regenerate this seed instead of picking a fresh one. */
+    seed?: number | undefined;
   }
 
-  let { domain }: Props = $props();
+  let { domain, mode = "daily", seed }: Props = $props();
+
+  // Solo only: when no seed was provided as a prop, see if the URL pinned one
+  // (share link `/play?seed=42`). Lets a player resume a friend's grid by
+  // visiting the share URL.
+  const effectiveSeed = $derived<number | undefined>(
+    mode === "solo" && seed === undefined ? parseSeedFromUrl() : seed,
+  );
 
   const store = createGameStore();
 
@@ -50,6 +64,13 @@
   };
 
   const loadGrid = async (): Promise<void> => {
+    // Solo grids don't exist until the player asks for one — we let the click
+    // on a cell (or the page-level "new grid" button) drive `startGame`,
+    // which both generates the grid and starts the game in one round-trip.
+    if (mode === "solo") {
+      gridLoading = false;
+      return;
+    }
     gridLoading = true;
     gridError = null;
     try {
@@ -72,7 +93,8 @@
     try {
       const data = await api.post("/api/games", undefined, {
         domain,
-        mode: "daily",
+        mode,
+        ...(mode === "solo" && typeof effectiveSeed === "number" ? { seed: effectiveSeed } : {}),
       });
       store.startGame({
         gameId: data.game.id,
@@ -184,52 +206,141 @@
     store.state ? store.state.mistakesLeft > 0 && store.state.answers.length === 9 : false,
   );
 
+  // Row/col marker letters are localised — "L" in fr, "R" in en. We pull them
+  // from the existing short_row / short_col templates so paraglide stays the
+  // single source of truth.
+  const rowMarker = $derived(m.row_short({ row: "" }).replace(/[^A-Za-z]/g, "") || "L");
+  const colMarker = $derived(m.col_short({ col: "" }).replace(/[^A-Za-z]/g, "") || "C");
+
+  // Today's date — pretty-printed in the user's locale (no spoiler about the
+  // puzzle itself, just the publication date).
+  const todayLabel = $derived.by(() => {
+    const locale = currentLocale() === "en" ? "en-GB" : "fr-FR";
+    return new Date().toLocaleDateString(locale, {
+      weekday: "long",
+      day: "numeric",
+      month: "long",
+    });
+  });
+
+  const mistakesUsed = $derived(
+    store.state ? store.state.mistakesAllowed - store.state.mistakesLeft : 0,
+  );
+  const mistakesAllowed = $derived(store.state?.mistakesAllowed ?? 3);
+  const solved = $derived(store.state?.answers.length ?? 0);
+  const inGame = $derived(store.state !== null);
+
   $effect(() => {
     if (typeof window === "undefined") return;
     void loadGrid();
   });
 </script>
 
-<section class="flex flex-col gap-4">
-  <div class="flex flex-wrap items-center justify-between gap-2">
-    <div class="flex flex-col">
-      <h2 class="text-lg font-semibold tracking-tight md:text-xl">{m.grid_today()}</h2>
-      {#if store.state}
-        <p class="text-fg-muted text-sm">
-          {m.score()}: <strong class="text-fg">{store.state.score}</strong>
-          · {m.errors()}:
-          <strong class="text-fg"
-            >{store.state.mistakesAllowed - store.state.mistakesLeft}/{store.state
-              .mistakesAllowed}</strong
-          >
-        </p>
-      {/if}
+<section class="kd-game flex flex-col gap-5">
+  <!-- Editorial masthead: domain eyebrow + display title + date + rules link.
+       Restraint is the design — no shadowed hero card, just typography. -->
+  <header class="flex flex-col gap-3">
+    <div class="flex items-center justify-between gap-3">
+      <p class="eyebrow">
+        <span aria-hidden="true" class="text-accent">{m.grid_today()}</span>
+        <span aria-hidden="true" class="text-fg-muted/40 mx-1">/</span>
+        <span class="text-fg-muted">{m.grid_domain_paris_metro()}</span>
+      </p>
+      <button
+        type="button"
+        class="ring-border text-fg-subtle hover:text-fg hover:ring-fg/30 inline-flex h-9 items-center gap-1.5 rounded-md px-2.5 text-xs font-medium ring-1 transition-colors"
+        onclick={() => (rulesOpen = true)}
+      >
+        <BookOpen size={14} aria-hidden="true" />
+        <span>{m.rules_button()}</span>
+      </button>
     </div>
-    <button
-      type="button"
-      class="border-border bg-bg-card text-fg-subtle rounded-md border px-3 py-1 text-sm"
-      onclick={() => (rulesOpen = true)}
-    >
-      {m.rules_button()}
-    </button>
-  </div>
+    <div class="flex items-end justify-between gap-3">
+      <h1 class="font-display text-fg text-3xl font-semibold leading-[1.05] sm:text-4xl">
+        {m.grid_today()}<span class="text-accent">.</span>
+      </h1>
+      <time class="text-fg-muted shrink-0 text-xs uppercase tracking-wider">{todayLabel}</time>
+    </div>
+  </header>
+
+  <!-- Status strip: visible only after the player started a game. Predicate
+       help, score and mistake "dots" sit in their own line. Both predicates
+       counters are deliberately kept on one row so the player's eye stays on
+       the grid below. -->
+  {#if inGame}
+    <div class="surface flex items-center gap-4 rounded-xl px-3.5 py-2.5">
+      <div class="flex flex-col">
+        <span class="eyebrow">{m.score()}</span>
+        <span class="font-display tabular-nums text-fg text-xl font-semibold leading-none">
+          {store.state?.score ?? 0}
+        </span>
+      </div>
+      <div class="bg-border h-9 w-px" aria-hidden="true"></div>
+      <div class="flex flex-col">
+        <span class="eyebrow">{m.errors()}</span>
+        <div class="mt-1 flex items-center gap-1" aria-hidden="true">
+          {#each Array(mistakesAllowed) as _, i (i)}
+            <span class="kd-dot" class:used={i < mistakesUsed}></span>
+          {/each}
+          <span class="text-fg-muted ml-1 text-xs tabular-nums">
+            {mistakesUsed}/{mistakesAllowed}
+          </span>
+        </div>
+        <span class="sr-only">{mistakesUsed} / {mistakesAllowed}</span>
+      </div>
+      <div class="ml-auto flex flex-col items-end">
+        <span class="eyebrow">{m.modal_endgame_solved_label()}</span>
+        <span class="font-display tabular-nums text-fg text-xl font-semibold leading-none">
+          {solved}<span class="text-fg-muted/60 text-base font-normal">/9</span>
+        </span>
+      </div>
+    </div>
+  {/if}
 
   {#if gridLoading}
-    <p class="text-fg-muted text-sm">{m.loading_stations()}</p>
+    <div class="kd-grid kd-grid--skeleton" aria-hidden="true">
+      <div></div>
+      {#each [0, 1, 2] as i (i)}
+        <div class="kd-skel kd-skel--chip"></div>
+      {/each}
+      {#each [0, 1, 2] as r (r)}
+        <div class="kd-skel kd-skel--chip"></div>
+        {#each [0, 1, 2] as c (c)}
+          <div class="kd-skel kd-skel--cell"></div>
+        {/each}
+      {/each}
+    </div>
+    <p class="sr-only">{m.loading_stations()}</p>
   {:else if gridError}
-    <p class="text-danger rounded-md border border-danger/30 bg-danger/5 p-3 text-sm" role="alert">
-      {gridError}
-    </p>
+    <div
+      class="border-danger/30 bg-danger-soft/40 rounded-xl border p-4 text-sm"
+      role="alert"
+      aria-live="polite"
+    >
+      <p class="text-danger font-semibold">{gridError}</p>
+      <p class="text-fg-subtle mt-1 text-xs">{m.error_grid_unavailable_hint()}</p>
+      <button
+        type="button"
+        class="text-danger ring-danger/40 hover:bg-danger/10 mt-3 inline-flex items-center rounded-md px-2.5 py-1 text-xs font-semibold ring-1 transition-colors"
+        onclick={() => void loadGrid()}
+      >
+        {m.retry_button()}
+      </button>
+    </div>
   {:else if grid}
     {@const cols = grid.cols}
     {@const rows = grid.rows}
-    <div class="kd-grid grid gap-1 sm:gap-1.5">
-      <div></div>
-      {#each cols as col (col.id)}
-        <PredicateChip predicate={col} />
+    <div class="kd-grid">
+      <!-- Top-left blank "corner" — kept for the column header to align under
+           the row chips. Visually filled with a subtle marker to anchor the eye. -->
+      <div class="kd-corner" aria-hidden="true">
+        <span class="eyebrow">L · C</span>
+      </div>
+      {#each cols as col, ci (col.id)}
+        <PredicateChip predicate={col} orientation="col" index={ci + 1} marker={colMarker} />
       {/each}
       {#each rows as row, ri (row.id)}
-        <PredicateChip predicate={row} />
+        <PredicateChip predicate={row} orientation="row" index={ri + 1} marker={rowMarker} />
         {#each [0, 1, 2] as ci (ci)}
           <CellButton
             row={ri}
@@ -250,31 +361,37 @@
       <p class="text-danger text-sm" role="alert">{playError}</p>
     {/if}
 
-    <div class="flex flex-col gap-2 sm:flex-row sm:justify-between">
+    <div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
       {#if !store.state}
         <button
           type="button"
-          class="bg-accent text-accent-fg rounded-md px-4 py-2 text-sm font-semibold disabled:opacity-60"
+          class="btn btn-primary w-full sm:w-auto"
           disabled={starting}
           onclick={() => void startGame()}
         >
-          {m.play_button()}
+          <Play size={16} aria-hidden="true" />
+          <span>{m.play_button()}</span>
         </button>
+        <p class="text-fg-muted text-xs sm:text-right">
+          {m.site_lede()}
+        </p>
       {:else if !store.isOver}
         <button
           type="button"
-          class="text-danger border-danger/40 hover:bg-danger/5 rounded-md border bg-transparent px-4 py-2 text-sm font-semibold"
+          class="btn btn-danger-ghost w-full sm:w-auto"
           onclick={() => void onAbandon()}
         >
-          {m.abandon_button()}
+          <Flag size={16} aria-hidden="true" />
+          <span>{m.abandon_button()}</span>
         </button>
       {:else}
         <button
           type="button"
-          class="bg-accent text-accent-fg rounded-md px-4 py-2 text-sm font-semibold"
+          class="btn btn-primary w-full sm:w-auto"
           onclick={() => (endGameOpen = true)}
         >
-          {m.see_solutions()}
+          <BookOpen size={16} aria-hidden="true" />
+          <span>{m.see_solutions()}</span>
         </button>
       {/if}
     </div>
@@ -311,18 +428,113 @@
 {/if}
 
 <style>
-  button {
-    min-height: 44px;
-  }
-
-  /* Layout responsive: more room for the predicate header on narrow phones
-     (Nothing Phone 3a ~360-412px), keep the original ratio from sm: up. */
+  /* The grid is the page's anchor — gap kept tight so the predicate strips
+     read as a single label cluster, with a slightly larger gap on >sm. */
   .kd-grid {
-    grid-template-columns: minmax(96px, 1.05fr) repeat(3, minmax(0, 1fr));
+    display: grid;
+    /* Wider row-chip column on phone so 4-line French predicates breathe. */
+    grid-template-columns: minmax(96px, 1.1fr) repeat(3, minmax(0, 1fr));
+    gap: 6px;
   }
   @media (min-width: 640px) {
     .kd-grid {
-      grid-template-columns: minmax(0, 0.65fr) repeat(3, minmax(0, 1fr));
+      grid-template-columns: minmax(0, 0.7fr) repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
+  }
+  /* Skeleton pulse on initial fetch — paper-pulse, not white-on-white shimmer */
+  .kd-skel {
+    background: color-mix(in oklab, var(--color-fg) 6%, var(--color-bg-subtle));
+    border-radius: var(--radius-md);
+    animation: kd-pulse 1.4s var(--ease-in-out) infinite;
+  }
+  .kd-skel--chip {
+    min-height: 64px;
+  }
+  .kd-skel--cell {
+    aspect-ratio: 1 / 1;
+    border-radius: var(--radius-lg);
+  }
+  .kd-grid--skeleton {
+    pointer-events: none;
+  }
+  /* Top-left "L · C" hint corner — gives the grid an editorial table feel. */
+  .kd-corner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-md);
+    background: color-mix(in oklab, var(--color-accent) 10%, transparent);
+    color: color-mix(in oklab, var(--color-accent) 75%, var(--color-fg-subtle));
+    min-height: 64px;
+  }
+  /* Mistake dots: filled = used, hollow = remaining. Same hue as danger so
+     the player feels the warning rise as dots light up. */
+  .kd-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 999px;
+    background: color-mix(in oklab, var(--color-fg) 12%, transparent);
+    border: 1px solid color-mix(in oklab, var(--color-fg) 18%, transparent);
+    transition:
+      background-color 200ms var(--ease-out),
+      border-color 200ms var(--ease-out);
+  }
+  .kd-dot.used {
+    background: var(--color-danger);
+    border-color: var(--color-danger);
+  }
+  /* Shared button system — defined locally to the game so the design language
+     doesn't leak. Keep min-height 44 for touch targets. */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.7rem 1rem;
+    border-radius: var(--radius-md);
+    font-size: 0.875rem;
+    font-weight: 600;
+    min-height: 44px;
+    border: 1px solid transparent;
+    transition:
+      background-color 160ms var(--ease-out),
+      color 160ms var(--ease-out),
+      transform 160ms var(--ease-out),
+      box-shadow 160ms var(--ease-out);
+  }
+  .btn:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px var(--color-ring);
+  }
+  .btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+  .btn-primary {
+    background: var(--color-accent);
+    color: var(--color-accent-fg);
+    box-shadow: var(--shadow-paper);
+  }
+  .btn-primary:hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-lift);
+  }
+  .btn-danger-ghost {
+    background: transparent;
+    color: var(--color-danger);
+    border-color: color-mix(in oklab, var(--color-danger) 45%, transparent);
+  }
+  .btn-danger-ghost:hover:not(:disabled) {
+    background: color-mix(in oklab, var(--color-danger) 8%, transparent);
+  }
+  @keyframes kd-pulse {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.55;
     }
   }
 </style>

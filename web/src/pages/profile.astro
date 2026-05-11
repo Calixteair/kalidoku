@@ -5,8 +5,14 @@ import * as m from "../paraglide/messages.js";
 ---
 
 <Base title="kalidoku — profil">
-  <section class="flex flex-col gap-3">
-    <h1 class="text-xl font-semibold tracking-tight md:text-2xl">{m.page_profile_title()}</h1>
+  <section class="flex flex-col gap-6">
+    <header class="flex flex-col gap-1.5">
+      <p class="eyebrow text-accent">{m.nav_profile()}</p>
+      <h1 class="font-display text-fg text-3xl font-semibold leading-[1.1] sm:text-4xl">
+        {m.page_profile_title()}<span class="text-accent">.</span>
+      </h1>
+      <p class="text-fg-subtle text-sm">{m.page_profile_subtitle()}</p>
+    </header>
     <ProfileView client:load />
   </section>
 </Base>

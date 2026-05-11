@@ -1,4 +1,6 @@
 <script lang="ts">
+  import Search from "lucide-svelte/icons/search";
+  import X from "lucide-svelte/icons/x";
   import { onMount, untrack } from "svelte";
   import * as m from "../../paraglide/messages.js";
   import { api, ApiError } from "../api/client.js";
@@ -135,78 +137,84 @@
   };
 
   const _ = $derived(normalize(query));
+
+  const tooShort = $derived(query.trim().length > 0 && query.trim().length < MIN_QUERY_LEN);
+  const empty = $derived(
+    !loading && !errorMsg && query.trim().length >= MIN_QUERY_LEN && suggestions.length === 0,
+  );
 </script>
 
 {#if open}
-  <div
-    class="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/40 p-2 sm:p-4"
-    role="presentation"
-    onclick={handleBackdrop}
-  >
-    <div
-      class="bg-bg-card border-border flex max-h-[90vh] w-full max-w-md flex-col rounded-lg border p-3 shadow-xl sm:p-4"
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="autocomplete-title"
-    >
-      <header class="mb-2 flex items-start justify-between gap-2">
-        <div>
-          <h2 id="autocomplete-title" class="text-base font-semibold">
+  <div class="kd-modal-backdrop" role="presentation" onclick={handleBackdrop}>
+    <div class="kd-modal" role="dialog" aria-modal="true" aria-labelledby="autocomplete-title">
+      <header class="flex items-start justify-between gap-3">
+        <div class="min-w-0">
+          <p class="eyebrow text-accent truncate">{cellLabel}</p>
+          <h2
+            id="autocomplete-title"
+            class="font-display text-fg mt-0.5 text-xl font-semibold leading-tight"
+          >
             {m.modal_autocomplete_title()}
           </h2>
-          <p class="text-fg-muted text-xs">
-            {cellLabel}{#if typeof candidatesCount === "number"}
-              · {candidatesCount === 1
+          {#if typeof candidatesCount === "number"}
+            <p class="text-fg-muted mt-1 text-xs">
+              {candidatesCount === 1
                 ? m.modal_autocomplete_candidates_count_one()
-                : m.modal_autocomplete_candidates_count_many({ n: candidatesCount })}{/if}
-          </p>
+                : m.modal_autocomplete_candidates_count_many({ n: candidatesCount })}
+            </p>
+          {:else}
+            <p class="text-fg-muted mt-1 text-xs">{m.modal_autocomplete_subtitle()}</p>
+          {/if}
         </div>
-        <button
-          type="button"
-          class="text-fg-muted hover:text-fg flex h-9 w-9 items-center justify-center rounded-md"
-          aria-label={m.modal_close()}
-          onclick={onClose}
-        >
-          ×
+        <button type="button" class="kd-modal-close" aria-label={m.modal_close()} onclick={onClose}>
+          <X size={18} aria-hidden="true" />
         </button>
       </header>
 
-      <label class="sr-only" for="autocomplete-input">{m.modal_autocomplete_placeholder()}</label>
-      <input
-        id="autocomplete-input"
-        bind:this={inputEl}
-        type="text"
-        autocomplete="off"
-        autocapitalize="off"
-        spellcheck="false"
-        role="combobox"
-        aria-controls={listboxId}
-        aria-expanded={suggestions.length > 0}
-        aria-activedescendant={activeIndex >= 0 ? optionId(activeIndex) : undefined}
-        aria-autocomplete="list"
-        placeholder={m.modal_autocomplete_placeholder()}
-        value={query}
-        oninput={onInput}
-        onkeydown={handleKey}
-        class="border-border bg-bg focus:border-accent w-full rounded-md border px-3 py-2 outline-none"
-      />
+      <div class="kd-input mt-4">
+        <Search size={16} aria-hidden="true" class="kd-input__icon" />
+        <label class="sr-only" for="autocomplete-input">{m.modal_autocomplete_placeholder()}</label>
+        <input
+          id="autocomplete-input"
+          bind:this={inputEl}
+          type="text"
+          autocomplete="off"
+          autocapitalize="off"
+          spellcheck="false"
+          role="combobox"
+          aria-controls={listboxId}
+          aria-expanded={suggestions.length > 0}
+          aria-activedescendant={activeIndex >= 0 ? optionId(activeIndex) : undefined}
+          aria-autocomplete="list"
+          placeholder={m.modal_autocomplete_placeholder()}
+          value={query}
+          oninput={onInput}
+          onkeydown={handleKey}
+        />
+      </div>
 
       <div
         id={listboxId}
         role="listbox"
         aria-label={m.modal_autocomplete_title()}
-        class="mt-2 flex max-h-72 flex-col overflow-y-auto"
+        class="kd-list mt-3"
       >
         {#if loading}
-          <p class="text-fg-muted px-2 py-2 text-sm">{m.loading_stations()}</p>
+          <div class="kd-state">
+            <span class="kd-state__spinner" aria-hidden="true"></span>
+            <span class="text-fg-muted text-sm">{m.loading_stations()}</span>
+          </div>
         {:else if errorMsg}
-          <p class="text-danger px-2 py-2 text-sm" role="alert">{errorMsg}</p>
-        {:else if query.trim().length > 0 && query.trim().length < MIN_QUERY_LEN}
-          <p class="text-fg-muted px-2 py-2 text-sm">
+          <p class="text-danger px-1 py-2 text-sm" role="alert">{errorMsg}</p>
+        {:else if tooShort}
+          <p class="text-fg-muted px-1 py-2 text-sm">
             {m.modal_autocomplete_min_chars({ n: MIN_QUERY_LEN })}
           </p>
-        {:else if query.trim().length >= MIN_QUERY_LEN && suggestions.length === 0}
-          <p class="text-fg-muted px-2 py-2 text-sm">{m.modal_autocomplete_no_results()}</p>
+        {:else if empty}
+          <div class="kd-empty">
+            <p class="text-fg-subtle text-sm font-medium">{m.modal_autocomplete_no_results()}</p>
+            <p class="text-fg-muted mt-1 text-xs">{m.modal_autocomplete_no_results_hint()}</p>
+          </div>
         {:else}
           {#each suggestions as s, i (s.id)}
             <button
@@ -214,36 +222,222 @@
               role="option"
               id={optionId(i)}
               aria-selected={i === activeIndex}
-              class="hover:bg-bg-subtle flex flex-col items-start gap-0 px-3 py-2 text-left text-sm"
+              class="kd-option"
               class:active={i === activeIndex}
               onclick={() => select(s)}
               onmouseenter={() => (activeIndex = i)}
             >
-              <span class="text-fg">
+              <span class="kd-option__name text-fg">
                 {#each renderHighlighted(s.name) as part}
-                  {#if part.match}<mark class="bg-warning/30 text-fg rounded px-0.5"
-                      >{part.text}</mark
-                    >{:else}<span>{part.text}</span>{/if}
+                  {#if part.match}
+                    <mark>{part.text}</mark>
+                  {:else}
+                    <span>{part.text}</span>
+                  {/if}
                 {/each}
               </span>
               {#if s.subtitle}
-                <span class="text-fg-muted text-xs">{s.subtitle}</span>
+                <span class="kd-option__subtitle text-fg-muted">{s.subtitle}</span>
               {/if}
             </button>
           {/each}
         {/if}
       </div>
+
+      <p class="text-fg-muted/80 mt-3 hidden text-[11px] tracking-wide sm:block">
+        {m.modal_autocomplete_keyboard_hint()}
+      </p>
     </div>
   </div>
 {/if}
 
 <style>
-  button[role="option"] {
-    min-height: 44px;
+  .kd-modal-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding: 0.5rem;
+    background: color-mix(in oklab, oklch(0.08 0 0) 55%, transparent);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    animation: kd-fade-in 180ms var(--ease-out);
   }
-  .active {
+  @media (min-width: 640px) {
+    .kd-modal-backdrop {
+      align-items: center;
+      padding: 1rem;
+    }
+  }
+  .kd-modal {
+    width: 100%;
+    max-width: 28rem;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    padding: 1.25rem;
+    box-shadow: var(--shadow-modal);
+    animation: kd-slide-up 220ms var(--ease-out);
+  }
+  @media (min-width: 640px) {
+    .kd-modal {
+      padding: 1.5rem;
+      animation: kd-pop-in 220ms var(--ease-out);
+    }
+  }
+  .kd-modal-close {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 36px;
+    width: 36px;
+    color: var(--color-fg-muted);
+    border-radius: var(--radius-md);
+    transition:
+      color 160ms var(--ease-out),
+      background-color 160ms var(--ease-out);
+  }
+  .kd-modal-close:hover {
+    color: var(--color-fg);
+    background: color-mix(in oklab, var(--color-fg) 8%, transparent);
+  }
+  /* Search input with leading icon — kept high enough on mobile so the
+     candidate count above remains readable while typing. */
+  .kd-input {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+  :global(.kd-input__icon) {
+    position: absolute;
+    left: 12px;
+    color: var(--color-fg-muted);
+    pointer-events: none;
+  }
+  .kd-input input {
+    width: 100%;
+    height: 48px;
+    padding: 0 12px 0 38px;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-border);
     background: var(--color-bg-subtle);
-    outline: 2px solid var(--color-accent);
-    outline-offset: -2px;
+    color: var(--color-fg);
+    font-size: 16px;
+    outline: none;
+    transition:
+      border-color 160ms var(--ease-out),
+      box-shadow 160ms var(--ease-out),
+      background-color 160ms var(--ease-out);
+  }
+  .kd-input input:focus {
+    border-color: var(--color-accent);
+    background: var(--color-bg-card);
+    box-shadow: 0 0 0 3px var(--color-ring);
+  }
+  .kd-list {
+    overflow-y: auto;
+    max-height: 18rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    margin: 0 -0.25rem;
+    padding: 0 0.25rem;
+  }
+  .kd-state {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.25rem;
+  }
+  .kd-state__spinner {
+    width: 14px;
+    height: 14px;
+    border-radius: 999px;
+    border: 2px solid color-mix(in oklab, var(--color-fg) 18%, transparent);
+    border-top-color: var(--color-accent);
+    animation: kd-spin 700ms linear infinite;
+  }
+  .kd-empty {
+    padding: 0.65rem 0.5rem;
+  }
+  .kd-option {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+    padding: 0.65rem 0.65rem;
+    border-radius: var(--radius-md);
+    text-align: left;
+    font-size: 0.875rem;
+    line-height: 1.2;
+    min-height: 44px;
+    border: 1px solid transparent;
+    transition:
+      background-color 120ms var(--ease-out),
+      border-color 120ms var(--ease-out);
+  }
+  .kd-option:hover {
+    background: var(--color-bg-subtle);
+  }
+  .kd-option.active {
+    background: color-mix(in oklab, var(--color-accent) 10%, transparent);
+    border-color: color-mix(in oklab, var(--color-accent) 30%, transparent);
+  }
+  .kd-option__name {
+    font-weight: 500;
+  }
+  .kd-option__name mark {
+    background: color-mix(in oklab, var(--color-accent) 28%, transparent);
+    color: var(--color-fg);
+    padding: 0 1px;
+    border-radius: 2px;
+  }
+  .kd-option__subtitle {
+    font-size: 0.75rem;
+  }
+  @keyframes kd-fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  @keyframes kd-slide-up {
+    from {
+      transform: translateY(16px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  @keyframes kd-pop-in {
+    from {
+      transform: scale(0.96);
+      opacity: 0;
+    }
+    to {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+  @keyframes kd-spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .kd-modal-backdrop,
+    .kd-modal,
+    .kd-state__spinner {
+      animation: none;
+    }
   }
 </style>

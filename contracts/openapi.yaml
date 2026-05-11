@@ -152,6 +152,13 @@ components:
           minItems: 9
           maxItems: 9
           items: { type: integer, minimum: 0 }
+        seed:
+          type: integer
+          format: int64
+          minimum: 0
+          maximum: 4294967295
+          nullable: true
+          description: "Solo grids only — the seed that produced this grid, so the client can build a shareable URL (`/?seed=…`). Null for daily / duel."
 
     PlayToken:
       type: object
@@ -429,6 +436,13 @@ paths:
                 mode: { type: string, enum: [daily, solo, duel] }
                 duelGridId: { type: string, format: uuid, nullable: true }
                 altchaSolution: { type: string, nullable: true, description: "Altcha PoW solution (base64-encoded JSON). Required when the server requested a challenge." }
+                seed:
+                  type: integer
+                  format: int64
+                  minimum: 0
+                  maximum: 4294967295
+                  nullable: true
+                  description: "Solo mode only. Pass an explicit 32-bit seed to regenerate a shared grid; omit to let the server pick a fresh random one."
       responses:
         "201":
           description: Game started

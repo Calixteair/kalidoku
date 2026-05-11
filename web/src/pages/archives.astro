@@ -4,12 +4,26 @@ import * as m from "../paraglide/messages.js";
 ---
 
 <Base title="kalidoku — archives">
-  <section class="flex flex-col gap-3">
-    <h1 class="text-xl font-semibold tracking-tight md:text-2xl">{m.page_archives_title()}</h1>
-    <p class="text-fg-muted text-sm">{m.page_archives_intro()}</p>
-    <div class="border-border bg-bg-card rounded-lg border p-4 text-sm text-fg-muted">
-      <!-- Archives list will be wired to /api/grids/{domain}/archives once it exists. -->
-      {m.loading_stations()}
+  <section class="flex flex-col gap-6">
+    <header class="flex flex-col gap-1.5">
+      <p class="eyebrow text-accent">{m.nav_archives()}</p>
+      <h1 class="font-display text-fg text-3xl font-semibold leading-[1.1] sm:text-4xl">
+        {m.page_archives_title()}<span class="text-accent">.</span>
+      </h1>
+      <p class="text-fg-subtle text-sm">{m.page_archives_intro()}</p>
+    </header>
+
+    <div
+      class="surface flex flex-col items-center gap-3 rounded-xl px-6 py-12 text-center"
+      aria-live="polite"
+    >
+      <span
+        class="bg-accent/10 text-accent flex h-12 w-12 items-center justify-center rounded-full font-display text-lg"
+        aria-hidden="true"
+      >
+        ?
+      </span>
+      <p class="text-fg-subtle text-sm">{m.page_archives_empty()}</p>
     </div>
   </section>
 </Base>

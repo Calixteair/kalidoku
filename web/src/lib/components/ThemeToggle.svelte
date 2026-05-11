@@ -1,6 +1,7 @@
 <script lang="ts">
-  import Sun from "lucide-svelte/icons/sun";
   import Moon from "lucide-svelte/icons/moon";
+  import Sun from "lucide-svelte/icons/sun";
+  import * as m from "../../paraglide/messages.js";
 
   // Two-state toggle: light (default) and dark. Persisted in localStorage.
   // The inline boot script in Base.astro applies the class before paint to avoid FOUC.
@@ -32,19 +33,49 @@
     theme = next;
     applyTheme(next);
   }
+
+  const labelDark = m.theme_switch_to_dark();
+  const labelLight = m.theme_switch_to_light();
 </script>
 
 <button
   type="button"
-  class="text-fg-subtle hover:text-fg flex h-9 w-9 items-center justify-center rounded transition"
-  aria-label={theme === "dark" ? "Activer le thème clair" : "Activer le thème sombre"}
+  class="theme-btn ring-border hover:ring-fg/30 inline-flex h-9 w-9 items-center justify-center rounded-md ring-1 transition-colors"
+  aria-label={theme === "dark" ? labelLight : labelDark}
   aria-pressed={theme === "dark"}
-  title={theme === "dark" ? "Thème clair" : "Thème sombre"}
+  title={theme === "dark" ? labelLight : labelDark}
   onclick={toggle}
 >
-  {#if theme === "dark"}
-    <Sun aria-hidden="true" size={18} />
-  {:else}
-    <Moon aria-hidden="true" size={18} />
-  {/if}
+  <span class="icon-wrap" aria-hidden="true">
+    {#if theme === "dark"}
+      <Sun size={18} />
+    {:else}
+      <Moon size={18} />
+    {/if}
+  </span>
 </button>
+
+<style>
+  .theme-btn {
+    color: var(--color-fg-muted);
+    background: transparent;
+  }
+  .theme-btn:hover {
+    color: var(--color-fg);
+  }
+  .icon-wrap {
+    display: inline-flex;
+    transform-origin: center;
+    animation: theme-rotate 220ms var(--ease-out);
+  }
+  @keyframes theme-rotate {
+    from {
+      transform: rotate(-45deg) scale(0.85);
+      opacity: 0;
+    }
+    to {
+      transform: rotate(0deg) scale(1);
+      opacity: 1;
+    }
+  }
+</style>

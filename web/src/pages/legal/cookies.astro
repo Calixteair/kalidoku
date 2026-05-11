@@ -4,34 +4,44 @@ import * as m from "../../paraglide/messages.js";
 ---
 
 <Base title="kalidoku — cookies">
-  <article class="prose prose-sm mx-auto max-w-none">
-    <h1>{m.page_legal_cookies_title()}</h1>
-    <p>{m.page_legal_cookies_intro()}</p>
-    <h2>{m.page_legal_cookies_list_heading()}</h2>
-    <table>
-      <thead>
-        <tr>
-          <th>{m.page_legal_cookies_th_name()}</th>
-          <th>{m.page_legal_cookies_th_domain()}</th>
-          <th>{m.page_legal_cookies_th_duration()}</th>
-          <th>{m.page_legal_cookies_th_purpose()}</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><code>__Host-session</code></td>
-          <td>kalidoku.calixteair.fr</td>
-          <td>{m.page_legal_cookies_session_duration()}</td>
-          <td>{m.page_legal_cookies_session_purpose()}</td>
-        </tr>
-        <tr>
-          <td><code>locale</code></td>
-          <td>kalidoku.calixteair.fr</td>
-          <td>{m.page_legal_cookies_locale_duration()}</td>
-          <td>{m.page_legal_cookies_locale_purpose()}</td>
-        </tr>
-      </tbody>
-    </table>
-    <p>{m.page_legal_cookies_outro()}</p>
-  </article>
+  <section class="flex flex-col gap-6">
+    <header class="flex flex-col gap-1.5">
+      <p class="eyebrow text-accent">{m.nav_legal()}</p>
+      <h1 class="font-display text-fg text-3xl font-semibold leading-[1.1] sm:text-4xl">
+        {m.page_legal_cookies_title()}<span class="text-accent">.</span>
+      </h1>
+    </header>
+
+    <article class="kd-prose">
+      <p>{m.page_legal_cookies_intro()}</p>
+      <h2>{m.page_legal_cookies_list_heading()}</h2>
+      <div class="kd-table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">{m.page_legal_cookies_th_name()}</th>
+              <th scope="col">{m.page_legal_cookies_th_domain()}</th>
+              <th scope="col">{m.page_legal_cookies_th_duration()}</th>
+              <th scope="col">{m.page_legal_cookies_th_purpose()}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>__Host-session</code></td>
+              <td>kalidoku.calixteair.fr</td>
+              <td>{m.page_legal_cookies_session_duration()}</td>
+              <td>{m.page_legal_cookies_session_purpose()}</td>
+            </tr>
+            <tr>
+              <td><code>locale</code></td>
+              <td>kalidoku.calixteair.fr</td>
+              <td>{m.page_legal_cookies_locale_duration()}</td>
+              <td>{m.page_legal_cookies_locale_purpose()}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p>{m.page_legal_cookies_outro()}</p>
+    </article>
+  </section>
 </Base>

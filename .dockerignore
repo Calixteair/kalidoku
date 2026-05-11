@@ -9,3 +9,7 @@ docs/
 .idea/
 .vscode/
 brave_screenshot_*.png
+# Domain pack ingest tooling — only the JSON data files are needed at runtime,
+# everything else (TS scripts, OSM cache) is build-time only.
+domains/*/scripts/
+domains/*/tmp/

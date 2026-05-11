@@ -9,9 +9,11 @@ import Footer from "../lib/components/Footer.svelte";
 interface Props {
   title?: string;
   description?: string;
+  /** Hide the persistent in-flow header (used by full-bleed pages). */
+  bare?: boolean;
 }
 
-const { title, description } = Astro.props;
+const { title, description, bare = false } = Astro.props;
 
 // Build-time locale (falls back to fr for static SSG). The actual runtime
 // locale is set by the inline boot script below from ?lang= or the cookie,
@@ -30,9 +32,13 @@ const pageDesc = description ?? m.site_tagline();
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <title>{pageTitle}</title>
     <meta name="description" content={pageDesc} />
-    <meta name="theme-color" content="#f4f7fb" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" content="#FAF7F1" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0E1014" media="(prefers-color-scheme: dark)" />
     <link rel="manifest" href="/manifest.webmanifest" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <script is:inline>
       // Apply persisted locale before SPA scripts boot.
       // Order: ?lang= URL param > locale cookie > Astro default. Paraglide reads
@@ -63,14 +69,14 @@ const pageDesc = description ?? m.site_tagline();
       }
     </script>
   </head>
-  <body class="flex min-h-svh flex-col">
+  <body class="bg-bg text-fg flex min-h-svh flex-col">
     <a
       href="#main"
-      class="sr-only focus:not-sr-only focus:fixed focus:left-2 focus:top-2 focus:z-50 focus:rounded focus:bg-accent focus:px-3 focus:py-1 focus:text-accent-fg"
+      class="bg-accent text-accent-fg sr-only rounded-md px-3 py-1.5 text-sm font-semibold focus:not-sr-only focus:fixed focus:left-3 focus:top-3 focus:z-50"
       >Skip</a
     >
-    <Header client:load />
-    <main id="main" class="mx-auto w-full max-w-screen-md flex-1 px-4 py-4 md:py-6">
+    {!bare && <Header client:load />}
+    <main id="main" class="mx-auto w-full max-w-screen-md flex-1 px-4 pb-12 pt-4 md:px-6 md:pt-8">
       <slot />
     </main>
     <Footer client:load />

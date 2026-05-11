@@ -2,61 +2,306 @@
 @plugin "@tailwindcss/forms";
 @plugin "@tailwindcss/typography";
 
-/* Tailwind 4 theming. Light palette is the always-on default; the `dark` class
-   on <html> (toggled by ThemeToggle) overrides into the dark palette.
-   We deliberately do NOT honour prefers-color-scheme — the user picks. */
+/* ---------------------------------------------------------------------------
+ * kalidoku design tokens — "Parisian Editorial Transit"
+ *
+ * Editorial sérif (Fraunces) for display, Inter Tight for UI. Warm paper light
+ * mode pulled from press print, deep tunnel dark mode swapped to a yellow
+ * signal accent so the visual identity reads differently in both — same
+ * product, two moods. Tokens are exposed through Tailwind's @theme so any
+ * `bg-bg-card`, `text-accent`, `border-border` etc. keep working.
+ *
+ * We deliberately do NOT honour prefers-color-scheme — the user picks via
+ * ThemeToggle and we apply `.dark` on <html> from an inline boot script.
+ * ------------------------------------------------------------------------- */
 @theme {
-  --color-bg: rgb(244 247 251);
-  --color-bg-subtle: rgb(238 242 247);
-  --color-bg-card: rgb(255 255 255);
-  --color-fg: rgb(18 23 31);
-  --color-fg-subtle: rgb(60 70 85);
-  --color-fg-muted: rgb(110 122 140);
-  --color-accent: rgb(18 23 31);
-  --color-accent-fg: rgb(255 255 255);
-  --color-success: rgb(22 163 74);
-  --color-warning: rgb(234 179 8);
-  --color-danger: rgb(220 38 38);
-  --color-border: rgb(220 226 235);
-  --radius-lg: 16px;
+  /* Light "paper" palette */
+  --color-bg: oklch(0.973 0.014 80);
+  --color-bg-subtle: oklch(0.948 0.018 80);
+  --color-bg-elevated: oklch(0.992 0.005 80);
+  --color-bg-card: #ffffff;
+  --color-fg: oklch(0.18 0.018 270);
+  --color-fg-subtle: oklch(0.32 0.015 270);
+  --color-fg-muted: oklch(0.55 0.012 270);
+  --color-accent: oklch(0.58 0.16 35);
+  --color-accent-fg: oklch(0.98 0.01 80);
+  --color-accent-soft: oklch(0.94 0.04 35);
+  --color-signal: oklch(0.83 0.14 85);
+  --color-success: oklch(0.62 0.13 150);
+  --color-success-soft: oklch(0.93 0.06 150);
+  --color-warning: oklch(0.78 0.14 80);
+  --color-danger: oklch(0.58 0.18 28);
+  --color-danger-soft: oklch(0.93 0.06 28);
+  --color-border: oklch(0.88 0.012 80);
+  --color-border-strong: oklch(0.78 0.018 80);
+  --color-ring: oklch(0.58 0.16 35 / 0.45);
+
+  /* Numeric radii */
+  --radius-xs: 4px;
+  --radius-sm: 8px;
   --radius-md: 10px;
-  --radius-sm: 6px;
+  --radius-lg: 14px;
+  --radius-xl: 20px;
+  --radius-2xl: 28px;
 
-  --font-sans: "Inter Variable", system-ui, sans-serif;
-  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  /* Typography */
+  --font-sans: "Inter Tight", "Inter Variable", system-ui, sans-serif;
+  --font-display: "Fraunces", "Source Serif 4", "Iowan Old Style", "Georgia", ui-serif, serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+
+  /* Shadow scale — editorial means restrained, almost no halo */
+  --shadow-flat: 0 1px 0 0 var(--color-border);
+  --shadow-paper: 0 1px 2px -1px rgb(20 20 26 / 0.04), 0 2px 4px -2px rgb(20 20 26 / 0.04);
+  --shadow-lift: 0 6px 18px -10px rgb(20 20 26 / 0.18), 0 2px 4px -2px rgb(20 20 26 / 0.05);
+  --shadow-modal: 0 24px 60px -20px rgb(20 20 26 / 0.35);
+
+  /* Easing + duration */
+  --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Manual dark mode: only when the user (or the inline boot script) set .dark on <html>. */
+/* ---------------------------------------------------------------------------
+ * Dark mode — "tunnel". Same brand, different accent: yellow signal takes
+ * over the orange so it reads cleanly on deep ink and matches metro signage.
+ * ------------------------------------------------------------------------- */
 html.dark {
-  --color-bg: rgb(12 16 22);
-  --color-bg-subtle: rgb(18 23 31);
-  --color-bg-card: rgb(22 28 38);
-  --color-fg: rgb(240 244 250);
-  --color-fg-subtle: rgb(200 210 224);
-  --color-fg-muted: rgb(140 152 170);
-  --color-accent: rgb(240 244 250);
-  --color-accent-fg: rgb(18 23 31);
-  --color-border: rgb(38 46 58);
+  --color-bg: oklch(0.14 0.012 265);
+  --color-bg-subtle: oklch(0.18 0.014 265);
+  --color-bg-elevated: oklch(0.21 0.016 265);
+  --color-bg-card: oklch(0.22 0.017 265);
+  --color-fg: oklch(0.96 0.008 80);
+  --color-fg-subtle: oklch(0.82 0.012 80);
+  --color-fg-muted: oklch(0.62 0.012 80);
+  --color-accent: oklch(0.86 0.15 88);
+  --color-accent-fg: oklch(0.14 0.012 265);
+  --color-accent-soft: oklch(0.28 0.06 88);
+  --color-signal: oklch(0.86 0.15 88);
+  --color-success: oklch(0.78 0.14 150);
+  --color-success-soft: oklch(0.28 0.05 150);
+  --color-warning: oklch(0.84 0.13 80);
+  --color-danger: oklch(0.7 0.18 28);
+  --color-danger-soft: oklch(0.3 0.08 28);
+  --color-border: oklch(0.28 0.014 265);
+  --color-border-strong: oklch(0.4 0.018 265);
+  --color-ring: oklch(0.86 0.15 88 / 0.55);
 }
+
+/* ---------------------------------------------------------------------------
+ * Web fonts. Loaded from Google Fonts with display: swap so the layout never
+ * hangs on font fetch. Fraunces has variable axes (wght 300..900, SOFT, opsz)
+ * which give us the editorial feel without shipping multiple weights.
+ * ------------------------------------------------------------------------- */
+@import url("https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,400..800,30..100&family=Inter+Tight:wght@400..700&family=JetBrains+Mono:wght@400;600&display=swap");
 
 html,
 body {
   background: var(--color-bg);
   color: var(--color-fg);
   font-family: var(--font-sans);
+  font-feature-settings:
+    "cv11" on,
+    "ss01" on;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  /* Subtle paper noise on light, atmospheric tint on dark. The data URI is a
+     small SVG of fractalNoise blurred and blended at very low opacity so it
+     doesn't impact paint cost. */
+  background-image:
+    radial-gradient(
+      1200px 600px at 100% -10%,
+      color-mix(in oklab, var(--color-accent) 6%, transparent),
+      transparent 60%
+    ),
+    radial-gradient(
+      900px 500px at -10% 110%,
+      color-mix(in oklab, var(--color-signal) 5%, transparent),
+      transparent 55%
+    );
+  background-attachment: fixed;
 }
 
-/* Mobile-first: do not let iOS auto-zoom inputs */
+html.dark body {
+  background-image:
+    radial-gradient(
+      1200px 600px at 100% -10%,
+      color-mix(in oklab, var(--color-accent) 8%, transparent),
+      transparent 60%
+    ),
+    radial-gradient(
+      900px 500px at -10% 110%,
+      color-mix(in oklab, var(--color-accent) 4%, transparent),
+      transparent 55%
+    );
+}
+
+/* Mobile-first: prevent iOS auto-zoom on inputs */
+input,
+select,
+textarea,
+button {
+  font-family: inherit;
+}
 input,
 select,
 textarea {
   font-size: 16px;
 }
 
+::selection {
+  background: color-mix(in oklab, var(--color-accent) 35%, transparent);
+  color: var(--color-fg);
+}
+
 :focus-visible {
   outline: 2px solid var(--color-accent);
   outline-offset: 2px;
   border-radius: var(--radius-sm);
+}
+
+/* Tabular numerals for scores / ranks */
+.tabular,
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Display heading utility — Fraunces with optical-size axis driven down for
+   large display, slight SOFT axis for a friendlier silhouette. */
+.font-display {
+  font-family: var(--font-display);
+  font-optical-sizing: auto;
+  font-variation-settings:
+    "opsz" 96,
+    "SOFT" 60;
+  letter-spacing: -0.02em;
+}
+
+/* Eyebrow / overline used for "L1 · C2 · GRILLE DU JOUR" tags */
+.eyebrow {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-fg-muted);
+}
+
+/* Single-source-of-truth surface card. Composes border + bg + paper shadow. */
+.surface {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-paper);
+}
+
+/* "Ticket" — the editorial chip used for predicates, with the line bar */
+.ticket {
+  background: var(--color-bg-elevated);
+  border: 1px solid var(--color-border);
+}
+
+/* ---------------------------------------------------------------------------
+ * Editorial prose — used by /legal pages. Replaces the @tailwindcss/typography
+ * default look (too neutral) with a hand-tuned print-magazine voice: bigger
+ * leading, modest H2 with a small accent rule, dense tables that survive on
+ * 360px without breaking the design language.
+ * ------------------------------------------------------------------------- */
+.kd-prose {
+  font-size: 0.9375rem;
+  line-height: 1.65;
+  color: var(--color-fg-subtle);
+}
+.kd-prose p,
+.kd-prose ul,
+.kd-prose ol {
+  margin: 0.75rem 0;
+}
+.kd-prose ul,
+.kd-prose ol {
+  padding-left: 1.25rem;
+}
+.kd-prose li {
+  margin: 0.25rem 0;
+}
+.kd-prose h2 {
+  font-family: var(--font-display);
+  color: var(--color-fg);
+  font-size: 1.35rem;
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+  font-weight: 600;
+  margin: 1.5rem 0 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+.kd-prose h2::before {
+  content: "";
+  display: inline-block;
+  width: 18px;
+  height: 2px;
+  background: var(--color-accent);
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+.kd-prose a {
+  color: var(--color-accent);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  font-weight: 500;
+}
+.kd-prose a:hover {
+  text-decoration-thickness: 2px;
+}
+.kd-prose code {
+  font-family: var(--font-mono);
+  background: var(--color-bg-subtle);
+  border: 1px solid var(--color-border);
+  padding: 1px 5px;
+  border-radius: 4px;
+  font-size: 0.825rem;
+  color: var(--color-fg);
+}
+.kd-prose .kd-table-wrap {
+  margin: 1rem 0;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  overflow-x: auto;
+  background: var(--color-bg-card);
+}
+.kd-prose table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+}
+.kd-prose th,
+.kd-prose td {
+  text-align: left;
+  padding: 0.6rem 0.8rem;
+  border-bottom: 1px solid var(--color-border);
+  vertical-align: top;
+}
+.kd-prose th {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-fg-muted);
+  background: var(--color-bg-subtle);
+  font-weight: 600;
+}
+.kd-prose tr:last-child td {
+  border-bottom: none;
+}
+
+/* Reduced motion override applied broadly. Components keep their own scoped
+   rule for transform animations but we kill global transitions here. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
 }

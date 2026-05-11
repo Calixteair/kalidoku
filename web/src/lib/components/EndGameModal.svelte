@@ -1,4 +1,9 @@
 <script lang="ts">
+  import Check from "lucide-svelte/icons/check";
+  import ChevronDown from "lucide-svelte/icons/chevron-down";
+  import Copy from "lucide-svelte/icons/copy";
+  import Share2 from "lucide-svelte/icons/share-2";
+  import X from "lucide-svelte/icons/x";
   import * as m from "../../paraglide/messages.js";
   import type { components } from "../api/types.js";
   import type { CellAnswer } from "../stores/gameStore.svelte.js";
@@ -80,96 +85,366 @@
   const handleBackdrop = (e: MouseEvent): void => {
     if (e.target === e.currentTarget) onClose();
   };
+
+  const handleKey = (e: KeyboardEvent): void => {
+    if (open && e.key === "Escape") onClose();
+  };
+
+  const headlineTitle = $derived(won ? m.modal_endgame_won() : m.modal_endgame_lost());
+  const headlineSub = $derived(
+    won ? m.modal_endgame_won_subtitle() : m.modal_endgame_lost_subtitle(),
+  );
+  const solved = $derived(answers.length);
 </script>
 
+<svelte:window onkeydown={handleKey} />
+
 {#if open}
-  <div
-    class="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/40 p-2 sm:p-4"
-    role="presentation"
-    onclick={handleBackdrop}
-  >
+  <div class="kd-modal-backdrop" role="presentation" onclick={handleBackdrop}>
     <div
-      class="bg-bg-card border-border flex w-full max-w-md flex-col gap-3 rounded-lg border p-4 shadow-xl"
+      class="kd-modal"
+      class:kd-modal--won={won}
+      class:kd-modal--lost={!won}
       role="dialog"
       aria-modal="true"
       aria-labelledby="endgame-title"
     >
-      <header class="flex items-start justify-between gap-2">
-        <div>
-          <h2 id="endgame-title" class="text-lg font-semibold">
+      <header class="flex items-start justify-between gap-3">
+        <div class="min-w-0">
+          <p class="eyebrow" class:text-success={won} class:text-danger={!won}>
             {won ? m.modal_endgame_won() : m.modal_endgame_lost()}
-          </h2>
-          <p class="text-fg-muted text-sm">
-            {m.score()}: {score}{maxScore !== undefined ? `/${maxScore}` : ""}
-            · {m.errors()}: {mistakes}/{mistakesAllowed}
           </p>
+          <h2
+            id="endgame-title"
+            class="font-display text-fg mt-1 text-3xl font-semibold leading-tight"
+          >
+            {headlineTitle}
+          </h2>
+          <p class="text-fg-subtle mt-1 text-sm">{headlineSub}</p>
         </div>
-        <button
-          type="button"
-          class="text-fg-muted hover:text-fg flex h-9 w-9 items-center justify-center rounded-md"
-          aria-label={m.modal_close()}
-          onclick={onClose}
-        >
-          ×
+        <button type="button" class="kd-modal-close" aria-label={m.modal_close()} onclick={onClose}>
+          <X size={18} aria-hidden="true" />
         </button>
       </header>
 
-      <pre
-        class="bg-bg-subtle text-fg-subtle whitespace-pre-wrap rounded-md p-3 font-mono text-sm">{shareString}</pre>
+      <!-- Stats panel — three big numbers, editorial table look. -->
+      <dl class="kd-stats mt-5">
+        <div class="kd-stat">
+          <dt class="eyebrow">{m.score()}</dt>
+          <dd class="font-display tabular-nums">
+            {score}{#if maxScore !== undefined}<span class="kd-stat__max">/{maxScore}</span>{/if}
+          </dd>
+        </div>
+        <div class="kd-stat">
+          <dt class="eyebrow">{m.modal_endgame_solved_label()}</dt>
+          <dd class="font-display tabular-nums">
+            {solved}<span class="kd-stat__max">/9</span>
+          </dd>
+        </div>
+        <div class="kd-stat">
+          <dt class="eyebrow">{m.errors()}</dt>
+          <dd class="font-display tabular-nums" class:text-danger={mistakes >= mistakesAllowed}>
+            {mistakes}<span class="kd-stat__max">/{mistakesAllowed}</span>
+          </dd>
+        </div>
+      </dl>
 
-      <div class="flex flex-col gap-2 sm:flex-row">
-        <button
-          type="button"
-          class="bg-accent text-accent-fg flex-1 rounded-md px-4 py-2 text-sm font-semibold"
-          onclick={handleShare}
-        >
-          {m.share_button()}
+      <!-- Share block: the visual hero. Boxed monospace card that mirrors what
+           will land in the user's clipboard or share sheet — wysiwyg sharing. -->
+      <section class="kd-share mt-5">
+        <header class="mb-2 flex items-baseline justify-between gap-2">
+          <p class="eyebrow text-fg-muted">{m.modal_endgame_share_heading()}</p>
+          {#if copied}
+            <span class="text-success inline-flex items-center gap-1 text-xs font-medium">
+              <Check size={12} aria-hidden="true" />
+              {m.share_copied()}
+            </span>
+          {/if}
+        </header>
+        <pre class="kd-share__pre" aria-live="polite">{shareString}</pre>
+        <p class="text-fg-muted mt-2 text-[11px] leading-relaxed">{m.modal_endgame_share_hint()}</p>
+      </section>
+
+      <div class="mt-4 flex flex-col gap-2 sm:flex-row">
+        <button type="button" class="btn btn-primary flex-1" onclick={handleShare}>
+          <Share2 size={16} aria-hidden="true" />
+          <span>{m.share_button()}</span>
         </button>
-        <button
-          type="button"
-          class="border-border bg-bg-card text-fg flex-1 rounded-md border px-4 py-2 text-sm font-semibold"
-          onclick={handleCopy}
-        >
-          {copied ? m.share_copied() : m.copy_result()}
+        <button type="button" class="btn btn-secondary flex-1" onclick={handleCopy}>
+          {#if copied}
+            <Check size={16} aria-hidden="true" />
+            <span>{m.share_copied()}</span>
+          {:else}
+            <Copy size={16} aria-hidden="true" />
+            <span>{m.copy_result()}</span>
+          {/if}
         </button>
       </div>
 
       {#if endGameView?.solutionsByCell?.length}
-        <button
-          type="button"
-          class="text-fg-subtle text-sm underline-offset-2 hover:underline"
-          aria-expanded={showSolutions}
-          onclick={() => {
-            showSolutions = !showSolutions;
-            if (onSeeSolutions) onSeeSolutions();
-          }}
-        >
-          {showSolutions ? m.hide_solutions() : m.see_solutions()}
-        </button>
+        <div class="border-border mt-5 border-t pt-4">
+          <button
+            type="button"
+            class="text-fg-subtle hover:text-fg inline-flex items-center gap-1.5 text-sm font-medium transition-colors"
+            aria-expanded={showSolutions}
+            onclick={() => {
+              showSolutions = !showSolutions;
+              if (onSeeSolutions) onSeeSolutions();
+            }}
+          >
+            <ChevronDown
+              size={16}
+              aria-hidden="true"
+              class={"chevron transition-transform " + (showSolutions ? "rotate-180" : "")}
+            />
+            <span>{showSolutions ? m.hide_solutions() : m.see_solutions()}</span>
+          </button>
 
-        {#if showSolutions}
-          <div class="border-border mt-2 max-h-72 overflow-y-auto rounded-md border">
-            <ul class="divide-border divide-y">
-              {#each endGameView.solutionsByCell as cellSol (cellSol.cell.row * 3 + cellSol.cell.col)}
-                <li class="px-3 py-2">
-                  <p class="text-fg-muted mb-1 text-xs font-semibold">
-                    {cellLabel(cellSol.cell.row, cellSol.cell.col)}
-                  </p>
-                  <p class="text-fg text-sm">
-                    {cellSol.candidates.map((c) => c.name).join(" · ")}
-                  </p>
-                </li>
-              {/each}
-            </ul>
-          </div>
-        {/if}
+          {#if showSolutions}
+            <div class="kd-solutions">
+              <ul class="kd-solutions__list">
+                {#each endGameView.solutionsByCell as cellSol (cellSol.cell.row * 3 + cellSol.cell.col)}
+                  <li class="kd-solutions__item">
+                    <p class="eyebrow text-fg-muted">
+                      {cellLabel(cellSol.cell.row, cellSol.cell.col)}
+                    </p>
+                    <p class="text-fg mt-1 text-sm leading-snug">
+                      {cellSol.candidates.map((c) => c.name).join(" · ")}
+                    </p>
+                  </li>
+                {/each}
+              </ul>
+            </div>
+          {/if}
+        </div>
       {/if}
     </div>
   </div>
 {/if}
 
 <style>
-  button {
+  .kd-modal-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding: 0.5rem;
+    background: color-mix(in oklab, oklch(0.08 0 0) 55%, transparent);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    animation: kd-fade-in 180ms var(--ease-out);
+  }
+  @media (min-width: 640px) {
+    .kd-modal-backdrop {
+      align-items: center;
+      padding: 1rem;
+    }
+  }
+  .kd-modal {
+    position: relative;
+    width: 100%;
+    max-width: 28rem;
+    max-height: 92vh;
+    overflow-y: auto;
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    padding: 1.25rem 1.25rem 1.5rem;
+    box-shadow: var(--shadow-modal);
+    animation: kd-slide-up 220ms var(--ease-out);
+  }
+  /* The very top of the modal gets a thin "ribbon" stripe in the verdict
+     colour — quick read for the player when they open it. */
+  .kd-modal::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    border-top-left-radius: var(--radius-xl);
+    border-top-right-radius: var(--radius-xl);
+  }
+  .kd-modal--won::before {
+    background: linear-gradient(
+      90deg,
+      var(--color-success) 0%,
+      color-mix(in oklab, var(--color-success) 60%, var(--color-accent)) 100%
+    );
+  }
+  .kd-modal--lost::before {
+    background: linear-gradient(
+      90deg,
+      var(--color-danger) 0%,
+      color-mix(in oklab, var(--color-danger) 60%, var(--color-fg-muted)) 100%
+    );
+  }
+  @media (min-width: 640px) {
+    .kd-modal {
+      padding: 1.5rem 1.5rem 1.75rem;
+      animation: kd-pop-in 220ms var(--ease-out);
+    }
+  }
+  .kd-modal-close {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 36px;
+    width: 36px;
+    color: var(--color-fg-muted);
+    border-radius: var(--radius-md);
+    transition:
+      color 160ms var(--ease-out),
+      background-color 160ms var(--ease-out);
+  }
+  .kd-modal-close:hover {
+    color: var(--color-fg);
+    background: color-mix(in oklab, var(--color-fg) 8%, transparent);
+  }
+  /* Stats — three columns at any width (the eyebrow + display number block
+     is small enough to fit on 360px). */
+  .kd-stats {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+    background: var(--color-bg-subtle);
+    border-radius: var(--radius-lg);
+    padding: 0.85rem 1rem;
+    border: 1px solid var(--color-border);
+  }
+  .kd-stat {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+  .kd-stat dt {
+    font-size: 10px;
+  }
+  .kd-stat dd {
+    font-size: 1.65rem;
+    line-height: 1;
+    font-weight: 600;
+    color: var(--color-fg);
+  }
+  .kd-stat__max {
+    font-size: 0.75rem;
+    color: var(--color-fg-muted);
+    margin-left: 2px;
+    font-family: var(--font-sans);
+    font-weight: 500;
+    font-variation-settings: normal;
+  }
+  /* Share block — proudly mono, with a torn-ticket dashed border on top so it
+     reads as "a thing to copy/share". */
+  .kd-share {
+    position: relative;
+    background: var(--color-bg-subtle);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: 0.85rem 1rem;
+  }
+  .kd-share__pre {
+    margin: 0;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    line-height: 1.5;
+    color: var(--color-fg);
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+  /* Buttons — re-used naming with the same visual rules as in Grid.svelte. */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.7rem 1rem;
+    border-radius: var(--radius-md);
+    font-size: 0.875rem;
+    font-weight: 600;
     min-height: 44px;
+    border: 1px solid transparent;
+    transition:
+      background-color 160ms var(--ease-out),
+      transform 160ms var(--ease-out),
+      box-shadow 160ms var(--ease-out),
+      color 160ms var(--ease-out);
+  }
+  .btn:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px var(--color-ring);
+  }
+  .btn-primary {
+    background: var(--color-accent);
+    color: var(--color-accent-fg);
+    box-shadow: var(--shadow-paper);
+  }
+  .btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-lift);
+  }
+  .btn-secondary {
+    background: var(--color-bg-card);
+    color: var(--color-fg);
+    border-color: var(--color-border);
+  }
+  .btn-secondary:hover {
+    border-color: var(--color-border-strong);
+  }
+  /* Solutions accordion */
+  .kd-solutions {
+    margin-top: 0.75rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    max-height: 18rem;
+    overflow-y: auto;
+  }
+  .kd-solutions__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .kd-solutions__item {
+    padding: 0.7rem 0.9rem;
+    border-bottom: 1px solid var(--color-border);
+  }
+  .kd-solutions__item:last-child {
+    border-bottom: none;
+  }
+  @keyframes kd-fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  @keyframes kd-slide-up {
+    from {
+      transform: translateY(16px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  @keyframes kd-pop-in {
+    from {
+      transform: scale(0.96);
+      opacity: 0;
+    }
+    to {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .kd-modal-backdrop,
+    .kd-modal {
+      animation: none;
+    }
   }
 </style>

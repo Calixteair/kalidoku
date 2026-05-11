@@ -1,7 +1,6 @@
 ---
 import Base from "../layouts/Base.astro";
 import Grid from "../lib/components/Grid.svelte";
-import LangSwitcher from "../lib/components/LangSwitcher.svelte";
 
 // Default domain for the daily grid. The domains list comes from /api/domains
 // once the picker is implemented; for now the home is hard-wired to paris-metro.
@@ -12,10 +11,5 @@ const DEFAULT_DOMAIN = "paris-metro";
 ---
 
 <Base>
-  <section class="flex flex-col gap-4">
-    <div class="flex items-center justify-end">
-      <LangSwitcher client:load />
-    </div>
-    <Grid client:load domain={DEFAULT_DOMAIN} />
-  </section>
+  <Grid client:load domain={DEFAULT_DOMAIN} />
 </Base>

@@ -20,6 +20,16 @@ fn default_meili_url() -> String {
     "http://search:7700".into()
 }
 
+fn default_domains_root() -> String {
+    // Container layout (see Dockerfile.server). Dev runs `cargo run` from the
+    // workspace root, where `domains/` is reachable directly.
+    if std::path::Path::new("/app/domains").exists() {
+        "/app/domains".into()
+    } else {
+        "domains".into()
+    }
+}
+
 #[derive(Debug, Clone, Deserialize)]
 pub struct AppConfig {
     #[serde(default = "default_port")]
@@ -69,6 +79,13 @@ pub struct AppConfig {
     /// service lifecycle. Set to `true` in container deployments.
     #[serde(default)]
     pub run_migrations: bool,
+
+    /// Filesystem root holding domain packs (`<root>/<domain>/metadata.json`).
+    /// Baked into the server image at `/app/domains/` by Dockerfile.server.
+    /// Tests can override via the `KALIDOKU__DOMAINS_ROOT` env var (or the
+    /// per-test setter on this struct).
+    #[serde(default = "default_domains_root")]
+    pub domains_root: String,
 }
 
 impl AppConfig {
@@ -91,6 +108,7 @@ impl AppConfig {
             rust_log: "warn".into(),
             allowed_origins: String::new(),
             run_migrations: false,
+            domains_root: "domains".into(),
         }
     }
 }
