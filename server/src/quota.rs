@@ -54,15 +54,14 @@ pub fn check(
                 Ok(())
             }
         }
-        // Solo is unlimited by design — players can re-roll grids as they
-        // please. The free-tier quota stays declared above so introducing
-        // a cap later only requires flipping the constant, not re-wiring
-        // the call site or the error variant.
-        GameMode::Solo => {
+        // Solo and duel are both unlimited in phase 2 — duels are the
+        // viral hook so gating them would defeat the purpose. The Premium
+        // variant stays declared so a future quota flip is a one-line
+        // change here, not a constellation of call sites.
+        GameMode::Solo | GameMode::Duel => {
             let _ = today_count;
             Ok(())
         }
-        GameMode::Duel => Err(QuotaError::PremiumRequired),
     }
 }
 
@@ -146,11 +145,11 @@ mod tests {
     }
 
     #[test]
-    fn free_user_no_duel() {
-        assert_eq!(
-            check(false, GameMode::Duel, 0),
-            Err(QuotaError::PremiumRequired)
-        );
+    fn free_user_unlimited_duels() {
+        // Duels are free during phase 2 — see the comment in check().
+        for n in [0_u32, 1, 3, 10, 1_000] {
+            assert!(check(false, GameMode::Duel, n).is_ok());
+        }
     }
 
     #[test]

@@ -57,6 +57,19 @@ pub struct AppConfig {
     #[serde(default)]
     pub altcha_hmac_key: String,
 
+    /// HMAC-SHA256 key used to sign duel share URLs. A leaked link can't be
+    /// forged to point at another grid_id because the signature binds
+    /// (duel_id, grid_id). Provisioned by bao-agent from
+    /// `secret/kalidoku/prod/duel.DUEL_HMAC_KEY`.
+    #[serde(default)]
+    pub duel_hmac_key: String,
+
+    /// Public base URL used to build duel share links. Empty in dev defaults
+    /// to a relative path so links still resolve when opened on the same
+    /// origin. Provisioned in prod from `secret/kalidoku/prod/web.PUBLIC_BASE_URL`.
+    #[serde(default)]
+    pub public_base_url: String,
+
     /// Base URL of the Meilisearch instance backing autocomplete (no trailing
     /// slash). Defaults to the in-cluster Docker name `http://search:7700`. In
     /// dev with no search container running we leave the master key empty,
@@ -103,6 +116,8 @@ impl AppConfig {
             keycloak_client_secret: String::new(),
             keycloak_redirect_url: String::new(),
             altcha_hmac_key: "test-altcha-key-32-bytes-long..!".into(),
+            duel_hmac_key: "test-duel-key-32-bytes-long-pad!".into(),
+            public_base_url: "http://localhost:4321".into(),
             meili_url: "http://search.invalid:7700".into(),
             meili_master_key: String::new(),
             rust_log: "warn".into(),

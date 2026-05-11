@@ -22,6 +22,8 @@ pub enum ApiError {
     Forbidden,
     #[error("conflict: {0}")]
     Conflict(&'static str),
+    #[error("gone")]
+    Gone,
     #[error("rate limited")]
     RateLimited,
     #[error("altcha required")]
@@ -52,6 +54,7 @@ impl ApiError {
             ApiError::Unauthorised => "unauthorised",
             ApiError::Forbidden => "forbidden",
             ApiError::Conflict(_) => "conflict",
+            ApiError::Gone => "gone",
             ApiError::RateLimited => "rate_limited",
             ApiError::AltchaRequired => "altcha_required",
             ApiError::PaymentRequired => "payment_required",
@@ -70,6 +73,7 @@ impl ApiError {
             ApiError::Unauthorised => StatusCode::UNAUTHORIZED,
             ApiError::Forbidden => StatusCode::FORBIDDEN,
             ApiError::Conflict(_) => StatusCode::CONFLICT,
+            ApiError::Gone => StatusCode::GONE,
             ApiError::RateLimited => StatusCode::TOO_MANY_REQUESTS,
             ApiError::AltchaRequired => StatusCode::PRECONDITION_FAILED,
             ApiError::PaymentRequired => StatusCode::PAYMENT_REQUIRED,

@@ -549,7 +549,13 @@ paths:
   /api/duels:
     post:
       tags: [friends]
-      summary: Generate a shareable duel grid (phase 2 — gated by premium when active)
+      summary: Create a duel pinned to a grid, signed for share
+      description: |
+        When `gridId` is supplied, the duel reuses that grid (must be a `solo`
+        or `daily` grid the caller has played or generated). Without `gridId`
+        a fresh solo grid is generated server-side.
+        Phase 2: duels are free for everyone (the future premium gate stays
+        declared in `quota.rs`).
       requestBody:
         required: true
         content:
@@ -559,7 +565,7 @@ paths:
               required: [domain]
               properties:
                 domain: { type: string }
-                altchaSolution: { type: string, nullable: true }
+                gridId: { type: string, format: uuid, nullable: true }
       responses:
         "201":
           description: Created
@@ -567,18 +573,18 @@ paths:
             application/json:
               schema:
                 type: object
-                required: [duelId, shareUrl, gridId]
+                required: [duelId, gridId, shareUrl, expiresAt]
                 properties:
                   duelId: { type: string, format: uuid }
-                  shareUrl: { type: string, format: uri }
                   gridId: { type: string, format: uuid }
-        "402": { description: Premium required }
+                  shareUrl: { type: string, format: uri }
+                  expiresAt: { type: string, format: date-time }
         "429": { description: Rate limited }
 
   /api/duels/{duelId}:
     get:
       tags: [friends]
-      summary: View duel state (both players' scores once both played)
+      summary: View duel state (all players who have played the grid so far)
       parameters:
         - name: duelId
           in: path
@@ -595,19 +601,35 @@ paths:
             application/json:
               schema:
                 type: object
-                required: [duelId, gridId, players]
+                required: [duelId, gridId, domain, expiresAt, players]
                 properties:
                   duelId: { type: string, format: uuid }
                   gridId: { type: string, format: uuid }
+                  domain: { type: string }
+                  expiresAt: { type: string, format: date-time }
                   players:
                     type: array
-                    minItems: 1
-                    maxItems: 2
                     items:
                       type: object
-                      required: [profile]
+                      required: [pseudo, score, originalityScore, solved, status]
                       properties:
-                        profile: { $ref: "#/components/schemas/PublicProfile" }
-                        summary:
-                          $ref: "#/components/schemas/GameSummary"
+                        pseudo: { type: string }
+                        score: { type: integer }
+                        originalityScore:
+                          type: integer
+                          minimum: 0
+                          maximum: 100
+                        solved:
+                          type: integer
+                          minimum: 0
+                          maximum: 9
+                        finishedAt:
+                          type: string
+                          format: date-time
                           nullable: true
+                        status:
+                          type: string
+                          enum: [active, won, lost, abandoned]
+        "401": { description: Bad signature }
+        "404": { description: Duel not found }
+        "410": { description: Duel expired }

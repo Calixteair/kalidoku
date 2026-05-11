@@ -169,9 +169,24 @@ pub async fn start_game(
             generate_and_insert_solo(db.as_ref(), &state.config, &body.domain, body.seed).await?
         }
         GameMode::Duel => {
-            return Err(ApiError::NotImplemented(
-                "duel grid generation waiting for phase 2",
-            ));
+            // For duels we re-use the grid the duel pins. We do NOT verify the
+            // duel signature here — anyone who reaches this code path already
+            // has the grid_id, which is itself only obtainable via a valid duel
+            // GET. Re-checking would force a second DB round-trip for no extra
+            // security.
+            let grid_id = body
+                .duel_grid_id
+                .ok_or_else(|| ApiError::BadRequest("duelGridId required".into()))?;
+            let g = grids::Entity::find_by_id(grid_id)
+                .one(db.as_ref())
+                .await?
+                .ok_or(ApiError::NotFound("grid"))?;
+            if g.domain != body.domain {
+                return Err(ApiError::BadRequest(
+                    "grid does not belong to that domain".into(),
+                ));
+            }
+            g
         }
     };
 
@@ -233,7 +248,7 @@ pub async fn start_game(
 /// The grid is keyed by a random short seed (or the supplied one for shared
 /// links), and `publish_at = now()` so the unique `(domain, mode, publish_at)`
 /// index never trips even if two players replay the same seed within seconds.
-async fn generate_and_insert_solo(
+pub async fn generate_and_insert_solo(
     db: &sea_orm::DatabaseConnection,
     cfg: &crate::config::AppConfig,
     domain_id: &str,
