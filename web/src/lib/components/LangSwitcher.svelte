@@ -1,4 +1,5 @@
 <script lang="ts">
+  import Globe from "lucide-svelte/icons/globe";
   import * as m from "../../paraglide/messages.js";
   import { availableLanguageTags, languageTag } from "../../paraglide/runtime.js";
   import { setLocale, type Locale } from "../i18n.js";
@@ -25,10 +26,13 @@
   };
 </script>
 
-<label class="text-fg-subtle inline-flex items-center gap-2 text-sm">
+<label
+  class="text-fg-muted ring-border hover:ring-fg/30 inline-flex h-9 items-center gap-2 rounded-md ring-1 transition-colors"
+>
   <span class="sr-only">{m.language_switch()}</span>
+  <Globe size={14} aria-hidden="true" class="ml-2.5" />
   <select
-    class="border-border bg-bg-card rounded-md border px-2 py-1 text-sm"
+    class="lang-select text-fg appearance-none bg-transparent pr-3 text-sm font-medium outline-none"
     value={current}
     onchange={onChange}
     aria-label={m.language_switch()}
@@ -38,3 +42,14 @@
     {/each}
   </select>
 </label>
+
+<style>
+  .lang-select {
+    background-image: none;
+    padding: 0.4rem 0.25rem 0.4rem 0;
+  }
+  /* Forms plugin gives selects a default chevron — kill it, the Globe icon is enough */
+  .lang-select::-ms-expand {
+    display: none;
+  }
+</style>
