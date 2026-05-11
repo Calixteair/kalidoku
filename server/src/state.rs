@@ -109,6 +109,7 @@ impl AppState {
             rust_log: "info".into(),
             allowed_origins: String::new(),
             run_migrations: false,
+            domains_root: "domains".into(),
         })
     }
 }

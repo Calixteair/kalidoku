@@ -7,12 +7,6 @@ export default defineConfig({
   output: "static",
   trailingSlash: "never",
   build: { format: "directory" },
-  // /play used to fall back to index.html via the nginx SPA rewrite, surfacing
-  // a phantom duplicate of the home page. Redirect until the dedicated
-  // solo-mode page lands in phase 2.
-  redirects: {
-    "/play": "/",
-  },
   i18n: {
     defaultLocale: "fr",
     locales: ["fr", "en"],

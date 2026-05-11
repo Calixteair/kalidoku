@@ -49,6 +49,10 @@ LABEL org.opencontainers.image.source="https://github.com/Calixteair/kalidoku" \
       org.opencontainers.image.created="${IMAGE_CREATED}"
 WORKDIR /app
 COPY --from=builder /work/target/release/kalidoku-server /usr/local/bin/kalidoku-server
+# Domain packs (metadata + predicates + entities .json) so the server can
+# generate solo grids on the fly via core::generator. Kept at /app/domains
+# to match the worker's filesystem layout.
+COPY --from=builder /work/domains /app/domains
 
 USER nonroot
 EXPOSE 8080

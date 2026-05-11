@@ -2,3 +2,4 @@
 
 pub mod altcha;
 pub mod meili;
+pub mod solo_generator;

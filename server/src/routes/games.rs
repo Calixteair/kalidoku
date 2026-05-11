@@ -23,6 +23,7 @@ use crate::error::{ApiError, ApiResult};
 use crate::play_token::{self, PlayTokenPayload};
 use crate::quota::{self, GameMode};
 use crate::services::altcha as altcha_service;
+use crate::services::solo_generator;
 use crate::state::AppState;
 
 const MAX_MISTAKES: i32 = 3;
@@ -39,6 +40,11 @@ pub struct StartGameRequest {
     pub duel_grid_id: Option<Uuid>,
     #[serde(default)]
     pub altcha_solution: Option<String>,
+    /// Solo only. When supplied, regenerates the same grid for the same seed
+    /// — used by share links and player retries. Server picks a random one if
+    /// omitted.
+    #[serde(default)]
+    pub seed: Option<u64>,
 }
 
 #[derive(Serialize)]
@@ -77,6 +83,10 @@ pub struct PublicGrid {
     /// candidate ids stays server-side; the client only sees the count so it
     /// can surface "X possible answers" without leaking the solution set.
     pub candidates_count: [u32; 9],
+    /// Solo grids only — exposed so the front can build a shareable URL
+    /// (`/?seed=…`). Null for daily / duel grids.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub seed: Option<u64>,
 }
 
 #[derive(Serialize)]
@@ -139,24 +149,31 @@ pub async fn start_game(
         }
     })?;
 
-    // Find a grid for the requested mode + domain. For daily, the worker must have
-    // published one for today; for solo/duel agent C will trigger the worker queue.
-    let grid_row = match mode {
-        GameMode::Daily => {
-            grids::Entity::find()
-                .filter(grids::Column::Domain.eq(body.domain.clone()))
-                .filter(grids::Column::Mode.eq("daily"))
-                .order_by_desc(grids::Column::PublishAt)
-                .one(db.as_ref())
-                .await?
+    // Find or create a grid for the requested mode + domain.
+    // - daily: the worker publishes one per (domain, day); we just pick the
+    //   most recent row.
+    // - solo: generate on the fly. The seed comes from the request when the
+    //   player is replaying a shared link, otherwise the server picks a fresh
+    //   random one. We *always* persist the grid so play / result endpoints
+    //   keep their stateless shape (game.grid_id → grids row).
+    // - duel: still pending phase 2.
+    let grid = match mode {
+        GameMode::Daily => grids::Entity::find()
+            .filter(grids::Column::Domain.eq(body.domain.clone()))
+            .filter(grids::Column::Mode.eq("daily"))
+            .order_by_desc(grids::Column::PublishAt)
+            .one(db.as_ref())
+            .await?
+            .ok_or(ApiError::NotFound("no grid published yet"))?,
+        GameMode::Solo => {
+            generate_and_insert_solo(db.as_ref(), &state.config, &body.domain, body.seed).await?
         }
-        GameMode::Solo | GameMode::Duel => {
+        GameMode::Duel => {
             return Err(ApiError::NotImplemented(
-                "solo/duel grid generation waiting for worker queue (agent-b)",
+                "duel grid generation waiting for phase 2",
             ));
         }
     };
-    let grid = grid_row.ok_or(ApiError::NotFound("no grid published yet"))?;
 
     // Idempotency: if a row already exists for this (grid, device) we 409.
     let existing = games::Entity::find()
@@ -211,6 +228,37 @@ pub async fn start_game(
     Ok((axum::http::StatusCode::CREATED, Json(resp)))
 }
 
+/// Generate a fresh solo grid for `domain_id`, persist it, return the row.
+/// The grid is keyed by a random short seed (or the supplied one for shared
+/// links), and `publish_at = now()` so the unique `(domain, mode, publish_at)`
+/// index never trips even if two players replay the same seed within seconds.
+async fn generate_and_insert_solo(
+    db: &sea_orm::DatabaseConnection,
+    cfg: &crate::config::AppConfig,
+    domain_id: &str,
+    seed: Option<u64>,
+) -> ApiResult<grids::Model> {
+    let root = std::path::Path::new(&cfg.domains_root);
+    let solo = solo_generator::generate_solo(root, domain_id, seed)
+        .await
+        .map_err(|e| ApiError::Internal(format!("solo generator: {e}")))?;
+
+    let now = Utc::now();
+    let grid_id = Uuid::now_v7();
+    let active = grids::ActiveModel {
+        id: Set(grid_id),
+        domain: Set(domain_id.to_string()),
+        mode: Set("solo".to_string()),
+        publish_at: Set(now.into()),
+        payload: Set(solo.payload),
+        // i64 cast is lossless: solo seeds are 32-bit.
+        seed: Set(solo.seed as i64),
+        created_at: Set(now.into()),
+    };
+    let inserted = active.insert(db).await?;
+    Ok(inserted)
+}
+
 fn resume_existing(
     state: &AppState,
     g: &games::Model,
@@ -240,6 +288,14 @@ fn public_grid_from_row(row: &grids::Model) -> ApiResult<PublicGrid> {
     let payload = row.payload.clone();
     let rows = extract_predicates(&payload, "rows")?;
     let cols = extract_predicates(&payload, "cols")?;
+    // Seed is exposed to the client only for solo grids — daily grids share a
+    // seed across the world and surfacing it would let a curious player
+    // reverse-derive tomorrow's grid offline.
+    let seed = if row.mode == "solo" {
+        Some(row.seed as u64)
+    } else {
+        None
+    };
     Ok(PublicGrid {
         id: row.id,
         domain: row.domain.clone(),
@@ -249,6 +305,7 @@ fn public_grid_from_row(row: &grids::Model) -> ApiResult<PublicGrid> {
         cols,
         mistakes_allowed: MAX_MISTAKES,
         candidates_count: extract_candidates_count(&payload),
+        seed,
     })
 }
 

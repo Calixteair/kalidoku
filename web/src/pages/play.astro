@@ -1,0 +1,16 @@
+---
+import Base from "../layouts/Base.astro";
+import Grid from "../lib/components/Grid.svelte";
+
+// Solo mode page. Reads `?seed=…` to regenerate a shared grid, otherwise the
+// server picks a random one on the first cell click. The actual game flow
+// reuses the same `Grid.svelte` component as the daily home; the `mode` prop
+// just flips its API call from `/today` to `POST /games {mode:"solo", seed?}`.
+const DEFAULT_DOMAIN = "paris-metro";
+---
+
+<Base title="kalidoku — solo">
+  <section class="flex flex-col gap-4">
+    <Grid client:load domain={DEFAULT_DOMAIN} mode="solo" />
+  </section>
+</Base>

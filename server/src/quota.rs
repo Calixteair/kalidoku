@@ -54,12 +54,13 @@ pub fn check(
                 Ok(())
             }
         }
+        // Solo is unlimited by design — players can re-roll grids as they
+        // please. The free-tier quota stays declared above so introducing
+        // a cap later only requires flipping the constant, not re-wiring
+        // the call site or the error variant.
         GameMode::Solo => {
-            if today_count >= 3 {
-                Err(QuotaError::SoloQuotaReached)
-            } else {
-                Ok(())
-            }
+            let _ = today_count;
+            Ok(())
         }
         GameMode::Duel => Err(QuotaError::PremiumRequired),
     }
@@ -137,14 +138,11 @@ mod tests {
     }
 
     #[test]
-    fn free_user_three_solos_per_day() {
-        for n in 0..3 {
+    fn free_user_unlimited_solos() {
+        // Solo is unlimited by design — re-rolling grids has no cost.
+        for n in [0_u32, 1, 3, 10, 1_000] {
             assert!(check(false, GameMode::Solo, n).is_ok());
         }
-        assert_eq!(
-            check(false, GameMode::Solo, 3),
-            Err(QuotaError::SoloQuotaReached)
-        );
     }
 
     #[test]
