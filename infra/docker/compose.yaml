@@ -144,6 +144,8 @@ services:
       KEYCLOAK_CLIENT_SECRET: ${KEYCLOAK_CLIENT_SECRET}
       KEYCLOAK_REDIRECT_URL: ${KEYCLOAK_REDIRECT_URL}
       ALTCHA_HMAC_KEY: ${ALTCHA_HMAC_KEY}
+      DUEL_HMAC_KEY: ${DUEL_HMAC_KEY}
+      PUBLIC_BASE_URL: ${PUBLIC_BASE_URL:-https://kalidoku.calixteair.fr}
       ALLOWED_ORIGINS: https://kalidoku.calixteair.fr
       # Apply pending SeaORM migrations on boot. Idempotent — safe to leave on.
       RUN_MIGRATIONS: "true"
