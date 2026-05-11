@@ -259,7 +259,15 @@ components:
                   properties:
                     id: { type: string }
                     name: { type: string }
-                    rarityScore: { type: number, nullable: true }
+                    fameScore:
+                      type: integer
+                      minimum: 0
+                      maximum: 100
+                      nullable: true
+                      description: |
+                        Snapshotted at generation time. Absent on pre-phase-2
+                        grids and on entities whose dataset hasn't been scored
+                        yet.
 
     LeaderboardEntry:
       type: object

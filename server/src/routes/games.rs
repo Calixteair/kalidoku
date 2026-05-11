@@ -742,15 +742,24 @@ fn build_solutions_by_cell(payload: &serde_json::Value) -> ApiResult<serde_json:
         .get("entities")
         .and_then(|v| v.as_array())
         .ok_or_else(|| ApiError::Internal("grid payload missing entities".into()))?;
-    // Build a quick id → name lookup.
-    let mut name_by_id = std::collections::HashMap::new();
+    // Build a quick id → (name, fame_score) lookup. fame is None on entities
+    // baked before phase 2 — the client renders the badge only when present.
+    let mut info_by_id: std::collections::HashMap<String, (String, Option<u8>)> =
+        std::collections::HashMap::new();
     for ent in entities {
-        if let (Some(id), Some(name)) = (
-            ent.get("id").and_then(|v| v.as_str()),
-            ent.get("name").and_then(|v| v.as_str()),
-        ) {
-            name_by_id.insert(id.to_string(), name.to_string());
-        }
+        let Some(id) = ent.get("id").and_then(|v| v.as_str()) else {
+            continue;
+        };
+        let name = ent
+            .get("name")
+            .and_then(|v| v.as_str())
+            .unwrap_or(id)
+            .to_string();
+        let fame = ent
+            .get("fame_score")
+            .and_then(serde_json::Value::as_u64)
+            .and_then(|v| u8::try_from(v.min(100)).ok());
+        info_by_id.insert(id.to_string(), (name, fame));
     }
     let mut out = Vec::with_capacity(9);
     for (r, row_arr) in cells.iter().enumerate() {
@@ -765,10 +774,18 @@ fn build_solutions_by_cell(payload: &serde_json::Value) -> ApiResult<serde_json:
                 .iter()
                 .filter_map(|v| v.as_str())
                 .map(|id| {
-                    serde_json::json!({
+                    let (name, fame) = info_by_id
+                        .get(id)
+                        .cloned()
+                        .unwrap_or_else(|| (id.to_string(), None));
+                    let mut obj = serde_json::json!({
                         "id": id,
-                        "name": name_by_id.get(id).cloned().unwrap_or_else(|| id.to_string()),
-                    })
+                        "name": name,
+                    });
+                    if let Some(f) = fame {
+                        obj["fameScore"] = serde_json::Value::from(f);
+                    }
+                    obj
                 })
                 .collect();
             out.push(serde_json::json!({
