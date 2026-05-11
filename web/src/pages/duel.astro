@@ -1,0 +1,15 @@
+---
+import Base from "../layouts/Base.astro";
+import DuelView from "../lib/components/DuelView.svelte";
+
+// Duel landing page. The query string carries everything we need:
+// `/duel?id=<duel_id>&sig=<hmac>`. The component parses window.location and
+// fetches /api/duels/{id} to render the summary + a "play this grid" CTA.
+const DEFAULT_DOMAIN = "paris-metro";
+---
+
+<Base title="kalidoku — duel">
+  <section class="flex flex-col gap-4">
+    <DuelView client:load domain={DEFAULT_DOMAIN} />
+  </section>
+</Base>

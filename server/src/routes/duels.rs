@@ -116,7 +116,9 @@ pub async fn create(
     } else {
         state.config.public_base_url.trim_end_matches('/').into()
     };
-    let share_url = format!("{base}/duel/{duel_id}?sig={sig_b64}");
+    // Query-string form rather than /duel/{id} so the static frontend can
+    // serve a single duel.astro page without per-id prerendering.
+    let share_url = format!("{base}/duel?id={duel_id}&sig={sig_b64}");
 
     Ok((
         axum::http::StatusCode::CREATED,

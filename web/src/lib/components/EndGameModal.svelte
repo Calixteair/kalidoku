@@ -3,8 +3,10 @@
   import ChevronDown from "lucide-svelte/icons/chevron-down";
   import Copy from "lucide-svelte/icons/copy";
   import Share2 from "lucide-svelte/icons/share-2";
+  import Swords from "lucide-svelte/icons/swords";
   import X from "lucide-svelte/icons/x";
   import * as m from "../../paraglide/messages.js";
+  import { api, ApiError } from "../api/client.js";
   import type { components } from "../api/types.js";
   import type { CellAnswer } from "../stores/gameStore.svelte.js";
   import { buildShareString, copyToClipboard, pickShareString, shareNative } from "../share.js";
@@ -20,6 +22,10 @@
     mistakesAllowed: number;
     answers: CellAnswer[];
     endGameView: EndGameView | null;
+    /** Domain + gridId of the game just played. Set when both are available
+     *  so the duel CTA can challenge a friend on the same grid. */
+    domain?: string | undefined;
+    gridId?: string | undefined;
     onClose: () => void;
     onSeeSolutions?: (() => void) | undefined;
   }
@@ -33,12 +39,18 @@
     mistakesAllowed,
     answers,
     endGameView,
+    domain,
+    gridId,
     onClose,
     onSeeSolutions,
   }: Props = $props();
 
   let copied = $state(false);
   let showSolutions = $state(false);
+  let duelLoading = $state(false);
+  let duelUrl = $state<string | null>(null);
+  let duelError = $state<string | null>(null);
+  let duelCopied = $state(false);
 
   const cellLabel = (row: number, col: number): string =>
     m.cell_label({ row: row + 1, col: col + 1 });
@@ -88,6 +100,35 @@
 
   const handleKey = (e: KeyboardEvent): void => {
     if (open && e.key === "Escape") onClose();
+  };
+
+  const handleChallenge = async (): Promise<void> => {
+    if (!domain || !gridId || duelLoading) return;
+    duelLoading = true;
+    duelError = null;
+    try {
+      const r = await api.post("/api/duels", undefined, { domain, gridId });
+      duelUrl = r.shareUrl;
+      // Best-effort: try the native share sheet first, then fall back to
+      // clipboard so the user always walks away with the link in hand.
+      const shared = await shareNative(r.shareUrl, m.duel_share_title());
+      if (!shared) {
+        const ok = await copyToClipboard(r.shareUrl);
+        duelCopied = ok;
+        if (ok) setTimeout(() => (duelCopied = false), 2400);
+      }
+    } catch (err) {
+      duelError = err instanceof ApiError ? err.message : m.error_network();
+    } finally {
+      duelLoading = false;
+    }
+  };
+
+  const copyDuelUrl = async (): Promise<void> => {
+    if (!duelUrl) return;
+    const ok = await copyToClipboard(duelUrl);
+    duelCopied = ok;
+    if (ok) setTimeout(() => (duelCopied = false), 2400);
   };
 
   const headlineTitle = $derived(won ? m.modal_endgame_won() : m.modal_endgame_lost());
@@ -207,6 +248,41 @@
           {/if}
         </button>
       </div>
+
+      <!-- Duel CTA. Only visible once we know the grid the player just
+           tackled — otherwise we can't pin the duel to that grid. -->
+      {#if domain && gridId}
+        <div class="kd-duel-cta mt-3">
+          {#if duelUrl === null}
+            <button
+              type="button"
+              class="btn btn-secondary w-full justify-center"
+              disabled={duelLoading}
+              onclick={handleChallenge}
+            >
+              <Swords size={16} aria-hidden="true" />
+              <span>{duelLoading ? m.duel_share_creating() : m.duel_share_action()}</span>
+            </button>
+          {:else}
+            <div class="border-border bg-bg-subtle flex flex-col gap-2 rounded-lg border p-3">
+              <p class="eyebrow text-fg-muted">{m.duel_share_ready()}</p>
+              <p class="text-fg break-all text-xs font-mono">{duelUrl}</p>
+              <button type="button" class="btn btn-secondary justify-center" onclick={copyDuelUrl}>
+                {#if duelCopied}
+                  <Check size={14} aria-hidden="true" />
+                  <span>{m.share_copied()}</span>
+                {:else}
+                  <Copy size={14} aria-hidden="true" />
+                  <span>{m.copy_result()}</span>
+                {/if}
+              </button>
+            </div>
+          {/if}
+          {#if duelError}
+            <p class="text-danger mt-2 text-xs" role="alert">{duelError}</p>
+          {/if}
+        </div>
+      {/if}
 
       {#if endGameView?.solutionsByCell?.length}
         <div class="border-border mt-5 border-t pt-4">

@@ -19,12 +19,14 @@
 
   interface Props {
     domain: string;
-    mode?: "daily" | "solo";
+    mode?: "daily" | "solo" | "duel";
     /** Solo mode only: regenerate this seed instead of picking a fresh one. */
     seed?: number | undefined;
+    /** Duel mode only: id of the pinned grid the duel reuses. */
+    duelGridId?: string | undefined;
   }
 
-  let { domain, mode = "daily", seed }: Props = $props();
+  let { domain, mode = "daily", seed, duelGridId }: Props = $props();
 
   // Solo only: when no seed was provided as a prop, see if the URL pinned one
   // (share link `/play?seed=42`). Lets a player resume a friend's grid by
@@ -64,10 +66,10 @@
   };
 
   const loadGrid = async (): Promise<void> => {
-    // Solo grids don't exist until the player asks for one — we let the click
-    // on a cell (or the page-level "new grid" button) drive `startGame`,
-    // which both generates the grid and starts the game in one round-trip.
-    if (mode === "solo") {
+    // Solo and duel grids don't exist on /today — we let the click on a cell
+    // (or the explicit "Play this grid" CTA on /duel/[id]) drive startGame,
+    // which both pins the grid and starts the game in one round-trip.
+    if (mode === "solo" || mode === "duel") {
       gridLoading = false;
       return;
     }
@@ -95,6 +97,7 @@
         domain,
         mode,
         ...(mode === "solo" && typeof effectiveSeed === "number" ? { seed: effectiveSeed } : {}),
+        ...(mode === "duel" && duelGridId ? { duelGridId } : {}),
       });
       store.startGame({
         gameId: data.game.id,
@@ -419,6 +422,8 @@
     mistakesAllowed={store.state.mistakesAllowed}
     answers={store.state.answers}
     {endGameView}
+    {domain}
+    gridId={store.state.gridId}
     onClose={() => (endGameOpen = false)}
     onSeeSolutions={() => {
       // already shown — keep closed action minimal
