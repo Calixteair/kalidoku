@@ -66,3 +66,7 @@ brave_screenshot_*.png
 google
 domains/paris-metro/tmp/
 domains/paris-metro/scripts/node_modules/
+
+# Python ingest scripts
+__pycache__/
+*.pyc
