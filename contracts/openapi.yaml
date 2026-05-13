@@ -271,24 +271,54 @@ components:
 
     LeaderboardEntry:
       type: object
-      required: [rank, profile, score, originalityScore]
+      description: |
+        Aggregate stats for one player over the requested period. On `daily`
+        each entry maps to one game (gamesCount = 1); on `weekly` / `all-time`
+        the entry aggregates every finished game the user logged.
+      required:
+        - rank
+        - profile
+        - gamesCount
+        - wins
+        - bestScore
+        - avgScore
+        - bestOriginality
+        - avgOriginality
+        - lastFinishedAt
       properties:
         rank: { type: integer, minimum: 1 }
         profile: { $ref: "#/components/schemas/PublicProfile" }
-        score: { type: integer }
-        originalityScore:
+        gamesCount: { type: integer, minimum: 1 }
+        wins: { type: integer, minimum: 0 }
+        bestScore: { type: integer }
+        avgScore: { type: integer }
+        bestOriginality:
           type: integer
           minimum: 0
           maximum: 100
+        avgOriginality:
+          type: integer
+          minimum: 0
+          maximum: 100
+        avgTimeSeconds:
+          type: integer
+          minimum: 0
+          nullable: true
           description: |
-            Originality score (0..=100). Tiebreaker when two players share
-            the same score.
-        finishedAt: { type: string, format: date-time }
+            Average resolution time on the player's *won* games, in seconds.
+            Null when the player has zero wins over the period.
+        lastFinishedAt: { type: string, format: date-time }
 
     LeaderboardPage:
       type: object
-      required: [items]
+      required: [items, period, sort]
       properties:
+        period:
+          type: string
+          enum: [daily, weekly, all-time]
+        sort:
+          type: string
+          enum: [score, originality, time, count, wins]
         items:
           type: array
           items: { $ref: "#/components/schemas/LeaderboardEntry" }
@@ -531,14 +561,61 @@ paths:
   /api/leaderboard/{domain}/today:
     get:
       tags: [leaderboard]
-      summary: Today's leaderboard for a domain
+      summary: Today's leaderboard for a domain (legacy — same as /?period=daily)
+      description: |
+        Back-compat alias kept until the front fully migrates to the unified
+        endpoint. Equivalent to GET /api/leaderboard/{domain}?period=daily&sort=score.
       security: []
+      deprecated: true
       parameters:
         - $ref: "#/components/parameters/DomainPath"
         - name: cursor
           in: query
           required: false
           schema: { type: string }
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/LeaderboardPage" }
+
+  /api/leaderboard/{domain}:
+    get:
+      tags: [leaderboard]
+      summary: Periodised + multi-sort leaderboard for a domain
+      description: |
+        One handler, three periods, five sort keys.
+        - `daily`: games tied to today's daily grid (one per device); each
+          entry aggregates to itself (gamesCount = 1).
+        - `weekly`: sliding 7 days, finished_at >= now() - 7d, aggregated per
+          user_id. Anonymous players are excluded.
+        - `all-time`: no time filter, aggregated per user_id, anonymous
+          excluded.
+      security: []
+      parameters:
+        - $ref: "#/components/parameters/DomainPath"
+        - name: period
+          in: query
+          required: false
+          schema:
+            type: string
+            enum: [daily, weekly, all-time]
+            default: daily
+        - name: sort
+          in: query
+          required: false
+          schema:
+            type: string
+            enum: [score, originality, time, count, wins]
+            default: score
+            description: |
+              - `score`: best score, tiebreak originality then recency
+              - `originality`: best originality, tiebreak score
+              - `time`: avg resolution time on wins (asc); players with zero
+                wins sink to the bottom
+              - `count`: number of finished games, tiebreak wins
+              - `wins`: number of won games, tiebreak best score
       responses:
         "200":
           description: OK
