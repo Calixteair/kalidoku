@@ -16,13 +16,11 @@ use sea_orm::{
 use serde::{Deserialize, Serialize};
 use uuid::Uuid;
 
-use crate::altcha;
 use crate::auth::AuthContext;
 use crate::entities::{games, grids};
 use crate::error::{ApiError, ApiResult};
 use crate::play_token::{self, PlayTokenPayload};
 use crate::quota::{self, GameMode};
-use crate::services::altcha as altcha_service;
 use crate::services::solo_generator;
 use crate::state::AppState;
 
@@ -111,27 +109,19 @@ pub async fn start_game(
     }
     let device_id = ctx.device_id.ok_or(ApiError::Unauthorised)?;
 
-    // Anti-bot: required only on duels for now. Anonymous daily play is allowed
-    // because the rate-limit + play-token HMAC + 1-game-per-device-per-grid uniqueness
-    // already cover the realistic abuse cases. The Altcha widget will be re-introduced
-    // on the front when we expose duel creation; until then it would just block legit
-    // anonymous players from starting their daily.
-    let altcha_required = matches!(mode, GameMode::Duel);
-    if altcha_required {
-        let solution = body
-            .altcha_solution
-            .as_deref()
-            .ok_or(ApiError::AltchaRequired)?;
-        let key = state.config.altcha_hmac_key.as_bytes();
-        let parsed = altcha::decode_solution(solution).map_err(|_| ApiError::AltchaRequired)?;
-        if !altcha::verify_solution(&parsed, key) {
-            return Err(ApiError::AltchaRequired);
-        }
-        // replay-protection (best-effort; failure to talk to Redis falls open with a warn).
-        if let Some(redis) = state.redis.as_ref() {
-            altcha_service::guard_replay(redis, &parsed.challenge).await?;
-        }
-    }
+    // Anti-bot: not required on any start_game flow right now. The existing
+    // protections are sufficient for the abuse vectors we actually see:
+    //   - rate-limit (tower_governor, 1 req/250ms per device, 60/min per IP)
+    //   - play_token HMAC bound to (game_id, device_id, started_at)
+    //   - UNIQUE (grid_id, device_id) so a device can only start one game
+    //     against a given grid
+    //   - duel share URLs are HMAC-signed, so a duel grid_id can't be
+    //     guessed/forged
+    // Altcha was previously gated on duel mode but we never wired the
+    // widget on the front — every legit duel attempt got blocked. Keep the
+    // infra in place (altcha::*, replay-guard Redis) so we can re-enable it
+    // per-mode if we ever see spam signals.
+    let _ = body.altcha_solution.as_deref();
 
     let db = state
         .db
