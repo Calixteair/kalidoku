@@ -212,7 +212,28 @@ pub async fn start_game(
         answers: Set(serde_json::json!([])),
         originality_score: Set(0),
     };
-    let _inserted = active.insert(db.as_ref()).await?;
+    // Race-tolerant insert: the SELECT above can miss a concurrent insert
+    // by the same device (e.g. the front double-fires the mount effect on
+    // a duel link). When the UNIQUE (grid_id, device_id) constraint kicks
+    // in we don't surface 500 — we re-read the winning row and resume on
+    // it. Same end-state as the pre-check branch, just resistant to the
+    // tiny window between SELECT and INSERT.
+    if let Err(db_err) = active.insert(db.as_ref()).await {
+        if is_unique_violation(&db_err) {
+            let g = games::Entity::find()
+                .filter(games::Column::GridId.eq(grid.id))
+                .filter(games::Column::DeviceId.eq(device_id))
+                .one(db.as_ref())
+                .await?
+                .ok_or_else(|| ApiError::Internal("race-fetch missed".into()))?;
+            if g.status == "active" {
+                return resume_existing(&state, &g, &grid)
+                    .map(|r| (axum::http::StatusCode::OK, Json(r)));
+            }
+            return Err(ApiError::Conflict("already played"));
+        }
+        return Err(db_err.into());
+    }
 
     // Mint the play_token.
     let payload = PlayTokenPayload::new(game_id, device_id, now);
@@ -575,6 +596,15 @@ struct StoredAnswer {
 
 fn parse_answers(raw: &serde_json::Value) -> Vec<StoredAnswer> {
     serde_json::from_value(raw.clone()).unwrap_or_default()
+}
+
+/// Detect a Postgres `unique_violation` on the games (grid_id, device_id)
+/// index. SeaORM stringifies the underlying sqlx error and we look for
+/// either the SQLSTATE 23505 marker or the index name we created in
+/// migration 0003. Either signal is enough to trigger the resume fallback.
+fn is_unique_violation(err: &sea_orm::DbErr) -> bool {
+    let msg = err.to_string();
+    msg.contains("23505") || msg.contains("uniq_games_grid_device")
 }
 
 /// Compute the originality score (0..=100) for the supplied solved answers.

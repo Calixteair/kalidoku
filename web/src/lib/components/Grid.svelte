@@ -42,6 +42,11 @@
   let starting = $state(false);
   let startError = $state<string | null>(null);
   let playError = $state<string | null>(null);
+  // Guard against the mount $effect re-running and triggering a second
+  // startGame while the first is still on the wire (Svelte runes track
+  // every store read inside loadGrid; an unguarded re-entry races the
+  // UNIQUE (grid_id, device_id) DB constraint and 500s).
+  let loadStarted = false;
 
   let selectedCell = $state<Cell | null>(null);
   let rulesOpen = $state(false);
@@ -124,6 +129,11 @@
   };
 
   const startGame = async (): Promise<void> => {
+    // Re-entry guard: covers the case where two callers fire startGame
+    // back-to-back (e.g. mount effect + retry click) before the first
+    // response lands. Without this they both POST /games and the second
+    // hits a UNIQUE constraint server-side.
+    if (starting) return;
     starting = true;
     startError = null;
     try {
@@ -269,6 +279,8 @@
 
   $effect(() => {
     if (typeof window === "undefined") return;
+    if (loadStarted) return;
+    loadStarted = true;
     void loadGrid();
   });
 </script>
