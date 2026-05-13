@@ -66,9 +66,24 @@
   };
 
   const loadGrid = async (): Promise<void> => {
-    // Duel grids materialise only when the player clicks 'Play this grid' on
-    // /duel — never auto-start, the consent step matters there.
+    // Duel: the consent step happened upstream on /duel (the friend clicked
+    // "Play this grid"). By the time Grid mounts with mode=duel + duelGridId,
+    // we should immediately start the game so cells render. Mirror solo's
+    // logic but pinned to the duel's grid_id rather than a fresh one: if the
+    // persisted session points at the same grid, resume; otherwise clear and
+    // start anew.
     if (mode === "duel") {
+      if (duelGridId && store.state && store.state.gridId !== duelGridId) {
+        store.clear();
+      }
+      const hasActiveDuel =
+        store.state !== null &&
+        !store.state.ended &&
+        store.grid !== null &&
+        store.state.gridId === duelGridId;
+      if (!hasActiveDuel) {
+        await startGame();
+      }
       gridLoading = false;
       return;
     }
