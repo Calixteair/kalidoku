@@ -202,6 +202,15 @@ components:
         ended:
           type: boolean
           description: True if this play ended the game (won, lost, or grid full).
+        fameScore:
+          type: integer
+          minimum: 0
+          maximum: 100
+          nullable: true
+          description: |
+            Snapshotted fame_score of the entity just resolved (when ok=true).
+            Lets the client surface a rarity tag on the cell in real time.
+            Null on wrong answers and on entities without fame data baked in.
 
     AutocompleteResult:
       type: object
