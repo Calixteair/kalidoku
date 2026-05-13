@@ -89,7 +89,8 @@
       "zone": {
         "num": 0.0
       }
-    }
+    },
+    "fame_score": 95
   },
   {
     "id": "antony",
@@ -112,7 +113,8 @@
       "zone": {
         "num": 0.0
       }
-    }
+    },
+    "fame_score": 85
   },
   {
     "id": "arcueil-cachan",
@@ -204,7 +206,8 @@
       "zone": {
         "num": 0.0
       }
-    }
+    },
+    "fame_score": 92
   },
   {
     "id": "aulnay-sous-bois",
@@ -773,7 +776,8 @@
       "zone": {
         "num": 0.0
       }
-    }
+    },
+    "fame_score": 75
   },
   {
     "id": "cergy-saint-christophe",
@@ -1932,7 +1936,8 @@
       "zone": {
         "num": 0.0
       }
-    }
+    },
+    "fame_score": 70
   },
   {
     "id": "issy-val-de-seine",
@@ -1955,7 +1960,8 @@
       "zone": {
         "num": 0.0
       }
-    }
+    },
+    "fame_score": 60
   },
   {
     "id": "ivry-sur-seine",
@@ -4508,7 +4514,8 @@
       "zone": {
         "num": 0.0
       }
-    }
+    },
+    "fame_score": 95
   },
   {
     "id": "saint-michel-sur-orge",

@@ -1,0 +1,24 @@
+{
+  "_doc": "Manual fame_score overrides for rer. Applied AFTER the percentile-rank pass in scripts/ingest/fame_score_rer.py, so re-running the ingest preserves these tweaks. Keys are entity ids, values are integers 0..=100.",
+  "_rationale": {
+    "auber": "Major RER A station (Opera area) — frwiki summary fell outside the topic-keyword filter so the auto-ingest left it null; manual pick ~92.",
+    "aeroport-charles-de-gaulle-1": "RER B terminus at CDG airport — universally known among Paris commuters and travellers.",
+    "antony": "RER B + Orlyval interchange. Commune label was rejected by the topic filter.",
+    "cergy-prefecture": "Major RER A terminus in the west. Fairly known.",
+    "issy": "Issy → Issy-les-Moulineaux article was rejected (too commune-flavoured). Station is on RER C, worth ~70.",
+    "issy-val-de-seine": "Same area as above.",
+    "luxembourg": "Already auto-scored very high (jardin du Luxembourg) — no override.",
+    "stade-de-france-saint-denis": "Massive Wikipedia traffic via 'Stade de France' — already scored but worth confirming on next re-ingest.",
+    "musee-d-orsay": "Already at fame=100 — no override.",
+    "saint-michel-notre-dame": "Major RER B+C interchange in the heart of Paris."
+  },
+  "overrides": {
+    "auber": 92,
+    "aeroport-charles-de-gaulle-1": 95,
+    "antony": 85,
+    "cergy-prefecture": 75,
+    "issy": 70,
+    "issy-val-de-seine": 60,
+    "saint-michel-notre-dame": 95
+  }
+}
