@@ -15,7 +15,7 @@ use std::collections::HashMap;
 
 use anyhow::Result;
 use kalidoku_server::{
-    build_router, cache, config, db,
+    bootstrap, build_router, cache, config, db,
     services::meili::MeiliClient,
     state::{AppState, DomainSummary},
     telemetry,
@@ -63,6 +63,16 @@ async fn main() -> Result<()> {
                 if cfg.run_migrations {
                     kalidoku_server::migrations::Migrator::up(&conn, None).await?;
                     info!("migrations applied");
+                }
+                // Sync the code's view of active domains into the DB. Idempotent;
+                // safe to re-run every boot. Without this, adding a new domain
+                // in code requires manual SQL on prod (the grids.domain FK
+                // rejects any INSERT for an unknown domain id).
+                let active_list: Vec<DomainSummary> = state.domains.values().cloned().collect();
+                if let Err(e) = bootstrap::upsert_active_domains(&conn, &active_list).await {
+                    tracing::warn!(error = %e, "domain upsert failed, continuing");
+                } else {
+                    info!(count = active_list.len(), "domains upserted");
                 }
                 state = state.with_db(conn);
             }
