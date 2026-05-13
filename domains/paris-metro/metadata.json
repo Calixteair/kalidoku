@@ -4,7 +4,7 @@
     "fr": "Métro de Paris",
     "en": "Paris Metro"
   },
-  "version": "0.3.0",
+  "version": "0.4.0",
   "default_locale": "fr",
   "license": "ODbL-1.0",
   "sources": [
@@ -19,7 +19,7 @@
     "row_predicate_count": 3,
     "col_predicate_count": 3
   },
-  "dataset_sha256": "ec06dda7823b8f16d24d7e3322a4655dcb534333a705dc049c279eec9fb6f37c",
+  "dataset_sha256": "940311a1c03b8ebba05cb669afa173f2543a0230de7359b84e88d7bdd8c65367",
   "entity_count": 310,
   "sources_versions": [
     {
@@ -36,6 +36,11 @@
       "id": "static-lines-fallback",
       "url": "see scripts/lib/static-lines.ts",
       "date": "2026-05-10"
+    },
+    {
+      "id": "wikipedia-pageviews-fame",
+      "url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/fr.wikipedia",
+      "date": "2026-05-13"
     }
   ]
 }
