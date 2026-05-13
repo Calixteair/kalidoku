@@ -77,6 +77,14 @@
     gridError = null;
     try {
       const g = await api.get("/api/grids/{domain}/today", { domain }, { locale: currentLocale() });
+      // Drop a persisted game pointing at a different grid_id — that's a
+      // session from yesterday (or another domain) whose answers would
+      // otherwise render on today's grid as if they were valid. Without this
+      // the player walks back in and sees yesterday's cells locked on
+      // today's puzzle, unable to play.
+      if (store.state && store.state.gridId !== g.id) {
+        store.clear();
+      }
       store.setGrid(g);
     } catch (err) {
       if (err instanceof ApiError && err.status === 404) {
