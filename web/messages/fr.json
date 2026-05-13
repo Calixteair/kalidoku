@@ -139,6 +139,7 @@
   "duel_create_subtitle": "Générez une grille aléatoire et partagez le lien à un ami : il jouera la même grille que vous.",
   "duel_create_button": "Créer une grille à partager",
   "duel_create_share_hint": "Le lien expire dans 30 jours.",
+  "duel_create_pick_domain": "Choisir l'univers",
   "modal_rules_title": "Comment jouer",
   "modal_rules_intro": "Trouvez l'entité qui satisfait à la fois la ligne et la colonne.",
   "modal_rules_step_1": "Touchez une case vide.",
