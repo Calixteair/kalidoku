@@ -1,0 +1,42 @@
+---
+import Base from "../../layouts/Base.astro";
+import * as m from "../../paraglide/messages.js";
+import { domainStaticPaths, findDomain } from "../../lib/domains";
+
+// Archive list is per-domain — past daily grids stay attached to the
+// domain they were generated against, so each domain has its own
+// archive view. The list itself is still empty in v1 (no backend
+// endpoint for older grids yet).
+export const getStaticPaths = domainStaticPaths;
+
+const { domain } = Astro.params;
+const entry = findDomain(domain!);
+if (!entry) {
+  return Astro.redirect("/");
+}
+---
+
+<Base title={`kalidoku — archives (${entry.nameFr})`}>
+  <section class="flex flex-col gap-6">
+    <header class="flex flex-col gap-1.5">
+      <p class="eyebrow text-accent">{m.nav_archives()}</p>
+      <h1 class="font-display text-fg text-3xl font-semibold leading-[1.1] sm:text-4xl">
+        {m.page_archives_title()}<span class="text-accent">.</span>
+      </h1>
+      <p class="text-fg-subtle text-sm">{m.page_archives_intro()}</p>
+    </header>
+
+    <div
+      class="surface flex flex-col items-center gap-3 rounded-xl px-6 py-12 text-center"
+      aria-live="polite"
+    >
+      <span
+        class="bg-accent/10 text-accent flex h-12 w-12 items-center justify-center rounded-full font-display text-lg"
+        aria-hidden="true"
+      >
+        ?
+      </span>
+      <p class="text-fg-subtle text-sm">{m.page_archives_empty()}</p>
+    </div>
+  </section>
+</Base>

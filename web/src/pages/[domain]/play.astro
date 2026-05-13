@@ -1,0 +1,21 @@
+---
+import Base from "../../layouts/Base.astro";
+import Grid from "../../lib/components/Grid.svelte";
+import { domainStaticPaths, findDomain } from "../../lib/domains";
+
+// Solo mode page per domain. Reads `?seed=…` to regenerate a shared grid
+// from a share link, otherwise Grid auto-starts a new solo game on mount.
+export const getStaticPaths = domainStaticPaths;
+
+const { domain } = Astro.params;
+const entry = findDomain(domain!);
+if (!entry) {
+  return Astro.redirect("/");
+}
+---
+
+<Base title={`kalidoku — solo (${entry.nameFr})`}>
+  <section class="flex flex-col gap-4">
+    <Grid client:load domain={entry.id} mode="solo" />
+  </section>
+</Base>

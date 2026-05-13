@@ -1,15 +1,72 @@
 ---
 import Base from "../layouts/Base.astro";
-import Grid from "../lib/components/Grid.svelte";
+import * as m from "../paraglide/messages.js";
+import { DOMAINS } from "../lib/domains";
 
-// Default domain for the daily grid. The domains list comes from /api/domains
-// once the picker is implemented; for now the home is hard-wired to paris-metro.
-// AltchaWidget is intentionally NOT mounted here — Altcha is only required when
-// the server returns 412 on a sensitive call (start_game from anonymous user, etc).
-// The widget should be lazy-mounted just before that retry, in a follow-up.
-const DEFAULT_DOMAIN = "paris-metro";
+// Hub. Lists every domain as a card so the user picks the universe they
+// want to play in. The previous home (paris-metro daily grid) now lives at
+// /paris-metro/. Legacy bookmarks for /play, /leaderboard, /archives
+// redirect to the paris-metro variant via the sibling redirect pages.
+const description = m.hub_subtitle();
 ---
 
-<Base>
-  <Grid client:load domain={DEFAULT_DOMAIN} />
+<Base title="kalidoku">
+  <section class="flex flex-col gap-8 py-2">
+    <header class="flex flex-col gap-3">
+      <p class="eyebrow text-accent">{m.hub_eyebrow()}</p>
+      <h1 class="font-display text-fg text-4xl font-semibold leading-[1.05] sm:text-5xl">
+        {m.hub_title()}<span class="text-accent">.</span>
+      </h1>
+      <p class="text-fg-subtle max-w-prose text-base">{description}</p>
+    </header>
+
+    <ul class="kd-hub grid gap-3 sm:grid-cols-2">
+      {
+        DOMAINS.map((d) => (
+          <li>
+            <a class="kd-hub__card" href={`/${d.id}/`}>
+              <span class="kd-hub__eyebrow eyebrow">{m.hub_card_eyebrow()}</span>
+              <span class="kd-hub__name font-display text-fg text-2xl font-semibold leading-tight">
+                {d.nameFr}
+              </span>
+              <span class="kd-hub__hint text-fg-subtle text-sm">{m.hub_card_cta()}</span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
 </Base>
+
+<style>
+  .kd-hub__card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+    padding: 1.1rem 1.2rem 1.25rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    background: var(--color-bg-card);
+    transition:
+      transform 140ms var(--ease-out),
+      border-color 140ms var(--ease-out),
+      box-shadow 200ms var(--ease-out);
+  }
+  .kd-hub__card:hover {
+    transform: translateY(-2px);
+    border-color: color-mix(in oklab, var(--color-accent) 45%, var(--color-border));
+    box-shadow:
+      0 1px 0 color-mix(in oklab, var(--color-accent) 40%, transparent) inset,
+      0 12px 24px -16px color-mix(in oklab, var(--color-accent) 50%, transparent);
+  }
+  .kd-hub__card:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+  .kd-hub__eyebrow {
+    color: var(--color-fg-muted);
+  }
+  .kd-hub__hint {
+    margin-top: 0.25rem;
+  }
+</style>

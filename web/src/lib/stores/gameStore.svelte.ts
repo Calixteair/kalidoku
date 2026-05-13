@@ -25,34 +25,74 @@ export interface PersistedGameState {
   finishedAt: string | null;
 }
 
-const STORAGE_KEY = "kalidoku.game.v1";
-
 const isBrowser = (): boolean => typeof window !== "undefined";
 
-const loadPersisted = (): PersistedGameState | null => {
-  if (!isBrowser()) return null;
+/**
+ * Per-domain localStorage key: `kalidoku.game.<domain>.v1`. Switching between
+ * /paris-metro and /rer preserves both running games — no clobber on
+ * navigation.
+ *
+ * The pre-multi-domain code used a single `kalidoku.game.v1` key; on first
+ * load we migrate it into whichever domain its `state.domain` field points
+ * at, then delete the legacy key. Deferred migration so users who never
+ * played paris-metro don't get their key inflated with an empty entry.
+ */
+const LEGACY_KEY = "kalidoku.game.v1";
+const storageKey = (domain: string): string => `kalidoku.game.${domain}.v1`;
+
+const migrateLegacy = (): void => {
+  if (!isBrowser()) return;
+  const raw = window.localStorage.getItem(LEGACY_KEY);
+  if (!raw) return;
   try {
-    const raw = window.localStorage.getItem(STORAGE_KEY);
+    const legacy = JSON.parse(raw) as PersistedGameState;
+    if (legacy && typeof legacy.domain === "string" && legacy.domain.length > 0) {
+      const target = storageKey(legacy.domain);
+      // Don't overwrite a fresh per-domain entry if one already exists.
+      if (!window.localStorage.getItem(target)) {
+        window.localStorage.setItem(target, raw);
+      }
+    }
+  } catch {
+    /* legacy payload corrupt — drop it */
+  }
+  window.localStorage.removeItem(LEGACY_KEY);
+};
+
+const loadPersisted = (domain: string): PersistedGameState | null => {
+  if (!isBrowser()) return null;
+  migrateLegacy();
+  try {
+    const raw = window.localStorage.getItem(storageKey(domain));
     if (!raw) return null;
-    return JSON.parse(raw) as PersistedGameState;
+    const parsed = JSON.parse(raw) as PersistedGameState;
+    // Defensive: drop any entry whose `domain` field disagrees with its key,
+    // e.g. if the user hand-edited storage or a future code shape diverged.
+    if (parsed.domain !== domain) return null;
+    return parsed;
   } catch {
     return null;
   }
 };
 
-const persist = (state: PersistedGameState | null): void => {
+const persist = (domain: string, state: PersistedGameState | null): void => {
   if (!isBrowser()) return;
+  const key = storageKey(domain);
   if (state === null) {
-    window.localStorage.removeItem(STORAGE_KEY);
+    window.localStorage.removeItem(key);
     return;
   }
-  window.localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  window.localStorage.setItem(key, JSON.stringify(state));
 };
 
 const cellKey = (cell: Cell): string => `${cell.row},${cell.col}`;
 
-export const createGameStore = () => {
-  const initial = loadPersisted();
+/**
+ * One store per (component × domain). Pass the active domain — Grid.svelte
+ * already receives it as a prop, so it's a one-line change at the call site.
+ */
+export const createGameStore = (domain: string) => {
+  const initial = loadPersisted(domain);
 
   let state = $state<PersistedGameState | null>(initial);
   let grid = $state<PublicGrid | null>(null);
@@ -90,7 +130,7 @@ export const createGameStore = () => {
       ended: false,
       finishedAt: null,
     };
-    persist(state);
+    persist(domain, state);
   };
 
   const setGrid = (g: PublicGrid | null): void => {
@@ -119,19 +159,19 @@ export const createGameStore = () => {
       next.finishedAt = new Date().toISOString();
     }
     state = next;
-    persist(state);
+    persist(domain, state);
   };
 
   const endGame = (): void => {
     if (!state) return;
     state = { ...state, ended: true, finishedAt: new Date().toISOString() };
-    persist(state);
+    persist(domain, state);
   };
 
   const clear = (): void => {
     state = null;
     grid = null;
-    persist(null);
+    persist(domain, null);
   };
 
   return {

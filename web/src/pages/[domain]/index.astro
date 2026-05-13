@@ -1,0 +1,21 @@
+---
+import Base from "../../layouts/Base.astro";
+import Grid from "../../lib/components/Grid.svelte";
+import { domainStaticPaths, findDomain } from "../../lib/domains";
+
+// One page per domain at `/<domain>/`. Astro's static-output mode resolves
+// these at build time; new entries in src/lib/domains.ts get baked in
+// automatically. A request for an unlisted domain hits a build-time 404
+// rather than a half-broken runtime page.
+export const getStaticPaths = domainStaticPaths;
+
+const { domain } = Astro.params;
+const entry = findDomain(domain!);
+if (!entry) {
+  return Astro.redirect("/");
+}
+---
+
+<Base>
+  <Grid client:load domain={entry.id} />
+</Base>
