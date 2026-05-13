@@ -1,5 +1,6 @@
 <script lang="ts">
   import type { components } from "../api/types.js";
+  import LineBadge from "./LineBadge.svelte";
 
   type Predicate = components["schemas"]["PredicateLabel"];
   type Orientation = "row" | "col";
@@ -12,9 +13,59 @@
     index: number;
     /** Marker letter ("L" rows, "C" columns) — already localised by the caller. */
     marker: string;
+    /** Active domain id — drives which line-badge palette to use. */
+    domain: string;
   }
 
-  let { predicate, orientation, index, marker }: Props = $props();
+  let { predicate, orientation, index, marker, domain }: Props = $props();
+
+  // Tokenise the predicate label so an "on_attr_in_set" line predicate
+  // ("Sur la ligne 7") inlines a coloured pastille instead of the plain
+  // digit. Other predicates pass through unchanged.
+  //
+  // The match works on the predicate family + a regex over the localised
+  // text so it survives FR/EN translation. We don't try to be clever about
+  // partial sentences — the labels in our packs follow a consistent
+  // "ligne X" / "line X" / "RER X" shape.
+  type Segment = { kind: "text"; value: string } | { kind: "badge"; code: string };
+
+  const network: "metro" | "rer" = $derived(domain === "rer" ? "rer" : "metro");
+
+  // Matches "ligne 7", "line 14", "RER A", case-insensitive, capturing the
+  // line code (digit+optional 'bis' for metro, single letter for RER).
+  const LINE_PATTERN = /\b(?:lignes?|lines?|RER)\s+([A-E]|\d{1,2}(?:\s?bis)?)\b/giu;
+
+  const tokenise = (label: string, family: string): Segment[] => {
+    if (family !== "on_attr_in_set") {
+      return [{ kind: "text", value: label }];
+    }
+    const out: Segment[] = [];
+    let cursor = 0;
+    LINE_PATTERN.lastIndex = 0;
+    let match: RegExpExecArray | null;
+    while ((match = LINE_PATTERN.exec(label)) !== null) {
+      const start = match.index;
+      const end = start + match[0].length;
+      // The prefix word ("ligne" / "RER") + space stays in the text; the
+      // code itself becomes a badge. Find the boundary inside the match.
+      const codeStart = match[0].search(/[A-E\d]/i);
+      if (codeStart < 0) continue;
+      const prefix = label.slice(cursor, start + codeStart);
+      const code = match[1].replace(/\s+/g, "").toLowerCase();
+      out.push({ kind: "text", value: prefix });
+      out.push({ kind: "badge", code });
+      cursor = end;
+    }
+    if (cursor === 0) {
+      return [{ kind: "text", value: label }];
+    }
+    if (cursor < label.length) {
+      out.push({ kind: "text", value: label.slice(cursor) });
+    }
+    return out;
+  };
+
+  const segments = $derived(tokenise(predicate.label, predicate.family));
 </script>
 
 <div
@@ -24,7 +75,15 @@
   title={predicate.help ?? predicate.label}
 >
   <span class="tag eyebrow" aria-hidden="true">{marker}{index}</span>
-  <span class="text-fg-subtle label" lang="fr">{predicate.label}</span>
+  <span class="text-fg-subtle label" lang="fr">
+    {#each segments as seg, i (i)}
+      {#if seg.kind === "text"}{seg.value}{:else}<LineBadge
+          code={seg.code}
+          {network}
+          size={15}
+        />{/if}
+    {/each}
+  </span>
 </div>
 
 <style>
