@@ -66,10 +66,21 @@
   };
 
   const loadGrid = async (): Promise<void> => {
-    // Solo and duel grids don't exist on /today — we let the click on a cell
-    // (or the explicit "Play this grid" CTA on /duel/[id]) drive startGame,
-    // which both pins the grid and starts the game in one round-trip.
-    if (mode === "solo" || mode === "duel") {
+    // Duel grids materialise only when the player clicks 'Play this grid' on
+    // /duel — never auto-start, the consent step matters there.
+    if (mode === "duel") {
+      gridLoading = false;
+      return;
+    }
+    // Solo: a fresh /play visit must already see a grid. We auto-start a game
+    // unless there is a persisted, unfinished solo session whose grid is
+    // already in the store (e.g. user refreshed mid-game). The startGame call
+    // both pins the grid and seeds the store.
+    if (mode === "solo") {
+      const hasActiveSolo = store.state !== null && !store.state.ended && store.grid !== null;
+      if (!hasActiveSolo) {
+        await startGame();
+      }
       gridLoading = false;
       return;
     }
@@ -77,6 +88,14 @@
     gridError = null;
     try {
       const g = await api.get("/api/grids/{domain}/today", { domain }, { locale: currentLocale() });
+      // Drop a persisted game pointing at a different grid_id — that's a
+      // session from yesterday (or another domain) whose answers would
+      // otherwise render on today's grid as if they were valid. Without this
+      // the player walks back in and sees yesterday's cells locked on
+      // today's puzzle, unable to play.
+      if (store.state && store.state.gridId !== g.id) {
+        store.clear();
+      }
       store.setGrid(g);
     } catch (err) {
       if (err instanceof ApiError && err.status === 404) {

@@ -60,13 +60,20 @@
         { q, limit: 8 },
         { signal: abortCtrl.signal },
       );
+      // Replace atomically so the list never blinks empty between two
+      // keystrokes — we keep showing the previous suggestions until the new
+      // ones land, with a subtle loading overlay handling the in-flight
+      // visual state.
       suggestions = data;
       activeIndex = data.length > 0 ? 0 : -1;
     } catch (err) {
+      if (err instanceof DOMException && err.name === "AbortError") {
+        // Superseded by a newer keystroke — leave existing state alone so the
+        // list doesn't flash empty while the next request is on the wire.
+        return;
+      }
       if (err instanceof ApiError && err.code !== "network_error") {
         errorMsg = m.modal_autocomplete_error();
-      } else if (err instanceof DOMException && err.name === "AbortError") {
-        return;
       } else {
         errorMsg = m.error_network();
       }
@@ -142,6 +149,10 @@
   const empty = $derived(
     !loading && !errorMsg && query.trim().length >= MIN_QUERY_LEN && suggestions.length === 0,
   );
+  // True while we have a list to show. Lets the markup keep rendering the
+  // previous suggestions during an in-flight fetch instead of replacing them
+  // with a spinner — the latter caused the inter-keystroke flicker.
+  const hasResults = $derived(suggestions.length > 0);
 </script>
 
 {#if open}
@@ -198,24 +209,12 @@
         role="listbox"
         aria-label={m.modal_autocomplete_title()}
         class="kd-list mt-3"
+        class:kd-list--loading={loading}
       >
-        {#if loading}
-          <div class="kd-state">
-            <span class="kd-state__spinner" aria-hidden="true"></span>
-            <span class="text-fg-muted text-sm">{m.loading_stations()}</span>
-          </div>
-        {:else if errorMsg}
-          <p class="text-danger px-1 py-2 text-sm" role="alert">{errorMsg}</p>
-        {:else if tooShort}
-          <p class="text-fg-muted px-1 py-2 text-sm">
-            {m.modal_autocomplete_min_chars({ n: MIN_QUERY_LEN })}
-          </p>
-        {:else if empty}
-          <div class="kd-empty">
-            <p class="text-fg-subtle text-sm font-medium">{m.modal_autocomplete_no_results()}</p>
-            <p class="text-fg-muted mt-1 text-xs">{m.modal_autocomplete_no_results_hint()}</p>
-          </div>
-        {:else}
+        {#if hasResults}
+          <!-- Keep rendering the previous suggestions while a new fetch is in
+               flight. The kd-list--loading class layers a subtle bar on top
+               instead of swapping in a spinner that would jank the layout. -->
           {#each suggestions as s, i (s.id)}
             <button
               type="button"
@@ -241,6 +240,22 @@
               {/if}
             </button>
           {/each}
+        {:else if loading}
+          <div class="kd-state">
+            <span class="kd-state__spinner" aria-hidden="true"></span>
+            <span class="text-fg-muted text-sm">{m.loading_stations()}</span>
+          </div>
+        {:else if errorMsg}
+          <p class="text-danger px-1 py-2 text-sm" role="alert">{errorMsg}</p>
+        {:else if tooShort}
+          <p class="text-fg-muted px-1 py-2 text-sm">
+            {m.modal_autocomplete_min_chars({ n: MIN_QUERY_LEN })}
+          </p>
+        {:else if empty}
+          <div class="kd-empty">
+            <p class="text-fg-subtle text-sm font-medium">{m.modal_autocomplete_no_results()}</p>
+            <p class="text-fg-muted mt-1 text-xs">{m.modal_autocomplete_no_results_hint()}</p>
+          </div>
         {/if}
       </div>
 
@@ -342,11 +357,49 @@
   .kd-list {
     overflow-y: auto;
     max-height: 18rem;
+    /* Reserve enough vertical space for ~3 options so the dialog doesn't
+       jump in height between "empty hint", "loading" and "results" states.
+       Above 3 options the list grows naturally up to max-height. */
+    min-height: 9rem;
     display: flex;
     flex-direction: column;
     gap: 2px;
     margin: 0 -0.25rem;
     padding: 0 0.25rem;
+    position: relative;
+  }
+  /* Top progress bar that animates while a fetch is in flight. Sits on top
+     of the (stale) suggestion list so the previous results stay visible —
+     swapping them out for a spinner each keystroke was the source of the
+     flicker we fixed here. */
+  .kd-list--loading::before {
+    content: "";
+    position: sticky;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    margin-bottom: -2px;
+    background: linear-gradient(90deg, transparent 0%, var(--color-accent) 50%, transparent 100%);
+    background-size: 200% 100%;
+    animation: kd-list-loading-shimmer 900ms linear infinite;
+    z-index: 1;
+    pointer-events: none;
+  }
+  @keyframes kd-list-loading-shimmer {
+    from {
+      background-position: 200% 0;
+    }
+    to {
+      background-position: -200% 0;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .kd-list--loading::before {
+      animation: none;
+      background: var(--color-accent);
+      opacity: 0.6;
+    }
   }
   .kd-state {
     display: flex;
