@@ -7,6 +7,7 @@
   import Swords from "lucide-svelte/icons/swords";
   import * as m from "../../paraglide/messages.js";
   import { api, ApiError } from "../api/client.js";
+  import { DOMAINS, findDomain } from "../domains.js";
   import { copyToClipboard, shareNative } from "../share.js";
   import Grid from "./Grid.svelte";
 
@@ -32,6 +33,11 @@
   type Screen = "landing" | "view" | "playing";
 
   interface Props {
+    /**
+     * Default domain when the user lands on /duel without a query string.
+     * The picker on the landing screen lets them override it before
+     * creating a share link.
+     */
     domain: string;
   }
 
@@ -43,6 +49,21 @@
   let players = $state<PlayerSummary[]>([]);
   let loading = $state(true);
   let error = $state<string | null>(null);
+
+  // Domain to use when *creating* a duel from /duel without a query string.
+  // Initialised from the page prop (a one-shot snapshot, intentional — the
+  // page is a single mount and the picker below mutates this state from
+  // there). eslint-disable because the Svelte rule can't see that the
+  // parent never re-renders the prop here.
+  // eslint-disable-next-line svelte/valid-compile
+  let createDomain = $state<string>(domain);
+
+  // Domain the *resolved* duel actually belongs to. The view + playing
+  // screens use this — never the page prop — so a player who lands on a
+  // RER duel link from a paris-metro page still plays the right grid.
+  // Same one-shot capture from the prop; replaced by fetchDuel.
+  // eslint-disable-next-line svelte/valid-compile
+  let viewDomain = $state<string>(domain);
 
   // Share-link creation state for the landing screen.
   let creating = $state(false);
@@ -64,6 +85,12 @@
       gridId = r.gridId;
       expiresAt = r.expiresAt;
       players = r.players;
+      // Use the duel's own domain — the page prop is just a default.
+      // Without this a RER duel shared with a friend on /paris-metro/ would
+      // mount Grid in paris-metro mode and clobber its localStorage key.
+      if (r.domain && findDomain(r.domain)) {
+        viewDomain = r.domain;
+      }
       screen = "view";
     } catch (err) {
       if (err instanceof ApiError) {
@@ -100,7 +127,7 @@
     createdShareUrl = null;
     createdCopied = false;
     try {
-      const r = await api.post("/api/duels", undefined, { domain });
+      const r = await api.post("/api/duels", undefined, { domain: createDomain });
       createdShareUrl = r.shareUrl;
       const shared = await shareNative(r.shareUrl, m.duel_share_title());
       if (!shared) {
@@ -158,6 +185,29 @@
     {/if}
 
     {#if createdShareUrl === null}
+      <!-- Domain picker: lets the player pick which universe the duel is in
+           before they generate the share link. Default = the page prop
+           (current /duel?domain context). Hidden when only one domain is
+           configured — solo selection adds noise without value. -->
+      {#if DOMAINS.length > 1}
+        <fieldset class="kd-domain-picker" aria-label={m.duel_create_pick_domain()}>
+          <legend class="eyebrow text-fg-muted">{m.duel_create_pick_domain()}</legend>
+          <div class="flex flex-wrap gap-2 pt-1.5">
+            {#each DOMAINS as d (d.id)}
+              {@const active = createDomain === d.id}
+              <button
+                type="button"
+                class="kd-domain-pick"
+                class:active
+                aria-pressed={active}
+                onclick={() => (createDomain = d.id)}
+              >
+                {d.nameFr}
+              </button>
+            {/each}
+          </div>
+        </fieldset>
+      {/if}
       <button
         type="button"
         class="kd-cta inline-flex items-center justify-center gap-2 self-start rounded-lg px-4 py-2.5 text-sm font-semibold"
@@ -259,7 +309,7 @@
       <span>{m.duel_play_button()}</span>
     </button>
   {:else if screen === "playing" && gridId}
-    <Grid {domain} mode="duel" duelGridId={gridId} />
+    <Grid domain={viewDomain} mode="duel" duelGridId={gridId} />
   {/if}
 </section>
 
@@ -319,6 +369,38 @@
     background: color-mix(in oklab, var(--color-fg) 6%, transparent);
   }
   .kd-secondary:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+  /* Domain picker on the create-duel landing screen — same look as the
+     header pill row, scoped here so the component stays self-contained. */
+  .kd-domain-picker {
+    border: 0;
+    padding: 0;
+    margin: 0;
+  }
+  .kd-domain-pick {
+    padding: 0.4rem 0.85rem;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--color-fg-muted);
+    background: var(--color-bg-subtle);
+    border: 1px solid var(--color-border);
+    border-radius: 999px;
+    transition:
+      color 140ms var(--ease-out),
+      background-color 140ms var(--ease-out),
+      border-color 140ms var(--ease-out);
+  }
+  .kd-domain-pick:hover {
+    color: var(--color-fg);
+  }
+  .kd-domain-pick.active {
+    color: var(--color-accent-fg);
+    background: var(--color-accent);
+    border-color: var(--color-accent);
+  }
+  .kd-domain-pick:focus-visible {
     outline: 2px solid var(--color-accent);
     outline-offset: 2px;
   }

@@ -1,0 +1,9 @@
+{
+  "_doc": "Manual fame_score overrides for paris-metro. Applied AFTER the percentile-rank pass in scripts/ingest/fame_score_paris_metro.py, so re-running the ingest preserves these tweaks. Keys are entity ids, values are integers 0..=100.",
+  "_rationale": {
+    "saint-sulpice": "Wikipedia article 'Saint-Sulpice (métro de Paris)' is eclipsed in the topic-keyword filter by the church article. The station itself is a M4 hub, fame should be ~80 not 1."
+  },
+  "overrides": {
+    "saint-sulpice": 80
+  }
+}

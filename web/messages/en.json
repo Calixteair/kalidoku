@@ -139,6 +139,7 @@
   "duel_create_subtitle": "Generate a random grid and share the link with a friend — they'll play the same grid as you.",
   "duel_create_button": "Create a grid to share",
   "duel_create_share_hint": "The link expires in 30 days.",
+  "duel_create_pick_domain": "Pick a universe",
   "modal_rules_title": "How to play",
   "modal_rules_intro": "Find the entity that satisfies both the row and column.",
   "modal_rules_step_1": "Tap an empty cell.",

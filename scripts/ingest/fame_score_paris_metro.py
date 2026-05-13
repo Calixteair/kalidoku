@@ -424,8 +424,31 @@ def main() -> int:
         time.sleep(0.15)
 
     fame_by_id = percentile_rank(pv_by_id)
+
+    # Apply manual overrides last so a re-ingest doesn't undo curator
+    # decisions. Used to patch outliers where Wikipedia returns a misleading
+    # match (Saint-Sulpice → église) or where the topic-filter is too
+    # conservative.
+    overrides_path = domain_root / "fame_overrides.json"
+    overrides: dict[str, int] = {}
+    if overrides_path.is_file():
+        try:
+            data = json.loads(overrides_path.read_text())
+            raw = data.get("overrides", {}) if isinstance(data, dict) else {}
+            for k, v in raw.items():
+                if isinstance(v, int) and 0 <= v <= 100:
+                    overrides[k] = v
+        except (json.JSONDecodeError, OSError) as e:
+            log(f"  WARN: ignoring malformed fame_overrides.json: {e}")
+    if overrides:
+        log(f"  applying {len(overrides)} manual override(s)")
+    for entity_id, score in overrides.items():
+        fame_by_id[entity_id] = score
+
     for r in audit:
         r["fame_score"] = fame_by_id.get(r["id"])
+        if r["id"] in overrides:
+            r["override"] = True
 
     matched_count = sum(1 for r in audit if r["match"] is not None)
     log(f"coverage: {matched_count}/{len(entities)} entities scored")
