@@ -1,0 +1,5438 @@
+[
+  {
+    "id": "ablon",
+    "name": "Ablon",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "C"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.7258511,
+          "lon": 2.41996055
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    }
+  },
+  {
+    "id": "acheres-grand-cormier",
+    "name": "Achères Grand Cormier",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "A"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.955261199999995,
+          "lon": 2.09261825
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    }
+  },
+  {
+    "id": "acheres-ville",
+    "name": "Achères - Ville",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "A"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.97066745,
+          "lon": 2.0777376
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    }
+  },
+  {
+    "id": "aeroport-charles-de-gaulle-1",
+    "name": "Aéroport Charles de Gaulle 1",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "B"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 49.00975175,
+          "lon": 2.561158
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    }
+  },
+  {
+    "id": "antony",
+    "name": "Antony",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "B"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.754415800000004,
+          "lon": 2.30077335
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    }
+  },
+  {
+    "id": "arcueil-cachan",
+    "name": "Arcueil - Cachan",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "B"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.798569650000005,
+          "lon": 2.32808305
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    }
+  },
+  {
+    "id": "arpajon",
+    "name": "Arpajon",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "C"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.5860024,
+          "lon": 2.2411523
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    }
+  },
+  {
+    "id": "athis-mons",
+    "name": "Athis-Mons",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "C"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.7126184,
+          "lon": 2.403614
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    }
+  },
+  {
+    "id": "auber",
+    "name": "Auber",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "A"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.8722271,
+          "lon": 2.32979315
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "zone": {
+        "num": 0.0
+      }
+    }
+  },
+  {
+    "id": "aulnay-sous-bois",
+    "name": "Aulnay-sous-Bois",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "B"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.93223626666667,
+          "lon": 2.495866733333333
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    }
+  },
+  {
+    "id": "avenue-du-president-kennedy",
+    "name": "Avenue du Président Kennedy",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "C"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.853245349999995,
+          "lon": 2.28014375
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "zone": {
+        "num": 0.0
+      }
+    }
+  },
+  {
+    "id": "avenue-foch",
+    "name": "Avenue Foch",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "C"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.8697826,
+          "lon": 2.27473285
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "zone": {
+        "num": 0.0
+      }
+    }
+  },
+  {
+    "id": "avenue-henri-martin",
+    "name": "Avenue Henri Martin",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "C"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.865316699999994,
+          "lon": 2.27221485
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "zone": {
+        "num": 0.0
+      }
+    }
+  },
+  {
+    "id": "bagneux",
+    "name": "Bagneux",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "B"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.7934585,
+          "lon": 2.32268545
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 55
+  },
+  {
+    "id": "ballancourt",
+    "name": "Ballancourt",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "D"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.5321644,
+          "lon": 2.3711032
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 7
+  },
+  {
+    "id": "bibliotheque-francois-mitterrand",
+    "name": "Bibliothèque François Mitterrand",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "C"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.82887695,
+          "lon": 2.3777726
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "zone": {
+        "num": 0.0
+      }
+    }
+  },
+  {
+    "id": "boigneville",
+    "name": "Boigneville",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "D"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.3420823,
+          "lon": 2.37898315
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 4
+  },
+  {
+    "id": "boissise-le-roi",
+    "name": "Boissise-le-Roi",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "D"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.52937405,
+          "lon": 2.57295805
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 3
+  },
+  {
+    "id": "bondy",
+    "name": "Bondy",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "E"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.894008549999995,
+          "lon": 2.47938765
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 58
+  },
+  {
+    "id": "boulainvilliers",
+    "name": "Boulainvilliers",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "C"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.8565634,
+          "lon": 2.2751605
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 76
+  },
+  {
+    "id": "bouray",
+    "name": "Bouray",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "C"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.533215049999995,
+          "lon": 2.29038025
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 19
+  },
+  {
+    "id": "bourg-la-reine",
+    "name": "Bourg-la-Reine",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "B"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.780187225,
+          "lon": 2.312010675
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 51
+  },
+  {
+    "id": "boussy-saint-antoine",
+    "name": "Boussy Saint-Antoine",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "D"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.68084335,
+          "lon": 2.53316635
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    }
+  },
+  {
+    "id": "boutigny",
+    "name": "Boutigny",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "D"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.43487945,
+          "lon": 2.3761951999999997
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 0
+  },
+  {
+    "id": "bretigny",
+    "name": "Brétigny",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "C"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.606767225,
+          "lon": 2.302064675
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 81
+  },
+  {
+    "id": "breuillet-bruyeres-le-chatel",
+    "name": "Breuillet - Bruyères-le-Châtel",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "C"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.577411600000005,
+          "lon": 2.1918824
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 9
+  },
+  {
+    "id": "breuillet-village",
+    "name": "Breuillet - Village",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "C"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.5645033,
+          "lon": 2.1707676
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 11
+  },
+  {
+    "id": "brunoy",
+    "name": "Brunoy",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "D"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.699211250000005,
+          "lon": 2.5065716
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 28
+  },
+  {
+    "id": "bry-sur-marne",
+    "name": "Bry-sur-Marne",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "A"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.845183500000005,
+          "lon": 2.5256087999999997
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 43
+  },
+  {
+    "id": "buno-gironville",
+    "name": "Buno - Gironville",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "D"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.3707407,
+          "lon": 2.3870702
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 2
+  },
+  {
+    "id": "bures-sur-yvette",
+    "name": "Bures-sur-Yvette",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "B"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.696142449999996,
+          "lon": 2.16461065
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 21
+  },
+  {
+    "id": "bussy-saint-georges",
+    "name": "Bussy-Saint-Georges",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "A"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.836651149999994,
+          "lon": 2.7098936499999997
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 56
+  },
+  {
+    "id": "cergy-prefecture",
+    "name": "Cergy Préfecture",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "A"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 49.036425449999996,
+          "lon": 2.07954285
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    }
+  },
+  {
+    "id": "cergy-saint-christophe",
+    "name": "Cergy - Saint-Christophe",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "A"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 49.04960685,
+          "lon": 2.0346672999999997
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 81
+  },
+  {
+    "id": "cernay",
+    "name": "Cernay",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "C"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.98516825,
+          "lon": 2.25701275
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    }
+  },
+  {
+    "id": "cesson",
+    "name": "Cesson",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "D"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.56548705,
+          "lon": 2.5943254
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 20
+  },
+  {
+    "id": "chamarande",
+    "name": "Chamarande",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "C"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.51433165,
+          "lon": 2.2156396999999997
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 17
+  },
+  {
+    "id": "champ-de-mars-tour-eiffel",
+    "name": "Champ de Mars - Tour Eiffel",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "C"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.856472999999994,
+          "lon": 2.2896661
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "zone": {
+        "num": 0.0
+      }
+    }
+  },
+  {
+    "id": "chantilly-gouvieux",
+    "name": "Chantilly – Gouvieux",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "D"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 49.1870713,
+          "lon": 2.4594579999999997
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    }
+  },
+  {
+    "id": "charles-de-gaulle-etoile-rer",
+    "name": "Charles de Gaulle — Étoile (RER)",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "A"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.87427245,
+          "lon": 2.2948715
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "zone": {
+        "num": 0.0
+      }
+    }
+  },
+  {
+    "id": "chatelet-les-halles",
+    "name": "Châtelet - Les Halles",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "A",
+          "B",
+          "D"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.861495983333334,
+          "lon": 2.347111133333333
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 97
+  },
+  {
+    "id": "chatou-croissy",
+    "name": "Chatou - Croissy",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "A"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.88519905,
+          "lon": 2.15627435
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 46
+  },
+  {
+    "id": "chaville-velizy",
+    "name": "Chaville-Vélizy",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "C"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.799555749999996,
+          "lon": 2.1841012500000003
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    }
+  },
+  {
+    "id": "chemin-d-antony",
+    "name": "Chemin d'Antony",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "C"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.747943250000006,
+          "lon": 2.31274075
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 22
+  },
+  {
+    "id": "choisy-le-roi",
+    "name": "Choisy-le-Roi",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "C"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.764168375,
+          "lon": 2.411256125
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 66
+  },
+  {
+    "id": "cite-universitaire",
+    "name": "Cité Universitaire",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "B"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.8216566,
+          "lon": 2.3385724999999997
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 70
+  },
+  {
+    "id": "combs-la-ville-quincy",
+    "name": "Combs-la-Ville - Quincy",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "D"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.66778965,
+          "lon": 2.54758295
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 43
+  },
+  {
+    "id": "conflans-fin-d-oise",
+    "name": "Conflans-Fin-d'Oise",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "A"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.990456449999996,
+          "lon": 2.0740220000000003
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 79
+  },
+  {
+    "id": "corbeil-essonnes",
+    "name": "Corbeil-Essonnes",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "D"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.61314084999999,
+          "lon": 2.4724201
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 86
+  },
+  {
+    "id": "courcelle-sur-yvette",
+    "name": "Courcelle-sur-Yvette",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "B"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.70139355,
+          "lon": 2.09754305
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 36
+  },
+  {
+    "id": "creteil-pompadour",
+    "name": "Créteil Pompadour",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "D"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.77160395,
+          "lon": 2.4354362
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    }
+  },
+  {
+    "id": "denfert-rochereau",
+    "name": "Denfert-Rochereau",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "B"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.83333725,
+          "lon": 2.3330997
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 85
+  },
+  {
+    "id": "dourdan",
+    "name": "Dourdan",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "C"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.533604999999994,
+          "lon": 2.0096158
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 44
+  },
+  {
+    "id": "dourdan-la-foret",
+    "name": "Dourdan - La Forêt",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "C"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.5353954,
+          "lon": 1.9957233
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 47
+  },
+  {
+    "id": "drancy",
+    "name": "Drancy",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "B"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.93275955,
+          "lon": 2.4547389500000003
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 48
+  },
+  {
+    "id": "egly",
+    "name": "Égly",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "C"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.5825162,
+          "lon": 2.22258535
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    }
+  },
+  {
+    "id": "emerainville-pontault-combault",
+    "name": "Émerainville Pontault-Combault",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "E"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.80583645,
+          "lon": 2.6192446
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    }
+  },
+  {
+    "id": "epinay-sur-orge",
+    "name": "Épinay-sur-Orge",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "C"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.66932095,
+          "lon": 2.3318318500000004
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    }
+  },
+  {
+    "id": "epinay-sur-seine",
+    "name": "Épinay-sur-Seine",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "C"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.953743700000004,
+          "lon": 2.30233475
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    }
+  },
+  {
+    "id": "ermont-eaubonne",
+    "name": "Ermont - Eaubonne",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "C"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.9805091,
+          "lon": 2.2723723
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    }
+  },
+  {
+    "id": "essonnes-robinson",
+    "name": "Essonnes Robinson",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "D"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.6056216,
+          "lon": 2.46262515
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    }
+  },
+  {
+    "id": "etampes",
+    "name": "Étampes",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "C"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.436977299999995,
+          "lon": 2.15947935
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    }
+  },
+  {
+    "id": "etrechy",
+    "name": "Étréchy",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "C"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.493664800000005,
+          "lon": 2.1945828499999998
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    }
+  },
+  {
+    "id": "evry-courcouronnes-centre",
+    "name": "Évry Courcouronnes-Centre",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "D"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.625907850000004,
+          "lon": 2.4299280999999997
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    }
+  },
+  {
+    "id": "evry-val-de-seine",
+    "name": "Évry Val de Seine",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "D"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.6345059,
+          "lon": 2.45223525
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    }
+  },
+  {
+    "id": "fontaine-michalon",
+    "name": "Fontaine-Michalon",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "B"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.74310275,
+          "lon": 2.2958982
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    }
+  },
+  {
+    "id": "fontenay-aux-roses",
+    "name": "Fontenay-aux-Roses",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "B"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.7873985,
+          "lon": 2.2929925
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 25
+  },
+  {
+    "id": "fontenay-sous-bois",
+    "name": "Fontenay-sous-Bois",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "A"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.8436934,
+          "lon": 2.4637351499999998
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 37
+  },
+  {
+    "id": "franconville-le-plessis-bouchard",
+    "name": "Franconville – Le Plessis-Bouchard",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "C"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.993395750000005,
+          "lon": 2.2351256
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    }
+  },
+  {
+    "id": "gagny",
+    "name": "Gagny",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "E"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.883766800000004,
+          "lon": 2.5254399000000003
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 54
+  },
+  {
+    "id": "gare-de-lyon",
+    "name": "Gare de Lyon",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "A",
+          "D"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.84349256666667,
+          "lon": 2.3742778666666666
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 99
+  },
+  {
+    "id": "garges-sarcelles",
+    "name": "Garges - Sarcelles",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "D"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.97651205,
+          "lon": 2.39011105
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 83
+  },
+  {
+    "id": "gennevilliers",
+    "name": "Gennevilliers",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "C"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.932888899999995,
+          "lon": 2.3079555999999997
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 40
+  },
+  {
+    "id": "gentilly",
+    "name": "Gentilly",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "B"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.815180350000006,
+          "lon": 2.34075845
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 31
+  },
+  {
+    "id": "gif-sur-yvette",
+    "name": "Gif-sur-Yvette",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "B"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.6981854,
+          "lon": 2.1365512
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 16
+  },
+  {
+    "id": "goussainville",
+    "name": "Goussainville",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "D"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 49.02345805,
+          "lon": 2.46274425
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 41
+  },
+  {
+    "id": "grand-bourg",
+    "name": "Grand Bourg",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "D"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.6480665,
+          "lon": 2.43595425
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 14
+  },
+  {
+    "id": "gretz-armainvilliers",
+    "name": "Gretz-Armainvilliers",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "E"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.74629255,
+          "lon": 2.7273792500000003
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 35
+  },
+  {
+    "id": "grigny-centre",
+    "name": "Grigny-Centre",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "D"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.6542429,
+          "lon": 2.39638095
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 52
+  },
+  {
+    "id": "haussmann-saint-lazare",
+    "name": "Haussmann - Saint-Lazare",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "E"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.8750157,
+          "lon": 2.3286964
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 91
+  },
+  {
+    "id": "houilles-carrieres-sur-seine",
+    "name": "Houilles Carrières-sur-Seine",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "A"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.920226799999995,
+          "lon": 2.185352
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    }
+  },
+  {
+    "id": "issy",
+    "name": "Issy",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "C"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.819340100000005,
+          "lon": 2.25781515
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "zone": {
+        "num": 0.0
+      }
+    }
+  },
+  {
+    "id": "issy-val-de-seine",
+    "name": "Issy Val de Seine",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "C"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.829860499999995,
+          "lon": 2.26349605
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "zone": {
+        "num": 0.0
+      }
+    }
+  },
+  {
+    "id": "ivry-sur-seine",
+    "name": "Ivry-sur-Seine",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "C"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.8144741,
+          "lon": 2.3912404499999997
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    }
+  },
+  {
+    "id": "javel",
+    "name": "Javel",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "C"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.8468388,
+          "lon": 2.2776023
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 69
+  },
+  {
+    "id": "joinville-le-pont",
+    "name": "Joinville-le-Pont",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "A"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.820870049999996,
+          "lon": 2.4637851
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 50
+  },
+  {
+    "id": "juvisy-sur-orge",
+    "name": "Juvisy-sur-Orge",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "C",
+          "D"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.689638375,
+          "lon": 2.3832783749999997
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 93
+  },
+  {
+    "id": "la-borne-blanche",
+    "name": "La Borne Blanche",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "D"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 49.126813150000004,
+          "lon": 2.50607585
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 42
+  },
+  {
+    "id": "la-courneuve-aubervilliers",
+    "name": "La Courneuve - Aubervilliers",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "B"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.924379,
+          "lon": 2.3862190500000002
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 72
+  },
+  {
+    "id": "la-croix-de-berny",
+    "name": "La Croix de Berny",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "B"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.7615001,
+          "lon": 2.3041543
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 87
+  },
+  {
+    "id": "la-defense-grande-arche",
+    "name": "La Défense - Grande Arche",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "A",
+          "E"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.892192,
+          "lon": 2.238860025
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 94
+  },
+  {
+    "id": "la-ferte-alais",
+    "name": "La Ferté-Alais",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "D"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.4847658,
+          "lon": 2.3517665
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 15
+  },
+  {
+    "id": "la-hacquiniere",
+    "name": "La Hacquinière",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "B"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.695300700000004,
+          "lon": 2.15149335
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 23
+  },
+  {
+    "id": "la-norville-saint-germain-les-arpajon",
+    "name": "La Norville - Saint-Germain-lès-Arpajon",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "C"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.5914818,
+          "lon": 2.26698
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 13
+  },
+  {
+    "id": "la-plaine-stade-de-france",
+    "name": "La Plaine Stade de France",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "B"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.91816275,
+          "lon": 2.3625317
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    }
+  },
+  {
+    "id": "la-varenne-chennevieres",
+    "name": "La Varenne - Chennevières",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "A"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.79487295,
+          "lon": 2.5128806
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 75
+  },
+  {
+    "id": "laplace",
+    "name": "Laplace",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "B"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.80838695,
+          "lon": 2.3343824
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 64
+  },
+  {
+    "id": "lardy",
+    "name": "Lardy",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "C"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.520735900000005,
+          "lon": 2.2555125499999997
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 6
+  },
+  {
+    "id": "le-blanc-mesnil",
+    "name": "Le Blanc-Mesnil",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "B"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.93237535,
+          "lon": 2.47544805
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    }
+  },
+  {
+    "id": "le-bourget",
+    "name": "Le Bourget",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "B"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.93072805,
+          "lon": 2.4253042000000002
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    }
+  },
+  {
+    "id": "le-bras-de-fer",
+    "name": "Le Bras de Fer",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "D"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.6232962,
+          "lon": 2.45077085
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    }
+  },
+  {
+    "id": "le-chenay-gagny",
+    "name": "Le Chénay Gagny",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "E"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.877126149999995,
+          "lon": 2.5531413499999998
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    }
+  },
+  {
+    "id": "le-coudray-montceaux",
+    "name": "Le Coudray - Montceaux",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "D"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.566177249999996,
+          "lon": 2.4924723
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    }
+  },
+  {
+    "id": "le-guichet",
+    "name": "Le Guichet",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "B"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.705391399999996,
+          "lon": 2.1931488999999997
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    }
+  },
+  {
+    "id": "le-mee",
+    "name": "Le Mée",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "D"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.53909205,
+          "lon": 2.6250405
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    }
+  },
+  {
+    "id": "le-parc-de-saint-maur",
+    "name": "Le Parc de Saint-Maur",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "A"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.80527145,
+          "lon": 2.48560135
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    }
+  },
+  {
+    "id": "le-plessis-chenet",
+    "name": "Le Plessis-Chenet",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "D"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.573567249999996,
+          "lon": 2.4795947
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    }
+  },
+  {
+    "id": "le-raincy-villemomble-montfermeil",
+    "name": "Le Raincy Villemomble Montfermeil",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "E"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.88889165,
+          "lon": 2.51297365
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    }
+  },
+  {
+    "id": "le-vert-de-maisons",
+    "name": "Le Vert de Maisons",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "D"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.78903455,
+          "lon": 2.4320316999999996
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    }
+  },
+  {
+    "id": "le-vesinet-centre",
+    "name": "Le Vésinet Centre",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "A"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.890155,
+          "lon": 2.1343715
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    }
+  },
+  {
+    "id": "le-vesinet-le-pecq",
+    "name": "Le Vésinet - Le Pecq",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "A"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.897897,
+          "lon": 2.1220736000000002
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    }
+  },
+  {
+    "id": "les-ardoines",
+    "name": "Les Ardoines",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "C"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.7829983,
+          "lon": 2.40945735
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    }
+  },
+  {
+    "id": "les-baconnets",
+    "name": "Les Baconnets",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "B"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.73983145,
+          "lon": 2.2880845
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    }
+  },
+  {
+    "id": "les-boullereaux-champigny",
+    "name": "Les Boullereaux - Champigny",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "E"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.82487195,
+          "lon": 2.51155695
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    }
+  },
+  {
+    "id": "les-gresillons",
+    "name": "Les Grésillons",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "C"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.92094025,
+          "lon": 2.3138
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    }
+  },
+  {
+    "id": "les-noues",
+    "name": "Les Noues",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "D"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 49.03251045,
+          "lon": 2.4768478
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    }
+  },
+  {
+    "id": "les-saules",
+    "name": "Les Saules",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "C"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.745472899999996,
+          "lon": 2.41757255
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    }
+  },
+  {
+    "id": "les-yvris-noisy-le-grand",
+    "name": "Les Yvris Noisy-le-Grand",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "E"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.82316625,
+          "lon": 2.5797944499999996
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    }
+  },
+  {
+    "id": "lieusaint-moissy",
+    "name": "Lieusaint - Moissy",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "D"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.628282150000004,
+          "lon": 2.56959175
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 60
+  },
+  {
+    "id": "lognes",
+    "name": "Lognes",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "A"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.8392491,
+          "lon": 2.6331170999999998
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 38
+  },
+  {
+    "id": "louvres",
+    "name": "Louvres",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "D"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 49.04958525,
+          "lon": 2.50210615
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 18
+  },
+  {
+    "id": "lozere",
+    "name": "Lozère",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "B"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.705839,
+          "lon": 2.21256435
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 53
+  },
+  {
+    "id": "luxembourg",
+    "name": "Luxembourg",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "B"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.84547225,
+          "lon": 2.33980775
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 86
+  },
+  {
+    "id": "magenta",
+    "name": "Magenta",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "E"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.880831799999996,
+          "lon": 2.35872015
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 94
+  },
+  {
+    "id": "maisons-alfort-alfortville",
+    "name": "Maisons-Alfort - Alfortville",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "D"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.80230215,
+          "lon": 2.4264766
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 61
+  },
+  {
+    "id": "maisons-laffitte",
+    "name": "Maisons-Laffitte",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "A"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.94558275,
+          "lon": 2.1449765000000003
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 68
+  },
+  {
+    "id": "maisse",
+    "name": "Maisse",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "D"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.393674399999995,
+          "lon": 2.39344875
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 5
+  },
+  {
+    "id": "marolles-en-hurepoix",
+    "name": "Marolles-en-Hurepoix",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "C"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.56512635,
+          "lon": 2.2909645999999997
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 10
+  },
+  {
+    "id": "massy-palaiseau",
+    "name": "Massy-Palaiseau",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "B",
+          "C"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.72538698333333,
+          "lon": 2.2592837833333337
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 96
+  },
+  {
+    "id": "massy-verrieres",
+    "name": "Massy - Verrières",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "B",
+          "C"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.734856775,
+          "lon": 2.27369105
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 53
+  },
+  {
+    "id": "mennecy",
+    "name": "Mennecy",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "D"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.57107055,
+          "lon": 2.43310955
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 8
+  },
+  {
+    "id": "meudon-val-fleury",
+    "name": "Meudon Val Fleury",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "C"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.807847100000004,
+          "lon": 2.2411656
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    }
+  },
+  {
+    "id": "mitry-claye",
+    "name": "Mitry - Claye",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "B"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.97594195,
+          "lon": 2.6422705
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 83
+  },
+  {
+    "id": "montgeron-crosne",
+    "name": "Montgeron - Crosne",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "D"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.70831185,
+          "lon": 2.46209065
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 33
+  },
+  {
+    "id": "montigny-beauchamp",
+    "name": "Montigny-Beauchamp",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "C"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 49.007375350000004,
+          "lon": 2.19760145
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    }
+  },
+  {
+    "id": "moulin-galant",
+    "name": "Moulin Galant",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "D"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.5863573,
+          "lon": 2.4734914999999997
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    }
+  },
+  {
+    "id": "musee-d-orsay",
+    "name": "Musée d'Orsay",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "C"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.860533950000004,
+          "lon": 2.32608915
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 100
+  },
+  {
+    "id": "nanterre-la-folie",
+    "name": "Nanterre La Folie",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "E"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.8975295,
+          "lon": 2.2270234
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 92
+  },
+  {
+    "id": "nanterre-prefecture",
+    "name": "Nanterre-Préfecture",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "A"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.896481075,
+          "lon": 2.222339275
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 75
+  },
+  {
+    "id": "nanterre-universite",
+    "name": "Nanterre - Université",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "A"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.90101335,
+          "lon": 2.21361295
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 72
+  },
+  {
+    "id": "nanterre-ville",
+    "name": "Nanterre Ville",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "A"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.89502205,
+          "lon": 2.1950379
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    }
+  },
+  {
+    "id": "nation",
+    "name": "Nation",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "A"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.848275650000005,
+          "lon": 2.39583595
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 74
+  },
+  {
+    "id": "neuilly-plaisance",
+    "name": "Neuilly-Plaisance",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "A"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.853440250000006,
+          "lon": 2.5138327
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 65
+  },
+  {
+    "id": "neuilly-porte-maillot",
+    "name": "Neuilly - Porte Maillot",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "C",
+          "E"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.87842345,
+          "lon": 2.28403235
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 90
+  },
+  {
+    "id": "neuville-universite",
+    "name": "Neuville Université",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "A"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 49.013954299999995,
+          "lon": 2.0783215999999998
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    }
+  },
+  {
+    "id": "nogent-le-perreux",
+    "name": "Nogent - Le Perreux",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "E"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.83867215,
+          "lon": 2.49427405
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 58
+  },
+  {
+    "id": "nogent-sur-marne",
+    "name": "Nogent-sur-Marne",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "A"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.835198500000004,
+          "lon": 2.47181565
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 42
+  },
+  {
+    "id": "noisiel",
+    "name": "Noisiel",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "A"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.84350555,
+          "lon": 2.6166424499999996
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 49
+  },
+  {
+    "id": "noisy-champs",
+    "name": "Noisy-Champs",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "A"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.8428607,
+          "lon": 2.5798271
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 89
+  },
+  {
+    "id": "noisy-le-grand-mont-d-est",
+    "name": "Noisy-le-Grand - Mont d’Est",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "A"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.840769,
+          "lon": 2.54775505
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    }
+  },
+  {
+    "id": "noisy-le-sec",
+    "name": "Noisy-le-Sec",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "E"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.896659125,
+          "lon": 2.458669475
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 77
+  },
+  {
+    "id": "orangis-bois-de-l-epine",
+    "name": "Orangis - Bois de l'Épine",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "D"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.636350050000004,
+          "lon": 2.4077352
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    }
+  },
+  {
+    "id": "orly-ville",
+    "name": "Orly Ville",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "C"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.74187335,
+          "lon": 2.4028727
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    }
+  },
+  {
+    "id": "orry-la-ville-coye",
+    "name": "Orry-la-Ville - Coye",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "D"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 49.1383889,
+          "lon": 2.490182
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    }
+  },
+  {
+    "id": "orry-la-ville-coye-la-foret",
+    "name": "Orry-la-Ville - Coye-la-Forêt",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "D"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 49.1383073,
+          "lon": 2.4899737
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    }
+  },
+  {
+    "id": "orsay-ville",
+    "name": "Orsay-Ville",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "B"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.6974984,
+          "lon": 2.1806634000000003
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    }
+  },
+  {
+    "id": "ozoir-la-ferriere",
+    "name": "Ozoir-la-Ferrière",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "E"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.77078655,
+          "lon": 2.6902621499999997
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    }
+  },
+  {
+    "id": "palaiseau",
+    "name": "Palaiseau",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "B"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.71656875,
+          "lon": 2.2453737
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 30
+  },
+  {
+    "id": "palaiseau-villebon",
+    "name": "Palaiseau - Villebon",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "B"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.708208400000004,
+          "lon": 2.2373585
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 26
+  },
+  {
+    "id": "pantin",
+    "name": "Pantin",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "E"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.8981589,
+          "lon": 2.4023564
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 56
+  },
+  {
+    "id": "parc-de-sceaux",
+    "name": "Parc de Sceaux",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "B"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.76957055,
+          "lon": 2.30982715
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    }
+  },
+  {
+    "id": "parc-des-expositions",
+    "name": "Parc des Expositions",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "B"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.97340165,
+          "lon": 2.5144466999999997
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    }
+  },
+  {
+    "id": "paris-austerlitz",
+    "name": "Paris Austerlitz",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "C"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.84061425,
+          "lon": 2.36701695
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 97
+  },
+  {
+    "id": "paris-gare-du-nord",
+    "name": "Paris Gare du Nord",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "B",
+          "D"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.88140255,
+          "lon": 2.3574272
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 98
+  },
+  {
+    "id": "pereire-levallois",
+    "name": "Pereire - Levallois",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "C"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.8858759,
+          "lon": 2.2989608
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 63
+  },
+  {
+    "id": "pierrefitte-stains",
+    "name": "Pierrefitte-Stains",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "D"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.962378650000005,
+          "lon": 2.36988585
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 82
+  },
+  {
+    "id": "pierrelaye",
+    "name": "Pierrelaye",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "C"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 49.01941875,
+          "lon": 2.15361365
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 11
+  },
+  {
+    "id": "pont-de-l-alma",
+    "name": "Pont de l'Alma",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "C"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.86254375,
+          "lon": 2.29996115
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "zone": {
+        "num": 0.0
+      }
+    }
+  },
+  {
+    "id": "pont-de-rungis-aeroport-d-orly",
+    "name": "Pont de Rungis Aéroport d'Orly",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "C"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.7484174,
+          "lon": 2.3732246
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    }
+  },
+  {
+    "id": "pont-du-garigliano-hopital-europeen-georges-pompidou",
+    "name": "Pont du Garigliano - Hôpital Européen Georges-Pompidou",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "C"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.8390808,
+          "lon": 2.27044845
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "zone": {
+        "num": 0.0
+      }
+    }
+  },
+  {
+    "id": "ponthierry-pringy",
+    "name": "Ponthierry Pringy",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "D"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.5349812,
+          "lon": 2.5450101
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    }
+  },
+  {
+    "id": "porchefontaine",
+    "name": "Porchefontaine",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "C"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.79644625,
+          "lon": 2.15141455
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 32
+  },
+  {
+    "id": "port-royal",
+    "name": "Port Royal",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "B"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.840085599999995,
+          "lon": 2.337069
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "zone": {
+        "num": 0.0
+      }
+    }
+  },
+  {
+    "id": "porte-de-clichy",
+    "name": "Porte de Clichy",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "C"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.89414885,
+          "lon": 2.31548165
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 36
+  },
+  {
+    "id": "ris-orangis",
+    "name": "Ris-Orangis",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "D"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.659306,
+          "lon": 2.4143371
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 14
+  },
+  {
+    "id": "robinson",
+    "name": "Robinson",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "B"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.78007855,
+          "lon": 2.28130495
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 78
+  },
+  {
+    "id": "roissy-en-brie",
+    "name": "Roissy-en-Brie",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "E"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.79565995,
+          "lon": 2.6503854000000002
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 29
+  },
+  {
+    "id": "rosa-parks",
+    "name": "Rosa Parks",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "E"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.89648665,
+          "lon": 2.37406875
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "zone": {
+        "num": 0.0
+      }
+    }
+  },
+  {
+    "id": "rosny-bois-perrier",
+    "name": "Rosny - Bois-Perrier",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "E"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.88254115,
+          "lon": 2.48121005
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    }
+  },
+  {
+    "id": "rosny-sous-bois",
+    "name": "Rosny-sous-Bois",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "E"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.8703372,
+          "lon": 2.4858463
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 39
+  },
+  {
+    "id": "rueil-malmaison",
+    "name": "Rueil-Malmaison",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "A"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.88767325,
+          "lon": 2.17247705
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 59
+  },
+  {
+    "id": "rungis-la-fraternelle",
+    "name": "Rungis - La Fraternelle",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "C"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.7404177,
+          "lon": 2.3526369000000003
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 39
+  },
+  {
+    "id": "saint-cheron",
+    "name": "Saint-Chéron",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "C"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.5510819,
+          "lon": 2.1256568
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 6
+  },
+  {
+    "id": "saint-cyr",
+    "name": "Saint-Cyr",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "C"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.79871795,
+          "lon": 2.07292055
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 73
+  },
+  {
+    "id": "saint-denis-l-ile-saint-denis",
+    "name": "Saint-Denis - L'Île-Saint-Denis",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "D"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.93450285,
+          "lon": 2.34572635
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 89
+  },
+  {
+    "id": "saint-fargeau",
+    "name": "Saint-Fargeau",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "D"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.5645034,
+          "lon": 2.5426532
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 8
+  },
+  {
+    "id": "saint-gratien",
+    "name": "Saint-Gratien",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "C"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.9636127,
+          "lon": 2.28588025
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 25
+  },
+  {
+    "id": "saint-martin-d-etampes",
+    "name": "Saint-Martin d'Étampes",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "C"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.4274433,
+          "lon": 2.1452258
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    }
+  },
+  {
+    "id": "saint-maur-champigny",
+    "name": "Saint-Maur – Champigny",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "A"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.80700185,
+          "lon": 2.5100316
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 12
+  },
+  {
+    "id": "saint-maur-creteil",
+    "name": "Saint-Maur Créteil",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "A"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.806387099999995,
+          "lon": 2.4722479
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    }
+  },
+  {
+    "id": "saint-michel-notre-dame",
+    "name": "Saint-Michel Notre-Dame",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "B",
+          "C"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.8531851,
+          "lon": 2.3455406500000002
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "zone": {
+        "num": 0.0
+      }
+    }
+  },
+  {
+    "id": "saint-michel-sur-orge",
+    "name": "Saint-Michel-sur-Orge",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "C"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.635689049999996,
+          "lon": 2.30680235
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 21
+  },
+  {
+    "id": "saint-ouen",
+    "name": "Saint-Ouen",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "C"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.90533275,
+          "lon": 2.3225177
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 57
+  },
+  {
+    "id": "saint-ouen-l-aumone",
+    "name": "Saint-Ouen-l'Aumône",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "C"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 49.0452727,
+          "lon": 2.1050072
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 31
+  },
+  {
+    "id": "saint-ouen-l-aumone-liesse",
+    "name": "Saint-Ouen-l'Aumône Liesse",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "C"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 49.03402935,
+          "lon": 2.1282488500000003
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    }
+  },
+  {
+    "id": "saint-quentin-en-yvelines",
+    "name": "Saint-Quentin-en-Yvelines",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "C"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.7873468,
+          "lon": 2.04447585
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 88
+  },
+  {
+    "id": "saint-remy-les-chevreuse",
+    "name": "Saint-Rémy-lès-Chevreuse",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "B"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.702732,
+          "lon": 2.0709586
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 67
+  },
+  {
+    "id": "sainte-genevieve-des-bois",
+    "name": "Sainte-Geneviève-des-Bois",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "C"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.65312295,
+          "lon": 2.3133034500000003
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 34
+  },
+  {
+    "id": "sartrouville",
+    "name": "Sartrouville",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "A"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.93775795,
+          "lon": 2.15703135
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 61
+  },
+  {
+    "id": "savigny-le-temple-nandy",
+    "name": "Savigny-le-Temple - Nandy",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "D"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.5955668,
+          "lon": 2.5839448
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 19
+  },
+  {
+    "id": "savigny-sur-orge",
+    "name": "Savigny-sur-Orge",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "C"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.67609804999999,
+          "lon": 2.3520803499999996
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 47
+  },
+  {
+    "id": "sceaux",
+    "name": "Sceaux",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "B"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.7813371,
+          "lon": 2.29810275
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 28
+  },
+  {
+    "id": "sermaise",
+    "name": "Sermaise",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "C"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.535515849999996,
+          "lon": 2.06880005
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 1
+  },
+  {
+    "id": "sevran-beaudottes",
+    "name": "Sevran - Beaudottes",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "B"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.94756605,
+          "lon": 2.52472275
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 64
+  },
+  {
+    "id": "sevran-livry",
+    "name": "Sevran - Livry",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "B"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.9364324,
+          "lon": 2.5351174
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 50
+  },
+  {
+    "id": "stade-de-france-saint-denis",
+    "name": "Stade de France - Saint-Denis",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "D"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.91787915,
+          "lon": 2.3504258
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    }
+  },
+  {
+    "id": "sucy-bonneuil",
+    "name": "Sucy - Bonneuil",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "A"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.7720759,
+          "lon": 2.5074870000000002
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 62
+  },
+  {
+    "id": "survilliers-fosses",
+    "name": "Survilliers - Fosses",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "D"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 49.0995767,
+          "lon": 2.5255327000000003
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 71
+  },
+  {
+    "id": "torcy",
+    "name": "Torcy",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "A"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.839671,
+          "lon": 2.65523385
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 84
+  },
+  {
+    "id": "val-d-europe",
+    "name": "Val d'Europe",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "A"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.8548991,
+          "lon": 2.77256645
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    }
+  },
+  {
+    "id": "val-de-fontenay",
+    "name": "Val de Fontenay",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "E"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.854187249999995,
+          "lon": 2.489195
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 92
+  },
+  {
+    "id": "val-de-fontenay-rer-a",
+    "name": "Val-de-Fontenay (RER A)",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "A"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.854209600000004,
+          "lon": 2.48888605
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    }
+  },
+  {
+    "id": "versailles-chantiers",
+    "name": "Versailles-Chantiers",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "C"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.79531605,
+          "lon": 2.13553735
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 95
+  },
+  {
+    "id": "versailles-chateau-rive-gauche",
+    "name": "Versailles Château Rive Gauche",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "C"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.8002522,
+          "lon": 2.12912155
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    }
+  },
+  {
+    "id": "vert-galant",
+    "name": "Vert Galant",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "B"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.944214099999996,
+          "lon": 2.5663885
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    }
+  },
+  {
+    "id": "vigneux-sur-seine",
+    "name": "Vigneux-sur-Seine",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "D"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.7083521,
+          "lon": 2.4143032
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 33
+  },
+  {
+    "id": "villabe",
+    "name": "Villabé",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "D"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.5928133,
+          "lon": 2.4615346000000002
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 3
+  },
+  {
+    "id": "villeneuve-le-roi",
+    "name": "Villeneuve-le-Roi",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "C"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.74024085,
+          "lon": 2.42621195
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 24
+  },
+  {
+    "id": "villeneuve-saint-georges",
+    "name": "Villeneuve-Saint-Georges",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "D"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.7301568,
+          "lon": 2.4461518
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 78
+  },
+  {
+    "id": "villeneuve-triage",
+    "name": "Villeneuve Triage",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "D"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.74466565,
+          "lon": 2.4385776000000003
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    }
+  },
+  {
+    "id": "villeparisis-mitry-le-neuf",
+    "name": "Villeparisis - Mitry le Neuf",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "B"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.95322205,
+          "lon": 2.6031590500000004
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    }
+  },
+  {
+    "id": "villepinte-parc-du-sausset",
+    "name": "Villepinte - Parc du Sausset",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "B"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.96251235,
+          "lon": 2.5127708
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    }
+  },
+  {
+    "id": "villiers-le-bel-gonesse-arnouville",
+    "name": "Villiers-le-Bel - Gonesse - Arnouville",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "D"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.99399,
+          "lon": 2.41637485
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 69
+  },
+  {
+    "id": "villiers-sur-marne-le-plessis-trevise",
+    "name": "Villiers-sur-Marne - Le Plessis-Trévise",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "E"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.8231869,
+          "lon": 2.5425505
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 67
+  },
+  {
+    "id": "vincennes",
+    "name": "Vincennes",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "A"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.847345250000004,
+          "lon": 2.4324622
+        }
+      },
+      "in_paris": {
+        "bool": true
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 80
+  },
+  {
+    "id": "viroflay-rive-gauche",
+    "name": "Viroflay Rive Gauche",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "C"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.8006869,
+          "lon": 2.17154165
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    }
+  },
+  {
+    "id": "viry-chatillon",
+    "name": "Viry-Châtillon",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "D"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.6762224,
+          "lon": 2.3866237999999997
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 17
+  },
+  {
+    "id": "vitry-sur-seine",
+    "name": "Vitry-sur-Seine",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "C"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.8006163,
+          "lon": 2.402478
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 45
+  },
+  {
+    "id": "vosves",
+    "name": "Vosves",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "D"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.515161899999995,
+          "lon": 2.59914605
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 27
+  },
+  {
+    "id": "yerres",
+    "name": "Yerres",
+    "attributes": {
+      "lines": {
+        "str_list": [
+          "D"
+        ]
+      },
+      "geo": {
+        "geo": {
+          "lat": 48.706480799999994,
+          "lon": 2.4834242
+        }
+      },
+      "in_paris": {
+        "bool": false
+      },
+      "zone": {
+        "num": 0.0
+      }
+    }
+  }
+]

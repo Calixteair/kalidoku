@@ -1,0 +1,482 @@
+[
+  {
+    "family": "ends_with",
+    "param": "s",
+    "labels": {
+      "fr": {
+        "text": "Termine par la lettre 'S'",
+        "help": "On compare la dernière lettre alphabétique du nom, accent ignoré."
+      },
+      "en": {
+        "text": "Ends with the letter 'S'",
+        "help": "The comparison strips accents and matches the trailing letter."
+      }
+    },
+    "tags": ["letters"]
+  },
+  {
+    "family": "ends_with",
+    "param": "t",
+    "labels": {
+      "fr": {
+        "text": "Termine par la lettre 'T'",
+        "help": "On compare la dernière lettre alphabétique du nom."
+      },
+      "en": {
+        "text": "Ends with the letter 'T'",
+        "help": "The comparison strips accents and matches the trailing letter."
+      }
+    },
+    "tags": ["letters"]
+  },
+  {
+    "family": "ends_with",
+    "param": "n",
+    "labels": {
+      "fr": {
+        "text": "Termine par la lettre 'N'",
+        "help": "On compare la dernière lettre alphabétique du nom."
+      },
+      "en": {
+        "text": "Ends with the letter 'N'",
+        "help": "The comparison strips accents and matches the trailing letter."
+      }
+    },
+    "tags": ["letters"]
+  },
+  {
+    "family": "ends_with",
+    "param": "y",
+    "labels": {
+      "fr": {
+        "text": "Termine par la lettre 'Y'",
+        "help": "On compare la dernière lettre alphabétique du nom."
+      },
+      "en": {
+        "text": "Ends with the letter 'Y'",
+        "help": "The comparison strips accents and matches the trailing letter."
+      }
+    },
+    "tags": ["letters"]
+  },
+  {
+    "family": "starts_with",
+    "param": "s",
+    "labels": {
+      "fr": {
+        "text": "Commence par la lettre 'S'",
+        "help": "On compare la première lettre du nom, accents ignorés."
+      },
+      "en": {
+        "text": "Starts with the letter 'S'",
+        "help": "Accents are stripped before comparison."
+      }
+    },
+    "tags": ["letters"]
+  },
+  {
+    "family": "starts_with",
+    "param": "c",
+    "labels": {
+      "fr": {
+        "text": "Commence par la lettre 'C'",
+        "help": "On compare la première lettre du nom."
+      },
+      "en": {
+        "text": "Starts with the letter 'C'",
+        "help": "Accents are stripped before comparison."
+      }
+    },
+    "tags": ["letters"]
+  },
+  {
+    "family": "starts_with",
+    "param": "v",
+    "labels": {
+      "fr": {
+        "text": "Commence par la lettre 'V'",
+        "help": "On compare la première lettre du nom."
+      },
+      "en": {
+        "text": "Starts with the letter 'V'",
+        "help": "Accents are stripped before comparison."
+      }
+    },
+    "tags": ["letters"]
+  },
+  {
+    "family": "starts_with",
+    "param": "l",
+    "labels": {
+      "fr": {
+        "text": "Commence par la lettre 'L'",
+        "help": "On compare la première lettre du nom."
+      },
+      "en": {
+        "text": "Starts with the letter 'L'",
+        "help": "Accents are stripped before comparison."
+      }
+    },
+    "tags": ["letters"]
+  },
+  {
+    "family": "contains_letter",
+    "param": "y",
+    "labels": {
+      "fr": {
+        "text": "Contient la lettre 'Y' dans son nom",
+        "help": "On cherche la lettre n'importe où, accents ignorés."
+      },
+      "en": {
+        "text": "Contains the letter 'Y'",
+        "help": "Searches the whole name, accent-insensitive."
+      }
+    },
+    "tags": ["letters"]
+  },
+  {
+    "family": "contains_letter",
+    "param": "u",
+    "labels": {
+      "fr": {
+        "text": "Contient la lettre 'U' dans son nom",
+        "help": "On cherche la lettre n'importe où, accents ignorés."
+      },
+      "en": {
+        "text": "Contains the letter 'U'",
+        "help": "Searches the whole name, accent-insensitive."
+      }
+    },
+    "tags": ["letters"]
+  },
+  {
+    "family": "name_length_max",
+    "param": 7,
+    "labels": {
+      "fr": {
+        "text": "A un nom de 7 lettres ou moins",
+        "help": "On compte uniquement les lettres alphabétiques."
+      },
+      "en": {
+        "text": "Has a 7-letter name or shorter",
+        "help": "Only alphabetic characters are counted."
+      }
+    },
+    "tags": ["letters"]
+  },
+  {
+    "family": "name_length_min",
+    "param": 13,
+    "labels": {
+      "fr": {
+        "text": "A un nom de 13 lettres ou plus",
+        "help": "On compte uniquement les lettres alphabétiques."
+      },
+      "en": {
+        "text": "Has a 13-letter name or longer",
+        "help": "Only alphabetic characters are counted."
+      }
+    },
+    "tags": ["letters"]
+  },
+  {
+    "family": "name_length_eq",
+    "param": 9,
+    "labels": {
+      "fr": {
+        "text": "A un nom de 9 lettres exactement",
+        "help": "On compte uniquement les lettres alphabétiques."
+      },
+      "en": {
+        "text": "Has exactly a 9-letter name",
+        "help": "Only alphabetic characters are counted."
+      }
+    },
+    "tags": ["letters"]
+  },
+  {
+    "family": "name_word_count_eq",
+    "param": 1,
+    "labels": {
+      "fr": {
+        "text": "A un nom en un seul mot",
+        "help": "Trait d'union, apostrophe et tirets cassent en plusieurs mots."
+      },
+      "en": {
+        "text": "Has a one-word name",
+        "help": "Hyphens and apostrophes split into multiple words."
+      }
+    },
+    "tags": ["words"]
+  },
+  {
+    "family": "name_word_count_eq",
+    "param": 3,
+    "labels": {
+      "fr": {
+        "text": "A un nom en trois mots",
+        "help": "Trait d'union, apostrophe et tirets cassent en plusieurs mots."
+      },
+      "en": {
+        "text": "Has a three-word name",
+        "help": "Hyphens and apostrophes split into multiple words."
+      }
+    },
+    "tags": ["words"]
+  },
+  {
+    "family": "name_word_count_min",
+    "param": 4,
+    "labels": {
+      "fr": {
+        "text": "A un nom en quatre mots ou plus",
+        "help": "Trait d'union, apostrophe et tirets cassent en plusieurs mots."
+      },
+      "en": {
+        "text": "Has a four-word name or longer",
+        "help": "Hyphens and apostrophes split into multiple words."
+      }
+    },
+    "tags": ["words"]
+  },
+  {
+    "family": "attr_list_size_eq",
+    "param": { "attr": "lines", "n": 1 },
+    "labels": {
+      "fr": {
+        "text": "Desservie par une seule ligne",
+        "help": "Compte le nombre de lignes RER."
+      },
+      "en": {
+        "text": "Served by a single line",
+        "help": "Counts the number of RER lines."
+      }
+    },
+    "tags": ["network"]
+  },
+  {
+    "family": "on_attr_in_set",
+    "param": { "attr": "lines", "values": ["A"] },
+    "labels": {
+      "fr": {
+        "text": "Sur la ligne A",
+        "help": "Présent dans la liste des lignes desservies."
+      },
+      "en": {
+        "text": "On line A",
+        "help": "Listed among the served RER lines."
+      }
+    },
+    "tags": ["network"]
+  },
+  {
+    "family": "on_attr_in_set",
+    "param": { "attr": "lines", "values": ["B"] },
+    "labels": {
+      "fr": {
+        "text": "Sur la ligne B",
+        "help": "Présent dans la liste des lignes desservies."
+      },
+      "en": {
+        "text": "On line B",
+        "help": "Listed among the served RER lines."
+      }
+    },
+    "tags": ["network"]
+  },
+  {
+    "family": "on_attr_in_set",
+    "param": { "attr": "lines", "values": ["C"] },
+    "labels": {
+      "fr": {
+        "text": "Sur la ligne C",
+        "help": "Présent dans la liste des lignes desservies."
+      },
+      "en": {
+        "text": "On line C",
+        "help": "Listed among the served RER lines."
+      }
+    },
+    "tags": ["network"]
+  },
+  {
+    "family": "on_attr_in_set",
+    "param": { "attr": "lines", "values": ["D"] },
+    "labels": {
+      "fr": {
+        "text": "Sur la ligne D",
+        "help": "Présent dans la liste des lignes desservies."
+      },
+      "en": {
+        "text": "On line D",
+        "help": "Listed among the served RER lines."
+      }
+    },
+    "tags": ["network"]
+  },
+  {
+    "family": "on_attr_in_set",
+    "param": { "attr": "lines", "values": ["E"] },
+    "labels": {
+      "fr": {
+        "text": "Sur la ligne E",
+        "help": "Présent dans la liste des lignes desservies."
+      },
+      "en": {
+        "text": "On line E",
+        "help": "Listed among the served RER lines."
+      }
+    },
+    "tags": ["network"]
+  },
+  {
+    "family": "on_attr_in_set",
+    "param": { "attr": "lines", "values": ["A", "B"] },
+    "labels": {
+      "fr": {
+        "text": "Sur la ligne A ou B (axe Est-Ouest historique)",
+        "help": "Présent sur au moins une des deux lignes les plus anciennes du RER."
+      },
+      "en": {
+        "text": "On line A or B (historic east-west axis)",
+        "help": "Listed on at least one of the two original RER lines."
+      }
+    },
+    "tags": ["network"]
+  },
+  {
+    "family": "on_attr_eq",
+    "param": { "attr": "in_paris", "value": false },
+    "labels": {
+      "fr": {
+        "text": "Hors de Paris intra-muros",
+        "help": "Définie par la position géographique vs la boucle des boulevards."
+      },
+      "en": {
+        "text": "Outside inner-Paris",
+        "help": "Defined by the geographic position vs the ring road bounds."
+      }
+    },
+    "tags": ["geo"]
+  },
+  {
+    "family": "on_attr_eq",
+    "param": { "attr": "in_paris", "value": true },
+    "labels": {
+      "fr": {
+        "text": "Dans Paris intra-muros",
+        "help": "Définie par la position géographique vs la boucle des boulevards."
+      },
+      "en": {
+        "text": "Inside inner-Paris",
+        "help": "Defined by the geographic position vs the ring road bounds."
+      }
+    },
+    "tags": ["geo"]
+  },
+  {
+    "family": "within_km",
+    "param": {
+      "attr": "geo",
+      "from": { "lat": 48.8606, "lon": 2.3376 },
+      "km": 3.0,
+      "anchor_label_fr": "du Louvre",
+      "anchor_label_en": "of the Louvre"
+    },
+    "labels": {
+      "fr": {
+        "text": "À moins de 3 km du Louvre",
+        "help": "Distance à vol d'oiseau."
+      },
+      "en": {
+        "text": "Within 3 km of the Louvre",
+        "help": "Straight-line distance."
+      }
+    },
+    "tags": ["geo"]
+  },
+  {
+    "family": "within_km",
+    "param": {
+      "attr": "geo",
+      "from": { "lat": 48.8584, "lon": 2.2945 },
+      "km": 3.0,
+      "anchor_label_fr": "de la Tour Eiffel",
+      "anchor_label_en": "of the Eiffel Tower"
+    },
+    "labels": {
+      "fr": {
+        "text": "À moins de 3 km de la Tour Eiffel",
+        "help": "Distance à vol d'oiseau."
+      },
+      "en": {
+        "text": "Within 3 km of the Eiffel Tower",
+        "help": "Straight-line distance."
+      }
+    },
+    "tags": ["geo"]
+  },
+  {
+    "family": "within_km",
+    "param": {
+      "attr": "geo",
+      "from": { "lat": 48.8443, "lon": 2.3739 },
+      "km": 4.0,
+      "anchor_label_fr": "de la Gare de Lyon",
+      "anchor_label_en": "of Gare de Lyon"
+    },
+    "labels": {
+      "fr": {
+        "text": "À moins de 4 km de la Gare de Lyon",
+        "help": "Distance à vol d'oiseau."
+      },
+      "en": {
+        "text": "Within 4 km of Gare de Lyon",
+        "help": "Straight-line distance."
+      }
+    },
+    "tags": ["geo"]
+  },
+  {
+    "family": "within_km",
+    "param": {
+      "attr": "geo",
+      "from": { "lat": 49.0097, "lon": 2.5479 },
+      "km": 10.0,
+      "anchor_label_fr": "de l'aéroport CDG",
+      "anchor_label_en": "of CDG airport"
+    },
+    "labels": {
+      "fr": {
+        "text": "À moins de 10 km de l'aéroport Charles de Gaulle",
+        "help": "Distance à vol d'oiseau."
+      },
+      "en": {
+        "text": "Within 10 km of Charles de Gaulle airport",
+        "help": "Straight-line distance."
+      }
+    },
+    "tags": ["geo"]
+  },
+  {
+    "family": "within_km",
+    "param": {
+      "attr": "geo",
+      "from": { "lat": 48.8053, "lon": 2.1204 },
+      "km": 10.0,
+      "anchor_label_fr": "du château de Versailles",
+      "anchor_label_en": "of the Palace of Versailles"
+    },
+    "labels": {
+      "fr": {
+        "text": "À moins de 10 km du château de Versailles",
+        "help": "Distance à vol d'oiseau."
+      },
+      "en": {
+        "text": "Within 10 km of the Palace of Versailles",
+        "help": "Straight-line distance."
+      }
+    },
+    "tags": ["geo"]
+  }
+]

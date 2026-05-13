@@ -30,7 +30,10 @@ use crate::{
 
 const DAILY_PUBLISH_HOUR_UTC: u32 = 0;
 const DAILY_PUBLISH_MINUTE_UTC: u32 = 1;
-const GENERATOR_MAX_ATTEMPTS: u32 = 200;
+// Bumped from 200 so denser predicate packs (RER and up) keep a near-zero
+// rate of "no valid grid found". Each attempt costs sub-ms on the runner,
+// so the extra headroom is free.
+const GENERATOR_MAX_ATTEMPTS: u32 = 1000;
 
 /// Outcome of a single domain × date generation attempt.
 #[derive(Debug, PartialEq, Eq)]
