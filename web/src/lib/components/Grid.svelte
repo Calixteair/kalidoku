@@ -35,7 +35,13 @@
     mode === "solo" && seed === undefined ? parseSeedFromUrl() : seed,
   );
 
-  const store = createGameStore();
+  // The Grid component is remounted on cross-domain navigation (Astro page
+  // navigation = full Svelte re-mount), so capturing the initial `domain`
+  // prop is intentional — it indexes the per-domain localStorage key for
+  // this mount's lifetime. eslint-disable for svelte/valid-compile because
+  // the rule can't see that the parent never mutates the prop.
+  // eslint-disable-next-line svelte/valid-compile
+  const store = createGameStore(domain);
 
   let gridLoading = $state(true);
   let gridError = $state<string | null>(null);
