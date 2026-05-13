@@ -1,8 +1,13 @@
 <script lang="ts">
+  import Check from "lucide-svelte/icons/check";
+  import Copy from "lucide-svelte/icons/copy";
   import Crown from "lucide-svelte/icons/crown";
+  import Share2 from "lucide-svelte/icons/share-2";
+  import Sparkles from "lucide-svelte/icons/sparkles";
   import Swords from "lucide-svelte/icons/swords";
   import * as m from "../../paraglide/messages.js";
   import { api, ApiError } from "../api/client.js";
+  import { copyToClipboard, shareNative } from "../share.js";
   import Grid from "./Grid.svelte";
 
   // Inline structural type — the openapi-typescript output uses anonymous
@@ -17,41 +22,49 @@
     status: "active" | "won" | "lost" | "abandoned";
   };
 
+  /**
+   * Three screens behind one route:
+   * - `landing`: /duel hit without ?id= — show "create a fresh duel" CTA.
+   * - `view`:    /duel?id=…&sig=… valid — show the duel summary + play CTA.
+   * - `playing`: mounted Grid in duel mode.
+   * Errors flip the screen to `landing` after showing a banner.
+   */
+  type Screen = "landing" | "view" | "playing";
+
   interface Props {
     domain: string;
   }
 
   let { domain }: Props = $props();
 
-  let duelId = $state<string | null>(null);
-  let sig = $state<string | null>(null);
+  let screen = $state<Screen>("landing");
   let gridId = $state<string | null>(null);
   let expiresAt = $state<string | null>(null);
   let players = $state<PlayerSummary[]>([]);
   let loading = $state(true);
   let error = $state<string | null>(null);
-  let playing = $state(false);
 
-  const parseUrl = (): void => {
-    if (typeof window === "undefined") return;
+  // Share-link creation state for the landing screen.
+  let creating = $state(false);
+  let createError = $state<string | null>(null);
+  let createdShareUrl = $state<string | null>(null);
+  let createdCopied = $state(false);
+
+  const parseUrl = (): { id: string | null; sig: string | null } => {
+    if (typeof window === "undefined") return { id: null, sig: null };
     const params = new URLSearchParams(window.location.search);
-    duelId = params.get("id");
-    sig = params.get("sig");
+    return { id: params.get("id"), sig: params.get("sig") };
   };
 
-  const fetchDuel = async (): Promise<void> => {
-    if (!duelId || !sig) {
-      error = m.duel_missing_link();
-      loading = false;
-      return;
-    }
+  const fetchDuel = async (id: string, s: string): Promise<void> => {
     loading = true;
     error = null;
     try {
-      const r = await api.get("/api/duels/{duelId}", { duelId }, { sig });
+      const r = await api.get("/api/duels/{duelId}", { duelId: id }, { sig: s });
       gridId = r.gridId;
       expiresAt = r.expiresAt;
       players = r.players;
+      screen = "view";
     } catch (err) {
       if (err instanceof ApiError) {
         if (err.status === 401) error = m.duel_bad_signature();
@@ -61,15 +74,53 @@
       } else {
         error = m.error_network();
       }
+      // Fall back to the landing screen so the player can still create a
+      // fresh duel — surfacing only the error leaves them stuck.
+      screen = "landing";
     } finally {
       loading = false;
     }
   };
 
   $effect(() => {
-    parseUrl();
-    void fetchDuel();
+    const { id, sig: s } = parseUrl();
+    if (id && s) {
+      void fetchDuel(id, s);
+    } else {
+      // No query params → landing screen, no fetch.
+      loading = false;
+      screen = "landing";
+    }
   });
+
+  const createDuel = async (): Promise<void> => {
+    if (creating) return;
+    creating = true;
+    createError = null;
+    createdShareUrl = null;
+    createdCopied = false;
+    try {
+      const r = await api.post("/api/duels", undefined, { domain });
+      createdShareUrl = r.shareUrl;
+      const shared = await shareNative(r.shareUrl, m.duel_share_title());
+      if (!shared) {
+        const ok = await copyToClipboard(r.shareUrl);
+        createdCopied = ok;
+        if (ok) setTimeout(() => (createdCopied = false), 2400);
+      }
+    } catch (err) {
+      createError = err instanceof ApiError ? err.message : m.error_network();
+    } finally {
+      creating = false;
+    }
+  };
+
+  const copyCreated = async (): Promise<void> => {
+    if (!createdShareUrl) return;
+    const ok = await copyToClipboard(createdShareUrl);
+    createdCopied = ok;
+    if (ok) setTimeout(() => (createdCopied = false), 2400);
+  };
 
   const formatExpires = (iso: string): string => {
     const d = new Date(iso);
@@ -87,12 +138,69 @@
       <span class="kd-spinner" aria-hidden="true"></span>
       <p class="text-fg-muted text-sm">{m.loading_stations()}</p>
     </div>
-  {:else if error}
-    <div class="surface flex flex-col gap-2 rounded-xl px-6 py-8">
-      <p class="text-danger text-sm font-medium" role="alert">{error}</p>
-      <a href="/" class="text-fg-subtle hover:text-fg text-sm underline">{m.back_to_home()}</a>
-    </div>
-  {:else if !playing}
+  {:else if screen === "landing"}
+    <!-- Landing: invite the player to create a fresh duel link. Reached both
+         when /duel is visited without query params and as a fallback when an
+         existing duel link errors out (404 / 410 / 401). -->
+    <header class="flex flex-col gap-2">
+      <p class="eyebrow text-accent inline-flex items-center gap-1.5">
+        <Sparkles size={12} aria-hidden="true" />
+        {m.duel_create_eyebrow()}
+      </p>
+      <h1 class="font-display text-fg text-3xl font-semibold leading-tight">
+        {m.duel_create_title()}
+      </h1>
+      <p class="text-fg-muted text-sm">{m.duel_create_subtitle()}</p>
+    </header>
+
+    {#if error}
+      <p class="text-danger text-sm" role="alert">{error}</p>
+    {/if}
+
+    {#if createdShareUrl === null}
+      <button
+        type="button"
+        class="kd-cta inline-flex items-center justify-center gap-2 self-start rounded-lg px-4 py-2.5 text-sm font-semibold"
+        disabled={creating}
+        onclick={createDuel}
+      >
+        <Swords size={16} aria-hidden="true" />
+        <span>{creating ? m.duel_share_creating() : m.duel_create_button()}</span>
+      </button>
+    {:else}
+      <div class="border-border bg-bg-subtle flex flex-col gap-2 rounded-xl border p-4">
+        <p class="eyebrow text-fg-muted">{m.duel_share_ready()}</p>
+        <p class="text-fg break-all text-xs font-mono">{createdShareUrl}</p>
+        <div class="flex flex-col gap-2 sm:flex-row">
+          <button
+            type="button"
+            class="kd-cta inline-flex flex-1 items-center justify-center gap-2 rounded-lg px-4 py-2 text-sm font-semibold"
+            onclick={() => void shareNative(createdShareUrl, m.duel_share_title())}
+          >
+            <Share2 size={14} aria-hidden="true" />
+            <span>{m.share_button()}</span>
+          </button>
+          <button
+            type="button"
+            class="kd-secondary inline-flex flex-1 items-center justify-center gap-2 rounded-lg px-4 py-2 text-sm font-semibold"
+            onclick={copyCreated}
+          >
+            {#if createdCopied}
+              <Check size={14} aria-hidden="true" />
+              <span>{m.share_copied()}</span>
+            {:else}
+              <Copy size={14} aria-hidden="true" />
+              <span>{m.copy_result()}</span>
+            {/if}
+          </button>
+        </div>
+        <p class="text-fg-muted mt-1 text-[11px]">{m.duel_create_share_hint()}</p>
+      </div>
+    {/if}
+    {#if createError}
+      <p class="text-danger text-sm" role="alert">{createError}</p>
+    {/if}
+  {:else if screen === "view"}
     <header class="flex flex-col gap-2">
       <p class="eyebrow text-accent inline-flex items-center gap-1.5">
         <Swords size={12} aria-hidden="true" />
@@ -107,8 +215,6 @@
       {/if}
     </header>
 
-    <!-- Players that have already attempted the grid. Empty on a fresh
-         duel — the friend who clicks first sees only the CTA below. -->
     {#if players.length > 0}
       <section class="surface overflow-hidden rounded-xl">
         <header
@@ -147,12 +253,12 @@
     <button
       type="button"
       class="kd-cta inline-flex items-center justify-center gap-2 self-start rounded-lg px-4 py-2.5 text-sm font-semibold"
-      onclick={() => (playing = true)}
+      onclick={() => (screen = "playing")}
     >
       <Swords size={16} aria-hidden="true" />
       <span>{m.duel_play_button()}</span>
     </button>
-  {:else if gridId}
+  {:else if screen === "playing" && gridId}
     <Grid {domain} mode="duel" duelGridId={gridId} />
   {/if}
 </section>
@@ -189,13 +295,30 @@
       transform 120ms var(--ease-out),
       box-shadow 160ms var(--ease-out);
   }
-  .kd-cta:hover {
+  .kd-cta:hover:not(:disabled) {
     transform: translateY(-1px);
     box-shadow:
       0 1px 0 color-mix(in oklab, var(--color-accent) 50%, transparent) inset,
       0 6px 14px color-mix(in oklab, var(--color-accent) 30%, transparent);
   }
+  .kd-cta:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
   .kd-cta:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+  .kd-secondary {
+    background: transparent;
+    color: var(--color-fg);
+    border: 1px solid var(--color-border);
+    transition: background-color 140ms var(--ease-out);
+  }
+  .kd-secondary:hover {
+    background: color-mix(in oklab, var(--color-fg) 6%, transparent);
+  }
+  .kd-secondary:focus-visible {
     outline: 2px solid var(--color-accent);
     outline-offset: 2px;
   }
