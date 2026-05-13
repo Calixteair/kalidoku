@@ -64,7 +64,7 @@ www/
 # Screenshots de référence (gardés en local, pas commités)
 brave_screenshot_*.png
 google
-domains/paris-metro/tmp/
+domains/*/tmp/
 domains/paris-metro/scripts/node_modules/
 
 # Python ingest scripts
