@@ -93,6 +93,7 @@ pub fn build_router_with_options(state: AppState, opts: RouterOptions) -> Router
             "/leaderboard/:domain/today",
             get(routes::leaderboard::today),
         )
+        .route("/leaderboard/:domain", get(routes::leaderboard::list))
         // duels
         .route("/duels", post(routes::duels::create))
         .route("/duels/:duel_id", get(routes::duels::view));
