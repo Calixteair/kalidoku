@@ -409,6 +409,12 @@ pub struct PlayResponse {
     pub score_delta: i32,
     pub mistakes_left: i32,
     pub ended: bool,
+    /// Snapshotted fame_score of the entity that was just resolved, when the
+    /// answer was correct. Lets the client surface a rarity tag in real time
+    /// instead of waiting for the EndGameView. Null when the answer was
+    /// wrong or when the entity has no fame data baked into the grid.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub fame_score: Option<i32>,
 }
 
 pub async fn play(
@@ -546,12 +552,34 @@ pub async fn play(
     }
     am.update(db.as_ref()).await?;
 
+    let fame_score = if ok {
+        fame_score_for_entity(&grid.payload, &entity_id)
+    } else {
+        None
+    };
+
     Ok(Json(PlayResponse {
         ok,
         score_delta,
         mistakes_left,
         ended,
+        fame_score,
     }))
+}
+
+/// Look up `fame_score` for a given `entity_id` inside a grid payload's
+/// `entities` array. Returns None if the entity is unknown or wasn't scored
+/// at ingestion time (paris-metro stations have fame, rer stations partly).
+fn fame_score_for_entity(payload: &serde_json::Value, entity_id: &str) -> Option<i32> {
+    let entities = payload.get("entities")?.as_array()?;
+    for ent in entities {
+        let id = ent.get("id")?.as_str()?;
+        if id == entity_id {
+            let fame = ent.get("fame_score")?.as_u64()?;
+            return i32::try_from(fame.min(100)).ok();
+        }
+    }
+    None
 }
 
 /// Look up an entity_id whose canonical or alias name matches the normalised user input.

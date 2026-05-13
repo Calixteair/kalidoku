@@ -12,6 +12,7 @@
   import RulesModal from "./RulesModal.svelte";
   import { createGameStore, cellKey } from "../stores/gameStore.svelte.js";
   import { parseSeedFromUrl } from "../solo.js";
+  import { rarityFor, type Rarity } from "../rarity.js";
 
   type PublicGrid = components["schemas"]["PublicGrid"];
   type Cell = components["schemas"]["Cell"];
@@ -62,12 +63,31 @@
   // so the player gets immediate feedback even though the cell stays empty.
   let wrongCells = $state<Set<string>>(new Set());
 
+  // Transient rarity toast: shown right above the cell that was just
+  // resolved, fades after ~1.5s. Tracked here (rather than in CellButton)
+  // because the toast overflows the cell's clipped border-radius and we
+  // need it positioned over the grid layer, not inside the button.
+  type RarityToast = { cell: Cell; rarity: Rarity; label: string; key: number };
+  let rarityToast = $state<RarityToast | null>(null);
+
   const flashWrong = (cell: Cell): void => {
     const key = cellKey(cell);
     wrongCells = new Set([...wrongCells, key]);
     setTimeout(() => {
       wrongCells = new Set([...wrongCells].filter((k) => k !== key));
     }, 700);
+  };
+
+  const showRarityToast = (cell: Cell, fame: number | null | undefined): void => {
+    const r = rarityFor(fame);
+    if (r === "common") return; // Common = no celebration toast, keeps the UI calm.
+    const label =
+      r === "rare" ? m.rarity_rare() : r === "epic" ? m.rarity_epic() : m.rarity_legendary();
+    const key = Date.now();
+    rarityToast = { cell, rarity: r, label, key };
+    setTimeout(() => {
+      if (rarityToast?.key === key) rarityToast = null;
+    }, 1700);
   };
 
   const currentLocale = (): "fr" | "en" => {
@@ -197,7 +217,11 @@
         { cell, answer: entity.name, playToken: state.playToken },
       );
       store.recordPlay(cell, entity.name, res);
-      if (!res.ok) flashWrong(cell);
+      if (res.ok) {
+        showRarityToast(cell, res.fameScore);
+      } else {
+        flashWrong(cell);
+      }
       // Auto-open the end-of-game modal once the server signals it (3 mistakes
       // or 9 cells solved). Without this the player has to close the
       // autocomplete and rely on a follow-up click to see the verdict.
@@ -266,7 +290,8 @@
   const colMarker = $derived(m.col_short({ col: "" }).replace(/[^A-Za-z]/g, "") || "C");
 
   // Today's date — pretty-printed in the user's locale (no spoiler about the
-  // puzzle itself, just the publication date).
+  // puzzle itself, just the publication date). Rendered only in daily mode;
+  // solo and duel grids aren't "of the day".
   const todayLabel = $derived.by(() => {
     const locale = currentLocale() === "en" ? "en-GB" : "fr-FR";
     return new Date().toLocaleDateString(locale, {
@@ -274,6 +299,31 @@
       day: "numeric",
       month: "long",
     });
+  });
+
+  // Masthead reflects (mode, domain) so the same Grid component reads as a
+  // 'Grille du jour / Métro de Paris' on /paris-metro/ and as a 'Solo /
+  // RER d'Île-de-France' on /rer/play.
+  const modeEyebrow = $derived.by((): string => {
+    if (mode === "solo") return m.grid_mode_solo();
+    if (mode === "duel") return m.grid_mode_duel();
+    return m.grid_mode_daily();
+  });
+  const modeTitle = $derived.by((): string => {
+    if (mode === "solo") return m.grid_title_solo();
+    if (mode === "duel") return m.grid_title_duel();
+    return m.grid_today();
+  });
+  const domainLabel = $derived.by((): string => {
+    // We avoid a generic i18n.json key-lookup helper here — paraglide
+    // generates one fn per key, so a tiny switch stays type-checked.
+    switch (domain) {
+      case "rer":
+        return m.grid_domain_rer();
+      case "paris-metro":
+      default:
+        return m.grid_domain_paris_metro();
+    }
   });
 
   const mistakesUsed = $derived(
@@ -297,9 +347,9 @@
   <header class="flex flex-col gap-3">
     <div class="flex items-center justify-between gap-3">
       <p class="eyebrow">
-        <span aria-hidden="true" class="text-accent">{m.grid_today()}</span>
+        <span aria-hidden="true" class="text-accent">{modeEyebrow}</span>
         <span aria-hidden="true" class="text-fg-muted/40 mx-1">/</span>
-        <span class="text-fg-muted">{m.grid_domain_paris_metro()}</span>
+        <span class="text-fg-muted">{domainLabel}</span>
       </p>
       <button
         type="button"
@@ -312,9 +362,11 @@
     </div>
     <div class="flex items-end justify-between gap-3">
       <h1 class="font-display text-fg text-3xl font-semibold leading-[1.05] sm:text-4xl">
-        {m.grid_today()}<span class="text-accent">.</span>
+        {modeTitle}<span class="text-accent">.</span>
       </h1>
-      <time class="text-fg-muted shrink-0 text-xs uppercase tracking-wider">{todayLabel}</time>
+      {#if mode === "daily"}
+        <time class="text-fg-muted shrink-0 text-xs uppercase tracking-wider">{todayLabel}</time>
+      {/if}
     </div>
   </header>
 
@@ -385,28 +437,58 @@
   {:else if grid}
     {@const cols = grid.cols}
     {@const rows = grid.rows}
-    <div class="kd-grid">
-      <!-- Top-left blank "corner" — kept for the column header to align under
+    <div class="kd-grid-wrap">
+      <!-- Rarity toast — sits above the grid, pinned to the cell that was
+           just solved. Auto-dismisses after ~1.7 s; if the player solves a
+           second cell before then, the toast just bumps to the new value. -->
+      {#if rarityToast}
+        {@const idx = rarityToast.cell.row * 3 + rarityToast.cell.col + rarityToast.key}
+        <output
+          class="kd-rarity-toast"
+          class:rarity-rare={rarityToast.rarity === "rare"}
+          class:rarity-epic={rarityToast.rarity === "epic"}
+          class:rarity-legendary={rarityToast.rarity === "legendary"}
+          aria-live="polite"
+          data-cell-key={idx}
+        >
+          {rarityToast.label}
+        </output>
+      {/if}
+      <div class="kd-grid">
+        <!-- Top-left blank "corner" — kept for the column header to align under
            the row chips. Visually filled with a subtle marker to anchor the eye. -->
-      <div class="kd-corner" aria-hidden="true">
-        <span class="eyebrow">L · C</span>
-      </div>
-      {#each cols as col, ci (col.id)}
-        <PredicateChip predicate={col} orientation="col" index={ci + 1} marker={colMarker} />
-      {/each}
-      {#each rows as row, ri (row.id)}
-        <PredicateChip predicate={row} orientation="row" index={ri + 1} marker={rowMarker} />
-        {#each [0, 1, 2] as ci (ci)}
-          <CellButton
-            row={ri}
-            col={ci}
-            answer={store.answersByCell.get(cellKey({ row: ri, col: ci }))}
-            wrong={wrongCells.has(cellKey({ row: ri, col: ci }))}
-            disabled={gridLoading || store.isOver || starting}
-            onSelect={onCellSelect}
+        <div class="kd-corner" aria-hidden="true">
+          <span class="eyebrow">L · C</span>
+        </div>
+        {#each cols as col, ci (col.id)}
+          <PredicateChip
+            predicate={col}
+            orientation="col"
+            index={ci + 1}
+            marker={colMarker}
+            {domain}
           />
         {/each}
-      {/each}
+        {#each rows as row, ri (row.id)}
+          <PredicateChip
+            predicate={row}
+            orientation="row"
+            index={ri + 1}
+            marker={rowMarker}
+            {domain}
+          />
+          {#each [0, 1, 2] as ci (ci)}
+            <CellButton
+              row={ri}
+              col={ci}
+              answer={store.answersByCell.get(cellKey({ row: ri, col: ci }))}
+              wrong={wrongCells.has(cellKey({ row: ri, col: ci }))}
+              disabled={gridLoading || store.isOver || starting}
+              onSelect={onCellSelect}
+            />
+          {/each}
+        {/each}
+      </div>
     </div>
 
     {#if startError}
@@ -485,6 +567,77 @@
 {/if}
 
 <style>
+  /* Wraps the grid in a positioning context for the floating rarity toast.
+     Without this the toast couldn't be visually anchored above the grid
+     while staying out of the grid track flow. */
+  .kd-grid-wrap {
+    position: relative;
+  }
+  .kd-rarity-toast {
+    position: absolute;
+    top: -1.25rem;
+    right: 0.25rem;
+    z-index: 5;
+    display: inline-block;
+    padding: 0.3rem 0.7rem;
+    border-radius: 999px;
+    font-size: 0.7rem;
+    line-height: 1;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-bg);
+    background: currentColor;
+    border: 1px solid currentColor;
+    animation: kd-rarity-pop 1.6s var(--ease-out) forwards;
+    pointer-events: none;
+  }
+  .kd-rarity-toast::before {
+    /* Inner label rendered on top — currentColor is a stack of background +
+       border, so the visible text uses its own colour via ::before with a
+       second tone. Skip the trick and just rely on enough contrast. */
+  }
+  .kd-rarity-toast.rarity-rare {
+    color: oklch(0.6 0.16 250);
+    color: white;
+    background: oklch(0.6 0.16 250);
+    border-color: oklch(0.55 0.16 250);
+  }
+  .kd-rarity-toast.rarity-epic {
+    color: white;
+    background: oklch(0.58 0.18 305);
+    border-color: oklch(0.53 0.18 305);
+  }
+  .kd-rarity-toast.rarity-legendary {
+    color: oklch(0.18 0.05 75);
+    background: oklch(0.78 0.16 75);
+    border-color: oklch(0.7 0.16 75);
+    box-shadow: 0 0 0 3px color-mix(in oklab, oklch(0.78 0.16 75) 30%, transparent);
+  }
+  @keyframes kd-rarity-pop {
+    0% {
+      opacity: 0;
+      transform: translateY(8px) scale(0.92);
+    }
+    18% {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+    78% {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(-6px) scale(0.96);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .kd-rarity-toast {
+      animation: none;
+      opacity: 1;
+    }
+  }
   /* The grid is the page's anchor — gap kept tight so the predicate strips
      read as a single label cluster, with a slightly larger gap on >sm. */
   .kd-grid {

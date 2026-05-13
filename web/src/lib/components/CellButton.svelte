@@ -2,6 +2,7 @@
   import Check from "lucide-svelte/icons/check";
   import Plus from "lucide-svelte/icons/plus";
   import * as m from "../../paraglide/messages.js";
+  import { rarityFor, type Rarity } from "../rarity.js";
   import type { CellAnswer } from "../stores/gameStore.svelte.js";
 
   interface Props {
@@ -26,6 +27,24 @@
       : cellLabel + ", " + m.cell_empty(),
   );
   const shortLabel = $derived(m.cell_short_label({ row: row + 1, col: col + 1 }));
+
+  // The persistent rarity badge sits in the top-right corner of a solved
+  // cell. We only render it when the cell is solved AND the rarity is more
+  // notable than 'common' — common stations don't need decoration, the
+  // badge would mostly add noise.
+  const rarity: Rarity | null = $derived(answer ? rarityFor(answer.fameScore) : null);
+  const rarityLabel = $derived.by((): string => {
+    switch (rarity) {
+      case "rare":
+        return m.rarity_rare();
+      case "epic":
+        return m.rarity_epic();
+      case "legendary":
+        return m.rarity_legendary();
+      default:
+        return "";
+    }
+  });
 </script>
 
 <button
@@ -41,9 +60,25 @@
   <span class="cell-tag eyebrow" aria-hidden="true">{shortLabel}</span>
 
   {#if answer}
-    <span class="cell-check" aria-hidden="true">
-      <Check size={14} strokeWidth={2.5} />
-    </span>
+    {#if rarity && rarity !== "common"}
+      <!-- Persistent corner badge — replaces the plain check on cells where
+           the resolved entity is at least 'Rare'. Common cells keep the
+           understated check so the badge wall doesn't drown the eye. -->
+      <span
+        class="cell-rarity"
+        class:rarity-rare={rarity === "rare"}
+        class:rarity-epic={rarity === "epic"}
+        class:rarity-legendary={rarity === "legendary"}
+        aria-label={rarityLabel}
+        title={rarityLabel}
+      >
+        {rarityLabel}
+      </span>
+    {:else}
+      <span class="cell-check" aria-hidden="true">
+        <Check size={14} strokeWidth={2.5} />
+      </span>
+    {/if}
     <span class="cell-answer" title={answer.entityName}>{answer.entityName}</span>
   {:else}
     <span class="cell-plus" aria-hidden="true">
@@ -130,6 +165,37 @@
     border-radius: 999px;
     color: var(--color-success);
     background: color-mix(in oklab, var(--color-success) 18%, transparent);
+  }
+  /* Rarity badge — sits where the check normally lives on solved cells.
+     Three colour stops keyed off MMO loot ladders (blue / purple / gold).
+     Common cells fall back to .cell-check above, no badge. */
+  .cell-rarity {
+    position: absolute;
+    top: 0.4rem;
+    right: 0.45rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 16px;
+    padding: 0 6px;
+    border-radius: 999px;
+    font-size: 9px;
+    line-height: 1;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    border: 1px solid currentColor;
+    background: color-mix(in oklab, currentColor 14%, transparent);
+  }
+  .rarity-rare {
+    color: oklch(0.6 0.16 250);
+  }
+  .rarity-epic {
+    color: oklch(0.58 0.18 305);
+  }
+  .rarity-legendary {
+    color: oklch(0.7 0.16 75);
+    box-shadow: 0 0 0 1px color-mix(in oklab, currentColor 35%, transparent);
   }
   .cell-answer {
     display: -webkit-box;

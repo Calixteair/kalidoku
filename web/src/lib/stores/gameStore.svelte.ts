@@ -8,6 +8,14 @@ export interface CellAnswer {
   col: number;
   entityName: string;
   filledAt: string; // ISO
+  /**
+   * Snapshotted fame_score (0..=100) of the resolved entity, served by
+   * the /play response when the answer was correct. Null when the entity
+   * doesn't carry fame data (e.g. paris-metro entries pre-#57, rer minor
+   * stations). Lets the UI render a persistent rarity badge without a
+   * second round-trip to the server.
+   */
+  fameScore: number | null;
 }
 
 export interface PersistedGameState {
@@ -140,7 +148,13 @@ export const createGameStore = (domain: string) => {
   const recordPlay = (
     cell: Cell,
     entityName: string,
-    result: { ok: boolean; scoreDelta: number; mistakesLeft: number; ended?: boolean | undefined },
+    result: {
+      ok: boolean;
+      scoreDelta: number;
+      mistakesLeft: number;
+      ended?: boolean | undefined;
+      fameScore?: number | null | undefined;
+    },
   ): void => {
     if (!state) return;
     const next: PersistedGameState = {
@@ -151,7 +165,13 @@ export const createGameStore = (domain: string) => {
     if (result.ok) {
       next.answers = [
         ...state.answers,
-        { row: cell.row, col: cell.col, entityName, filledAt: new Date().toISOString() },
+        {
+          row: cell.row,
+          col: cell.col,
+          entityName,
+          filledAt: new Date().toISOString(),
+          fameScore: result.fameScore ?? null,
+        },
       ];
     }
     if (result.ended) {
