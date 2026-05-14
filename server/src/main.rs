@@ -55,6 +55,17 @@ async fn main() -> Result<()> {
             available_modes: vec!["daily".into(), "solo".into(), "duel".into()],
         },
     );
+    active_domains.insert(
+        "clash-royale".to_string(),
+        DomainSummary {
+            id: "clash-royale".into(),
+            name_fr: "Clash Royale".into(),
+            name_en: "Clash Royale".into(),
+            version: "0.1.0".into(),
+            description: None,
+            available_modes: vec!["daily".into(), "solo".into(), "duel".into()],
+        },
+    );
     let mut state = AppState::new(cfg.clone()).with_domains(active_domains);
 
     if !cfg.database_url.is_empty() {

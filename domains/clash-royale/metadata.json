@@ -1,0 +1,35 @@
+{
+  "id": "clash-royale",
+  "name": {
+    "fr": "Clash Royale",
+    "en": "Clash Royale"
+  },
+  "version": "0.1.0",
+  "default_locale": "fr",
+  "license": "fan-content-policy",
+  "sources": [
+    "https://developer.clashroyale.com",
+    "https://royaleapi.github.io/cr-api-data/"
+  ],
+  "generator_constraints": {
+    "min_candidates_per_cell": 2,
+    "max_candidates_per_cell": 25,
+    "max_predicate_family_repeats": 1,
+    "row_predicate_count": 3,
+    "col_predicate_count": 3
+  },
+  "dataset_sha256": "ef8f3123a154ae7c9ece2874cee939986437709e74a13db11324622a26c02a8d",
+  "entity_count": 121,
+  "sources_versions": [
+    {
+      "id": "supercell-cards",
+      "url": "https://api.clashroyale.com/v1/cards",
+      "date": "2026-05-14"
+    },
+    {
+      "id": "royaleapi-stats",
+      "url": "https://royaleapi.github.io/cr-api-data/json/cards_stats.json",
+      "date": "2026-05-14"
+    }
+  ]
+}

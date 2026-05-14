@@ -320,6 +320,8 @@
     switch (domain) {
       case "rer":
         return m.grid_domain_rer();
+      case "clash-royale":
+        return m.grid_domain_clash_royale();
       case "paris-metro":
       default:
         return m.grid_domain_paris_metro();
