@@ -211,6 +211,14 @@ components:
             Snapshotted fame_score of the entity just resolved (when ok=true).
             Lets the client surface a rarity tag on the cell in real time.
             Null on wrong answers and on entities without fame data baked in.
+        entityId:
+          type: string
+          nullable: true
+          description: |
+            Canonical entity id the answer resolved to. Lets the client
+            render a per-entity asset (Clash Royale card art, country flag)
+            on the solved cell without re-deriving the id from the user-typed
+            string. Null on wrong answers.
 
     AutocompleteResult:
       type: object

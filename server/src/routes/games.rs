@@ -415,6 +415,12 @@ pub struct PlayResponse {
     /// wrong or when the entity has no fame data baked into the grid.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub fame_score: Option<i32>,
+    /// Canonical entity id the answer resolved to. Lets the client render a
+    /// per-entity asset (card art, country flag) on the solved cell without
+    /// having to re-derive the id from the typed answer (which would break
+    /// on accents/aliases). Null on wrong answers.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub entity_id: Option<String>,
 }
 
 pub async fn play(
@@ -557,6 +563,10 @@ pub async fn play(
     } else {
         None
     };
+    // Echo back the canonical id the resolver settled on — saves the client
+    // from having to slugify the user-typed answer (which would lose
+    // accents and aliases). resolved is Some(_) iff ok=true.
+    let entity_id_out = if ok { resolved.clone() } else { None };
 
     Ok(Json(PlayResponse {
         ok,
@@ -564,6 +574,7 @@ pub async fn play(
         mistakes_left,
         ended,
         fame_score,
+        entity_id: entity_id_out,
     }))
 }
 

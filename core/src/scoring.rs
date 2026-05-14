@@ -46,6 +46,7 @@ mod tests {
             aliases: vec![],
             attributes: HashMap::new(),
             fame_score: fame,
+            icon_url: None,
         }
     }
 

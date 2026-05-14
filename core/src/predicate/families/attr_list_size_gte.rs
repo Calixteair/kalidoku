@@ -104,6 +104,7 @@ mod tests {
             aliases: vec![],
             attributes: a,
             fame_score: None,
+            icon_url: None,
         }
     }
 
@@ -130,6 +131,7 @@ mod tests {
             aliases: vec![],
             attributes: HashMap::new(),
             fame_score: None,
+            icon_url: None,
         };
         assert!(!p.matches(&e));
     }
