@@ -212,6 +212,46 @@ def arena_tier(raw: Any) -> int:
     return 0
 
 
+def download_icons(entities: list[dict], target_root: Path) -> int:
+    """Download each entity's icon_url into <target_root>/<id>.png.
+    Idempotent: skips when the file already exists with non-zero size.
+    Returns the number of NEW files written. Failures are logged and
+    don't abort — partial coverage is acceptable, CardIcon.svelte falls
+    back gracefully on missing assets.
+
+    Polite throttle: 100 ms between downloads. Supercell's api-assets CDN
+    handles bursts but we don't push it."""
+    target_root.mkdir(parents=True, exist_ok=True)
+    written = 0
+    skipped = 0
+    failed: list[str] = []
+    for ent in entities:
+        url = ent.get("icon_url")
+        if not url:
+            continue
+        path = target_root / f"{ent['id']}.png"
+        if path.is_file() and path.stat().st_size > 0:
+            skipped += 1
+            continue
+        try:
+            req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
+            with urllib.request.urlopen(req, timeout=30) as r:
+                payload = r.read()
+            if not payload:
+                failed.append(ent["id"])
+                continue
+            path.write_bytes(payload)
+            written += 1
+            time.sleep(0.1)
+        except Exception as e:
+            log(f"  WARN: icon download failed for {ent['id']}: {e}")
+            failed.append(ent["id"])
+    log(f"  icons: {written} downloaded, {skipped} already cached, {len(failed)} failed")
+    if failed:
+        log(f"  failed ids: {failed[:8]}{'...' if len(failed) > 8 else ''}")
+    return written
+
+
 # ---------- Build entities ----------
 
 
@@ -294,11 +334,12 @@ def build_entities(supercell_cards: list[dict], stats: dict) -> list[dict]:
             },
             "fame_score": fame,
         }
-        # NOTE: icon_url from Supercell is intentionally not stored on the
-        # entity in PR A — entity-schema.json forbids extra top-level keys.
-        # PR B (card images) will either extend the schema or stash the URLs
-        # in a sibling icons.json. We discard them here.
-        _ = icon_url
+        # Persist the Supercell icon URL on the entity. Schema (post-PR B) now
+        # accepts it as an optional uri field; CardIcon.svelte reads
+        # web/public/cards/<domain>/<id>.png at runtime, but the URL stays
+        # available as a fallback / debugging anchor.
+        if icon_url:
+            entity["icon_url"] = icon_url
         out.append(entity)
 
     if missing_stats:
@@ -353,6 +394,17 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[1] if __doc__ else "")
     parser.add_argument("--domain-root", type=Path, default=Path("domains/clash-royale"))
     parser.add_argument("--api-key-file", type=Path, default=DEFAULT_KEY_PATH)
+    parser.add_argument(
+        "--icons-dir",
+        type=Path,
+        default=Path("web/public/cards/clash-royale"),
+        help="Where to write card .png files. Set to '' to skip the download pass.",
+    )
+    parser.add_argument(
+        "--no-icons",
+        action="store_true",
+        help="Skip the icon download pass (data-only ingest).",
+    )
     parser.add_argument("--dry-run", action="store_true")
     args = parser.parse_args()
 
@@ -379,6 +431,11 @@ def main() -> int:
     meta_bytes = (json.dumps(metadata, ensure_ascii=False, indent=2) + "\n").encode("utf-8")
     (args.domain_root / "metadata.json").write_bytes(meta_bytes)
     log(f"wrote {args.domain_root / 'metadata.json'}")
+
+    if not args.no_icons:
+        log(f"downloading card icons into {args.icons_dir}…")
+        download_icons(entities, args.icons_dir)
+
     return 0
 
 
