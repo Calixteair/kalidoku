@@ -24,6 +24,7 @@ export interface DomainEntry {
 export const DOMAINS: readonly DomainEntry[] = [
   { id: "paris-metro", nameFr: "Métro de Paris", nameEn: "Paris Metro" },
   { id: "rer", nameFr: "RER d'Île-de-France", nameEn: "Île-de-France RER" },
+  { id: "clash-royale", nameFr: "Clash Royale", nameEn: "Clash Royale" },
 ] as const;
 
 /** Default domain for legacy redirects (`/play` → `/paris-metro/play`). */
