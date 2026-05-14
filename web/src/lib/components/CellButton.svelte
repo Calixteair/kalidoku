@@ -4,6 +4,7 @@
   import * as m from "../../paraglide/messages.js";
   import { rarityFor, type Rarity } from "../rarity.js";
   import type { CellAnswer } from "../stores/gameStore.svelte.js";
+  import CardIcon from "./CardIcon.svelte";
 
   interface Props {
     row: number;
@@ -11,10 +12,20 @@
     answer: CellAnswer | undefined;
     wrong?: boolean;
     disabled: boolean;
+    /** Active domain. When the domain ships card images (currently
+     *  clash-royale only) and the answer carries a canonical entityId,
+     *  the cell renders the artwork on top of the name. */
+    domain: string;
     onSelect: (row: number, col: number) => void;
   }
 
-  let { row, col, answer, wrong = false, disabled, onSelect }: Props = $props();
+  let { row, col, answer, wrong = false, disabled, domain, onSelect }: Props = $props();
+
+  // Per-domain decision: do we have card art for this domain? Hardcoded for
+  // now — adding 'world-airports' here lights it up automatically once the
+  // /cards/world-airports/<id>.png files land.
+  const DOMAINS_WITH_ART = new Set(["clash-royale"]);
+  const hasArt = $derived(DOMAINS_WITH_ART.has(domain) && answer !== undefined && answer.entityId);
 
   const handleClick = (): void => {
     onSelect(row, col);
@@ -79,7 +90,19 @@
         <Check size={14} strokeWidth={2.5} />
       </span>
     {/if}
-    <span class="cell-answer" title={answer.entityName}>{answer.entityName}</span>
+    {#if hasArt && answer.entityId}
+      <!-- Card-art domains: full-bleed image with the entity name as a
+           thin caption strip at the bottom. The image is decorative + the
+           caption stays for a11y / fallback if the asset 404s. -->
+      <span class="cell-art-wrap" aria-hidden="true">
+        <CardIcon {domain} entityId={answer.entityId} alt={answer.entityName} size={72} eager />
+      </span>
+      <span class="cell-answer cell-answer--caption" title={answer.entityName}
+        >{answer.entityName}</span
+      >
+    {:else}
+      <span class="cell-answer" title={answer.entityName}>{answer.entityName}</span>
+    {/if}
   {:else}
     <span class="cell-plus" aria-hidden="true">
       <Plus size={22} strokeWidth={1.6} />
@@ -211,6 +234,33 @@
     padding: 0 0.25rem;
     overflow-wrap: anywhere;
     hyphens: auto;
+  }
+  /* Card-art layout: image dominant, caption strip below. The wrapper
+     shrinks the image into the cell's square footprint without distorting
+     the portrait card art. */
+  .cell-art-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1 1 auto;
+    width: 100%;
+    min-height: 0;
+    padding: 0.15rem;
+  }
+  :global(.cell .cell-art-wrap > .kd-card-icon) {
+    width: auto !important;
+    height: 100% !important;
+    max-width: 100%;
+    max-height: 100%;
+    background: transparent;
+  }
+  .cell-answer--caption {
+    -webkit-line-clamp: 1;
+    line-clamp: 1;
+    font-size: 0.66rem;
+    padding: 0 0.15rem;
+    color: var(--color-fg-subtle);
+    margin-top: 0.1rem;
   }
   /* Filled state — paper turns a faint success cream, a vertical line bar
      "rises" from the bottom (transit-line accent), and the entity name swaps

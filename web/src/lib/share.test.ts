@@ -10,9 +10,9 @@ describe("buildShareString", () => {
       mistakes: 1,
       mistakesAllowed: 3,
       answers: [
-        { row: 0, col: 0, entityName: "a", filledAt: "", fameScore: null },
-        { row: 1, col: 1, entityName: "b", filledAt: "", fameScore: null },
-        { row: 2, col: 2, entityName: "c", filledAt: "", fameScore: null },
+        { row: 0, col: 0, entityName: "a", filledAt: "", fameScore: null, entityId: null },
+        { row: 1, col: 1, entityName: "b", filledAt: "", fameScore: null, entityId: null },
+        { row: 2, col: 2, entityName: "c", filledAt: "", fameScore: null, entityId: null },
       ],
     });
     expect(out.split("\n")[0]).toBe("kalidoku 2026-05-10 — 12/18");

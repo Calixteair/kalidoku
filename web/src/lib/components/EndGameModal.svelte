@@ -10,6 +10,11 @@
   import type { components } from "../api/types.js";
   import type { CellAnswer } from "../stores/gameStore.svelte.js";
   import { buildShareString, copyToClipboard, pickShareString, shareNative } from "../share.js";
+  import CardIcon from "./CardIcon.svelte";
+
+  // Mirror of CellButton / AutocompleteModal — keep aligned when a new
+  // domain ships icons.
+  const DOMAINS_WITH_ART = new Set(["clash-royale"]);
 
   type EndGameView = components["schemas"]["EndGameView"];
 
@@ -314,6 +319,9 @@
                     <ul class="kd-solutions__cands mt-1">
                       {#each cellSol.candidates as cand (cand.id)}
                         <li class="kd-solutions__cand">
+                          {#if domain && DOMAINS_WITH_ART.has(domain)}
+                            <CardIcon {domain} entityId={cand.id} alt="" size={28} eager />
+                          {/if}
                           <span class="text-fg text-sm leading-snug">{cand.name}</span>
                           {#if cand.fameScore !== undefined && cand.fameScore !== null}
                             <span
@@ -538,7 +546,7 @@
   }
   .kd-solutions__cand {
     display: inline-flex;
-    align-items: baseline;
+    align-items: center;
     gap: 0.35rem;
   }
   /* Originality block — flat bar with accent fill and a tiny hint underneath. */

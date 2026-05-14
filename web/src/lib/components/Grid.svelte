@@ -486,6 +486,7 @@
               answer={store.answersByCell.get(cellKey({ row: ri, col: ci }))}
               wrong={wrongCells.has(cellKey({ row: ri, col: ci }))}
               disabled={gridLoading || store.isOver || starting}
+              {domain}
               onSelect={onCellSelect}
             />
           {/each}
