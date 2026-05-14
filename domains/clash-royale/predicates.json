@@ -1,0 +1,634 @@
+[
+  {
+    "family": "on_attr_eq",
+    "param": {
+      "attr": "rarity",
+      "value": "common"
+    },
+    "labels": {
+      "fr": {
+        "text": "Rareté Commune",
+        "help": "Sur la carte officielle Clash Royale."
+      },
+      "en": {
+        "text": "Common rarity",
+        "help": "As shown on the official card."
+      }
+    },
+    "tags": [
+      "rarity"
+    ]
+  },
+  {
+    "family": "on_attr_eq",
+    "param": {
+      "attr": "rarity",
+      "value": "rare"
+    },
+    "labels": {
+      "fr": {
+        "text": "Rareté Rare",
+        "help": "Sur la carte officielle Clash Royale."
+      },
+      "en": {
+        "text": "Rare rarity",
+        "help": "As shown on the official card."
+      }
+    },
+    "tags": [
+      "rarity"
+    ]
+  },
+  {
+    "family": "on_attr_eq",
+    "param": {
+      "attr": "rarity",
+      "value": "epic"
+    },
+    "labels": {
+      "fr": {
+        "text": "Rareté Épique",
+        "help": "Sur la carte officielle Clash Royale."
+      },
+      "en": {
+        "text": "Epic rarity",
+        "help": "As shown on the official card."
+      }
+    },
+    "tags": [
+      "rarity"
+    ]
+  },
+  {
+    "family": "on_attr_eq",
+    "param": {
+      "attr": "rarity",
+      "value": "legendary"
+    },
+    "labels": {
+      "fr": {
+        "text": "Rareté Légendaire",
+        "help": "Sur la carte officielle Clash Royale."
+      },
+      "en": {
+        "text": "Legendary rarity",
+        "help": "As shown on the official card."
+      }
+    },
+    "tags": [
+      "rarity"
+    ]
+  },
+  {
+    "family": "on_attr_eq",
+    "param": {
+      "attr": "rarity",
+      "value": "champion"
+    },
+    "labels": {
+      "fr": {
+        "text": "Champion",
+        "help": "Cartes de rareté Champion, débloquées en arène avancée."
+      },
+      "en": {
+        "text": "Champion",
+        "help": "Champion-rarity cards, unlocked in higher arenas."
+      }
+    },
+    "tags": [
+      "rarity"
+    ]
+  },
+  {
+    "family": "on_attr_eq",
+    "param": {
+      "attr": "type",
+      "value": "Troop"
+    },
+    "labels": {
+      "fr": {
+        "text": "Troupe",
+        "help": "Unité combattante (par opposition à un sort ou un bâtiment)."
+      },
+      "en": {
+        "text": "Troop",
+        "help": "Combat unit, not a spell or a building."
+      }
+    },
+    "tags": [
+      "type"
+    ]
+  },
+  {
+    "family": "on_attr_eq",
+    "param": {
+      "attr": "type",
+      "value": "Building"
+    },
+    "labels": {
+      "fr": {
+        "text": "Bâtiment",
+        "help": "Structure défensive ou offensive posée sur l'arène."
+      },
+      "en": {
+        "text": "Building",
+        "help": "Static structure placed on the arena."
+      }
+    },
+    "tags": [
+      "type"
+    ]
+  },
+  {
+    "family": "on_attr_eq",
+    "param": {
+      "attr": "type",
+      "value": "Spell"
+    },
+    "labels": {
+      "fr": {
+        "text": "Sort",
+        "help": "Carte d'effet sans unité au sol (fléche, boule de feu, etc.)."
+      },
+      "en": {
+        "text": "Spell",
+        "help": "Effect card with no deployed unit (Fireball, Arrows, etc.)."
+      }
+    },
+    "tags": [
+      "type"
+    ]
+  },
+  {
+    "family": "numeric_lte",
+    "param": {
+      "attr": "elixir",
+      "n": 2
+    },
+    "labels": {
+      "fr": {
+        "text": "Coût d'élixir ≤ 2",
+        "help": "Le moins cher : carte de cycle."
+      },
+      "en": {
+        "text": "Elixir cost ≤ 2",
+        "help": "Cheapest cards — cycle pieces."
+      }
+    },
+    "tags": [
+      "elixir"
+    ]
+  },
+  {
+    "family": "numeric_between",
+    "param": {
+      "attr": "elixir",
+      "min": 3,
+      "max": 3
+    },
+    "labels": {
+      "fr": {
+        "text": "Coût d'élixir = 3",
+        "help": "Coût moyen, le plus représenté dans le jeu."
+      },
+      "en": {
+        "text": "Elixir cost = 3",
+        "help": "Mid-cost — the largest bucket."
+      }
+    },
+    "tags": [
+      "elixir"
+    ]
+  },
+  {
+    "family": "numeric_between",
+    "param": {
+      "attr": "elixir",
+      "min": 4,
+      "max": 4
+    },
+    "labels": {
+      "fr": {
+        "text": "Coût d'élixir = 4",
+        "help": "Coût moyen-haut, beaucoup d'unités-clés."
+      },
+      "en": {
+        "text": "Elixir cost = 4",
+        "help": "Mid-high cost — many staple troops."
+      }
+    },
+    "tags": [
+      "elixir"
+    ]
+  },
+  {
+    "family": "numeric_gte",
+    "param": {
+      "attr": "elixir",
+      "n": 6
+    },
+    "labels": {
+      "fr": {
+        "text": "Coût d'élixir ≥ 6",
+        "help": "Cartes lourdes : tanks, win-conditions."
+      },
+      "en": {
+        "text": "Elixir cost ≥ 6",
+        "help": "Heavy cards: tanks, win conditions."
+      }
+    },
+    "tags": [
+      "elixir"
+    ]
+  },
+  {
+    "family": "on_attr_eq",
+    "param": {
+      "attr": "attacks_air",
+      "value": true
+    },
+    "labels": {
+      "fr": {
+        "text": "Vise les unités aériennes",
+        "help": "Peut cibler les troupes volantes."
+      },
+      "en": {
+        "text": "Targets air units",
+        "help": "Can attack flying troops."
+      }
+    },
+    "tags": [
+      "target"
+    ]
+  },
+  {
+    "family": "on_attr_eq",
+    "param": {
+      "attr": "flies",
+      "value": true
+    },
+    "labels": {
+      "fr": {
+        "text": "Unité volante",
+        "help": "Se déplace dans les airs au lieu du sol."
+      },
+      "en": {
+        "text": "Flying unit",
+        "help": "Moves through air instead of on the ground."
+      }
+    },
+    "tags": [
+      "target"
+    ]
+  },
+  {
+    "family": "numeric_gte",
+    "param": {
+      "attr": "dps",
+      "n": 100
+    },
+    "labels": {
+      "fr": {
+        "text": "DPS ≥ 100",
+        "help": "Calculé : dégâts × 1000 / vitesse d'attaque (ms)."
+      },
+      "en": {
+        "text": "DPS ≥ 100",
+        "help": "Damage × 1000 / hit speed (ms)."
+      }
+    },
+    "tags": [
+      "combat"
+    ]
+  },
+  {
+    "family": "numeric_gte",
+    "param": {
+      "attr": "dps",
+      "n": 200
+    },
+    "labels": {
+      "fr": {
+        "text": "Très haut DPS (≥ 200)",
+        "help": "Calculé : dégâts × 1000 / vitesse d'attaque (ms)."
+      },
+      "en": {
+        "text": "Very high DPS (≥ 200)",
+        "help": "Damage × 1000 / hit speed (ms)."
+      }
+    },
+    "tags": [
+      "combat"
+    ]
+  },
+  {
+    "family": "numeric_gte",
+    "param": {
+      "attr": "hitpoints",
+      "n": 1000
+    },
+    "labels": {
+      "fr": {
+        "text": "Points de vie ≥ 1000",
+        "help": "Carte solide, tanky."
+      },
+      "en": {
+        "text": "HP ≥ 1000",
+        "help": "Sturdy, tanky card."
+      }
+    },
+    "tags": [
+      "combat"
+    ]
+  },
+  {
+    "family": "numeric_gte",
+    "param": {
+      "attr": "hitpoints",
+      "n": 2000
+    },
+    "labels": {
+      "fr": {
+        "text": "Très tanky (PV ≥ 2000)",
+        "help": "Cartes des plus résistantes du jeu."
+      },
+      "en": {
+        "text": "Very tanky (HP ≥ 2000)",
+        "help": "Among the toughest cards in the game."
+      }
+    },
+    "tags": [
+      "combat"
+    ]
+  },
+  {
+    "family": "numeric_gte",
+    "param": {
+      "attr": "range",
+      "n": 5000
+    },
+    "labels": {
+      "fr": {
+        "text": "Portée longue (≥ 5)",
+        "help": "Attaque à grande distance (range ≥ 5000 unités OSM)."
+      },
+      "en": {
+        "text": "Long range (≥ 5)",
+        "help": "Attacks from afar (range ≥ 5000 OSM units)."
+      }
+    },
+    "tags": [
+      "combat"
+    ]
+  },
+  {
+    "family": "numeric_lte",
+    "param": {
+      "attr": "range",
+      "n": 1200
+    },
+    "labels": {
+      "fr": {
+        "text": "Combat au corps-à-corps",
+        "help": "Portée courte (≤ 1200)."
+      },
+      "en": {
+        "text": "Melee fighter",
+        "help": "Short range (≤ 1200)."
+      }
+    },
+    "tags": [
+      "combat"
+    ]
+  },
+  {
+    "family": "numeric_gte",
+    "param": {
+      "attr": "speed",
+      "n": 90
+    },
+    "labels": {
+      "fr": {
+        "text": "Rapide (≥ 90)",
+        "help": "Vitesse de déplacement supérieure à la moyenne."
+      },
+      "en": {
+        "text": "Fast unit (≥ 90)",
+        "help": "Above-average movement speed."
+      }
+    },
+    "tags": [
+      "combat"
+    ]
+  },
+  {
+    "family": "numeric_lte",
+    "param": {
+      "attr": "speed",
+      "n": 60
+    },
+    "labels": {
+      "fr": {
+        "text": "Lente (≤ 60)",
+        "help": "Cartes lentes, généralement tanks."
+      },
+      "en": {
+        "text": "Slow unit (≤ 60)",
+        "help": "Slow cards, usually tanks."
+      }
+    },
+    "tags": [
+      "combat"
+    ]
+  },
+  {
+    "family": "numeric_gte",
+    "param": {
+      "attr": "arena",
+      "n": 7
+    },
+    "labels": {
+      "fr": {
+        "text": "Débloquée à l'arène 7+",
+        "help": "Cartes plus tardives dans la progression."
+      },
+      "en": {
+        "text": "Unlocked at arena 7+",
+        "help": "Later-progression cards."
+      }
+    },
+    "tags": [
+      "progression"
+    ]
+  },
+  {
+    "family": "starts_with",
+    "param": "g",
+    "labels": {
+      "fr": {
+        "text": "Commence par 'G'",
+        "help": "Première lettre, accents ignorés."
+      },
+      "en": {
+        "text": "Starts with 'G'",
+        "help": "Accents stripped before comparison."
+      }
+    },
+    "tags": [
+      "letters"
+    ]
+  },
+  {
+    "family": "starts_with",
+    "param": "s",
+    "labels": {
+      "fr": {
+        "text": "Commence par 'S'",
+        "help": "Première lettre, accents ignorés."
+      },
+      "en": {
+        "text": "Starts with 'S'",
+        "help": "Accents stripped before comparison."
+      }
+    },
+    "tags": [
+      "letters"
+    ]
+  },
+  {
+    "family": "ends_with",
+    "param": "r",
+    "labels": {
+      "fr": {
+        "text": "Termine par 'R'",
+        "help": "Dernière lettre alphabétique, accents ignorés."
+      },
+      "en": {
+        "text": "Ends with 'R'",
+        "help": "Trailing alphabetic letter."
+      }
+    },
+    "tags": [
+      "letters"
+    ]
+  },
+  {
+    "family": "ends_with",
+    "param": "n",
+    "labels": {
+      "fr": {
+        "text": "Termine par 'N'",
+        "help": "Dernière lettre alphabétique, accents ignorés."
+      },
+      "en": {
+        "text": "Ends with 'N'",
+        "help": "Trailing alphabetic letter."
+      }
+    },
+    "tags": [
+      "letters"
+    ]
+  },
+  {
+    "family": "contains_letter",
+    "param": "y",
+    "labels": {
+      "fr": {
+        "text": "Contient la lettre 'Y'",
+        "help": "Quelque part dans le nom."
+      },
+      "en": {
+        "text": "Contains the letter 'Y'",
+        "help": "Anywhere in the name."
+      }
+    },
+    "tags": [
+      "letters"
+    ]
+  },
+  {
+    "family": "contains_letter",
+    "param": "k",
+    "labels": {
+      "fr": {
+        "text": "Contient la lettre 'K'",
+        "help": "Quelque part dans le nom."
+      },
+      "en": {
+        "text": "Contains the letter 'K'",
+        "help": "Anywhere in the name."
+      }
+    },
+    "tags": [
+      "letters"
+    ]
+  },
+  {
+    "family": "name_word_count_eq",
+    "param": 1,
+    "labels": {
+      "fr": {
+        "text": "Nom en un seul mot",
+        "help": "Pas d'espace ni de tiret dans le nom."
+      },
+      "en": {
+        "text": "Single-word name",
+        "help": "No space or hyphen in the card name."
+      }
+    },
+    "tags": [
+      "words"
+    ]
+  },
+  {
+    "family": "name_word_count_eq",
+    "param": 2,
+    "labels": {
+      "fr": {
+        "text": "Nom en deux mots",
+        "help": "Composé de deux mots séparés par un espace."
+      },
+      "en": {
+        "text": "Two-word name",
+        "help": "Two space-separated words."
+      }
+    },
+    "tags": [
+      "words"
+    ]
+  },
+  {
+    "family": "name_length_max",
+    "param": 6,
+    "labels": {
+      "fr": {
+        "text": "Nom court (≤ 6 lettres)",
+        "help": "On compte uniquement les lettres alphabétiques."
+      },
+      "en": {
+        "text": "Short name (≤ 6 letters)",
+        "help": "Alphabetic characters only."
+      }
+    },
+    "tags": [
+      "words"
+    ]
+  },
+  {
+    "family": "name_length_min",
+    "param": 12,
+    "labels": {
+      "fr": {
+        "text": "Nom long (≥ 12 lettres)",
+        "help": "On compte uniquement les lettres alphabétiques."
+      },
+      "en": {
+        "text": "Long name (≥ 12 letters)",
+        "help": "Alphabetic characters only."
+      }
+    },
+    "tags": [
+      "words"
+    ]
+  }
+]

@@ -1,0 +1,4842 @@
+[
+  {
+    "id": "archer-queen",
+    "name": "Archer Queen",
+    "attributes": {
+      "rarity": {
+        "str": "champion"
+      },
+      "type": {
+        "str": "Troop"
+      },
+      "elixir": {
+        "num": 5.0
+      },
+      "dps": {
+        "num": 0.0
+      },
+      "hitpoints": {
+        "num": 1000.0
+      },
+      "range": {
+        "num": 5000.0
+      },
+      "speed": {
+        "num": 60.0
+      },
+      "attacks_air": {
+        "bool": true
+      },
+      "attacks_ground": {
+        "bool": true
+      },
+      "flies": {
+        "bool": false
+      },
+      "arena": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 5
+  },
+  {
+    "id": "archers",
+    "name": "Archers",
+    "attributes": {
+      "rarity": {
+        "str": "common"
+      },
+      "type": {
+        "str": "Unknown"
+      },
+      "elixir": {
+        "num": 3.0
+      },
+      "dps": {
+        "num": 0.0
+      },
+      "hitpoints": {
+        "num": 0.0
+      },
+      "range": {
+        "num": 0.0
+      },
+      "speed": {
+        "num": 0.0
+      },
+      "attacks_air": {
+        "bool": false
+      },
+      "attacks_ground": {
+        "bool": false
+      },
+      "flies": {
+        "bool": false
+      },
+      "arena": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 100
+  },
+  {
+    "id": "arrows",
+    "name": "Arrows",
+    "attributes": {
+      "rarity": {
+        "str": "common"
+      },
+      "type": {
+        "str": "Unknown"
+      },
+      "elixir": {
+        "num": 3.0
+      },
+      "dps": {
+        "num": 0.0
+      },
+      "hitpoints": {
+        "num": 0.0
+      },
+      "range": {
+        "num": 0.0
+      },
+      "speed": {
+        "num": 0.0
+      },
+      "attacks_air": {
+        "bool": false
+      },
+      "attacks_ground": {
+        "bool": false
+      },
+      "flies": {
+        "bool": false
+      },
+      "arena": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 100
+  },
+  {
+    "id": "baby-dragon",
+    "name": "Baby Dragon",
+    "attributes": {
+      "rarity": {
+        "str": "epic"
+      },
+      "type": {
+        "str": "Troop"
+      },
+      "elixir": {
+        "num": 4.0
+      },
+      "dps": {
+        "num": 0.0
+      },
+      "hitpoints": {
+        "num": 720.0
+      },
+      "range": {
+        "num": 3500.0
+      },
+      "speed": {
+        "num": 90.0
+      },
+      "attacks_air": {
+        "bool": true
+      },
+      "attacks_ground": {
+        "bool": true
+      },
+      "flies": {
+        "bool": true
+      },
+      "arena": {
+        "num": 6.0
+      }
+    },
+    "fame_score": 50
+  },
+  {
+    "id": "balloon",
+    "name": "Balloon",
+    "attributes": {
+      "rarity": {
+        "str": "epic"
+      },
+      "type": {
+        "str": "Troop"
+      },
+      "elixir": {
+        "num": 5.0
+      },
+      "dps": {
+        "num": 200.0
+      },
+      "hitpoints": {
+        "num": 1050.0
+      },
+      "range": {
+        "num": 100.0
+      },
+      "speed": {
+        "num": 60.0
+      },
+      "attacks_air": {
+        "bool": false
+      },
+      "attacks_ground": {
+        "bool": true
+      },
+      "flies": {
+        "bool": true
+      },
+      "arena": {
+        "num": 7.0
+      }
+    },
+    "fame_score": 50
+  },
+  {
+    "id": "bandit",
+    "name": "Bandit",
+    "attributes": {
+      "rarity": {
+        "str": "legendary"
+      },
+      "type": {
+        "str": "Unknown"
+      },
+      "elixir": {
+        "num": 3.0
+      },
+      "dps": {
+        "num": 0.0
+      },
+      "hitpoints": {
+        "num": 0.0
+      },
+      "range": {
+        "num": 0.0
+      },
+      "speed": {
+        "num": 0.0
+      },
+      "attacks_air": {
+        "bool": false
+      },
+      "attacks_ground": {
+        "bool": false
+      },
+      "flies": {
+        "bool": false
+      },
+      "arena": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 20
+  },
+  {
+    "id": "barbarian-barrel",
+    "name": "Barbarian Barrel",
+    "attributes": {
+      "rarity": {
+        "str": "epic"
+      },
+      "type": {
+        "str": "Unknown"
+      },
+      "elixir": {
+        "num": 2.0
+      },
+      "dps": {
+        "num": 0.0
+      },
+      "hitpoints": {
+        "num": 0.0
+      },
+      "range": {
+        "num": 0.0
+      },
+      "speed": {
+        "num": 0.0
+      },
+      "attacks_air": {
+        "bool": false
+      },
+      "attacks_ground": {
+        "bool": false
+      },
+      "flies": {
+        "bool": false
+      },
+      "arena": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 50
+  },
+  {
+    "id": "barbarian-hut",
+    "name": "Barbarian Hut",
+    "attributes": {
+      "rarity": {
+        "str": "rare"
+      },
+      "type": {
+        "str": "Building"
+      },
+      "elixir": {
+        "num": 6.0
+      },
+      "dps": {
+        "num": 0.0
+      },
+      "hitpoints": {
+        "num": 550.0
+      },
+      "range": {
+        "num": 0.0
+      },
+      "speed": {
+        "num": 0.0
+      },
+      "attacks_air": {
+        "bool": false
+      },
+      "attacks_ground": {
+        "bool": true
+      },
+      "flies": {
+        "bool": false
+      },
+      "arena": {
+        "num": 9.0
+      }
+    },
+    "fame_score": 80
+  },
+  {
+    "id": "barbarians",
+    "name": "Barbarians",
+    "attributes": {
+      "rarity": {
+        "str": "common"
+      },
+      "type": {
+        "str": "Troop"
+      },
+      "elixir": {
+        "num": 5.0
+      },
+      "dps": {
+        "num": 58.0
+      },
+      "hitpoints": {
+        "num": 262.0
+      },
+      "range": {
+        "num": 700.0
+      },
+      "speed": {
+        "num": 60.0
+      },
+      "attacks_air": {
+        "bool": false
+      },
+      "attacks_ground": {
+        "bool": true
+      },
+      "flies": {
+        "bool": false
+      },
+      "arena": {
+        "num": 3.0
+      }
+    },
+    "fame_score": 100
+  },
+  {
+    "id": "bats",
+    "name": "Bats",
+    "attributes": {
+      "rarity": {
+        "str": "common"
+      },
+      "type": {
+        "str": "Troop"
+      },
+      "elixir": {
+        "num": 2.0
+      },
+      "dps": {
+        "num": 25.0
+      },
+      "hitpoints": {
+        "num": 32.0
+      },
+      "range": {
+        "num": 1200.0
+      },
+      "speed": {
+        "num": 120.0
+      },
+      "attacks_air": {
+        "bool": true
+      },
+      "attacks_ground": {
+        "bool": true
+      },
+      "flies": {
+        "bool": true
+      },
+      "arena": {
+        "num": 5.0
+      }
+    },
+    "fame_score": 100
+  },
+  {
+    "id": "battle-healer",
+    "name": "Battle Healer",
+    "attributes": {
+      "rarity": {
+        "str": "rare"
+      },
+      "type": {
+        "str": "Troop"
+      },
+      "elixir": {
+        "num": 4.0
+      },
+      "dps": {
+        "num": 47.0
+      },
+      "hitpoints": {
+        "num": 810.0
+      },
+      "range": {
+        "num": 1600.0
+      },
+      "speed": {
+        "num": 60.0
+      },
+      "attacks_air": {
+        "bool": false
+      },
+      "attacks_ground": {
+        "bool": true
+      },
+      "flies": {
+        "bool": false
+      },
+      "arena": {
+        "num": 8.0
+      }
+    },
+    "fame_score": 80
+  },
+  {
+    "id": "battle-ram",
+    "name": "Battle Ram",
+    "attributes": {
+      "rarity": {
+        "str": "rare"
+      },
+      "type": {
+        "str": "Troop"
+      },
+      "elixir": {
+        "num": 4.0
+      },
+      "dps": {
+        "num": 338.0
+      },
+      "hitpoints": {
+        "num": 456.0
+      },
+      "range": {
+        "num": 500.0
+      },
+      "speed": {
+        "num": 60.0
+      },
+      "attacks_air": {
+        "bool": false
+      },
+      "attacks_ground": {
+        "bool": true
+      },
+      "flies": {
+        "bool": false
+      },
+      "arena": {
+        "num": 3.0
+      }
+    },
+    "fame_score": 80
+  },
+  {
+    "id": "berserker",
+    "name": "Berserker",
+    "attributes": {
+      "rarity": {
+        "str": "common"
+      },
+      "type": {
+        "str": "Unknown"
+      },
+      "elixir": {
+        "num": 2.0
+      },
+      "dps": {
+        "num": 0.0
+      },
+      "hitpoints": {
+        "num": 0.0
+      },
+      "range": {
+        "num": 0.0
+      },
+      "speed": {
+        "num": 0.0
+      },
+      "attacks_air": {
+        "bool": false
+      },
+      "attacks_ground": {
+        "bool": false
+      },
+      "flies": {
+        "bool": false
+      },
+      "arena": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 100
+  },
+  {
+    "id": "bomb-tower",
+    "name": "Bomb Tower",
+    "attributes": {
+      "rarity": {
+        "str": "rare"
+      },
+      "type": {
+        "str": "Building"
+      },
+      "elixir": {
+        "num": 4.0
+      },
+      "dps": {
+        "num": 0.0
+      },
+      "hitpoints": {
+        "num": 640.0
+      },
+      "range": {
+        "num": 6000.0
+      },
+      "speed": {
+        "num": 0.0
+      },
+      "attacks_air": {
+        "bool": false
+      },
+      "attacks_ground": {
+        "bool": true
+      },
+      "flies": {
+        "bool": false
+      },
+      "arena": {
+        "num": 4.0
+      }
+    },
+    "fame_score": 80
+  },
+  {
+    "id": "bomber",
+    "name": "Bomber",
+    "attributes": {
+      "rarity": {
+        "str": "common"
+      },
+      "type": {
+        "str": "Troop"
+      },
+      "elixir": {
+        "num": 2.0
+      },
+      "dps": {
+        "num": 0.0
+      },
+      "hitpoints": {
+        "num": 130.0
+      },
+      "range": {
+        "num": 4500.0
+      },
+      "speed": {
+        "num": 60.0
+      },
+      "attacks_air": {
+        "bool": false
+      },
+      "attacks_ground": {
+        "bool": true
+      },
+      "flies": {
+        "bool": false
+      },
+      "arena": {
+        "num": 2.0
+      }
+    },
+    "fame_score": 100
+  },
+  {
+    "id": "boss-bandit",
+    "name": "Boss Bandit",
+    "attributes": {
+      "rarity": {
+        "str": "champion"
+      },
+      "type": {
+        "str": "Unknown"
+      },
+      "elixir": {
+        "num": 6.0
+      },
+      "dps": {
+        "num": 0.0
+      },
+      "hitpoints": {
+        "num": 0.0
+      },
+      "range": {
+        "num": 0.0
+      },
+      "speed": {
+        "num": 0.0
+      },
+      "attacks_air": {
+        "bool": false
+      },
+      "attacks_ground": {
+        "bool": false
+      },
+      "flies": {
+        "bool": false
+      },
+      "arena": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 5
+  },
+  {
+    "id": "bowler",
+    "name": "Bowler",
+    "attributes": {
+      "rarity": {
+        "str": "epic"
+      },
+      "type": {
+        "str": "Troop"
+      },
+      "elixir": {
+        "num": 5.0
+      },
+      "dps": {
+        "num": 0.0
+      },
+      "hitpoints": {
+        "num": 1300.0
+      },
+      "range": {
+        "num": 4000.0
+      },
+      "speed": {
+        "num": 45.0
+      },
+      "attacks_air": {
+        "bool": false
+      },
+      "attacks_ground": {
+        "bool": true
+      },
+      "flies": {
+        "bool": false
+      },
+      "arena": {
+        "num": 13.0
+      }
+    },
+    "fame_score": 50
+  },
+  {
+    "id": "cannon",
+    "name": "Cannon",
+    "attributes": {
+      "rarity": {
+        "str": "common"
+      },
+      "type": {
+        "str": "Building"
+      },
+      "elixir": {
+        "num": 3.0
+      },
+      "dps": {
+        "num": 0.0
+      },
+      "hitpoints": {
+        "num": 322.0
+      },
+      "range": {
+        "num": 5500.0
+      },
+      "speed": {
+        "num": 0.0
+      },
+      "attacks_air": {
+        "bool": false
+      },
+      "attacks_ground": {
+        "bool": true
+      },
+      "flies": {
+        "bool": false
+      },
+      "arena": {
+        "num": 3.0
+      }
+    },
+    "fame_score": 100
+  },
+  {
+    "id": "cannon-cart",
+    "name": "Cannon Cart",
+    "attributes": {
+      "rarity": {
+        "str": "epic"
+      },
+      "type": {
+        "str": "Unknown"
+      },
+      "elixir": {
+        "num": 5.0
+      },
+      "dps": {
+        "num": 0.0
+      },
+      "hitpoints": {
+        "num": 0.0
+      },
+      "range": {
+        "num": 0.0
+      },
+      "speed": {
+        "num": 0.0
+      },
+      "attacks_air": {
+        "bool": false
+      },
+      "attacks_ground": {
+        "bool": false
+      },
+      "flies": {
+        "bool": false
+      },
+      "arena": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 50
+  },
+  {
+    "id": "clone",
+    "name": "Clone",
+    "attributes": {
+      "rarity": {
+        "str": "epic"
+      },
+      "type": {
+        "str": "Spell"
+      },
+      "elixir": {
+        "num": 3.0
+      },
+      "dps": {
+        "num": 0.0
+      },
+      "hitpoints": {
+        "num": 0.0
+      },
+      "range": {
+        "num": 0.0
+      },
+      "speed": {
+        "num": 0.0
+      },
+      "attacks_air": {
+        "bool": false
+      },
+      "attacks_ground": {
+        "bool": false
+      },
+      "flies": {
+        "bool": false
+      },
+      "arena": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 50
+  },
+  {
+    "id": "dark-prince",
+    "name": "Dark Prince",
+    "attributes": {
+      "rarity": {
+        "str": "epic"
+      },
+      "type": {
+        "str": "Troop"
+      },
+      "elixir": {
+        "num": 4.0
+      },
+      "dps": {
+        "num": 119.0
+      },
+      "hitpoints": {
+        "num": 750.0
+      },
+      "range": {
+        "num": 1200.0
+      },
+      "speed": {
+        "num": 60.0
+      },
+      "attacks_air": {
+        "bool": false
+      },
+      "attacks_ground": {
+        "bool": true
+      },
+      "flies": {
+        "bool": false
+      },
+      "arena": {
+        "num": 7.0
+      }
+    },
+    "fame_score": 50
+  },
+  {
+    "id": "dart-goblin",
+    "name": "Dart Goblin",
+    "attributes": {
+      "rarity": {
+        "str": "rare"
+      },
+      "type": {
+        "str": "Unknown"
+      },
+      "elixir": {
+        "num": 3.0
+      },
+      "dps": {
+        "num": 0.0
+      },
+      "hitpoints": {
+        "num": 0.0
+      },
+      "range": {
+        "num": 0.0
+      },
+      "speed": {
+        "num": 0.0
+      },
+      "attacks_air": {
+        "bool": false
+      },
+      "attacks_ground": {
+        "bool": false
+      },
+      "flies": {
+        "bool": false
+      },
+      "arena": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 80
+  },
+  {
+    "id": "earthquake",
+    "name": "Earthquake",
+    "attributes": {
+      "rarity": {
+        "str": "rare"
+      },
+      "type": {
+        "str": "Spell"
+      },
+      "elixir": {
+        "num": 3.0
+      },
+      "dps": {
+        "num": 0.0
+      },
+      "hitpoints": {
+        "num": 0.0
+      },
+      "range": {
+        "num": 0.0
+      },
+      "speed": {
+        "num": 0.0
+      },
+      "attacks_air": {
+        "bool": false
+      },
+      "attacks_ground": {
+        "bool": false
+      },
+      "flies": {
+        "bool": false
+      },
+      "arena": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 80
+  },
+  {
+    "id": "electro-dragon",
+    "name": "Electro Dragon",
+    "attributes": {
+      "rarity": {
+        "str": "epic"
+      },
+      "type": {
+        "str": "Troop"
+      },
+      "elixir": {
+        "num": 5.0
+      },
+      "dps": {
+        "num": 0.0
+      },
+      "hitpoints": {
+        "num": 594.0
+      },
+      "range": {
+        "num": 3500.0
+      },
+      "speed": {
+        "num": 60.0
+      },
+      "attacks_air": {
+        "bool": true
+      },
+      "attacks_ground": {
+        "bool": true
+      },
+      "flies": {
+        "bool": true
+      },
+      "arena": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 50
+  },
+  {
+    "id": "electro-giant",
+    "name": "Electro Giant",
+    "attributes": {
+      "rarity": {
+        "str": "epic"
+      },
+      "type": {
+        "str": "Troop"
+      },
+      "elixir": {
+        "num": 7.0
+      },
+      "dps": {
+        "num": 49.0
+      },
+      "hitpoints": {
+        "num": 2410.0
+      },
+      "range": {
+        "num": 1200.0
+      },
+      "speed": {
+        "num": 45.0
+      },
+      "attacks_air": {
+        "bool": false
+      },
+      "attacks_ground": {
+        "bool": true
+      },
+      "flies": {
+        "bool": false
+      },
+      "arena": {
+        "num": 13.0
+      }
+    },
+    "fame_score": 50
+  },
+  {
+    "id": "electro-spirit",
+    "name": "Electro Spirit",
+    "attributes": {
+      "rarity": {
+        "str": "common"
+      },
+      "type": {
+        "str": "Troop"
+      },
+      "elixir": {
+        "num": 1.0
+      },
+      "dps": {
+        "num": 0.0
+      },
+      "hitpoints": {
+        "num": 90.0
+      },
+      "range": {
+        "num": 2500.0
+      },
+      "speed": {
+        "num": 120.0
+      },
+      "attacks_air": {
+        "bool": true
+      },
+      "attacks_ground": {
+        "bool": true
+      },
+      "flies": {
+        "bool": false
+      },
+      "arena": {
+        "num": 4.0
+      }
+    },
+    "fame_score": 100
+  },
+  {
+    "id": "electro-wizard",
+    "name": "Electro Wizard",
+    "attributes": {
+      "rarity": {
+        "str": "legendary"
+      },
+      "type": {
+        "str": "Troop"
+      },
+      "elixir": {
+        "num": 4.0
+      },
+      "dps": {
+        "num": 51.0
+      },
+      "hitpoints": {
+        "num": 590.0
+      },
+      "range": {
+        "num": 5000.0
+      },
+      "speed": {
+        "num": 90.0
+      },
+      "attacks_air": {
+        "bool": true
+      },
+      "attacks_ground": {
+        "bool": true
+      },
+      "flies": {
+        "bool": false
+      },
+      "arena": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 20
+  },
+  {
+    "id": "elite-barbarians",
+    "name": "Elite Barbarians",
+    "attributes": {
+      "rarity": {
+        "str": "common"
+      },
+      "type": {
+        "str": "Unknown"
+      },
+      "elixir": {
+        "num": 6.0
+      },
+      "dps": {
+        "num": 0.0
+      },
+      "hitpoints": {
+        "num": 0.0
+      },
+      "range": {
+        "num": 0.0
+      },
+      "speed": {
+        "num": 0.0
+      },
+      "attacks_air": {
+        "bool": false
+      },
+      "attacks_ground": {
+        "bool": false
+      },
+      "flies": {
+        "bool": false
+      },
+      "arena": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 100
+  },
+  {
+    "id": "elixir-collector",
+    "name": "Elixir Collector",
+    "attributes": {
+      "rarity": {
+        "str": "rare"
+      },
+      "type": {
+        "str": "Building"
+      },
+      "elixir": {
+        "num": 6.0
+      },
+      "dps": {
+        "num": 0.0
+      },
+      "hitpoints": {
+        "num": 505.0
+      },
+      "range": {
+        "num": 0.0
+      },
+      "speed": {
+        "num": 0.0
+      },
+      "attacks_air": {
+        "bool": false
+      },
+      "attacks_ground": {
+        "bool": false
+      },
+      "flies": {
+        "bool": false
+      },
+      "arena": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 80
+  },
+  {
+    "id": "elixir-golem",
+    "name": "Elixir Golem",
+    "attributes": {
+      "rarity": {
+        "str": "rare"
+      },
+      "type": {
+        "str": "Troop"
+      },
+      "elixir": {
+        "num": 3.0
+      },
+      "dps": {
+        "num": 109.0
+      },
+      "hitpoints": {
+        "num": 740.0
+      },
+      "range": {
+        "num": 800.0
+      },
+      "speed": {
+        "num": 45.0
+      },
+      "attacks_air": {
+        "bool": false
+      },
+      "attacks_ground": {
+        "bool": true
+      },
+      "flies": {
+        "bool": false
+      },
+      "arena": {
+        "num": 14.0
+      }
+    },
+    "fame_score": 80
+  },
+  {
+    "id": "executioner",
+    "name": "Executioner",
+    "attributes": {
+      "rarity": {
+        "str": "epic"
+      },
+      "type": {
+        "str": "Unknown"
+      },
+      "elixir": {
+        "num": 5.0
+      },
+      "dps": {
+        "num": 0.0
+      },
+      "hitpoints": {
+        "num": 0.0
+      },
+      "range": {
+        "num": 0.0
+      },
+      "speed": {
+        "num": 0.0
+      },
+      "attacks_air": {
+        "bool": false
+      },
+      "attacks_ground": {
+        "bool": false
+      },
+      "flies": {
+        "bool": false
+      },
+      "arena": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 50
+  },
+  {
+    "id": "fire-spirit",
+    "name": "Fire Spirit",
+    "attributes": {
+      "rarity": {
+        "str": "common"
+      },
+      "type": {
+        "str": "Unknown"
+      },
+      "elixir": {
+        "num": 1.0
+      },
+      "dps": {
+        "num": 0.0
+      },
+      "hitpoints": {
+        "num": 0.0
+      },
+      "range": {
+        "num": 0.0
+      },
+      "speed": {
+        "num": 0.0
+      },
+      "attacks_air": {
+        "bool": false
+      },
+      "attacks_ground": {
+        "bool": false
+      },
+      "flies": {
+        "bool": false
+      },
+      "arena": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 100
+  },
+  {
+    "id": "fireball",
+    "name": "Fireball",
+    "attributes": {
+      "rarity": {
+        "str": "rare"
+      },
+      "type": {
+        "str": "Unknown"
+      },
+      "elixir": {
+        "num": 4.0
+      },
+      "dps": {
+        "num": 0.0
+      },
+      "hitpoints": {
+        "num": 0.0
+      },
+      "range": {
+        "num": 0.0
+      },
+      "speed": {
+        "num": 0.0
+      },
+      "attacks_air": {
+        "bool": false
+      },
+      "attacks_ground": {
+        "bool": false
+      },
+      "flies": {
+        "bool": false
+      },
+      "arena": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 80
+  },
+  {
+    "id": "firecracker",
+    "name": "Firecracker",
+    "attributes": {
+      "rarity": {
+        "str": "common"
+      },
+      "type": {
+        "str": "Troop"
+      },
+      "elixir": {
+        "num": 3.0
+      },
+      "dps": {
+        "num": 0.0
+      },
+      "hitpoints": {
+        "num": 119.0
+      },
+      "range": {
+        "num": 6000.0
+      },
+      "speed": {
+        "num": 90.0
+      },
+      "attacks_air": {
+        "bool": true
+      },
+      "attacks_ground": {
+        "bool": true
+      },
+      "flies": {
+        "bool": false
+      },
+      "arena": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 100
+  },
+  {
+    "id": "fisherman",
+    "name": "Fisherman",
+    "attributes": {
+      "rarity": {
+        "str": "legendary"
+      },
+      "type": {
+        "str": "Troop"
+      },
+      "elixir": {
+        "num": 3.0
+      },
+      "dps": {
+        "num": 123.0
+      },
+      "hitpoints": {
+        "num": 720.0
+      },
+      "range": {
+        "num": 1200.0
+      },
+      "speed": {
+        "num": 60.0
+      },
+      "attacks_air": {
+        "bool": false
+      },
+      "attacks_ground": {
+        "bool": true
+      },
+      "flies": {
+        "bool": false
+      },
+      "arena": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 20
+  },
+  {
+    "id": "flying-machine",
+    "name": "Flying Machine",
+    "attributes": {
+      "rarity": {
+        "str": "rare"
+      },
+      "type": {
+        "str": "Unknown"
+      },
+      "elixir": {
+        "num": 4.0
+      },
+      "dps": {
+        "num": 0.0
+      },
+      "hitpoints": {
+        "num": 0.0
+      },
+      "range": {
+        "num": 0.0
+      },
+      "speed": {
+        "num": 0.0
+      },
+      "attacks_air": {
+        "bool": false
+      },
+      "attacks_ground": {
+        "bool": false
+      },
+      "flies": {
+        "bool": false
+      },
+      "arena": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 80
+  },
+  {
+    "id": "freeze",
+    "name": "Freeze",
+    "attributes": {
+      "rarity": {
+        "str": "epic"
+      },
+      "type": {
+        "str": "Spell"
+      },
+      "elixir": {
+        "num": 4.0
+      },
+      "dps": {
+        "num": 0.0
+      },
+      "hitpoints": {
+        "num": 0.0
+      },
+      "range": {
+        "num": 0.0
+      },
+      "speed": {
+        "num": 0.0
+      },
+      "attacks_air": {
+        "bool": false
+      },
+      "attacks_ground": {
+        "bool": false
+      },
+      "flies": {
+        "bool": false
+      },
+      "arena": {
+        "num": 8.0
+      }
+    },
+    "fame_score": 50
+  },
+  {
+    "id": "furnace",
+    "name": "Furnace",
+    "attributes": {
+      "rarity": {
+        "str": "rare"
+      },
+      "type": {
+        "str": "Unknown"
+      },
+      "elixir": {
+        "num": 4.0
+      },
+      "dps": {
+        "num": 0.0
+      },
+      "hitpoints": {
+        "num": 0.0
+      },
+      "range": {
+        "num": 0.0
+      },
+      "speed": {
+        "num": 0.0
+      },
+      "attacks_air": {
+        "bool": false
+      },
+      "attacks_ground": {
+        "bool": false
+      },
+      "flies": {
+        "bool": false
+      },
+      "arena": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 80
+  },
+  {
+    "id": "giant",
+    "name": "Giant",
+    "attributes": {
+      "rarity": {
+        "str": "rare"
+      },
+      "type": {
+        "str": "Troop"
+      },
+      "elixir": {
+        "num": 5.0
+      },
+      "dps": {
+        "num": 80.0
+      },
+      "hitpoints": {
+        "num": 1930.0
+      },
+      "range": {
+        "num": 1200.0
+      },
+      "speed": {
+        "num": 45.0
+      },
+      "attacks_air": {
+        "bool": false
+      },
+      "attacks_ground": {
+        "bool": true
+      },
+      "flies": {
+        "bool": false
+      },
+      "arena": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 80
+  },
+  {
+    "id": "giant-skeleton",
+    "name": "Giant Skeleton",
+    "attributes": {
+      "rarity": {
+        "str": "epic"
+      },
+      "type": {
+        "str": "Troop"
+      },
+      "elixir": {
+        "num": 6.0
+      },
+      "dps": {
+        "num": 119.0
+      },
+      "hitpoints": {
+        "num": 2140.0
+      },
+      "range": {
+        "num": 800.0
+      },
+      "speed": {
+        "num": 60.0
+      },
+      "attacks_air": {
+        "bool": false
+      },
+      "attacks_ground": {
+        "bool": true
+      },
+      "flies": {
+        "bool": false
+      },
+      "arena": {
+        "num": 8.0
+      }
+    },
+    "fame_score": 50
+  },
+  {
+    "id": "giant-snowball",
+    "name": "Giant Snowball",
+    "attributes": {
+      "rarity": {
+        "str": "common"
+      },
+      "type": {
+        "str": "Unknown"
+      },
+      "elixir": {
+        "num": 2.0
+      },
+      "dps": {
+        "num": 0.0
+      },
+      "hitpoints": {
+        "num": 0.0
+      },
+      "range": {
+        "num": 0.0
+      },
+      "speed": {
+        "num": 0.0
+      },
+      "attacks_air": {
+        "bool": false
+      },
+      "attacks_ground": {
+        "bool": false
+      },
+      "flies": {
+        "bool": false
+      },
+      "arena": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 100
+  },
+  {
+    "id": "goblin-barrel",
+    "name": "Goblin Barrel",
+    "attributes": {
+      "rarity": {
+        "str": "epic"
+      },
+      "type": {
+        "str": "Unknown"
+      },
+      "elixir": {
+        "num": 3.0
+      },
+      "dps": {
+        "num": 0.0
+      },
+      "hitpoints": {
+        "num": 0.0
+      },
+      "range": {
+        "num": 0.0
+      },
+      "speed": {
+        "num": 0.0
+      },
+      "attacks_air": {
+        "bool": false
+      },
+      "attacks_ground": {
+        "bool": false
+      },
+      "flies": {
+        "bool": false
+      },
+      "arena": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 50
+  },
+  {
+    "id": "goblin-cage",
+    "name": "Goblin Cage",
+    "attributes": {
+      "rarity": {
+        "str": "rare"
+      },
+      "type": {
+        "str": "Building"
+      },
+      "elixir": {
+        "num": 4.0
+      },
+      "dps": {
+        "num": 0.0
+      },
+      "hitpoints": {
+        "num": 350.0
+      },
+      "range": {
+        "num": 5000.0
+      },
+      "speed": {
+        "num": 0.0
+      },
+      "attacks_air": {
+        "bool": false
+      },
+      "attacks_ground": {
+        "bool": true
+      },
+      "flies": {
+        "bool": false
+      },
+      "arena": {
+        "num": 1.0
+      }
+    },
+    "fame_score": 80
+  },
+  {
+    "id": "goblin-curse",
+    "name": "Goblin Curse",
+    "attributes": {
+      "rarity": {
+        "str": "epic"
+      },
+      "type": {
+        "str": "Unknown"
+      },
+      "elixir": {
+        "num": 2.0
+      },
+      "dps": {
+        "num": 0.0
+      },
+      "hitpoints": {
+        "num": 0.0
+      },
+      "range": {
+        "num": 0.0
+      },
+      "speed": {
+        "num": 0.0
+      },
+      "attacks_air": {
+        "bool": false
+      },
+      "attacks_ground": {
+        "bool": false
+      },
+      "flies": {
+        "bool": false
+      },
+      "arena": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 50
+  },
+  {
+    "id": "goblin-demolisher",
+    "name": "Goblin Demolisher",
+    "attributes": {
+      "rarity": {
+        "str": "rare"
+      },
+      "type": {
+        "str": "Unknown"
+      },
+      "elixir": {
+        "num": 4.0
+      },
+      "dps": {
+        "num": 0.0
+      },
+      "hitpoints": {
+        "num": 0.0
+      },
+      "range": {
+        "num": 0.0
+      },
+      "speed": {
+        "num": 0.0
+      },
+      "attacks_air": {
+        "bool": false
+      },
+      "attacks_ground": {
+        "bool": false
+      },
+      "flies": {
+        "bool": false
+      },
+      "arena": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 80
+  },
+  {
+    "id": "goblin-drill",
+    "name": "Goblin Drill",
+    "attributes": {
+      "rarity": {
+        "str": "epic"
+      },
+      "type": {
+        "str": "Building"
+      },
+      "elixir": {
+        "num": 4.0
+      },
+      "dps": {
+        "num": 0.0
+      },
+      "hitpoints": {
+        "num": 1000.0
+      },
+      "range": {
+        "num": 1300.0
+      },
+      "speed": {
+        "num": 60.0
+      },
+      "attacks_air": {
+        "bool": false
+      },
+      "attacks_ground": {
+        "bool": true
+      },
+      "flies": {
+        "bool": false
+      },
+      "arena": {
+        "num": 14.0
+      }
+    },
+    "fame_score": 50
+  },
+  {
+    "id": "goblin-gang",
+    "name": "Goblin Gang",
+    "attributes": {
+      "rarity": {
+        "str": "common"
+      },
+      "type": {
+        "str": "Troop"
+      },
+      "elixir": {
+        "num": 3.0
+      },
+      "dps": {
+        "num": 43.0
+      },
+      "hitpoints": {
+        "num": 79.0
+      },
+      "range": {
+        "num": 500.0
+      },
+      "speed": {
+        "num": 120.0
+      },
+      "attacks_air": {
+        "bool": false
+      },
+      "attacks_ground": {
+        "bool": true
+      },
+      "flies": {
+        "bool": false
+      },
+      "arena": {
+        "num": 9.0
+      }
+    },
+    "fame_score": 100
+  },
+  {
+    "id": "goblin-giant",
+    "name": "Goblin Giant",
+    "attributes": {
+      "rarity": {
+        "str": "epic"
+      },
+      "type": {
+        "str": "Troop"
+      },
+      "elixir": {
+        "num": 6.0
+      },
+      "dps": {
+        "num": 73.0
+      },
+      "hitpoints": {
+        "num": 2085.0
+      },
+      "range": {
+        "num": 1200.0
+      },
+      "speed": {
+        "num": 60.0
+      },
+      "attacks_air": {
+        "bool": false
+      },
+      "attacks_ground": {
+        "bool": true
+      },
+      "flies": {
+        "bool": false
+      },
+      "arena": {
+        "num": 9.0
+      }
+    },
+    "fame_score": 50
+  },
+  {
+    "id": "goblin-hut",
+    "name": "Goblin Hut",
+    "attributes": {
+      "rarity": {
+        "str": "rare"
+      },
+      "type": {
+        "str": "Building"
+      },
+      "elixir": {
+        "num": 4.0
+      },
+      "dps": {
+        "num": 0.0
+      },
+      "hitpoints": {
+        "num": 400.0
+      },
+      "range": {
+        "num": 0.0
+      },
+      "speed": {
+        "num": 0.0
+      },
+      "attacks_air": {
+        "bool": false
+      },
+      "attacks_ground": {
+        "bool": true
+      },
+      "flies": {
+        "bool": false
+      },
+      "arena": {
+        "num": 1.0
+      }
+    },
+    "fame_score": 80
+  },
+  {
+    "id": "goblin-machine",
+    "name": "Goblin Machine",
+    "attributes": {
+      "rarity": {
+        "str": "legendary"
+      },
+      "type": {
+        "str": "Unknown"
+      },
+      "elixir": {
+        "num": 5.0
+      },
+      "dps": {
+        "num": 0.0
+      },
+      "hitpoints": {
+        "num": 0.0
+      },
+      "range": {
+        "num": 0.0
+      },
+      "speed": {
+        "num": 0.0
+      },
+      "attacks_air": {
+        "bool": false
+      },
+      "attacks_ground": {
+        "bool": false
+      },
+      "flies": {
+        "bool": false
+      },
+      "arena": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 20
+  },
+  {
+    "id": "goblins",
+    "name": "Goblins",
+    "attributes": {
+      "rarity": {
+        "str": "common"
+      },
+      "type": {
+        "str": "Troop"
+      },
+      "elixir": {
+        "num": 2.0
+      },
+      "dps": {
+        "num": 43.0
+      },
+      "hitpoints": {
+        "num": 79.0
+      },
+      "range": {
+        "num": 500.0
+      },
+      "speed": {
+        "num": 120.0
+      },
+      "attacks_air": {
+        "bool": false
+      },
+      "attacks_ground": {
+        "bool": true
+      },
+      "flies": {
+        "bool": false
+      },
+      "arena": {
+        "num": 1.0
+      }
+    },
+    "fame_score": 100
+  },
+  {
+    "id": "goblinstein",
+    "name": "Goblinstein",
+    "attributes": {
+      "rarity": {
+        "str": "champion"
+      },
+      "type": {
+        "str": "Unknown"
+      },
+      "elixir": {
+        "num": 5.0
+      },
+      "dps": {
+        "num": 0.0
+      },
+      "hitpoints": {
+        "num": 0.0
+      },
+      "range": {
+        "num": 0.0
+      },
+      "speed": {
+        "num": 0.0
+      },
+      "attacks_air": {
+        "bool": false
+      },
+      "attacks_ground": {
+        "bool": false
+      },
+      "flies": {
+        "bool": false
+      },
+      "arena": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 5
+  },
+  {
+    "id": "golden-knight",
+    "name": "Golden Knight",
+    "attributes": {
+      "rarity": {
+        "str": "champion"
+      },
+      "type": {
+        "str": "Troop"
+      },
+      "elixir": {
+        "num": 4.0
+      },
+      "dps": {
+        "num": 178.0
+      },
+      "hitpoints": {
+        "num": 1800.0
+      },
+      "range": {
+        "num": 1200.0
+      },
+      "speed": {
+        "num": 60.0
+      },
+      "attacks_air": {
+        "bool": false
+      },
+      "attacks_ground": {
+        "bool": true
+      },
+      "flies": {
+        "bool": false
+      },
+      "arena": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 5
+  },
+  {
+    "id": "golem",
+    "name": "Golem",
+    "attributes": {
+      "rarity": {
+        "str": "epic"
+      },
+      "type": {
+        "str": "Troop"
+      },
+      "elixir": {
+        "num": 8.0
+      },
+      "dps": {
+        "num": 78.0
+      },
+      "hitpoints": {
+        "num": 3200.0
+      },
+      "range": {
+        "num": 750.0
+      },
+      "speed": {
+        "num": 45.0
+      },
+      "attacks_air": {
+        "bool": true
+      },
+      "attacks_ground": {
+        "bool": true
+      },
+      "flies": {
+        "bool": false
+      },
+      "arena": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 50
+  },
+  {
+    "id": "graveyard",
+    "name": "Graveyard",
+    "attributes": {
+      "rarity": {
+        "str": "legendary"
+      },
+      "type": {
+        "str": "Spell"
+      },
+      "elixir": {
+        "num": 5.0
+      },
+      "dps": {
+        "num": 0.0
+      },
+      "hitpoints": {
+        "num": 0.0
+      },
+      "range": {
+        "num": 0.0
+      },
+      "speed": {
+        "num": 0.0
+      },
+      "attacks_air": {
+        "bool": false
+      },
+      "attacks_ground": {
+        "bool": false
+      },
+      "flies": {
+        "bool": false
+      },
+      "arena": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 20
+  },
+  {
+    "id": "guards",
+    "name": "Guards",
+    "attributes": {
+      "rarity": {
+        "str": "epic"
+      },
+      "type": {
+        "str": "Unknown"
+      },
+      "elixir": {
+        "num": 3.0
+      },
+      "dps": {
+        "num": 0.0
+      },
+      "hitpoints": {
+        "num": 0.0
+      },
+      "range": {
+        "num": 0.0
+      },
+      "speed": {
+        "num": 0.0
+      },
+      "attacks_air": {
+        "bool": false
+      },
+      "attacks_ground": {
+        "bool": false
+      },
+      "flies": {
+        "bool": false
+      },
+      "arena": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 50
+  },
+  {
+    "id": "heal-spirit",
+    "name": "Heal Spirit",
+    "attributes": {
+      "rarity": {
+        "str": "rare"
+      },
+      "type": {
+        "str": "Spell"
+      },
+      "elixir": {
+        "num": 1.0
+      },
+      "dps": {
+        "num": 0.0
+      },
+      "hitpoints": {
+        "num": 109.0
+      },
+      "range": {
+        "num": 2500.0
+      },
+      "speed": {
+        "num": 120.0
+      },
+      "attacks_air": {
+        "bool": true
+      },
+      "attacks_ground": {
+        "bool": true
+      },
+      "flies": {
+        "bool": false
+      },
+      "arena": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 80
+  },
+  {
+    "id": "hog-rider",
+    "name": "Hog Rider",
+    "attributes": {
+      "rarity": {
+        "str": "rare"
+      },
+      "type": {
+        "str": "Troop"
+      },
+      "elixir": {
+        "num": 4.0
+      },
+      "dps": {
+        "num": 94.0
+      },
+      "hitpoints": {
+        "num": 800.0
+      },
+      "range": {
+        "num": 800.0
+      },
+      "speed": {
+        "num": 120.0
+      },
+      "attacks_air": {
+        "bool": false
+      },
+      "attacks_ground": {
+        "bool": true
+      },
+      "flies": {
+        "bool": false
+      },
+      "arena": {
+        "num": 5.0
+      }
+    },
+    "fame_score": 80
+  },
+  {
+    "id": "hunter",
+    "name": "Hunter",
+    "attributes": {
+      "rarity": {
+        "str": "epic"
+      },
+      "type": {
+        "str": "Troop"
+      },
+      "elixir": {
+        "num": 4.0
+      },
+      "dps": {
+        "num": 0.0
+      },
+      "hitpoints": {
+        "num": 524.0
+      },
+      "range": {
+        "num": 4000.0
+      },
+      "speed": {
+        "num": 60.0
+      },
+      "attacks_air": {
+        "bool": true
+      },
+      "attacks_ground": {
+        "bool": true
+      },
+      "flies": {
+        "bool": false
+      },
+      "arena": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 50
+  },
+  {
+    "id": "ice-golem",
+    "name": "Ice Golem",
+    "attributes": {
+      "rarity": {
+        "str": "rare"
+      },
+      "type": {
+        "str": "Unknown"
+      },
+      "elixir": {
+        "num": 2.0
+      },
+      "dps": {
+        "num": 0.0
+      },
+      "hitpoints": {
+        "num": 0.0
+      },
+      "range": {
+        "num": 0.0
+      },
+      "speed": {
+        "num": 0.0
+      },
+      "attacks_air": {
+        "bool": false
+      },
+      "attacks_ground": {
+        "bool": false
+      },
+      "flies": {
+        "bool": false
+      },
+      "arena": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 80
+  },
+  {
+    "id": "ice-spirit",
+    "name": "Ice Spirit",
+    "attributes": {
+      "rarity": {
+        "str": "common"
+      },
+      "type": {
+        "str": "Unknown"
+      },
+      "elixir": {
+        "num": 1.0
+      },
+      "dps": {
+        "num": 0.0
+      },
+      "hitpoints": {
+        "num": 0.0
+      },
+      "range": {
+        "num": 0.0
+      },
+      "speed": {
+        "num": 0.0
+      },
+      "attacks_air": {
+        "bool": false
+      },
+      "attacks_ground": {
+        "bool": false
+      },
+      "flies": {
+        "bool": false
+      },
+      "arena": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 100
+  },
+  {
+    "id": "ice-wizard",
+    "name": "Ice Wizard",
+    "attributes": {
+      "rarity": {
+        "str": "legendary"
+      },
+      "type": {
+        "str": "Troop"
+      },
+      "elixir": {
+        "num": 3.0
+      },
+      "dps": {
+        "num": 0.0
+      },
+      "hitpoints": {
+        "num": 569.0
+      },
+      "range": {
+        "num": 5500.0
+      },
+      "speed": {
+        "num": 60.0
+      },
+      "attacks_air": {
+        "bool": true
+      },
+      "attacks_ground": {
+        "bool": true
+      },
+      "flies": {
+        "bool": false
+      },
+      "arena": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 20
+  },
+  {
+    "id": "inferno-dragon",
+    "name": "Inferno Dragon",
+    "attributes": {
+      "rarity": {
+        "str": "legendary"
+      },
+      "type": {
+        "str": "Troop"
+      },
+      "elixir": {
+        "num": 4.0
+      },
+      "dps": {
+        "num": 75.0
+      },
+      "hitpoints": {
+        "num": 1070.0
+      },
+      "range": {
+        "num": 3500.0
+      },
+      "speed": {
+        "num": 60.0
+      },
+      "attacks_air": {
+        "bool": true
+      },
+      "attacks_ground": {
+        "bool": true
+      },
+      "flies": {
+        "bool": true
+      },
+      "arena": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 20
+  },
+  {
+    "id": "inferno-tower",
+    "name": "Inferno Tower",
+    "attributes": {
+      "rarity": {
+        "str": "rare"
+      },
+      "type": {
+        "str": "Building"
+      },
+      "elixir": {
+        "num": 5.0
+      },
+      "dps": {
+        "num": 50.0
+      },
+      "hitpoints": {
+        "num": 825.0
+      },
+      "range": {
+        "num": 6000.0
+      },
+      "speed": {
+        "num": 0.0
+      },
+      "attacks_air": {
+        "bool": true
+      },
+      "attacks_ground": {
+        "bool": true
+      },
+      "flies": {
+        "bool": false
+      },
+      "arena": {
+        "num": 4.0
+      }
+    },
+    "fame_score": 80
+  },
+  {
+    "id": "knight",
+    "name": "Knight",
+    "attributes": {
+      "rarity": {
+        "str": "common"
+      },
+      "type": {
+        "str": "Troop"
+      },
+      "elixir": {
+        "num": 3.0
+      },
+      "dps": {
+        "num": 66.0
+      },
+      "hitpoints": {
+        "num": 690.0
+      },
+      "range": {
+        "num": 1200.0
+      },
+      "speed": {
+        "num": 60.0
+      },
+      "attacks_air": {
+        "bool": false
+      },
+      "attacks_ground": {
+        "bool": true
+      },
+      "flies": {
+        "bool": false
+      },
+      "arena": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 100
+  },
+  {
+    "id": "lava-hound",
+    "name": "Lava Hound",
+    "attributes": {
+      "rarity": {
+        "str": "legendary"
+      },
+      "type": {
+        "str": "Troop"
+      },
+      "elixir": {
+        "num": 7.0
+      },
+      "dps": {
+        "num": 0.0
+      },
+      "hitpoints": {
+        "num": 3150.0
+      },
+      "range": {
+        "num": 3500.0
+      },
+      "speed": {
+        "num": 45.0
+      },
+      "attacks_air": {
+        "bool": true
+      },
+      "attacks_ground": {
+        "bool": true
+      },
+      "flies": {
+        "bool": true
+      },
+      "arena": {
+        "num": 13.0
+      }
+    },
+    "fame_score": 20
+  },
+  {
+    "id": "lightning",
+    "name": "Lightning",
+    "attributes": {
+      "rarity": {
+        "str": "epic"
+      },
+      "type": {
+        "str": "Spell"
+      },
+      "elixir": {
+        "num": 6.0
+      },
+      "dps": {
+        "num": 0.0
+      },
+      "hitpoints": {
+        "num": 0.0
+      },
+      "range": {
+        "num": 0.0
+      },
+      "speed": {
+        "num": 0.0
+      },
+      "attacks_air": {
+        "bool": false
+      },
+      "attacks_ground": {
+        "bool": false
+      },
+      "flies": {
+        "bool": false
+      },
+      "arena": {
+        "num": 8.0
+      }
+    },
+    "fame_score": 50
+  },
+  {
+    "id": "little-prince",
+    "name": "Little Prince",
+    "attributes": {
+      "rarity": {
+        "str": "champion"
+      },
+      "type": {
+        "str": "Unknown"
+      },
+      "elixir": {
+        "num": 3.0
+      },
+      "dps": {
+        "num": 0.0
+      },
+      "hitpoints": {
+        "num": 0.0
+      },
+      "range": {
+        "num": 0.0
+      },
+      "speed": {
+        "num": 0.0
+      },
+      "attacks_air": {
+        "bool": false
+      },
+      "attacks_ground": {
+        "bool": false
+      },
+      "flies": {
+        "bool": false
+      },
+      "arena": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 5
+  },
+  {
+    "id": "lumberjack",
+    "name": "Lumberjack",
+    "attributes": {
+      "rarity": {
+        "str": "legendary"
+      },
+      "type": {
+        "str": "Unknown"
+      },
+      "elixir": {
+        "num": 4.0
+      },
+      "dps": {
+        "num": 0.0
+      },
+      "hitpoints": {
+        "num": 0.0
+      },
+      "range": {
+        "num": 0.0
+      },
+      "speed": {
+        "num": 0.0
+      },
+      "attacks_air": {
+        "bool": false
+      },
+      "attacks_ground": {
+        "bool": false
+      },
+      "flies": {
+        "bool": false
+      },
+      "arena": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 20
+  },
+  {
+    "id": "magic-archer",
+    "name": "Magic Archer",
+    "attributes": {
+      "rarity": {
+        "str": "legendary"
+      },
+      "type": {
+        "str": "Unknown"
+      },
+      "elixir": {
+        "num": 4.0
+      },
+      "dps": {
+        "num": 0.0
+      },
+      "hitpoints": {
+        "num": 0.0
+      },
+      "range": {
+        "num": 0.0
+      },
+      "speed": {
+        "num": 0.0
+      },
+      "attacks_air": {
+        "bool": false
+      },
+      "attacks_ground": {
+        "bool": false
+      },
+      "flies": {
+        "bool": false
+      },
+      "arena": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 20
+  },
+  {
+    "id": "mega-knight",
+    "name": "Mega Knight",
+    "attributes": {
+      "rarity": {
+        "str": "legendary"
+      },
+      "type": {
+        "str": "Troop"
+      },
+      "elixir": {
+        "num": 7.0
+      },
+      "dps": {
+        "num": 131.0
+      },
+      "hitpoints": {
+        "num": 3300.0
+      },
+      "range": {
+        "num": 1200.0
+      },
+      "speed": {
+        "num": 60.0
+      },
+      "attacks_air": {
+        "bool": false
+      },
+      "attacks_ground": {
+        "bool": true
+      },
+      "flies": {
+        "bool": false
+      },
+      "arena": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 20
+  },
+  {
+    "id": "mega-minion",
+    "name": "Mega Minion",
+    "attributes": {
+      "rarity": {
+        "str": "rare"
+      },
+      "type": {
+        "str": "Troop"
+      },
+      "elixir": {
+        "num": 3.0
+      },
+      "dps": {
+        "num": 0.0
+      },
+      "hitpoints": {
+        "num": 395.0
+      },
+      "range": {
+        "num": 1600.0
+      },
+      "speed": {
+        "num": 60.0
+      },
+      "attacks_air": {
+        "bool": true
+      },
+      "attacks_ground": {
+        "bool": true
+      },
+      "flies": {
+        "bool": true
+      },
+      "arena": {
+        "num": 3.0
+      }
+    },
+    "fame_score": 80
+  },
+  {
+    "id": "mighty-miner",
+    "name": "Mighty Miner",
+    "attributes": {
+      "rarity": {
+        "str": "champion"
+      },
+      "type": {
+        "str": "Troop"
+      },
+      "elixir": {
+        "num": 4.0
+      },
+      "dps": {
+        "num": 100.0
+      },
+      "hitpoints": {
+        "num": 2250.0
+      },
+      "range": {
+        "num": 1600.0
+      },
+      "speed": {
+        "num": 60.0
+      },
+      "attacks_air": {
+        "bool": false
+      },
+      "attacks_ground": {
+        "bool": true
+      },
+      "flies": {
+        "bool": false
+      },
+      "arena": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 5
+  },
+  {
+    "id": "miner",
+    "name": "Miner",
+    "attributes": {
+      "rarity": {
+        "str": "legendary"
+      },
+      "type": {
+        "str": "Troop"
+      },
+      "elixir": {
+        "num": 3.0
+      },
+      "dps": {
+        "num": 133.0
+      },
+      "hitpoints": {
+        "num": 1000.0
+      },
+      "range": {
+        "num": 1200.0
+      },
+      "speed": {
+        "num": 90.0
+      },
+      "attacks_air": {
+        "bool": false
+      },
+      "attacks_ground": {
+        "bool": true
+      },
+      "flies": {
+        "bool": false
+      },
+      "arena": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 20
+  },
+  {
+    "id": "mini-p-e-k-k-a",
+    "name": "Mini P.E.K.K.A",
+    "attributes": {
+      "rarity": {
+        "str": "rare"
+      },
+      "type": {
+        "str": "Troop"
+      },
+      "elixir": {
+        "num": 4.0
+      },
+      "dps": {
+        "num": 212.0
+      },
+      "hitpoints": {
+        "num": 642.0
+      },
+      "range": {
+        "num": 800.0
+      },
+      "speed": {
+        "num": 90.0
+      },
+      "attacks_air": {
+        "bool": false
+      },
+      "attacks_ground": {
+        "bool": true
+      },
+      "flies": {
+        "bool": false
+      },
+      "arena": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 80
+  },
+  {
+    "id": "minion-horde",
+    "name": "Minion Horde",
+    "attributes": {
+      "rarity": {
+        "str": "common"
+      },
+      "type": {
+        "str": "Troop"
+      },
+      "elixir": {
+        "num": 5.0
+      },
+      "dps": {
+        "num": 0.0
+      },
+      "hitpoints": {
+        "num": 90.0
+      },
+      "range": {
+        "num": 1600.0
+      },
+      "speed": {
+        "num": 90.0
+      },
+      "attacks_air": {
+        "bool": true
+      },
+      "attacks_ground": {
+        "bool": true
+      },
+      "flies": {
+        "bool": true
+      },
+      "arena": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 100
+  },
+  {
+    "id": "minions",
+    "name": "Minions",
+    "attributes": {
+      "rarity": {
+        "str": "common"
+      },
+      "type": {
+        "str": "Troop"
+      },
+      "elixir": {
+        "num": 3.0
+      },
+      "dps": {
+        "num": 0.0
+      },
+      "hitpoints": {
+        "num": 90.0
+      },
+      "range": {
+        "num": 1600.0
+      },
+      "speed": {
+        "num": 90.0
+      },
+      "attacks_air": {
+        "bool": true
+      },
+      "attacks_ground": {
+        "bool": true
+      },
+      "flies": {
+        "bool": true
+      },
+      "arena": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 100
+  },
+  {
+    "id": "mirror",
+    "name": "Mirror",
+    "attributes": {
+      "rarity": {
+        "str": "epic"
+      },
+      "type": {
+        "str": "Unknown"
+      },
+      "elixir": {
+        "num": 0.0
+      },
+      "dps": {
+        "num": 0.0
+      },
+      "hitpoints": {
+        "num": 0.0
+      },
+      "range": {
+        "num": 0.0
+      },
+      "speed": {
+        "num": 0.0
+      },
+      "attacks_air": {
+        "bool": false
+      },
+      "attacks_ground": {
+        "bool": false
+      },
+      "flies": {
+        "bool": false
+      },
+      "arena": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 50
+  },
+  {
+    "id": "monk",
+    "name": "Monk",
+    "attributes": {
+      "rarity": {
+        "str": "champion"
+      },
+      "type": {
+        "str": "Troop"
+      },
+      "elixir": {
+        "num": 5.0
+      },
+      "dps": {
+        "num": 175.0
+      },
+      "hitpoints": {
+        "num": 2000.0
+      },
+      "range": {
+        "num": 1200.0
+      },
+      "speed": {
+        "num": 60.0
+      },
+      "attacks_air": {
+        "bool": false
+      },
+      "attacks_ground": {
+        "bool": true
+      },
+      "flies": {
+        "bool": false
+      },
+      "arena": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 5
+  },
+  {
+    "id": "mortar",
+    "name": "Mortar",
+    "attributes": {
+      "rarity": {
+        "str": "common"
+      },
+      "type": {
+        "str": "Building"
+      },
+      "elixir": {
+        "num": 4.0
+      },
+      "dps": {
+        "num": 0.0
+      },
+      "hitpoints": {
+        "num": 535.0
+      },
+      "range": {
+        "num": 11500.0
+      },
+      "speed": {
+        "num": 0.0
+      },
+      "attacks_air": {
+        "bool": false
+      },
+      "attacks_ground": {
+        "bool": true
+      },
+      "flies": {
+        "bool": false
+      },
+      "arena": {
+        "num": 5.0
+      }
+    },
+    "fame_score": 100
+  },
+  {
+    "id": "mother-witch",
+    "name": "Mother Witch",
+    "attributes": {
+      "rarity": {
+        "str": "legendary"
+      },
+      "type": {
+        "str": "Unknown"
+      },
+      "elixir": {
+        "num": 4.0
+      },
+      "dps": {
+        "num": 0.0
+      },
+      "hitpoints": {
+        "num": 0.0
+      },
+      "range": {
+        "num": 0.0
+      },
+      "speed": {
+        "num": 0.0
+      },
+      "attacks_air": {
+        "bool": false
+      },
+      "attacks_ground": {
+        "bool": false
+      },
+      "flies": {
+        "bool": false
+      },
+      "arena": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 20
+  },
+  {
+    "id": "musketeer",
+    "name": "Musketeer",
+    "attributes": {
+      "rarity": {
+        "str": "rare"
+      },
+      "type": {
+        "str": "Troop"
+      },
+      "elixir": {
+        "num": 4.0
+      },
+      "dps": {
+        "num": 0.0
+      },
+      "hitpoints": {
+        "num": 340.0
+      },
+      "range": {
+        "num": 6000.0
+      },
+      "speed": {
+        "num": 60.0
+      },
+      "attacks_air": {
+        "bool": true
+      },
+      "attacks_ground": {
+        "bool": true
+      },
+      "flies": {
+        "bool": false
+      },
+      "arena": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 80
+  },
+  {
+    "id": "night-witch",
+    "name": "Night Witch",
+    "attributes": {
+      "rarity": {
+        "str": "legendary"
+      },
+      "type": {
+        "str": "Unknown"
+      },
+      "elixir": {
+        "num": 4.0
+      },
+      "dps": {
+        "num": 0.0
+      },
+      "hitpoints": {
+        "num": 0.0
+      },
+      "range": {
+        "num": 0.0
+      },
+      "speed": {
+        "num": 0.0
+      },
+      "attacks_air": {
+        "bool": false
+      },
+      "attacks_ground": {
+        "bool": false
+      },
+      "flies": {
+        "bool": false
+      },
+      "arena": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 20
+  },
+  {
+    "id": "p-e-k-k-a",
+    "name": "P.E.K.K.A",
+    "attributes": {
+      "rarity": {
+        "str": "epic"
+      },
+      "type": {
+        "str": "Troop"
+      },
+      "elixir": {
+        "num": 7.0
+      },
+      "dps": {
+        "num": 283.0
+      },
+      "hitpoints": {
+        "num": 2350.0
+      },
+      "range": {
+        "num": 1200.0
+      },
+      "speed": {
+        "num": 45.0
+      },
+      "attacks_air": {
+        "bool": false
+      },
+      "attacks_ground": {
+        "bool": true
+      },
+      "flies": {
+        "bool": false
+      },
+      "arena": {
+        "num": 6.0
+      }
+    },
+    "fame_score": 50
+  },
+  {
+    "id": "phoenix",
+    "name": "Phoenix",
+    "attributes": {
+      "rarity": {
+        "str": "legendary"
+      },
+      "type": {
+        "str": "Troop"
+      },
+      "elixir": {
+        "num": 4.0
+      },
+      "dps": {
+        "num": 180.0
+      },
+      "hitpoints": {
+        "num": 870.0
+      },
+      "range": {
+        "num": 1600.0
+      },
+      "speed": {
+        "num": 60.0
+      },
+      "attacks_air": {
+        "bool": true
+      },
+      "attacks_ground": {
+        "bool": true
+      },
+      "flies": {
+        "bool": true
+      },
+      "arena": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 20
+  },
+  {
+    "id": "poison",
+    "name": "Poison",
+    "attributes": {
+      "rarity": {
+        "str": "epic"
+      },
+      "type": {
+        "str": "Spell"
+      },
+      "elixir": {
+        "num": 4.0
+      },
+      "dps": {
+        "num": 0.0
+      },
+      "hitpoints": {
+        "num": 0.0
+      },
+      "range": {
+        "num": 0.0
+      },
+      "speed": {
+        "num": 0.0
+      },
+      "attacks_air": {
+        "bool": false
+      },
+      "attacks_ground": {
+        "bool": false
+      },
+      "flies": {
+        "bool": false
+      },
+      "arena": {
+        "num": 9.0
+      }
+    },
+    "fame_score": 50
+  },
+  {
+    "id": "prince",
+    "name": "Prince",
+    "attributes": {
+      "rarity": {
+        "str": "epic"
+      },
+      "type": {
+        "str": "Troop"
+      },
+      "elixir": {
+        "num": 5.0
+      },
+      "dps": {
+        "num": 175.0
+      },
+      "hitpoints": {
+        "num": 1200.0
+      },
+      "range": {
+        "num": 1600.0
+      },
+      "speed": {
+        "num": 60.0
+      },
+      "attacks_air": {
+        "bool": false
+      },
+      "attacks_ground": {
+        "bool": true
+      },
+      "flies": {
+        "bool": false
+      },
+      "arena": {
+        "num": 7.0
+      }
+    },
+    "fame_score": 50
+  },
+  {
+    "id": "princess",
+    "name": "Princess",
+    "attributes": {
+      "rarity": {
+        "str": "legendary"
+      },
+      "type": {
+        "str": "Troop"
+      },
+      "elixir": {
+        "num": 3.0
+      },
+      "dps": {
+        "num": 0.0
+      },
+      "hitpoints": {
+        "num": 216.0
+      },
+      "range": {
+        "num": 9000.0
+      },
+      "speed": {
+        "num": 60.0
+      },
+      "attacks_air": {
+        "bool": true
+      },
+      "attacks_ground": {
+        "bool": true
+      },
+      "flies": {
+        "bool": false
+      },
+      "arena": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 20
+  },
+  {
+    "id": "rage",
+    "name": "Rage",
+    "attributes": {
+      "rarity": {
+        "str": "epic"
+      },
+      "type": {
+        "str": "Spell"
+      },
+      "elixir": {
+        "num": 2.0
+      },
+      "dps": {
+        "num": 0.0
+      },
+      "hitpoints": {
+        "num": 0.0
+      },
+      "range": {
+        "num": 0.0
+      },
+      "speed": {
+        "num": 0.0
+      },
+      "attacks_air": {
+        "bool": false
+      },
+      "attacks_ground": {
+        "bool": false
+      },
+      "flies": {
+        "bool": false
+      },
+      "arena": {
+        "num": 14.0
+      }
+    },
+    "fame_score": 50
+  },
+  {
+    "id": "ram-rider",
+    "name": "Ram Rider",
+    "attributes": {
+      "rarity": {
+        "str": "legendary"
+      },
+      "type": {
+        "str": "Troop"
+      },
+      "elixir": {
+        "num": 5.0
+      },
+      "dps": {
+        "num": 122.0
+      },
+      "hitpoints": {
+        "num": 1461.0
+      },
+      "range": {
+        "num": 800.0
+      },
+      "speed": {
+        "num": 60.0
+      },
+      "attacks_air": {
+        "bool": false
+      },
+      "attacks_ground": {
+        "bool": true
+      },
+      "flies": {
+        "bool": false
+      },
+      "arena": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 20
+  },
+  {
+    "id": "rascals",
+    "name": "Rascals",
+    "attributes": {
+      "rarity": {
+        "str": "common"
+      },
+      "type": {
+        "str": "Troop"
+      },
+      "elixir": {
+        "num": 5.0
+      },
+      "dps": {
+        "num": 35.0
+      },
+      "hitpoints": {
+        "num": 758.0
+      },
+      "range": {
+        "num": 800.0
+      },
+      "speed": {
+        "num": 60.0
+      },
+      "attacks_air": {
+        "bool": false
+      },
+      "attacks_ground": {
+        "bool": true
+      },
+      "flies": {
+        "bool": false
+      },
+      "arena": {
+        "num": 13.0
+      }
+    },
+    "fame_score": 100
+  },
+  {
+    "id": "rocket",
+    "name": "Rocket",
+    "attributes": {
+      "rarity": {
+        "str": "rare"
+      },
+      "type": {
+        "str": "Unknown"
+      },
+      "elixir": {
+        "num": 6.0
+      },
+      "dps": {
+        "num": 0.0
+      },
+      "hitpoints": {
+        "num": 0.0
+      },
+      "range": {
+        "num": 0.0
+      },
+      "speed": {
+        "num": 0.0
+      },
+      "attacks_air": {
+        "bool": false
+      },
+      "attacks_ground": {
+        "bool": false
+      },
+      "flies": {
+        "bool": false
+      },
+      "arena": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 80
+  },
+  {
+    "id": "royal-delivery",
+    "name": "Royal Delivery",
+    "attributes": {
+      "rarity": {
+        "str": "common"
+      },
+      "type": {
+        "str": "Building"
+      },
+      "elixir": {
+        "num": 3.0
+      },
+      "dps": {
+        "num": 0.0
+      },
+      "hitpoints": {
+        "num": 0.0
+      },
+      "range": {
+        "num": 3000.0
+      },
+      "speed": {
+        "num": 0.0
+      },
+      "attacks_air": {
+        "bool": true
+      },
+      "attacks_ground": {
+        "bool": true
+      },
+      "flies": {
+        "bool": false
+      },
+      "arena": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 100
+  },
+  {
+    "id": "royal-ghost",
+    "name": "Royal Ghost",
+    "attributes": {
+      "rarity": {
+        "str": "legendary"
+      },
+      "type": {
+        "str": "Unknown"
+      },
+      "elixir": {
+        "num": 3.0
+      },
+      "dps": {
+        "num": 0.0
+      },
+      "hitpoints": {
+        "num": 0.0
+      },
+      "range": {
+        "num": 0.0
+      },
+      "speed": {
+        "num": 0.0
+      },
+      "attacks_air": {
+        "bool": false
+      },
+      "attacks_ground": {
+        "bool": false
+      },
+      "flies": {
+        "bool": false
+      },
+      "arena": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 20
+  },
+  {
+    "id": "royal-giant",
+    "name": "Royal Giant",
+    "attributes": {
+      "rarity": {
+        "str": "common"
+      },
+      "type": {
+        "str": "Troop"
+      },
+      "elixir": {
+        "num": 6.0
+      },
+      "dps": {
+        "num": 0.0
+      },
+      "hitpoints": {
+        "num": 1200.0
+      },
+      "range": {
+        "num": 5000.0
+      },
+      "speed": {
+        "num": 45.0
+      },
+      "attacks_air": {
+        "bool": false
+      },
+      "attacks_ground": {
+        "bool": true
+      },
+      "flies": {
+        "bool": false
+      },
+      "arena": {
+        "num": 7.0
+      }
+    },
+    "fame_score": 100
+  },
+  {
+    "id": "royal-hogs",
+    "name": "Royal Hogs",
+    "attributes": {
+      "rarity": {
+        "str": "rare"
+      },
+      "type": {
+        "str": "Troop"
+      },
+      "elixir": {
+        "num": 5.0
+      },
+      "dps": {
+        "num": 29.0
+      },
+      "hitpoints": {
+        "num": 395.0
+      },
+      "range": {
+        "num": 750.0
+      },
+      "speed": {
+        "num": 120.0
+      },
+      "attacks_air": {
+        "bool": false
+      },
+      "attacks_ground": {
+        "bool": true
+      },
+      "flies": {
+        "bool": false
+      },
+      "arena": {
+        "num": 7.0
+      }
+    },
+    "fame_score": 80
+  },
+  {
+    "id": "royal-recruits",
+    "name": "Royal Recruits",
+    "attributes": {
+      "rarity": {
+        "str": "common"
+      },
+      "type": {
+        "str": "Troop"
+      },
+      "elixir": {
+        "num": 7.0
+      },
+      "dps": {
+        "num": 40.0
+      },
+      "hitpoints": {
+        "num": 208.0
+      },
+      "range": {
+        "num": 1600.0
+      },
+      "speed": {
+        "num": 60.0
+      },
+      "attacks_air": {
+        "bool": false
+      },
+      "attacks_ground": {
+        "bool": true
+      },
+      "flies": {
+        "bool": false
+      },
+      "arena": {
+        "num": 7.0
+      }
+    },
+    "fame_score": 100
+  },
+  {
+    "id": "rune-giant",
+    "name": "Rune Giant",
+    "attributes": {
+      "rarity": {
+        "str": "epic"
+      },
+      "type": {
+        "str": "Unknown"
+      },
+      "elixir": {
+        "num": 4.0
+      },
+      "dps": {
+        "num": 0.0
+      },
+      "hitpoints": {
+        "num": 0.0
+      },
+      "range": {
+        "num": 0.0
+      },
+      "speed": {
+        "num": 0.0
+      },
+      "attacks_air": {
+        "bool": false
+      },
+      "attacks_ground": {
+        "bool": false
+      },
+      "flies": {
+        "bool": false
+      },
+      "arena": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 50
+  },
+  {
+    "id": "skeleton-army",
+    "name": "Skeleton Army",
+    "attributes": {
+      "rarity": {
+        "str": "epic"
+      },
+      "type": {
+        "str": "Troop"
+      },
+      "elixir": {
+        "num": 3.0
+      },
+      "dps": {
+        "num": 32.0
+      },
+      "hitpoints": {
+        "num": 32.0
+      },
+      "range": {
+        "num": 500.0
+      },
+      "speed": {
+        "num": 90.0
+      },
+      "attacks_air": {
+        "bool": false
+      },
+      "attacks_ground": {
+        "bool": true
+      },
+      "flies": {
+        "bool": false
+      },
+      "arena": {
+        "num": 6.0
+      }
+    },
+    "fame_score": 50
+  },
+  {
+    "id": "skeleton-barrel",
+    "name": "Skeleton Barrel",
+    "attributes": {
+      "rarity": {
+        "str": "common"
+      },
+      "type": {
+        "str": "Unknown"
+      },
+      "elixir": {
+        "num": 3.0
+      },
+      "dps": {
+        "num": 0.0
+      },
+      "hitpoints": {
+        "num": 0.0
+      },
+      "range": {
+        "num": 0.0
+      },
+      "speed": {
+        "num": 0.0
+      },
+      "attacks_air": {
+        "bool": false
+      },
+      "attacks_ground": {
+        "bool": false
+      },
+      "flies": {
+        "bool": false
+      },
+      "arena": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 100
+  },
+  {
+    "id": "skeleton-dragons",
+    "name": "Skeleton Dragons",
+    "attributes": {
+      "rarity": {
+        "str": "common"
+      },
+      "type": {
+        "str": "Troop"
+      },
+      "elixir": {
+        "num": 4.0
+      },
+      "dps": {
+        "num": 0.0
+      },
+      "hitpoints": {
+        "num": 220.0
+      },
+      "range": {
+        "num": 3500.0
+      },
+      "speed": {
+        "num": 90.0
+      },
+      "attacks_air": {
+        "bool": true
+      },
+      "attacks_ground": {
+        "bool": true
+      },
+      "flies": {
+        "bool": true
+      },
+      "arena": {
+        "num": 4.0
+      }
+    },
+    "fame_score": 100
+  },
+  {
+    "id": "skeleton-king",
+    "name": "Skeleton King",
+    "attributes": {
+      "rarity": {
+        "str": "champion"
+      },
+      "type": {
+        "str": "Troop"
+      },
+      "elixir": {
+        "num": 4.0
+      },
+      "dps": {
+        "num": 128.0
+      },
+      "hitpoints": {
+        "num": 2300.0
+      },
+      "range": {
+        "num": 1200.0
+      },
+      "speed": {
+        "num": 60.0
+      },
+      "attacks_air": {
+        "bool": false
+      },
+      "attacks_ground": {
+        "bool": true
+      },
+      "flies": {
+        "bool": false
+      },
+      "arena": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 5
+  },
+  {
+    "id": "skeletons",
+    "name": "Skeletons",
+    "attributes": {
+      "rarity": {
+        "str": "common"
+      },
+      "type": {
+        "str": "Troop"
+      },
+      "elixir": {
+        "num": 1.0
+      },
+      "dps": {
+        "num": 32.0
+      },
+      "hitpoints": {
+        "num": 32.0
+      },
+      "range": {
+        "num": 500.0
+      },
+      "speed": {
+        "num": 90.0
+      },
+      "attacks_air": {
+        "bool": false
+      },
+      "attacks_ground": {
+        "bool": true
+      },
+      "flies": {
+        "bool": false
+      },
+      "arena": {
+        "num": 2.0
+      }
+    },
+    "fame_score": 100
+  },
+  {
+    "id": "sparky",
+    "name": "Sparky",
+    "attributes": {
+      "rarity": {
+        "str": "legendary"
+      },
+      "type": {
+        "str": "Unknown"
+      },
+      "elixir": {
+        "num": 6.0
+      },
+      "dps": {
+        "num": 0.0
+      },
+      "hitpoints": {
+        "num": 0.0
+      },
+      "range": {
+        "num": 0.0
+      },
+      "speed": {
+        "num": 0.0
+      },
+      "attacks_air": {
+        "bool": false
+      },
+      "attacks_ground": {
+        "bool": false
+      },
+      "flies": {
+        "bool": false
+      },
+      "arena": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 20
+  },
+  {
+    "id": "spear-goblins",
+    "name": "Spear Goblins",
+    "attributes": {
+      "rarity": {
+        "str": "common"
+      },
+      "type": {
+        "str": "Troop"
+      },
+      "elixir": {
+        "num": 2.0
+      },
+      "dps": {
+        "num": 0.0
+      },
+      "hitpoints": {
+        "num": 52.0
+      },
+      "range": {
+        "num": 5500.0
+      },
+      "speed": {
+        "num": 120.0
+      },
+      "attacks_air": {
+        "bool": true
+      },
+      "attacks_ground": {
+        "bool": true
+      },
+      "flies": {
+        "bool": false
+      },
+      "arena": {
+        "num": 1.0
+      }
+    },
+    "fame_score": 100
+  },
+  {
+    "id": "spirit-empress",
+    "name": "Spirit Empress",
+    "attributes": {
+      "rarity": {
+        "str": "legendary"
+      },
+      "type": {
+        "str": "Unknown"
+      },
+      "elixir": {
+        "num": 6.0
+      },
+      "dps": {
+        "num": 0.0
+      },
+      "hitpoints": {
+        "num": 0.0
+      },
+      "range": {
+        "num": 0.0
+      },
+      "speed": {
+        "num": 0.0
+      },
+      "attacks_air": {
+        "bool": false
+      },
+      "attacks_ground": {
+        "bool": false
+      },
+      "flies": {
+        "bool": false
+      },
+      "arena": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 20
+  },
+  {
+    "id": "suspicious-bush",
+    "name": "Suspicious Bush",
+    "attributes": {
+      "rarity": {
+        "str": "rare"
+      },
+      "type": {
+        "str": "Unknown"
+      },
+      "elixir": {
+        "num": 2.0
+      },
+      "dps": {
+        "num": 0.0
+      },
+      "hitpoints": {
+        "num": 0.0
+      },
+      "range": {
+        "num": 0.0
+      },
+      "speed": {
+        "num": 0.0
+      },
+      "attacks_air": {
+        "bool": false
+      },
+      "attacks_ground": {
+        "bool": false
+      },
+      "flies": {
+        "bool": false
+      },
+      "arena": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 80
+  },
+  {
+    "id": "tesla",
+    "name": "Tesla",
+    "attributes": {
+      "rarity": {
+        "str": "common"
+      },
+      "type": {
+        "str": "Building"
+      },
+      "elixir": {
+        "num": 4.0
+      },
+      "dps": {
+        "num": 82.0
+      },
+      "hitpoints": {
+        "num": 450.0
+      },
+      "range": {
+        "num": 5500.0
+      },
+      "speed": {
+        "num": 0.0
+      },
+      "attacks_air": {
+        "bool": true
+      },
+      "attacks_ground": {
+        "bool": true
+      },
+      "flies": {
+        "bool": false
+      },
+      "arena": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 100
+  },
+  {
+    "id": "the-log",
+    "name": "The Log",
+    "attributes": {
+      "rarity": {
+        "str": "legendary"
+      },
+      "type": {
+        "str": "Unknown"
+      },
+      "elixir": {
+        "num": 2.0
+      },
+      "dps": {
+        "num": 0.0
+      },
+      "hitpoints": {
+        "num": 0.0
+      },
+      "range": {
+        "num": 0.0
+      },
+      "speed": {
+        "num": 0.0
+      },
+      "attacks_air": {
+        "bool": false
+      },
+      "attacks_ground": {
+        "bool": false
+      },
+      "flies": {
+        "bool": false
+      },
+      "arena": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 20
+  },
+  {
+    "id": "three-musketeers",
+    "name": "Three Musketeers",
+    "attributes": {
+      "rarity": {
+        "str": "rare"
+      },
+      "type": {
+        "str": "Troop"
+      },
+      "elixir": {
+        "num": 9.0
+      },
+      "dps": {
+        "num": 0.0
+      },
+      "hitpoints": {
+        "num": 340.0
+      },
+      "range": {
+        "num": 6000.0
+      },
+      "speed": {
+        "num": 60.0
+      },
+      "attacks_air": {
+        "bool": true
+      },
+      "attacks_ground": {
+        "bool": true
+      },
+      "flies": {
+        "bool": false
+      },
+      "arena": {
+        "num": 7.0
+      }
+    },
+    "fame_score": 80
+  },
+  {
+    "id": "tombstone",
+    "name": "Tombstone",
+    "attributes": {
+      "rarity": {
+        "str": "rare"
+      },
+      "type": {
+        "str": "Building"
+      },
+      "elixir": {
+        "num": 3.0
+      },
+      "dps": {
+        "num": 0.0
+      },
+      "hitpoints": {
+        "num": 250.0
+      },
+      "range": {
+        "num": 0.0
+      },
+      "speed": {
+        "num": 0.0
+      },
+      "attacks_air": {
+        "bool": false
+      },
+      "attacks_ground": {
+        "bool": true
+      },
+      "flies": {
+        "bool": false
+      },
+      "arena": {
+        "num": 2.0
+      }
+    },
+    "fame_score": 80
+  },
+  {
+    "id": "tornado",
+    "name": "Tornado",
+    "attributes": {
+      "rarity": {
+        "str": "epic"
+      },
+      "type": {
+        "str": "Spell"
+      },
+      "elixir": {
+        "num": 3.0
+      },
+      "dps": {
+        "num": 0.0
+      },
+      "hitpoints": {
+        "num": 0.0
+      },
+      "range": {
+        "num": 0.0
+      },
+      "speed": {
+        "num": 0.0
+      },
+      "attacks_air": {
+        "bool": false
+      },
+      "attacks_ground": {
+        "bool": false
+      },
+      "flies": {
+        "bool": false
+      },
+      "arena": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 50
+  },
+  {
+    "id": "valkyrie",
+    "name": "Valkyrie",
+    "attributes": {
+      "rarity": {
+        "str": "rare"
+      },
+      "type": {
+        "str": "Troop"
+      },
+      "elixir": {
+        "num": 4.0
+      },
+      "dps": {
+        "num": 84.0
+      },
+      "hitpoints": {
+        "num": 900.0
+      },
+      "range": {
+        "num": 1200.0
+      },
+      "speed": {
+        "num": 60.0
+      },
+      "attacks_air": {
+        "bool": false
+      },
+      "attacks_ground": {
+        "bool": true
+      },
+      "flies": {
+        "bool": false
+      },
+      "arena": {
+        "num": 2.0
+      }
+    },
+    "fame_score": 80
+  },
+  {
+    "id": "vines",
+    "name": "Vines",
+    "attributes": {
+      "rarity": {
+        "str": "epic"
+      },
+      "type": {
+        "str": "Unknown"
+      },
+      "elixir": {
+        "num": 3.0
+      },
+      "dps": {
+        "num": 0.0
+      },
+      "hitpoints": {
+        "num": 0.0
+      },
+      "range": {
+        "num": 0.0
+      },
+      "speed": {
+        "num": 0.0
+      },
+      "attacks_air": {
+        "bool": false
+      },
+      "attacks_ground": {
+        "bool": false
+      },
+      "flies": {
+        "bool": false
+      },
+      "arena": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 50
+  },
+  {
+    "id": "void",
+    "name": "Void",
+    "attributes": {
+      "rarity": {
+        "str": "epic"
+      },
+      "type": {
+        "str": "Unknown"
+      },
+      "elixir": {
+        "num": 3.0
+      },
+      "dps": {
+        "num": 0.0
+      },
+      "hitpoints": {
+        "num": 0.0
+      },
+      "range": {
+        "num": 0.0
+      },
+      "speed": {
+        "num": 0.0
+      },
+      "attacks_air": {
+        "bool": false
+      },
+      "attacks_ground": {
+        "bool": false
+      },
+      "flies": {
+        "bool": false
+      },
+      "arena": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 50
+  },
+  {
+    "id": "wall-breakers",
+    "name": "Wall Breakers",
+    "attributes": {
+      "rarity": {
+        "str": "epic"
+      },
+      "type": {
+        "str": "Troop"
+      },
+      "elixir": {
+        "num": 2.0
+      },
+      "dps": {
+        "num": 0.0
+      },
+      "hitpoints": {
+        "num": 207.0
+      },
+      "range": {
+        "num": 500.0
+      },
+      "speed": {
+        "num": 120.0
+      },
+      "attacks_air": {
+        "bool": false
+      },
+      "attacks_ground": {
+        "bool": true
+      },
+      "flies": {
+        "bool": false
+      },
+      "arena": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 50
+  },
+  {
+    "id": "witch",
+    "name": "Witch",
+    "attributes": {
+      "rarity": {
+        "str": "epic"
+      },
+      "type": {
+        "str": "Troop"
+      },
+      "elixir": {
+        "num": 5.0
+      },
+      "dps": {
+        "num": 0.0
+      },
+      "hitpoints": {
+        "num": 524.0
+      },
+      "range": {
+        "num": 5500.0
+      },
+      "speed": {
+        "num": 60.0
+      },
+      "attacks_air": {
+        "bool": true
+      },
+      "attacks_ground": {
+        "bool": true
+      },
+      "flies": {
+        "bool": false
+      },
+      "arena": {
+        "num": 6.0
+      }
+    },
+    "fame_score": 50
+  },
+  {
+    "id": "wizard",
+    "name": "Wizard",
+    "attributes": {
+      "rarity": {
+        "str": "rare"
+      },
+      "type": {
+        "str": "Troop"
+      },
+      "elixir": {
+        "num": 5.0
+      },
+      "dps": {
+        "num": 0.0
+      },
+      "hitpoints": {
+        "num": 340.0
+      },
+      "range": {
+        "num": 5500.0
+      },
+      "speed": {
+        "num": 60.0
+      },
+      "attacks_air": {
+        "bool": true
+      },
+      "attacks_ground": {
+        "bool": true
+      },
+      "flies": {
+        "bool": false
+      },
+      "arena": {
+        "num": 4.0
+      }
+    },
+    "fame_score": 80
+  },
+  {
+    "id": "x-bow",
+    "name": "X-Bow",
+    "attributes": {
+      "rarity": {
+        "str": "epic"
+      },
+      "type": {
+        "str": "Building"
+      },
+      "elixir": {
+        "num": 6.0
+      },
+      "dps": {
+        "num": 0.0
+      },
+      "hitpoints": {
+        "num": 1000.0
+      },
+      "range": {
+        "num": 11500.0
+      },
+      "speed": {
+        "num": 0.0
+      },
+      "attacks_air": {
+        "bool": false
+      },
+      "attacks_ground": {
+        "bool": true
+      },
+      "flies": {
+        "bool": false
+      },
+      "arena": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 50
+  },
+  {
+    "id": "zap",
+    "name": "Zap",
+    "attributes": {
+      "rarity": {
+        "str": "common"
+      },
+      "type": {
+        "str": "Spell"
+      },
+      "elixir": {
+        "num": 2.0
+      },
+      "dps": {
+        "num": 0.0
+      },
+      "hitpoints": {
+        "num": 0.0
+      },
+      "range": {
+        "num": 0.0
+      },
+      "speed": {
+        "num": 0.0
+      },
+      "attacks_air": {
+        "bool": false
+      },
+      "attacks_ground": {
+        "bool": false
+      },
+      "flies": {
+        "bool": false
+      },
+      "arena": {
+        "num": 5.0
+      }
+    },
+    "fame_score": 100
+  },
+  {
+    "id": "zappies",
+    "name": "Zappies",
+    "attributes": {
+      "rarity": {
+        "str": "rare"
+      },
+      "type": {
+        "str": "Unknown"
+      },
+      "elixir": {
+        "num": 4.0
+      },
+      "dps": {
+        "num": 0.0
+      },
+      "hitpoints": {
+        "num": 0.0
+      },
+      "range": {
+        "num": 0.0
+      },
+      "speed": {
+        "num": 0.0
+      },
+      "attacks_air": {
+        "bool": false
+      },
+      "attacks_ground": {
+        "bool": false
+      },
+      "flies": {
+        "bool": false
+      },
+      "arena": {
+        "num": 0.0
+      }
+    },
+    "fame_score": 80
+  }
+]
