@@ -31,6 +31,12 @@ pub struct Entity {
     /// when computing the originality score.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub fame_score: Option<u8>,
+    /// Optional URL to a representative image. The frontend downloads + caches
+    /// these at ingest time into `web/public/cards/<domain>/<id>.png` and
+    /// renders them via CardIcon.svelte. Engine logic does nothing with this
+    /// field, it's pure presentation metadata.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub icon_url: Option<String>,
 }
 
 pub const FAME_NEUTRAL: u8 = 50;

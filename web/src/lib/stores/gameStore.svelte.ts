@@ -16,6 +16,13 @@ export interface CellAnswer {
    * second round-trip to the server.
    */
   fameScore: number | null;
+  /**
+   * Canonical entity id the server resolved to. Lets us pick the right
+   * per-entity asset (card art, country flag) without slugifying the
+   * user-typed answer. Null when the field wasn't populated (older
+   * persisted games from pre-icons release).
+   */
+  entityId: string | null;
 }
 
 export interface PersistedGameState {
@@ -154,6 +161,7 @@ export const createGameStore = (domain: string) => {
       mistakesLeft: number;
       ended?: boolean | undefined;
       fameScore?: number | null | undefined;
+      entityId?: string | null | undefined;
     },
   ): void => {
     if (!state) return;
@@ -171,6 +179,7 @@ export const createGameStore = (domain: string) => {
           entityName,
           filledAt: new Date().toISOString(),
           fameScore: result.fameScore ?? null,
+          entityId: result.entityId ?? null,
         },
       ];
     }

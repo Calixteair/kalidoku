@@ -61,6 +61,11 @@
           "minimum": 0,
           "maximum": 100,
           "description": "Intrinsic notoriety on 0..=100. 0 = niche, 100 = universally famous. Feeds the originality score: solved cells contribute 100 - fame_score. Absent = treated as 50 (neutral) so engine works on un-scored datasets."
+        },
+        "icon_url": {
+          "type": "string",
+          "format": "uri",
+          "description": "Optional URL to a representative image. Used by domains where the entity has visual identity (Clash Royale cards, future world-airports flags, etc). The frontend downloads + caches these at build time into web/public/cards/<domain>/<id>.png and falls back gracefully when absent."
         }
       },
       "additionalProperties": false

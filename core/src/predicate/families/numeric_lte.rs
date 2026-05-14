@@ -108,6 +108,7 @@ mod tests {
             aliases: vec![],
             attributes: a,
             fame_score: None,
+            icon_url: None,
         }
     }
 

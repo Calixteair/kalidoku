@@ -93,6 +93,7 @@ mod tests {
             aliases: vec![],
             attributes: std::collections::HashMap::new(),
             fame_score: None,
+            icon_url: None,
         }
     }
 

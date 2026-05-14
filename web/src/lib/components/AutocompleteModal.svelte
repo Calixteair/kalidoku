@@ -6,6 +6,11 @@
   import { api, ApiError } from "../api/client.js";
   import type { components } from "../api/types.js";
   import { highlight, normalize } from "../normalize.js";
+  import CardIcon from "./CardIcon.svelte";
+
+  // Domains that ship per-card icons. Used in the suggestion list to show
+  // a thumbnail next to the name. Keep aligned with CellButton.
+  const DOMAINS_WITH_ART = new Set(["clash-royale"]);
 
   type Suggestion = components["schemas"]["AutocompleteResult"];
 
@@ -225,19 +230,25 @@
               class:active={i === activeIndex}
               onclick={() => select(s)}
               onmouseenter={() => (activeIndex = i)}
+              class:kd-option--with-art={DOMAINS_WITH_ART.has(domain)}
             >
-              <span class="kd-option__name text-fg">
-                {#each renderHighlighted(s.name) as part}
-                  {#if part.match}
-                    <mark>{part.text}</mark>
-                  {:else}
-                    <span>{part.text}</span>
-                  {/if}
-                {/each}
-              </span>
-              {#if s.subtitle}
-                <span class="kd-option__subtitle text-fg-muted">{s.subtitle}</span>
+              {#if DOMAINS_WITH_ART.has(domain)}
+                <CardIcon {domain} entityId={s.id} alt="" size={36} />
               {/if}
+              <span class="kd-option__body">
+                <span class="kd-option__name text-fg">
+                  {#each renderHighlighted(s.name) as part}
+                    {#if part.match}
+                      <mark>{part.text}</mark>
+                    {:else}
+                      <span>{part.text}</span>
+                    {/if}
+                  {/each}
+                </span>
+                {#if s.subtitle}
+                  <span class="kd-option__subtitle text-fg-muted">{s.subtitle}</span>
+                {/if}
+              </span>
             </button>
           {/each}
         {:else if loading}
@@ -431,8 +442,30 @@
     min-height: 44px;
     border: 1px solid transparent;
     transition:
-      background-color 120ms var(--ease-out),
-      border-color 120ms var(--ease-out);
+      background-color 140ms var(--ease-out),
+      border-color 140ms var(--ease-out);
+  }
+  /* When the domain ships card art, lay out as icon + label block in a
+     row instead of stacking name above subtitle. The body span holds the
+     same column children as before. */
+  .kd-option--with-art {
+    flex-direction: row;
+    align-items: center;
+    gap: 0.65rem;
+  }
+  .kd-option__body {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+    flex: 1 1 auto;
+  }
+  .kd-option--with-art .kd-option__name {
+    /* Stop the name from wrapping mid-air when the icon takes ~36 px */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
   }
   .kd-option:hover {
     background: var(--color-bg-subtle);
