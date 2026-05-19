@@ -145,6 +145,38 @@ def resolve_title(entity_name: str) -> Optional[str]:
     return None
 
 
+def load_wiki_titles_sidecar(domain_root: Path) -> dict[str, str]:
+    """Read the {entity_id → frwiki_title} sidecar emitted by
+    build_rer_dataset_v2.py. Empty dict if the file isn't there yet —
+    callers fall back to resolve_title() per-entity.
+    """
+    path = domain_root / "wiki_titles.json"
+    if not path.is_file():
+        return {}
+    try:
+        return json.loads(path.read_text(encoding="utf-8"))
+    except Exception as e:
+        log(f"  wiki_titles.json unreadable: {e}")
+        return {}
+
+
+def resolve_title_for_entity(
+    ent: dict, sidecar: dict[str, str]
+) -> tuple[Optional[str], str]:
+    """Return (frwiki_title, source) where source is 'sidecar' or 'guess'.
+
+    Sidecar lookup is preferred because build_rer_dataset_v2.py already
+    paid the cost of finding the canonical frwiki title for each entity;
+    re-deriving it via TITLE_VARIANTS misses ~40% of stations whose name
+    doesn't trivially match an article (Le Bourget vs Gare du Bourget,
+    Saint-Denis vs Gare de Saint-Denis, etc.).
+    """
+    title = sidecar.get(ent["id"])
+    if title:
+        return title, "sidecar"
+    return resolve_title(ent["name"]), "guess"
+
+
 # ---------- Pageviews ----------
 
 
@@ -260,7 +292,10 @@ def main() -> int:
 
     entities = json.loads(entities_path.read_text())
     meta = json.loads(meta_path.read_text())
+    sidecar = load_wiki_titles_sidecar(domain_root)
     log(f"loaded {len(entities)} entities from {entities_path}")
+    if sidecar:
+        log(f"sidecar wiki_titles.json: {len(sidecar)} entries → primary title source")
 
     end_date = dt.date.today().replace(day=1) - dt.timedelta(days=1)
     start_date = end_date - dt.timedelta(days=args.days)
@@ -271,16 +306,21 @@ def main() -> int:
     pv_by_id: dict[str, int] = {}
     audit = []
     matched = 0
+    from_sidecar = 0
     for i, ent in enumerate(entities, 1):
         record = {"id": ent["id"], "name": ent["name"]}
-        title = resolve_title(ent["name"])
+        title, source = resolve_title_for_entity(ent, sidecar)
         if title is None:
             record["title"] = None
+            record["source"] = source
             record["pageviews"] = 0
             audit.append(record)
             continue
         matched += 1
+        if source == "sidecar":
+            from_sidecar += 1
         record["title"] = title
+        record["source"] = source
         try:
             pv = fetch_pageviews_sum(title, start_str, end_str)
         except Exception as e:
@@ -290,7 +330,7 @@ def main() -> int:
         record["pageviews"] = pv
         audit.append(record)
         if i % 30 == 0:
-            log(f"  {i}/{len(entities)} processed (matched={matched})")
+            log(f"  {i}/{len(entities)} processed (matched={matched}, sidecar={from_sidecar})")
         # Polite throttle — the Wikipedia REST endpoint is generous but
         # 150 ms between calls stays well under documented limits.
         time.sleep(0.15)

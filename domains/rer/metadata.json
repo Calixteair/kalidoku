@@ -4,11 +4,11 @@
     "fr": "RER d'Île-de-France",
     "en": "Île-de-France RER"
   },
-  "version": "0.2.0",
+  "version": "0.4.0",
   "default_locale": "fr",
   "license": "ODbL-1.0",
   "sources": [
-    "https://overpass-api.de/api/interpreter"
+    "https://fr.wikipedia.org/w/api.php"
   ],
   "generator_constraints": {
     "min_candidates_per_cell": 2,
@@ -17,18 +17,23 @@
     "row_predicate_count": 3,
     "col_predicate_count": 3
   },
-  "dataset_sha256": "8493880538ec9e67cee4ee0dc26e98fffba447de50e00faf738a689770cf559b",
-  "entity_count": 230,
+  "dataset_sha256": "f012ee68687cf1d7366c49b3ac955357e80e75eeb534da3bb7d24e23094ca945",
+  "entity_count": 241,
   "sources_versions": [
     {
-      "id": "osm-overpass-rer-routes",
-      "url": "https://overpass-api.de/api/interpreter",
-      "date": "2026-05-13"
+      "id": "frwiki-category-rer-line",
+      "url": "https://fr.wikipedia.org/wiki/Cat%C3%A9gorie:Ligne_A_du_RER_d%27%C3%8Ele-de-France",
+      "date": "2026-05-19"
+    },
+    {
+      "id": "frwiki-rest-summary",
+      "url": "https://fr.wikipedia.org/api/rest_v1/page/summary/",
+      "date": "2026-05-19"
     },
     {
       "id": "wikipedia-pageviews-fame",
       "url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/fr.wikipedia",
-      "date": "2026-05-13"
+      "date": "2026-05-19"
     }
   ]
 }
