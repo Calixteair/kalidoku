@@ -42,6 +42,9 @@ ignore = [
     # input path, no untrusted RSA signing), to revisit when upstream patches.
     { id = "RUSTSEC-2023-0071", reason = "rsa Marvin timing via sqlx-mysql — no fix; not on signing path" },
     { id = "RUSTSEC-2025-0111", reason = "transitive, no fixed upgrade available" },
+    # Build-time proc-macro only (sea-orm-macros 1.1 → sea-bae), no runtime code;
+    # goes away with sea-orm 2.x.
+    { id = "RUSTSEC-2026-0173", reason = "proc-macro-error2 unmaintained via sea-orm-macros 1.1 — no fix in 1.x" },
 ]
 
 # ---------------------------------------------------------------------------
