@@ -19,6 +19,10 @@ RUN pnpm openapi:gen \
  && pnpm build
 
 FROM nginx:${NGINX_VERSION} AS runtime
+
+# Correctifs de sécurité Alpine publiés après l'image de base (ex. brotli-libs 1.2.1,
+# CVE-2026-111497) : Trivy bloque les HIGH/CRITICAL corrigeables.
+RUN apk upgrade --no-cache
 ARG GIT_REVISION=unknown
 ARG IMAGE_CREATED=unknown
 LABEL org.opencontainers.image.source="https://github.com/Calixteair/kalidoku" \

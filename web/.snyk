@@ -1,0 +1,18 @@
+# Snyk : exceptions justifiées et datées (revues à leur expiration).
+version: v1.25.0
+ignore:
+  SNYK-JS-HTTPCACHESEMANTICS-19964064:
+    - '*':
+        reason: >-
+          Aucune version corrigée (4.3.0 est la dernière publiée). Utilisé par Astro au build
+          seulement : le front en prod est servi par nginx en fichiers statiques, sans Node.
+        expires: 2027-02-01T00:00:00.000Z
+        created: 2026-11-05T00:00:00.000Z
+  SNYK-JS-HTTPCACHESEMANTICS-19964068:
+    - '*':
+        reason: >-
+          Aucune version corrigée (4.3.0 est la dernière publiée). Utilisé par Astro au build
+          seulement : le front en prod est servi par nginx en fichiers statiques, sans Node.
+        expires: 2027-02-01T00:00:00.000Z
+        created: 2026-11-05T00:00:00.000Z
+patch: {}

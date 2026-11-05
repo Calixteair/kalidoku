@@ -123,7 +123,7 @@ services:
     networks: [kalidoku-internal]
 
   server:
-    image: ${KALIDOKU_SERVER_IMAGE:-calixteair/kalidoku-server:latest}
+    image: registry.calixteair.fr/kalidoku/kalidoku:server-latest
     container_name: kalidoku-server
     <<: [*restart, *logging, *hardened]
     depends_on:
@@ -162,7 +162,7 @@ services:
     networks: [kalidoku-internal, nginx-reverse-proxy]
 
   worker:
-    image: ${KALIDOKU_WORKER_IMAGE:-calixteair/kalidoku-worker:latest}
+    image: registry.calixteair.fr/kalidoku/kalidoku:worker-latest
     container_name: kalidoku-worker
     <<: [*restart, *logging, *hardened]
     depends_on:
@@ -186,7 +186,7 @@ services:
     networks: [kalidoku-internal]
 
   web:
-    image: ${KALIDOKU_WEB_IMAGE:-calixteair/kalidoku-web:latest}
+    image: registry.calixteair.fr/kalidoku/kalidoku:web-latest
     container_name: kalidoku-web
     <<: [*restart, *logging]
     # nginx-alpine entrypoint chowns /var/cache/nginx; needs CHOWN/SETUID/SETGID

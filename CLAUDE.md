@@ -135,29 +135,35 @@ Si un hook bloque, **diagnostiquer et fixer**, jamais bypasser avec `--no-verify
 ### Pipeline (commit → prod)
 
 ```
-push → CI: lint + test + trivy → build multi-arch (amd64) → push Docker Hub
-                                                                    │
-                                                                    ▼
-                                                        deploy.yml SSH ci-kalidoku
-                                                                    │
-                                                                    ▼
-                                                        bao-deploy.sh kalidoku
-                                                                    │
-                                                                    ▼
-                                                        docker compose up -d
+PR                    Jenkins (jenkins.calixteair.fr, Jenkinsfile + bibliothèque jenkins-lib)
+                        Rust : fmt, clippy, tests (Postgres + Valkey de test), cargo-audit, cargo-deny
+                        web : pnpm lint, typecheck, tests ; gitleaks ; Snyk ; 3 images + Trivy
+main                  idem, puis images <composant>-sha-<commit> et <composant>-latest sur Harbor
+                      (registry.calixteair.fr/kalidoku/kalidoku), sans déploiement
+release-please        PR de version (CHANGELOG, manifest), sans tag ni GitHub Release
+tag vX.Y.Z signé      (Calixteair : git tag -s, après le merge de la PR de version)
+    │                 images vX.Y.Z-server, vX.Y.Z-worker, vX.Y.Z-web (immuables)
+    ▼
+SSH ci-kalidoku@vps vX.Y.Z → ci-deploy-self.sh → stack-sync.sh kalidoku vX.Y.Z
+    │   le VPS récupère infra/ au tag, vérifie la signature (clé de Calixteair) et que le
+    │   commit est sur main, épingle les images sur vX.Y.Z-*, contrôle la politique
+    ▼
+infra/docker/compose.yaml + infra/bao/agent.hcl installés → bao-deploy.sh → santé
+    (retour à la configuration précédente si un conteneur n'est pas sain)
 ```
 
-### Tags Docker Hub
+### Images (Harbor, registry.calixteair.fr/kalidoku/kalidoku)
 
-- `calixteair/kalidoku-server:latest` → main
-- `calixteair/kalidoku-server:sha-<7 chars>` → immutable par commit
-- `calixteair/kalidoku-server:vMAJ.MIN.PATCH` → release tag
-- Idem pour `kalidoku-worker` et `kalidoku-web`.
+- `server-latest`, `worker-latest`, `web-latest` → main (jamais déployées telles quelles)
+- `<composant>-sha-<commit>` → par commit
+- `vX.Y.Z-<composant>` → release, immuable, seule image déployée en prod
 
 ### Releases
 
-- `release-please` génère PR de release auto sur push main.
-- Merge de la PR de release → tag `vX.Y.Z` + GitHub Release + changelog auto.
+- `release-please` ouvre la PR de version (CHANGELOG, `.release-please-manifest.json`), sans tag.
+- Après son merge : `git tag -s vX.Y.Z -m … && git verify-tag vX.Y.Z && git push origin vX.Y.Z`
+  (signature de Calixteair, seule acceptée par le VPS).
+- Retour arrière : `docs/runbooks/rollback.md`.
 
 ## 6. Frontend (web/)
 

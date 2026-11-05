@@ -3,37 +3,24 @@
 ## Pipeline (résumé)
 
 ```
-push main
-    │
-    ├── ci.yml ──── lint + tests + trivy fs (bloquant)
-    │
-    └── build-push.yml ─── OIDC OpenBao → Docker Hub creds
-                            ├── build kalidoku-server
-                            ├── build kalidoku-worker
-                            ├── build kalidoku-web
-                            └── trivy image (bloquant CRITICAL)
-                                    │
-                                    ▼
-                           deploy.yml (workflow_call)
-                                    │
-                                    ▼
-                  SSH ci-kalidoku@calixteair.fr (ForceCommand)
-                                    │
-                                    ▼
-                  /usr/local/sbin/ci-deploy-self.sh
-                                    │
-                                    ▼
-                  /usr/local/sbin/bao-deploy.sh kalidoku
-                                    │
-                                    ▼
-                  bao-agent renders /run/kalidoku/.env
-                                    │
-                                    ▼
-                  docker compose --env-file ... up -d
-                                    │
-                                    ▼
-                  smoke test https://kalidoku.calixteair.fr/api/health
+PR                    Jenkins (jenkins.calixteair.fr, Jenkinsfile + bibliothèque jenkins-lib)
+                        Rust : fmt, clippy, tests (Postgres + Valkey de test), cargo-audit, cargo-deny
+                        web : pnpm lint, typecheck, tests ; gitleaks ; Snyk ; 3 images + Trivy
+main                  idem, puis images <composant>-sha-<commit> et <composant>-latest sur Harbor
+                      (registry.calixteair.fr/kalidoku/kalidoku), sans déploiement
+release-please        PR de version (CHANGELOG, manifest), sans tag ni GitHub Release
+tag vX.Y.Z signé      (Calixteair : git tag -s, après le merge de la PR de version)
+    │                 images vX.Y.Z-server, vX.Y.Z-worker, vX.Y.Z-web (immuables)
+    ▼
+SSH ci-kalidoku@vps vX.Y.Z → ci-deploy-self.sh → stack-sync.sh kalidoku vX.Y.Z
+    │   le VPS récupère infra/ au tag, vérifie la signature (clé de Calixteair) et que le
+    │   commit est sur main, épingle les images sur vX.Y.Z-*, contrôle la politique
+    ▼
+infra/docker/compose.yaml + infra/bao/agent.hcl installés → bao-deploy.sh → santé
+    (retour à la configuration précédente si un conteneur n'est pas sain)
 ```
+
+Détails du déploiement signé : `vps-soc-config/stack-sync/README.md`.
 
 ## Setup initial (one-shot, à faire avant le premier deploy)
 
@@ -63,16 +50,12 @@ ssh-keygen -t ed25519 -C "ci-kalidoku@github-actions" -f ~/.config/vps-ci-keys/c
 # Add /usr/local/sbin/ci-deploy-self.sh (cf. wiki)
 ```
 
-### 4. GitHub Secrets (Settings → Secrets → Actions)
+### 4. CI et déploiement signé (Jenkins, Harbor, stack-sync)
 
-| Secret | Valeur |
-|---|---|
-| `DEPLOY_HOST` | `calixteair.fr` |
-| `DEPLOY_PORT` | port SSH |
-| `DEPLOY_USER` | `ci-kalidoku` |
-| `DEPLOY_SSH_KEY` | contenu de `~/.config/vps-ci-keys/ci-kalidoku` |
-
-(Les creds Docker Hub sont récupérées via OIDC OpenBao, pas en GitHub Secrets.)
+Plus aucun secret dans GitHub. Côté `vps-soc-config` : politique `stack-sync/policies/kalidoku.json`,
+signataires, clé publique `stack-sync/ci-keys/kalidoku.pub`, projet Harbor (`harbor/ci-robots.sh`),
+puis `ansible-playbook … --tags stack_sync`. Côté OpenBao : `cicd/harbor/kalidoku` (robot) et
+`cicd/kalidoku/deploy` (clé SSH de `ci-kalidoku`, lue par Jenkins).
 
 ### 5. NPM proxy host
 
@@ -93,20 +76,13 @@ sudo /usr/local/sbin/bao-deploy.sh kalidoku
 
 ## Rollback
 
-Pour revenir à un commit précédent :
+Redéployer la release précédente (tag déjà signé, images immuables dans Harbor) :
 
 ```bash
-ssh vps-claude
-sudo bash -c '
-  cd /home/calixteair/docker/projects/kalidoku
-  KALIDOKU_SERVER_IMAGE=calixteair/kalidoku-server:sha-abc1234 \
-  KALIDOKU_WORKER_IMAGE=calixteair/kalidoku-worker:sha-abc1234 \
-  KALIDOKU_WEB_IMAGE=calixteair/kalidoku-web:sha-abc1234 \
-  /usr/local/sbin/bao-deploy.sh kalidoku
-'
+ssh vps-claude 'sudo /usr/local/sbin/stack-sync.sh kalidoku vX.Y.Z'
 ```
 
-Watchtower n'est volontairement pas utilisé : on contrôle les pulls via tag immutable.
+Détails : `docs/runbooks/rollback.md`.
 
 ## Procédures incident
 
