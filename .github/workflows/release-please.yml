@@ -16,3 +16,6 @@ jobs:
         with:
           release-type: simple
           target-branch: main
+          # Pas de tag ni de release GitHub par le bot : la prod part d'un tag vX.Y.Z signé par
+          # Calixteair (git tag -s), après le merge de la PR de version (CHANGELOG, manifest).
+          skip-github-release: true

@@ -70,3 +70,5 @@ domains/paris-metro/scripts/node_modules/
 # Python ingest scripts
 __pycache__/
 *.pyc
+# Cache Cargo et outils de la CI Jenkins
+.ci/

@@ -7,16 +7,15 @@
 pid_file = "/run/kalidoku/agent.pid"
 
 vault {
-  address = "https://secrets.calixteair.fr"
+  address = "http://127.0.0.1:8200"
 }
 
 auto_auth {
   method "approle" {
     config = {
       role_id_file_path                   = "/etc/bao/kalidoku/role_id"
-      secret_id_file_path                 = "/etc/bao/kalidoku/secret_id_wrap"
-      secret_id_response_wrapping_path    = "auth/approle/role/kalidoku-prod/secret-id"
-      remove_secret_id_file_after_reading = true
+      secret_id_file_path                 = "/etc/bao/kalidoku/secret_id"
+      remove_secret_id_file_after_reading = false
     }
   }
 
