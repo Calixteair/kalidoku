@@ -20,8 +20,11 @@ String pnpm = 'mkdir -p /tmp/bin && corepack enable --install-directory /tmp/bin
 
 standardPipeline(
   test: [
+    // Sans infos de debug et 4 tâches : l'édition de liens des binaires de test ne tenait pas dans les 3 Go
+    // du démon dind (ld tué, signal 9) ; même résultat de tests, bien moins de mémoire
     [image: 'rust:1.88-bookworm',
-     args: '-e HOME=/tmp -e DATABASE_URL=postgres://kalidoku@postgres:5432/kalidoku_test -e REDIS_URL=redis://valkey:6379/0',
+     args: '-e HOME=/tmp -e CARGO_PROFILE_DEV_DEBUG=0 -e CARGO_PROFILE_TEST_DEBUG=0 -e CARGO_BUILD_JOBS=4' +
+           ' -e DATABASE_URL=postgres://kalidoku@postgres:5432/kalidoku_test -e REDIS_URL=redis://valkey:6379/0',
      command: "${cargoTools} && cargo fmt --all -- --check" +
               ' && cargo clippy --workspace --all-targets --all-features -- -D warnings' +
               ' && cargo test --workspace --all-features' +
