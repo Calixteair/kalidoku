@@ -41,6 +41,8 @@ standardPipeline(
      command: "${pnpm} && cd web && pnpm install --frozen-lockfile && pnpm run openapi:gen" +
               ' && pnpm run i18n:compile && pnpm run lint && pnpm run typecheck && pnpm test'],
   ],
+  // Cache Cargo (.ci : sources des crates, avec leurs exemples npm/composer) et target/ hors de l'analyse
+  snyk: [deps: '--all-projects --exclude=.ci,target'],
   registry: [url: 'registry.calixteair.fr/kalidoku', bao: 'cicd/harbor/kalidoku'],
   images: [
     [name: 'kalidoku', tagPrefix: 'server', context: '.', dockerfile: 'infra/docker/Dockerfile.server'],
