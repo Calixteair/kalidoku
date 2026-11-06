@@ -29,7 +29,7 @@ x-hardened: &hardened
 
 services:
   postgres:
-    image: postgres:16.6-alpine
+    image: postgres:16-alpine
     container_name: kalidoku-postgres
     <<: [*restart, *logging]
     # postgres-alpine entrypoint chowns data dir + setresuid to user `postgres`.
@@ -89,7 +89,7 @@ services:
     networks: [kalidoku-internal]
 
   search:
-    image: getmeili/meilisearch:v1.11
+    image: getmeili/meilisearch:v1.56.1
     container_name: kalidoku-search
     <<: [*restart, *logging, *hardened]
     # Meilisearch entrypoint drops privileges via setresuid; needs SETUID/SETGID

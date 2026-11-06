@@ -30,7 +30,7 @@ standardPipeline(
               ' && cargo test --workspace --all-features' +
               " && ${cargoAudit} && cargo deny check",
      services: [
-       [name: 'postgres', image: 'postgres:16.6-alpine',
+       [name: 'postgres', image: 'postgres:16-alpine',
         env: [POSTGRES_USER: 'kalidoku', POSTGRES_DB: 'kalidoku_test', POSTGRES_HOST_AUTH_METHOD: 'trust'],
         health: 'pg_isready -U kalidoku -d kalidoku_test'],
        [name: 'valkey', image: 'valkey/valkey:7.2-alpine', health: 'valkey-cli ping | grep -q PONG'],
