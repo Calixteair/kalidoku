@@ -6,7 +6,7 @@ name: kalidoku-dev
 
 services:
   postgres:
-    image: postgres:16.6-alpine
+    image: postgres:16-alpine
     environment:
       POSTGRES_DB: kalidoku
       POSTGRES_USER: kalidoku
@@ -29,7 +29,7 @@ services:
   # Run with MEILI_URL=http://127.0.0.1:7700 MEILI_MASTER_KEY=devmeilikey.
   # The same key is hardcoded weak here; rotated via Bao in compose.yaml.
   search:
-    image: getmeili/meilisearch:v1.11
+    image: getmeili/meilisearch:v1.56.1
     environment:
       MEILI_MASTER_KEY: devmeilikey
       MEILI_ENV: development

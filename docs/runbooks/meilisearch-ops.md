@@ -1,6 +1,6 @@
 # Runbook — Meilisearch ops (rotation master key, reindex)
 
-Le service `kalidoku-search` expose Meilisearch v1.11 sur le réseau Docker
+Le service `kalidoku-search` expose Meilisearch v1.56 sur le réseau Docker
 interne `kalidoku-internal`. Il n'est jamais routé via NPM. Seuls
 `kalidoku-server` et `kalidoku-worker` s'y connectent via
 `http://search:7700`.
